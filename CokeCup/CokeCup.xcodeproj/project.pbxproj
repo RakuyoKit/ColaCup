@@ -16,6 +16,7 @@
 		3A437E672518921700F5B820 /* CokeCupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A437E662518921700F5B820 /* CokeCupTests.swift */; };
 		3A437E722518921700F5B820 /* CokeCupUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A437E712518921700F5B820 /* CokeCupUITests.swift */; };
 		3A437E9F2518996700F5B820 /* CokeCupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A437E9E2518996700F5B820 /* CokeCupController.swift */; };
+		3A437EA425189AE200F5B820 /* CokeCupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A437EA325189AE200F5B820 /* CokeCupViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		3A437E712518921700F5B820 /* CokeCupUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CokeCupUITests.swift; sourceTree = "<group>"; };
 		3A437E732518921700F5B820 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A437E9E2518996700F5B820 /* CokeCupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CokeCupController.swift; sourceTree = "<group>"; };
+		3A437EA325189AE200F5B820 /* CokeCupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CokeCupViewModel.swift; sourceTree = "<group>"; };
 		76AE8AB9A6E74F2B6BFED268 /* Pods_CokeCup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CokeCup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		817D334BDC6F1140CBF618EE /* Pods-CokeCup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CokeCup.release.xcconfig"; path = "Target Support Files/Pods-CokeCup/Pods-CokeCup.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,6 +148,7 @@
 		3A437E8C2518925500F5B820 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				3A437EA325189AE200F5B820 /* CokeCupViewModel.swift */,
 				3A437E9E2518996700F5B820 /* CokeCupController.swift */,
 			);
 			path = Core;
@@ -345,6 +348,7 @@
 				3A437E9F2518996700F5B820 /* CokeCupController.swift in Sources */,
 				3A437E542518921400F5B820 /* ViewController.swift in Sources */,
 				3A437E502518921400F5B820 /* AppDelegate.swift in Sources */,
+				3A437EA425189AE200F5B820 /* CokeCupViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
