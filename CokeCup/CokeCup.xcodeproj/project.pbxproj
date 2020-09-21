@@ -1,0 +1,610 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3A437E502518921400F5B820 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A437E4F2518921400F5B820 /* AppDelegate.swift */; };
+		3A437E542518921400F5B820 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A437E532518921400F5B820 /* ViewController.swift */; };
+		3A437E572518921400F5B820 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A437E552518921400F5B820 /* Main.storyboard */; };
+		3A437E592518921600F5B820 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A437E582518921600F5B820 /* Assets.xcassets */; };
+		3A437E5C2518921600F5B820 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A437E5A2518921600F5B820 /* LaunchScreen.storyboard */; };
+		3A437E672518921700F5B820 /* CokeCupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A437E662518921700F5B820 /* CokeCupTests.swift */; };
+		3A437E722518921700F5B820 /* CokeCupUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A437E712518921700F5B820 /* CokeCupUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3A437E632518921700F5B820 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A437E442518921400F5B820 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3A437E4B2518921400F5B820;
+			remoteInfo = CokeCup;
+		};
+		3A437E6E2518921700F5B820 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A437E442518921400F5B820 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3A437E4B2518921400F5B820;
+			remoteInfo = CokeCup;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3A437E4C2518921400F5B820 /* CokeCup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CokeCup.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A437E4F2518921400F5B820 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3A437E532518921400F5B820 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3A437E562518921400F5B820 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3A437E582518921600F5B820 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3A437E5B2518921600F5B820 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3A437E5D2518921600F5B820 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3A437E622518921700F5B820 /* CokeCupTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CokeCupTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A437E662518921700F5B820 /* CokeCupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CokeCupTests.swift; sourceTree = "<group>"; };
+		3A437E682518921700F5B820 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3A437E6D2518921700F5B820 /* CokeCupUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CokeCupUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A437E712518921700F5B820 /* CokeCupUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CokeCupUITests.swift; sourceTree = "<group>"; };
+		3A437E732518921700F5B820 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3A437E492518921400F5B820 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3A437E5F2518921700F5B820 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3A437E6A2518921700F5B820 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3A437E432518921400F5B820 = {
+			isa = PBXGroup;
+			children = (
+				3A437E4E2518921400F5B820 /* CokeCup */,
+				3A437E652518921700F5B820 /* CokeCupTests */,
+				3A437E702518921700F5B820 /* CokeCupUITests */,
+				3A437E4D2518921400F5B820 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3A437E4D2518921400F5B820 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3A437E4C2518921400F5B820 /* CokeCup.app */,
+				3A437E622518921700F5B820 /* CokeCupTests.xctest */,
+				3A437E6D2518921700F5B820 /* CokeCupUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3A437E4E2518921400F5B820 /* CokeCup */ = {
+			isa = PBXGroup;
+			children = (
+				3A437E8C2518925500F5B820 /* Core */,
+				3A437E8B2518925100F5B820 /* Other */,
+			);
+			path = CokeCup;
+			sourceTree = "<group>";
+		};
+		3A437E652518921700F5B820 /* CokeCupTests */ = {
+			isa = PBXGroup;
+			children = (
+				3A437E662518921700F5B820 /* CokeCupTests.swift */,
+				3A437E682518921700F5B820 /* Info.plist */,
+			);
+			path = CokeCupTests;
+			sourceTree = "<group>";
+		};
+		3A437E702518921700F5B820 /* CokeCupUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3A437E712518921700F5B820 /* CokeCupUITests.swift */,
+				3A437E732518921700F5B820 /* Info.plist */,
+			);
+			path = CokeCupUITests;
+			sourceTree = "<group>";
+		};
+		3A437E8B2518925100F5B820 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				3A437E4F2518921400F5B820 /* AppDelegate.swift */,
+				3A437E532518921400F5B820 /* ViewController.swift */,
+				3A437E552518921400F5B820 /* Main.storyboard */,
+				3A437E582518921600F5B820 /* Assets.xcassets */,
+				3A437E5A2518921600F5B820 /* LaunchScreen.storyboard */,
+				3A437E5D2518921600F5B820 /* Info.plist */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		3A437E8C2518925500F5B820 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3A437E4B2518921400F5B820 /* CokeCup */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3A437E762518921700F5B820 /* Build configuration list for PBXNativeTarget "CokeCup" */;
+			buildPhases = (
+				3A437E482518921400F5B820 /* Sources */,
+				3A437E492518921400F5B820 /* Frameworks */,
+				3A437E4A2518921400F5B820 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CokeCup;
+			productName = CokeCup;
+			productReference = 3A437E4C2518921400F5B820 /* CokeCup.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3A437E612518921700F5B820 /* CokeCupTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3A437E792518921700F5B820 /* Build configuration list for PBXNativeTarget "CokeCupTests" */;
+			buildPhases = (
+				3A437E5E2518921700F5B820 /* Sources */,
+				3A437E5F2518921700F5B820 /* Frameworks */,
+				3A437E602518921700F5B820 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3A437E642518921700F5B820 /* PBXTargetDependency */,
+			);
+			name = CokeCupTests;
+			productName = CokeCupTests;
+			productReference = 3A437E622518921700F5B820 /* CokeCupTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		3A437E6C2518921700F5B820 /* CokeCupUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3A437E7C2518921700F5B820 /* Build configuration list for PBXNativeTarget "CokeCupUITests" */;
+			buildPhases = (
+				3A437E692518921700F5B820 /* Sources */,
+				3A437E6A2518921700F5B820 /* Frameworks */,
+				3A437E6B2518921700F5B820 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3A437E6F2518921700F5B820 /* PBXTargetDependency */,
+			);
+			name = CokeCupUITests;
+			productName = CokeCupUITests;
+			productReference = 3A437E6D2518921700F5B820 /* CokeCupUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3A437E442518921400F5B820 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					3A437E4B2518921400F5B820 = {
+						CreatedOnToolsVersion = 12.0;
+					};
+					3A437E612518921700F5B820 = {
+						CreatedOnToolsVersion = 12.0;
+						TestTargetID = 3A437E4B2518921400F5B820;
+					};
+					3A437E6C2518921700F5B820 = {
+						CreatedOnToolsVersion = 12.0;
+						TestTargetID = 3A437E4B2518921400F5B820;
+					};
+				};
+			};
+			buildConfigurationList = 3A437E472518921400F5B820 /* Build configuration list for PBXProject "CokeCup" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3A437E432518921400F5B820;
+			productRefGroup = 3A437E4D2518921400F5B820 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3A437E4B2518921400F5B820 /* CokeCup */,
+				3A437E612518921700F5B820 /* CokeCupTests */,
+				3A437E6C2518921700F5B820 /* CokeCupUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3A437E4A2518921400F5B820 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A437E5C2518921600F5B820 /* LaunchScreen.storyboard in Resources */,
+				3A437E592518921600F5B820 /* Assets.xcassets in Resources */,
+				3A437E572518921400F5B820 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3A437E602518921700F5B820 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3A437E6B2518921700F5B820 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3A437E482518921400F5B820 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A437E542518921400F5B820 /* ViewController.swift in Sources */,
+				3A437E502518921400F5B820 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3A437E5E2518921700F5B820 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A437E672518921700F5B820 /* CokeCupTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3A437E692518921700F5B820 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A437E722518921700F5B820 /* CokeCupUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3A437E642518921700F5B820 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3A437E4B2518921400F5B820 /* CokeCup */;
+			targetProxy = 3A437E632518921700F5B820 /* PBXContainerItemProxy */;
+		};
+		3A437E6F2518921700F5B820 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3A437E4B2518921400F5B820 /* CokeCup */;
+			targetProxy = 3A437E6E2518921700F5B820 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3A437E552518921400F5B820 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3A437E562518921400F5B820 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		3A437E5A2518921600F5B820 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3A437E5B2518921600F5B820 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3A437E742518921700F5B820 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3A437E752518921700F5B820 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3A437E772518921700F5B820 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q8TLD2828;
+				INFOPLIST_FILE = "$(SRCROOT)/CokeCup/Other/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rakuyo.CokeCup;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3A437E782518921700F5B820 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q8TLD2828;
+				INFOPLIST_FILE = "$(SRCROOT)/CokeCup/Other/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rakuyo.CokeCup;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3A437E7A2518921700F5B820 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q8TLD2828;
+				INFOPLIST_FILE = CokeCupTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rakuyo.CokeCupTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CokeCup.app/CokeCup";
+			};
+			name = Debug;
+		};
+		3A437E7B2518921700F5B820 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q8TLD2828;
+				INFOPLIST_FILE = CokeCupTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rakuyo.CokeCupTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CokeCup.app/CokeCup";
+			};
+			name = Release;
+		};
+		3A437E7D2518921700F5B820 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q8TLD2828;
+				INFOPLIST_FILE = CokeCupUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rakuyo.CokeCupUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CokeCup;
+			};
+			name = Debug;
+		};
+		3A437E7E2518921700F5B820 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q8TLD2828;
+				INFOPLIST_FILE = CokeCupUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rakuyo.CokeCupUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CokeCup;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3A437E472518921400F5B820 /* Build configuration list for PBXProject "CokeCup" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A437E742518921700F5B820 /* Debug */,
+				3A437E752518921700F5B820 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3A437E762518921700F5B820 /* Build configuration list for PBXNativeTarget "CokeCup" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A437E772518921700F5B820 /* Debug */,
+				3A437E782518921700F5B820 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3A437E792518921700F5B820 /* Build configuration list for PBXNativeTarget "CokeCupTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A437E7A2518921700F5B820 /* Debug */,
+				3A437E7B2518921700F5B820 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3A437E7C2518921700F5B820 /* Build configuration list for PBXNativeTarget "CokeCupUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A437E7D2518921700F5B820 /* Debug */,
+				3A437E7E2518921700F5B820 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3A437E442518921400F5B820 /* Project object */;
+}
