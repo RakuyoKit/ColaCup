@@ -10,10 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        
-        
+        // Show CokeCupController
+        present(UINavigationController(rootViewController: CokeCupController()), animated: true, completion: nil)
     }
 }
