@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		154AE90DBB08F2F8F2849865 /* Pods_CokeCup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76AE8AB9A6E74F2B6BFED268 /* Pods_CokeCup.framework */; };
 		3A437E502518921400F5B820 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A437E4F2518921400F5B820 /* AppDelegate.swift */; };
 		3A437E542518921400F5B820 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A437E532518921400F5B820 /* ViewController.swift */; };
 		3A437E572518921400F5B820 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A437E552518921400F5B820 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00C837C47CF00A3E52308A62 /* Pods-CokeCup.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CokeCup.debug.xcconfig"; path = "Target Support Files/Pods-CokeCup/Pods-CokeCup.debug.xcconfig"; sourceTree = "<group>"; };
 		3A437E4C2518921400F5B820 /* CokeCup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CokeCup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A437E4F2518921400F5B820 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A437E532518921400F5B820 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +49,8 @@
 		3A437E6D2518921700F5B820 /* CokeCupUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CokeCupUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A437E712518921700F5B820 /* CokeCupUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CokeCupUITests.swift; sourceTree = "<group>"; };
 		3A437E732518921700F5B820 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		76AE8AB9A6E74F2B6BFED268 /* Pods_CokeCup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CokeCup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		817D334BDC6F1140CBF618EE /* Pods-CokeCup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CokeCup.release.xcconfig"; path = "Target Support Files/Pods-CokeCup/Pods-CokeCup.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				154AE90DBB08F2F8F2849865 /* Pods_CokeCup.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +86,8 @@
 				3A437E652518921700F5B820 /* CokeCupTests */,
 				3A437E702518921700F5B820 /* CokeCupUITests */,
 				3A437E4D2518921400F5B820 /* Products */,
+				474AAB019747A459D1BF41FB /* Pods */,
+				60F2BC7B4A7219300037F5DE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -141,6 +148,24 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		474AAB019747A459D1BF41FB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				00C837C47CF00A3E52308A62 /* Pods-CokeCup.debug.xcconfig */,
+				817D334BDC6F1140CBF618EE /* Pods-CokeCup.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		60F2BC7B4A7219300037F5DE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				76AE8AB9A6E74F2B6BFED268 /* Pods_CokeCup.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -148,9 +173,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A437E762518921700F5B820 /* Build configuration list for PBXNativeTarget "CokeCup" */;
 			buildPhases = (
+				117F861AD03D32F2B34A3327 /* [CP] Check Pods Manifest.lock */,
 				3A437E482518921400F5B820 /* Sources */,
 				3A437E492518921400F5B820 /* Frameworks */,
 				3A437E4A2518921400F5B820 /* Resources */,
+				D463A6ABB6A2CC8A2EC4BCE1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -265,6 +292,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		117F861AD03D32F2B34A3327 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CokeCup-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D463A6ABB6A2CC8A2EC4BCE1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CokeCup/Pods-CokeCup-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CokeCup/Pods-CokeCup-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CokeCup/Pods-CokeCup-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3A437E482518921400F5B820 /* Sources */ = {
@@ -445,6 +514,7 @@
 		};
 		3A437E772518921700F5B820 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00C837C47CF00A3E52308A62 /* Pods-CokeCup.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -464,6 +534,7 @@
 		};
 		3A437E782518921700F5B820 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 817D334BDC6F1140CBF618EE /* Pods-CokeCup.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
