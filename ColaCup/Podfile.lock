@@ -1,0 +1,20 @@
+PODS:
+  - JSONPreview (1.0.0)
+  - RaLog (1.0.1)
+
+DEPENDENCIES:
+  - JSONPreview
+  - RaLog
+
+SPEC REPOS:
+  trunk:
+    - JSONPreview
+    - RaLog
+
+SPEC CHECKSUMS:
+  JSONPreview: bb476bf99b78a7b8aa0d6632f577a85441930cab
+  RaLog: 0c890204e33b31285bb3bad528cb7680bcd5906c
+
+PODFILE CHECKSUM: 3131c9934d5b1c41216fcf4c7d7ae65408c25cce
+
+COCOAPODS: 1.9.3

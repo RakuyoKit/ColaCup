@@ -1,0 +1,692 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3A649E3C25199F7500DED905 /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A649E3B25199F7500DED905 /* default.png */; };
+		3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFAF25198C8D00D2CD16 /* AppDelegate.swift */; };
+		3AD9BFB425198C8D00D2CD16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFB325198C8D00D2CD16 /* ViewController.swift */; };
+		3AD9BFB725198C8D00D2CD16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AD9BFB525198C8D00D2CD16 /* Main.storyboard */; };
+		3AD9BFB925198C9000D2CD16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AD9BFB825198C9000D2CD16 /* Assets.xcassets */; };
+		3AD9BFBC25198C9000D2CD16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AD9BFBA25198C9000D2CD16 /* LaunchScreen.storyboard */; };
+		3AD9BFC725198C9000D2CD16 /* ColaCupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFC625198C9000D2CD16 /* ColaCupTests.swift */; };
+		3AD9BFD225198C9000D2CD16 /* ColaCupUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFD125198C9000D2CD16 /* ColaCupUITests.swift */; };
+		3AD9BFF425198CF700D2CD16 /* ColaCupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFF225198CF700D2CD16 /* ColaCupController.swift */; };
+		3AD9BFF525198CF700D2CD16 /* ColaCupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */; };
+		87ED5FC480197ED5C837C496 /* Pods_ColaCup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73412698BDDB3F5B426CF181 /* Pods_ColaCup.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3AD9BFC325198C9000D2CD16 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3AD9BFA425198C8D00D2CD16 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3AD9BFAB25198C8D00D2CD16;
+			remoteInfo = ColaCup;
+		};
+		3AD9BFCE25198C9000D2CD16 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3AD9BFA425198C8D00D2CD16 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3AD9BFAB25198C8D00D2CD16;
+			remoteInfo = ColaCup;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3A649E3B25199F7500DED905 /* default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default.png; sourceTree = "<group>"; };
+		3AD9BFAC25198C8D00D2CD16 /* ColaCup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColaCup.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AD9BFAF25198C8D00D2CD16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3AD9BFB325198C8D00D2CD16 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3AD9BFB625198C8D00D2CD16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3AD9BFB825198C9000D2CD16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3AD9BFBB25198C9000D2CD16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3AD9BFBD25198C9000D2CD16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AD9BFC225198C9000D2CD16 /* ColaCupTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColaCupTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AD9BFC625198C9000D2CD16 /* ColaCupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupTests.swift; sourceTree = "<group>"; };
+		3AD9BFC825198C9000D2CD16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AD9BFCD25198C9000D2CD16 /* ColaCupUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColaCupUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AD9BFD125198C9000D2CD16 /* ColaCupUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupUITests.swift; sourceTree = "<group>"; };
+		3AD9BFD325198C9000D2CD16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AD9BFF225198CF700D2CD16 /* ColaCupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColaCupController.swift; sourceTree = "<group>"; };
+		3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColaCupViewModel.swift; sourceTree = "<group>"; };
+		492D2049C2A0FF58F1AAEAE7 /* Pods-ColaCup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColaCup.release.xcconfig"; path = "Target Support Files/Pods-ColaCup/Pods-ColaCup.release.xcconfig"; sourceTree = "<group>"; };
+		73412698BDDB3F5B426CF181 /* Pods_ColaCup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColaCup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A63FB274D55AA5DC3170E95B /* Pods-ColaCup.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColaCup.debug.xcconfig"; path = "Target Support Files/Pods-ColaCup/Pods-ColaCup.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3AD9BFA925198C8D00D2CD16 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87ED5FC480197ED5C837C496 /* Pods_ColaCup.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AD9BFBF25198C9000D2CD16 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AD9BFCA25198C9000D2CD16 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3AD9BFA325198C8D00D2CD16 = {
+			isa = PBXGroup;
+			children = (
+				3AD9BFAE25198C8D00D2CD16 /* ColaCup */,
+				3AD9BFC525198C9000D2CD16 /* ColaCupTests */,
+				3AD9BFD025198C9000D2CD16 /* ColaCupUITests */,
+				3AD9BFAD25198C8D00D2CD16 /* Products */,
+				A6748A297D519AF11EACC2CC /* Pods */,
+				F8F77D981F721CCAE22430FA /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		3AD9BFAD25198C8D00D2CD16 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3AD9BFAC25198C8D00D2CD16 /* ColaCup.app */,
+				3AD9BFC225198C9000D2CD16 /* ColaCupTests.xctest */,
+				3AD9BFCD25198C9000D2CD16 /* ColaCupUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3AD9BFAE25198C8D00D2CD16 /* ColaCup */ = {
+			isa = PBXGroup;
+			children = (
+				3A649E3B25199F7500DED905 /* default.png */,
+				3AD9BFF125198CF700D2CD16 /* Core */,
+				3AD9BFE225198CB700D2CD16 /* Other */,
+			);
+			path = ColaCup;
+			sourceTree = "<group>";
+		};
+		3AD9BFC525198C9000D2CD16 /* ColaCupTests */ = {
+			isa = PBXGroup;
+			children = (
+				3AD9BFC625198C9000D2CD16 /* ColaCupTests.swift */,
+				3AD9BFC825198C9000D2CD16 /* Info.plist */,
+			);
+			path = ColaCupTests;
+			sourceTree = "<group>";
+		};
+		3AD9BFD025198C9000D2CD16 /* ColaCupUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3AD9BFD125198C9000D2CD16 /* ColaCupUITests.swift */,
+				3AD9BFD325198C9000D2CD16 /* Info.plist */,
+			);
+			path = ColaCupUITests;
+			sourceTree = "<group>";
+		};
+		3AD9BFE225198CB700D2CD16 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				3AD9BFAF25198C8D00D2CD16 /* AppDelegate.swift */,
+				3AD9BFB325198C8D00D2CD16 /* ViewController.swift */,
+				3AD9BFB525198C8D00D2CD16 /* Main.storyboard */,
+				3AD9BFB825198C9000D2CD16 /* Assets.xcassets */,
+				3AD9BFBA25198C9000D2CD16 /* LaunchScreen.storyboard */,
+				3AD9BFBD25198C9000D2CD16 /* Info.plist */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		3AD9BFF125198CF700D2CD16 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */,
+				3AD9BFF225198CF700D2CD16 /* ColaCupController.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		A6748A297D519AF11EACC2CC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A63FB274D55AA5DC3170E95B /* Pods-ColaCup.debug.xcconfig */,
+				492D2049C2A0FF58F1AAEAE7 /* Pods-ColaCup.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F8F77D981F721CCAE22430FA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				73412698BDDB3F5B426CF181 /* Pods_ColaCup.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3AD9BFAB25198C8D00D2CD16 /* ColaCup */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3AD9BFD625198C9000D2CD16 /* Build configuration list for PBXNativeTarget "ColaCup" */;
+			buildPhases = (
+				39AAAC32FDF8E62FF8BC6393 /* [CP] Check Pods Manifest.lock */,
+				3AD9BFA825198C8D00D2CD16 /* Sources */,
+				3AD9BFA925198C8D00D2CD16 /* Frameworks */,
+				3AD9BFAA25198C8D00D2CD16 /* Resources */,
+				704726A4D276059D61320FC9 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ColaCup;
+			productName = ColaCup;
+			productReference = 3AD9BFAC25198C8D00D2CD16 /* ColaCup.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3AD9BFC125198C9000D2CD16 /* ColaCupTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3AD9BFD925198C9000D2CD16 /* Build configuration list for PBXNativeTarget "ColaCupTests" */;
+			buildPhases = (
+				3AD9BFBE25198C9000D2CD16 /* Sources */,
+				3AD9BFBF25198C9000D2CD16 /* Frameworks */,
+				3AD9BFC025198C9000D2CD16 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3AD9BFC425198C9000D2CD16 /* PBXTargetDependency */,
+			);
+			name = ColaCupTests;
+			productName = ColaCupTests;
+			productReference = 3AD9BFC225198C9000D2CD16 /* ColaCupTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		3AD9BFCC25198C9000D2CD16 /* ColaCupUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3AD9BFDC25198C9000D2CD16 /* Build configuration list for PBXNativeTarget "ColaCupUITests" */;
+			buildPhases = (
+				3AD9BFC925198C9000D2CD16 /* Sources */,
+				3AD9BFCA25198C9000D2CD16 /* Frameworks */,
+				3AD9BFCB25198C9000D2CD16 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3AD9BFCF25198C9000D2CD16 /* PBXTargetDependency */,
+			);
+			name = ColaCupUITests;
+			productName = ColaCupUITests;
+			productReference = 3AD9BFCD25198C9000D2CD16 /* ColaCupUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3AD9BFA425198C8D00D2CD16 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					3AD9BFAB25198C8D00D2CD16 = {
+						CreatedOnToolsVersion = 12.0;
+					};
+					3AD9BFC125198C9000D2CD16 = {
+						CreatedOnToolsVersion = 12.0;
+						TestTargetID = 3AD9BFAB25198C8D00D2CD16;
+					};
+					3AD9BFCC25198C9000D2CD16 = {
+						CreatedOnToolsVersion = 12.0;
+						TestTargetID = 3AD9BFAB25198C8D00D2CD16;
+					};
+				};
+			};
+			buildConfigurationList = 3AD9BFA725198C8D00D2CD16 /* Build configuration list for PBXProject "ColaCup" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3AD9BFA325198C8D00D2CD16;
+			productRefGroup = 3AD9BFAD25198C8D00D2CD16 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3AD9BFAB25198C8D00D2CD16 /* ColaCup */,
+				3AD9BFC125198C9000D2CD16 /* ColaCupTests */,
+				3AD9BFCC25198C9000D2CD16 /* ColaCupUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3AD9BFAA25198C8D00D2CD16 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AD9BFBC25198C9000D2CD16 /* LaunchScreen.storyboard in Resources */,
+				3AD9BFB925198C9000D2CD16 /* Assets.xcassets in Resources */,
+				3AD9BFB725198C8D00D2CD16 /* Main.storyboard in Resources */,
+				3A649E3C25199F7500DED905 /* default.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AD9BFC025198C9000D2CD16 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AD9BFCB25198C9000D2CD16 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		39AAAC32FDF8E62FF8BC6393 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ColaCup-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		704726A4D276059D61320FC9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ColaCup/Pods-ColaCup-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ColaCup/Pods-ColaCup-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ColaCup/Pods-ColaCup-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3AD9BFA825198C8D00D2CD16 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AD9BFF425198CF700D2CD16 /* ColaCupController.swift in Sources */,
+				3AD9BFB425198C8D00D2CD16 /* ViewController.swift in Sources */,
+				3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */,
+				3AD9BFF525198CF700D2CD16 /* ColaCupViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AD9BFBE25198C9000D2CD16 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AD9BFC725198C9000D2CD16 /* ColaCupTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AD9BFC925198C9000D2CD16 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AD9BFD225198C9000D2CD16 /* ColaCupUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3AD9BFC425198C9000D2CD16 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3AD9BFAB25198C8D00D2CD16 /* ColaCup */;
+			targetProxy = 3AD9BFC325198C9000D2CD16 /* PBXContainerItemProxy */;
+		};
+		3AD9BFCF25198C9000D2CD16 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3AD9BFAB25198C8D00D2CD16 /* ColaCup */;
+			targetProxy = 3AD9BFCE25198C9000D2CD16 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3AD9BFB525198C8D00D2CD16 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3AD9BFB625198C8D00D2CD16 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		3AD9BFBA25198C9000D2CD16 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3AD9BFBB25198C9000D2CD16 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3AD9BFD425198C9000D2CD16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3AD9BFD525198C9000D2CD16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3AD9BFD725198C9000D2CD16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A63FB274D55AA5DC3170E95B /* Pods-ColaCup.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q8TLD2828;
+				INFOPLIST_FILE = "$(SRCROOT)/ColaCup/Other/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rakuyo.ColaCup;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3AD9BFD825198C9000D2CD16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 492D2049C2A0FF58F1AAEAE7 /* Pods-ColaCup.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q8TLD2828;
+				INFOPLIST_FILE = "$(SRCROOT)/ColaCup/Other/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rakuyo.ColaCup;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3AD9BFDA25198C9000D2CD16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q8TLD2828;
+				INFOPLIST_FILE = ColaCupTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rakuyo.ColaCupTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ColaCup.app/ColaCup";
+			};
+			name = Debug;
+		};
+		3AD9BFDB25198C9000D2CD16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q8TLD2828;
+				INFOPLIST_FILE = ColaCupTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rakuyo.ColaCupTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ColaCup.app/ColaCup";
+			};
+			name = Release;
+		};
+		3AD9BFDD25198C9000D2CD16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q8TLD2828;
+				INFOPLIST_FILE = ColaCupUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rakuyo.ColaCupUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ColaCup;
+			};
+			name = Debug;
+		};
+		3AD9BFDE25198C9000D2CD16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q8TLD2828;
+				INFOPLIST_FILE = ColaCupUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rakuyo.ColaCupUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ColaCup;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3AD9BFA725198C8D00D2CD16 /* Build configuration list for PBXProject "ColaCup" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AD9BFD425198C9000D2CD16 /* Debug */,
+				3AD9BFD525198C9000D2CD16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3AD9BFD625198C9000D2CD16 /* Build configuration list for PBXNativeTarget "ColaCup" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AD9BFD725198C9000D2CD16 /* Debug */,
+				3AD9BFD825198C9000D2CD16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3AD9BFD925198C9000D2CD16 /* Build configuration list for PBXNativeTarget "ColaCupTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AD9BFDA25198C9000D2CD16 /* Debug */,
+				3AD9BFDB25198C9000D2CD16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3AD9BFDC25198C9000D2CD16 /* Build configuration list for PBXNativeTarget "ColaCupUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AD9BFDD25198C9000D2CD16 /* Debug */,
+				3AD9BFDE25198C9000D2CD16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3AD9BFA425198C8D00D2CD16 /* Project object */;
+}
