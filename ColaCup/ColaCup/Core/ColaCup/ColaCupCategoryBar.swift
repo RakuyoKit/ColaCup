@@ -46,7 +46,7 @@ open class ColaCupCategoryBar: UIView {
         let view = UIView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .red
+        view.backgroundColor = .clear
         
         return view
     }()
@@ -54,7 +54,21 @@ open class ColaCupCategoryBar: UIView {
     /// View the view of the log flag.
     open lazy var flagCollectionView: UICollectionView = {
         
-        let flagCollectionView = UICollectionView()
+        let layout = UICollectionViewFlowLayout()
+        
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 8
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
+        
+        let flagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        flagCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        flagCollectionView.showsVerticalScrollIndicator = false
+        flagCollectionView.showsHorizontalScrollIndicator = false
+        
+        flagCollectionView.allowsMultipleSelection = true
+        flagCollectionView.scrollsToTop = false
         
         return flagCollectionView
     }()
@@ -92,5 +106,52 @@ private extension ColaCupCategoryBar {
             flagView.topAnchor.constraint(equalTo: topAnchor),
             flagView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
+    }
+}
+
+extension ColaCupCategoryBar {
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        guard flagView.bounds != .zero else { return }
+        
+        // update frame
+        if let mask = flagView.layer.mask {
+            mask.frame = flagView.bounds
+            return
+        }
+        
+        // Add a mask layer
+        flagView.layer.mask = addMaskLayer(withFrame: flagView.bounds)
+    }
+}
+
+// MARK: - Tools
+
+private extension ColaCupCategoryBar {
+    
+    /// Configure the mask layer
+    func addMaskLayer(withFrame frame: CGRect) -> CAGradientLayer {
+        
+        let maskLayer = CAGradientLayer()
+        maskLayer.frame = frame
+        
+        let layout = flagCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        
+        let padding: CGFloat = layout?.sectionInset.left ?? 0
+        
+        let firstBoundaryLine = padding / frame.size.width
+        let secondBoundaryLine = (frame.size.width - padding) / frame.size.width
+        
+        maskLayer.locations = [(0), (firstBoundaryLine), (secondBoundaryLine), (1)] as [NSNumber]
+        
+        let colors: [UIColor] = [ .clear, .black, .black, .clear ]
+        maskLayer.colors = colors.map { $0.cgColor }
+        
+        maskLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+        maskLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+        
+        return maskLayer
     }
 }
