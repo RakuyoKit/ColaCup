@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A649E3C25199F7500DED905 /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A649E3B25199F7500DED905 /* default.png */; };
 		3AB7E75F2519A70700E55926 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7E75E2519A70700E55926 /* DetailsViewController.swift */; };
+		3AB7E7CA2519C17100E55926 /* ColaCupSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */; };
 		3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFAF25198C8D00D2CD16 /* AppDelegate.swift */; };
 		3AD9BFB425198C8D00D2CD16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFB325198C8D00D2CD16 /* ViewController.swift */; };
 		3AD9BFB725198C8D00D2CD16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AD9BFB525198C8D00D2CD16 /* Main.storyboard */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		3A649E3B25199F7500DED905 /* default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default.png; sourceTree = "<group>"; };
 		3AB7E75E2519A70700E55926 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupSearchBar.swift; sourceTree = "<group>"; };
 		3AD9BFAC25198C8D00D2CD16 /* ColaCup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColaCup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AD9BFAF25198C8D00D2CD16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AD9BFB325198C8D00D2CD16 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +89,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3AB7E7CE2519C17A00E55926 /* ColaCup */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ColaCup;
+			sourceTree = "<group>";
+		};
+		3AB7E7CF2519C18000E55926 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
 		3AD9BFA325198C8D00D2CD16 = {
 			isa = PBXGroup;
 			children = (
@@ -153,8 +169,11 @@
 		3AD9BFF125198CF700D2CD16 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				3AB7E7CF2519C18000E55926 /* Details */,
+				3AB7E7CE2519C17A00E55926 /* ColaCup */,
 				3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */,
 				3AD9BFF225198CF700D2CD16 /* ColaCupController.swift */,
+				3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */,
 				3AB7E75E2519A70700E55926 /* DetailsViewController.swift */,
 			);
 			path = Core;
@@ -353,6 +372,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AD9BFF425198CF700D2CD16 /* ColaCupController.swift in Sources */,
+				3AB7E7CA2519C17100E55926 /* ColaCupSearchBar.swift in Sources */,
 				3AD9BFB425198C8D00D2CD16 /* ViewController.swift in Sources */,
 				3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */,
 				3AD9BFF525198CF700D2CD16 /* ColaCupViewModel.swift in Sources */,
