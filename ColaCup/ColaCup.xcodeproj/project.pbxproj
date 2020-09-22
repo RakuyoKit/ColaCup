@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A5B63DF2519F46F00E00BF5 /* ColaCupCategoryBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B63DE2519F46F00E00BF5 /* ColaCupCategoryBar.swift */; };
 		3A649E3C25199F7500DED905 /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A649E3B25199F7500DED905 /* default.png */; };
 		3AB7E75F2519A70700E55926 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7E75E2519A70700E55926 /* DetailsViewController.swift */; };
 		3AB7E7CA2519C17100E55926 /* ColaCupSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A5B63DE2519F46F00E00BF5 /* ColaCupCategoryBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupCategoryBar.swift; sourceTree = "<group>"; };
 		3A649E3B25199F7500DED905 /* default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default.png; sourceTree = "<group>"; };
 		3AB7E75E2519A70700E55926 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupSearchBar.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */,
 				3AD9BFF225198CF700D2CD16 /* ColaCupController.swift */,
 				3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */,
+				3A5B63DE2519F46F00E00BF5 /* ColaCupCategoryBar.swift */,
 			);
 			path = ColaCup;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 			files = (
 				3AD9BFF425198CF700D2CD16 /* ColaCupController.swift in Sources */,
 				3AB7E7CA2519C17100E55926 /* ColaCupSearchBar.swift in Sources */,
+				3A5B63DF2519F46F00E00BF5 /* ColaCupCategoryBar.swift in Sources */,
 				3AD9BFB425198C8D00D2CD16 /* ViewController.swift in Sources */,
 				3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */,
 				3AD9BFF525198CF700D2CD16 /* ColaCupViewModel.swift in Sources */,
