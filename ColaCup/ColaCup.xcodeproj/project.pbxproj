@@ -552,7 +552,7 @@
 			baseConfigurationReference = A63FB274D55AA5DC3170E95B /* Pods-ColaCup.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5Q8TLD2828;
 				INFOPLIST_FILE = "$(SRCROOT)/ColaCup/Other/Info.plist";
@@ -572,7 +572,7 @@
 			baseConfigurationReference = 492D2049C2A0FF58F1AAEAE7 /* Pods-ColaCup.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5Q8TLD2828;
 				INFOPLIST_FILE = "$(SRCROOT)/ColaCup/Other/Info.plist";
