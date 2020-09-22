@@ -48,6 +48,17 @@ open class ColaCupController: UIViewController {
         
         return searchBar
     }()
+    
+    /// View to display the category of logs and the category of modules.
+    open lazy var categoryBar: ColaCupCategoryBar = {
+        
+        let categoryBar = ColaCupCategoryBar()
+        
+        categoryBar.translatesAutoresizingMaskIntoConstraints = false
+        categoryBar.backgroundColor = .white
+        
+        return categoryBar
+    }()
 }
 
 // MARK: - Life cycle
@@ -77,6 +88,7 @@ private extension ColaCupController {
         view.addSubview(headerView)
         
         headerView.addSubview(searchBar)
+        headerView.addSubview(categoryBar)
     }
     
     func addInitialLayout() {
@@ -98,6 +110,18 @@ private extension ColaCupController {
         ])
         
         searchBar.setContentHuggingPriority(.required, for: .vertical)
+        
+        // categoryBar
+        NSLayoutConstraint.activate([
+            categoryBar.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            categoryBar.leftAnchor.constraint(equalTo: searchBar.leftAnchor),
+            categoryBar.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -7),
+            categoryBar.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -12),
+            
+            categoryBar.heightAnchor.constraint(equalToConstant: 37)
+        ])
+        
+//        categoryBar.setContentHuggingPriority(.required, for: .vertical)
     }
 }
 
