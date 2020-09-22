@@ -36,7 +36,6 @@ open class ColaCupSearchBar: UIView {
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .fill
-        stackView.spacing = 5
         
         return stackView
     }()
@@ -48,21 +47,9 @@ open class ColaCupSearchBar: UIView {
             
             view.translatesAutoresizingMaskIntoConstraints = false
             
-            stackView.insertArrangedSubview(splitLine, at: 0)
             stackView.insertArrangedSubview(view, at: 0)
         }
     }
-    
-    /// The dividing line between `headerView` and `searchBar`.
-    /// Only displayed when `headerView` is not `nil`.
-    open lazy var splitLine: UIView = {
-        
-        let line = UIView()
-        
-        line.translatesAutoresizingMaskIntoConstraints = false
-        
-        return line
-    }()
     
     /// Search bar.
     open lazy var searchBar: UISearchBar = {
@@ -101,7 +88,5 @@ private extension ColaCupSearchBar {
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
-        
-        
     }
 }
