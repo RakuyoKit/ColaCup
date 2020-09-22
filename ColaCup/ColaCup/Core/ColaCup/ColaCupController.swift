@@ -29,6 +29,7 @@ open class ColaCupController: UIViewController {
         let datePicker = UIDatePicker()
         
         datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.tintColor = UIColor(red:0.91, green:0.69, blue:0.40, alpha:1.00)
         datePicker.backgroundColor = .clear
         
         datePicker.maximumDate = Date()
@@ -59,6 +60,18 @@ open class ColaCupController: UIViewController {
         
         return categoryBar
     }()
+    
+    /// The view responsible for displaying the log.
+    open lazy var logsView: UITableView = {
+        
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.layer.cornerRadius = 10
+        tableView.backgroundColor = .white
+        
+        return tableView
+    }()
 }
 
 // MARK: - Life cycle
@@ -86,6 +99,7 @@ private extension ColaCupController {
     func addSubviews() {
         
         view.addSubview(headerView)
+        view.addSubview(logsView)
         
         headerView.addSubview(searchBar)
         headerView.addSubview(categoryBar)
@@ -122,6 +136,14 @@ private extension ColaCupController {
         ])
         
 //        categoryBar.setContentHuggingPriority(.required, for: .vertical)
+        
+        // logsView
+        NSLayoutConstraint.activate([
+            logsView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 12),
+            logsView.leftAnchor.constraint(equalTo: headerView.leftAnchor),
+            logsView.rightAnchor.constraint(equalTo: headerView.rightAnchor),
+            logsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 }
 
