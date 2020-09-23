@@ -39,49 +39,45 @@ open class ColaCupController: UIViewController {
         return view
     }()
     
-    /// Used to select a date to view the log of the selected date.
-    open lazy var datePicker: UIDatePicker = {
-        
-        let datePicker = UIDatePicker()
-        
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.tintColor = .theme
-        datePicker.backgroundColor = .clear
-        
-        datePicker.maximumDate = Date()
-        datePicker.preferredDatePickerStyle = .compact
-        datePicker.datePickerMode = .date
-        
-        return datePicker
-    }()
-    
     /// Used to search logs.
     open lazy var searchBar: ColaCupSearchBar = {
         
         let searchBar = ColaCupSearchBar()
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.headerView = datePicker
+        
+        // Button to display the list of modules.
+        searchBar.footerView = {
+            
+            let button = UIButton(type: .system)
+            
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.tintColor = .theme
+            
+            button.setImage(UIImage(systemName: "list.dash"), for: .normal)
+            
+            button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25, weight: .unspecified), forImageIn: .normal)
+            
+            return button
+        }()
         
         return searchBar
     }()
     
-    /// View to display the category of logs and the category of modules.
-    open lazy var categoryBar: ColaCupCategoryBar = {
+    /// View to display the flag of logs.
+    open lazy var flagBar: ColaCupFlagBar = {
         
-        let categoryBar = ColaCupCategoryBar()
+        let bar = ColaCupFlagBar()
         
-        categoryBar.translatesAutoresizingMaskIntoConstraints = false
-        categoryBar.backgroundColor = .white
+        bar.translatesAutoresizingMaskIntoConstraints = false
+        bar.backgroundColor = .white
         
-        categoryBar.modulesButton.tintColor = .theme
+        bar.collectionView.register(LogFlagCell.self, forCellWithReuseIdentifier: "LogFlagCell")
         
-        categoryBar.flagCollectionView.register(LogFlagCell.self, forCellWithReuseIdentifier: "LogFlagCell")
+        bar.collectionView.delegate = self
+        bar.collectionView.dataSource = self
         
-        categoryBar.flagCollectionView.delegate = self
-        categoryBar.flagCollectionView.dataSource = self
-        
-        return categoryBar
+        return bar
     }()
     
     /// The view responsible for displaying the log.
@@ -145,7 +141,7 @@ private extension ColaCupController {
         view.addSubview(loadingView)
         
         headerView.addSubview(searchBar)
-        headerView.addSubview(categoryBar)
+        headerView.addSubview(flagBar)
     }
     
     func addInitialLayout() {
@@ -163,18 +159,18 @@ private extension ColaCupController {
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 2),
             searchBar.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 10),
-            searchBar.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -1)
+            searchBar.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -10)
         ])
         
         searchBar.setContentHuggingPriority(.required, for: .vertical)
         
         // categoryBar
         NSLayoutConstraint.activate([
-            categoryBar.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            categoryBar.leftAnchor.constraint(equalTo: searchBar.leftAnchor),
-            categoryBar.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -10),
-            categoryBar.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -12),
-            categoryBar.heightAnchor.constraint(equalToConstant: 37)
+            flagBar.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            flagBar.leftAnchor.constraint(equalTo: searchBar.leftAnchor),
+            flagBar.rightAnchor.constraint(equalTo: searchBar.rightAnchor),
+            flagBar.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -12),
+            flagBar.heightAnchor.constraint(equalToConstant: 37)
         ])
         
         // logsView
@@ -205,7 +201,7 @@ private extension ColaCupController {
             this.loadingView.isHidden = true
             
             this.logsView.reloadData()
-            this.categoryBar.flagCollectionView.reloadData()
+            this.flagBar.collectionView.reloadData()
         }
     }
 }

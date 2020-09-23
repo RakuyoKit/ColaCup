@@ -11,4 +11,18 @@ import UIKit
 /// Pop-up view, including date selection and module filtering
 open class ColaCupPopovers: UIViewController {
     
+    /// Used to select a date to view the log of the selected date.
+    open lazy var datePicker: UIDatePicker = {
+        
+        let datePicker = UIDatePicker()
+        
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.tintColor = .theme
+        
+        datePicker.maximumDate = Date()
+        datePicker.preferredDatePickerStyle = .compact
+        datePicker.datePickerMode = .date
+        
+        return datePicker
+    }()
 }

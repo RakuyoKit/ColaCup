@@ -40,14 +40,14 @@ open class ColaCupSearchBar: UIView {
         return stackView
     }()
     
-    /// Custom view displayed on the left side of the search box.
-    open lazy var headerView: UIView? = nil {
+    /// Custom view displayed on the right side of the search bar.
+    open lazy var footerView: UIView? = nil {
         didSet {
-            guard let view = headerView else { return }
+            guard let view = footerView else { return }
             
             view.translatesAutoresizingMaskIntoConstraints = false
             
-            stackView.insertArrangedSubview(view, at: 0)
+            stackView.insertArrangedSubview(view, at: stackView.arrangedSubviews.count)
         }
     }
     

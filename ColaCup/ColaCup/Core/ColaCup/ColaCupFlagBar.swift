@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// View to display the category of logs and the category of modules.
+/// View to display the flag of logs.
 open class ColaCupFlagBar: UIView {
     
     public init() {
@@ -26,20 +26,6 @@ open class ColaCupFlagBar: UIView {
         config()
     }
     
-    /// Button to display the list of modules.
-    open lazy var modulesButton: UIButton = {
-        
-        let button = UIButton(type: .system)
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.setImage(UIImage(systemName: "list.dash"), for: .normal)
-        
-        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25, weight: .unspecified), forImageIn: .normal)
-        
-        return button
-    }()
-    
     /// The parent view that hosts the `flagCollectionView`
     private lazy var flagView: UIView = {
         
@@ -52,7 +38,7 @@ open class ColaCupFlagBar: UIView {
     }()
     
     /// View the view of the log flag.
-    open lazy var flagCollectionView: UICollectionView = {
+    open lazy var collectionView: UICollectionView = {
         
         let padding = ColaCupFlagBar.collectionViewPadding
         
@@ -89,34 +75,25 @@ private extension ColaCupFlagBar {
     
     func addSubviews() {
         
-        addSubview(modulesButton)
         addSubview(flagView)
         
-        flagView.addSubview(flagCollectionView)
+        flagView.addSubview(collectionView)
     }
     
     func addInitialLayout() {
         
         NSLayoutConstraint.activate([
             flagView.leftAnchor.constraint(equalTo: leftAnchor),
+            flagView.rightAnchor.constraint(equalTo: rightAnchor),
             flagView.topAnchor.constraint(equalTo: topAnchor),
             flagView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
         
         NSLayoutConstraint.activate([
-            modulesButton.leftAnchor.constraint(equalTo: flagView.rightAnchor, constant: 10),
-            modulesButton.rightAnchor.constraint(equalTo: rightAnchor),
-            modulesButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-        ])
-        
-        modulesButton.setContentHuggingPriority(.required, for: .horizontal)
-        modulesButton.setContentHuggingPriority(.required, for: .vertical)
-        
-        NSLayoutConstraint.activate([
-            flagCollectionView.leftAnchor.constraint(equalTo: flagView.leftAnchor),
-            flagCollectionView.rightAnchor.constraint(equalTo: flagView.rightAnchor),
-            flagCollectionView.topAnchor.constraint(equalTo: flagView.topAnchor),
-            flagCollectionView.bottomAnchor.constraint(equalTo: flagView.bottomAnchor),
+            collectionView.leftAnchor.constraint(equalTo: flagView.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: flagView.rightAnchor),
+            collectionView.topAnchor.constraint(equalTo: flagView.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: flagView.bottomAnchor),
         ])
     }
 }
@@ -154,7 +131,7 @@ private extension ColaCupFlagBar {
         let maskLayer = CAGradientLayer()
         maskLayer.frame = frame
         
-        let layout = flagCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
         
         let padding: CGFloat = layout?.sectionInset.left ?? 0
         
