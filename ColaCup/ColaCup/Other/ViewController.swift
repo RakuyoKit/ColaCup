@@ -8,6 +8,8 @@
 
 import UIKit
 
+import RaLog
+
 class ViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
@@ -17,7 +19,9 @@ class ViewController: UIViewController {
     
     @IBAction func enterColaCup(_ sender: Any) {
         
+        let controller = ColaCupController(logManager: Log.self)
+        
         // Show ColaCupController
-        present(UINavigationController(rootViewController: ColaCupController()), animated: true, completion: nil)
+        present(UINavigationController(rootViewController: controller), animated: true, completion: nil)
     }
 }

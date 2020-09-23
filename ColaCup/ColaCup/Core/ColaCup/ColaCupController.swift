@@ -8,8 +8,24 @@
 
 import UIKit
 
+import RaLog
+
 /// A controller for viewing logs
 open class ColaCupController: UIViewController {
+    
+    /// Use the log manager to initialize the controller.
+    ///
+    /// - Parameter logManager: The log manager is required to follow the `Storable` protocol.
+    public init<T: Storable>(logManager: T.Type) {
+        
+        self.viewModel = ColaCupViewModel(logManager: logManager)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    public required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     /// Top view of the page. Include search box and label selection view.
     open lazy var headerView: UIView = {
@@ -93,7 +109,7 @@ open class ColaCupController: UIViewController {
     open lazy var themeColor = UIColor(red:0.91, green:0.13, blue:0.23, alpha:1.00)
     
     /// Used to process data
-    open lazy var viewModel = ColaCupViewModel()
+    public let viewModel: ColaCupViewModel
 }
 
 // MARK: - Life cycle
