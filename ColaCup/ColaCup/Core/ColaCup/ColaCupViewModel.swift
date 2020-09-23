@@ -18,6 +18,9 @@ public class ColaCupViewModel {
         self.logManager = logManager
     }
     
+    /// The currently selected date. The default is the current day.
+    public lazy var selectedDate = Date()
+    
     /// Only include the flag used in the currently viewed log. Will not repeat.
     public lazy var flags: [ColaCupSelectedModel] = []
     
