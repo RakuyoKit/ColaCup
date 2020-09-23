@@ -226,7 +226,7 @@ extension ColaCupController {
         
         sender.isEnabled = false
         
-        let popover = ColaCupPopovers(
+        let popover = ColaCupPopover(
             date: viewModel.selectedDate,
             modules: viewModel.modules
         )

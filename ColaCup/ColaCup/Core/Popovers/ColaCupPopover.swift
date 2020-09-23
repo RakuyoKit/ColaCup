@@ -1,5 +1,5 @@
 //
-//  ColaCupPopovers.swift
+//  ColaCupPopover.swift
 //  ColaCup
 //
 //  Created by Rakuyo on 2020/9/23.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-/// Pop-up view, including date selection and module filtering
-open class ColaCupPopovers: UIViewController {
+/// Pop-up view, including date selection and module filtering.
+open class ColaCupPopover: UIViewController {
     
     /// Initialize the pop-up window controller with the date and module of the currently viewed log.
     ///
