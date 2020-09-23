@@ -21,4 +21,10 @@ public class ColaCupViewModel {
     /// Log manager.
     private let logManager: Storable.Type
 }
+
+public extension ColaCupViewModel {
+    
+    func processLogs(completion: @escaping () -> Void) {
+        
+    }
 }

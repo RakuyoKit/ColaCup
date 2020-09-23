@@ -128,7 +128,7 @@ extension ColaCupController {
         
         addInitialLayout()
         
-        loadingView.isHidden = false
+        startProcessingData()
     }
 }
 
@@ -193,6 +193,21 @@ private extension ColaCupController {
             loadingView.widthAnchor.constraint(equalToConstant: 90),
             loadingView.heightAnchor.constraint(equalTo: loadingView.widthAnchor),
         ])
+    }
+    
+    func startProcessingData() {
+        
+        loadingView.isHidden = false
+        
+        viewModel.processLogs { [weak self] in
+            
+            guard let this = self else { return }
+            
+            this.loadingView.isHidden = true
+            
+            this.logsView.reloadData()
+            this.categoryBar.flagCollectionView.reloadData()
+        }
     }
 }
 
