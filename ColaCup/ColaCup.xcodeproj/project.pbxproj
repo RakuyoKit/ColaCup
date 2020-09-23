@@ -106,6 +106,7 @@
 			children = (
 				3A9CF607251B221A0060EC6F /* ColorConfig.swift */,
 				3A5B63E3251ADBDD00E00BF5 /* ColaCupLoadingView.swift */,
+				3A9CF5F9251AED510060EC6F /* ColaCupSelectedModel.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -121,7 +122,6 @@
 		3AB7E7CE2519C17A00E55926 /* ColaCup */ = {
 			isa = PBXGroup;
 			children = (
-				3A9CF5F9251AED510060EC6F /* ColaCupSelectedModel.swift */,
 				3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */,
 				3AD9BFF225198CF700D2CD16 /* ColaCupController.swift */,
 				3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */,
