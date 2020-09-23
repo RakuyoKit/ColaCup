@@ -9,7 +9,7 @@
 import RaLog
 
 /// Mainly used to process log data
-class ColaCupViewModel {
+open class ColaCupViewModel {
     
     
 }

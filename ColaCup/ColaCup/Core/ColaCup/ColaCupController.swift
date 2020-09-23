@@ -91,6 +91,9 @@ open class ColaCupController: UIViewController {
     
     /// Theme color. The default is a custom red.
     open lazy var themeColor = UIColor(red:0.91, green:0.13, blue:0.23, alpha:1.00)
+    
+    /// Used to process data
+    open lazy var viewModel = ColaCupViewModel()
 }
 
 // MARK: - Life cycle
