@@ -76,6 +76,11 @@ open class ColaCupController: UIViewController {
         
         categoryBar.modulesButton.tintColor = themeColor
         
+        categoryBar.flagCollectionView.register(LogFlagCell.self, forCellWithReuseIdentifier: "LogFlagCell")
+        
+        categoryBar.flagCollectionView.delegate = self
+        categoryBar.flagCollectionView.dataSource = self
+        
         return categoryBar
     }()
     
@@ -169,14 +174,11 @@ private extension ColaCupController {
         // categoryBar
         NSLayoutConstraint.activate([
             categoryBar.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            categoryBar.leftAnchor.constraint(equalTo: searchBar.leftAnchor),
-            categoryBar.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -7),
+            categoryBar.leftAnchor.constraint(equalTo: searchBar.leftAnchor, constant: 5),
+            categoryBar.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -12),
             categoryBar.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -12),
-            
             categoryBar.heightAnchor.constraint(equalToConstant: 37)
         ])
-        
-//        categoryBar.setContentHuggingPriority(.required, for: .vertical)
         
         // logsView
         NSLayoutConstraint.activate([
@@ -219,5 +221,81 @@ extension ColaCupController: UINavigationControllerDelegate {
         
         let isHide = viewController is ColaCupController
         navigationController.setNavigationBarHidden(isHide, animated: animated)
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension ColaCupController: UICollectionViewDelegate {
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        // Move to the middle when clicked
+        collectionView.scrollToItem(
+            at: indexPath,
+            at: [.centeredVertically, .centeredHorizontally],
+            animated: true
+        )
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
+        
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension ColaCupController: UICollectionViewDelegateFlowLayout {
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let model = viewModel.flags[indexPath.item]
+        
+        if let size = model.size { return size }
+        
+        let height: CGFloat = 37
+        
+        let width = (model.title as NSString).boundingRect(
+            with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: height),
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            attributes: [.font : UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)],
+            context: nil
+        ).width
+        
+        let minWidth: CGFloat = 50
+        
+        // When greater than the minimum width,
+        // a total of 112 spaces between the left and right sides are given.
+        let size = CGSize(
+            width: (width > minWidth) ? (width + 12) : minWidth,
+            height: height
+        )
+        
+        viewModel.flags[indexPath.item].size = size
+        
+        return size
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+
+extension ColaCupController: UICollectionViewDataSource {
+    
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return viewModel.flags.count
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LogFlagCell", for: indexPath) as! LogFlagCell
+        
+        let model = viewModel.flags[indexPath.item]
+        
+        cell.isSelected = model.isSelected
+        cell.titleLabel.text = model.title
+        
+        return cell
     }
 }

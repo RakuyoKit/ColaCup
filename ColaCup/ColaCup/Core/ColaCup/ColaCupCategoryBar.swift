@@ -58,11 +58,12 @@ open class ColaCupCategoryBar: UIView {
         
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 8
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
         
         let flagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         flagCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        flagCollectionView.backgroundColor = .clear
         
         flagCollectionView.showsVerticalScrollIndicator = false
         flagCollectionView.showsHorizontalScrollIndicator = false
@@ -88,6 +89,8 @@ private extension ColaCupCategoryBar {
         
         addSubview(modulesButton)
         addSubview(flagView)
+        
+        flagView.addSubview(flagCollectionView)
     }
     
     func addInitialLayout() {
@@ -105,6 +108,13 @@ private extension ColaCupCategoryBar {
             flagView.rightAnchor.constraint(equalTo: rightAnchor),
             flagView.topAnchor.constraint(equalTo: topAnchor),
             flagView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            flagCollectionView.leftAnchor.constraint(equalTo: flagView.leftAnchor),
+            flagCollectionView.rightAnchor.constraint(equalTo: flagView.rightAnchor),
+            flagCollectionView.topAnchor.constraint(equalTo: flagView.topAnchor),
+            flagCollectionView.bottomAnchor.constraint(equalTo: flagView.bottomAnchor),
         ])
     }
 }

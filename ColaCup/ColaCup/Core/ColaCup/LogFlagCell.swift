@@ -27,12 +27,21 @@ open class LogFlagCell: UICollectionViewCell {
         
         let label = UILabel()
         
+        label.tag = LogFlagCell.labelTag
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
         label.textAlignment = .center
         label.numberOfLines = 1
         label.font = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
         
         return label
     }()
+}
+
+public extension LogFlagCell {
+    
+    static let labelTag = 10
 }
 
 extension LogFlagCell {
@@ -60,7 +69,7 @@ private extension LogFlagCell {
         let view = UIView()
         
         view.backgroundColor = .tertiarySystemFill
-        view.layer.cornerRadius = 3
+        view.layer.cornerRadius = 5
         view.layer.masksToBounds = true
         
         selectedBackgroundView = view
@@ -68,16 +77,16 @@ private extension LogFlagCell {
     
     func addSubviews() {
         
-        addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
     }
     
     func addInitialLayout() {
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor),
-            titleLabel.leftAnchor.constraint(equalTo: leftAnchor),
-            titleLabel.rightAnchor.constraint(equalTo: rightAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
 }
