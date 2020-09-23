@@ -40,6 +40,10 @@ class PopoverAppearAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         
         let containerView = transitionContext.containerView
         
+        containerView.layer.shadowColor = UIColor.lightGray.cgColor
+        containerView.layer.shadowOpacity = 0.35
+        containerView.layer.shadowRadius = 10
+        
         toView.frame = CGRect(
             x: containerView.frame.width / 3 * 1 - 10,
             y: appearY + 10,
@@ -59,10 +63,6 @@ class PopoverAppearAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         toView.layer.masksToBounds = true
         
         containerView.addSubview(toView)
-        
-        containerView.layer.shadowColor = UIColor.lightGray.cgColor
-        containerView.layer.shadowOpacity = 0.35
-        containerView.layer.shadowRadius = 10
         
         let duration = transitionDuration(using: transitionContext)
         
