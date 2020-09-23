@@ -1,5 +1,5 @@
 //
-//  ColaCupCategoryBar.swift
+//  ColaCupFlagBar.swift
 //  ColaCup
 //
 //  Created by Rakuyo on 2020/9/22.
@@ -9,7 +9,7 @@
 import UIKit
 
 /// View to display the category of logs and the category of modules.
-open class ColaCupCategoryBar: UIView {
+open class ColaCupFlagBar: UIView {
     
     public init() {
         super.init(frame: .zero)
@@ -54,7 +54,7 @@ open class ColaCupCategoryBar: UIView {
     /// View the view of the log flag.
     open lazy var flagCollectionView: UICollectionView = {
         
-        let padding = ColaCupCategoryBar.collectionViewPadding
+        let padding = ColaCupFlagBar.collectionViewPadding
         
         let layout = UICollectionViewFlowLayout()
         
@@ -79,7 +79,7 @@ open class ColaCupCategoryBar: UIView {
 
 // MARK: - Config
 
-private extension ColaCupCategoryBar {
+private extension ColaCupFlagBar {
     
     func config() {
         
@@ -121,12 +121,12 @@ private extension ColaCupCategoryBar {
     }
 }
 
-public extension ColaCupCategoryBar {
+public extension ColaCupFlagBar {
     
     static let collectionViewPadding: CGFloat = 8
 }
 
-extension ColaCupCategoryBar {
+extension ColaCupFlagBar {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
@@ -146,7 +146,7 @@ extension ColaCupCategoryBar {
 
 // MARK: - Tools
 
-private extension ColaCupCategoryBar {
+private extension ColaCupFlagBar {
     
     /// Configure the mask layer
     func addMaskLayer(withFrame frame: CGRect) -> CAGradientLayer {

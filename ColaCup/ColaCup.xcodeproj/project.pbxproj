@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A5B63DF2519F46F00E00BF5 /* ColaCupCategoryBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B63DE2519F46F00E00BF5 /* ColaCupCategoryBar.swift */; };
+		3A5B63DF2519F46F00E00BF5 /* ColaCupFlagBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B63DE2519F46F00E00BF5 /* ColaCupFlagBar.swift */; };
 		3A5B63E4251ADBDD00E00BF5 /* ColaCupLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B63E3251ADBDD00E00BF5 /* ColaCupLoadingView.swift */; };
 		3A649E3C25199F7500DED905 /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A649E3B25199F7500DED905 /* default.png */; };
 		3A9CF5FA251AED510060EC6F /* ColaCupSelectedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9CF5F9251AED510060EC6F /* ColaCupSelectedModel.swift */; };
 		3A9CF602251AF0840060EC6F /* LogFlagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9CF601251AF0840060EC6F /* LogFlagCell.swift */; };
 		3A9CF608251B221A0060EC6F /* ColorConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9CF607251B221A0060EC6F /* ColorConfig.swift */; };
+		3A9CF60D251B24330060EC6F /* ColaCupPopovers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9CF60C251B24330060EC6F /* ColaCupPopovers.swift */; };
 		3AB7E75F2519A70700E55926 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7E75E2519A70700E55926 /* DetailsViewController.swift */; };
 		3AB7E7CA2519C17100E55926 /* ColaCupSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */; };
 		3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFAF25198C8D00D2CD16 /* AppDelegate.swift */; };
@@ -45,12 +46,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3A5B63DE2519F46F00E00BF5 /* ColaCupCategoryBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupCategoryBar.swift; sourceTree = "<group>"; };
+		3A5B63DE2519F46F00E00BF5 /* ColaCupFlagBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupFlagBar.swift; sourceTree = "<group>"; };
 		3A5B63E3251ADBDD00E00BF5 /* ColaCupLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupLoadingView.swift; sourceTree = "<group>"; };
 		3A649E3B25199F7500DED905 /* default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default.png; sourceTree = "<group>"; };
 		3A9CF5F9251AED510060EC6F /* ColaCupSelectedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupSelectedModel.swift; sourceTree = "<group>"; };
 		3A9CF601251AF0840060EC6F /* LogFlagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFlagCell.swift; sourceTree = "<group>"; };
 		3A9CF607251B221A0060EC6F /* ColorConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConfig.swift; sourceTree = "<group>"; };
+		3A9CF60C251B24330060EC6F /* ColaCupPopovers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupPopovers.swift; sourceTree = "<group>"; };
 		3AB7E75E2519A70700E55926 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupSearchBar.swift; sourceTree = "<group>"; };
 		3AD9BFAC25198C8D00D2CD16 /* ColaCup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColaCup.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +109,14 @@
 			path = Global;
 			sourceTree = "<group>";
 		};
+		3A9CF611251B243C0060EC6F /* Popovers */ = {
+			isa = PBXGroup;
+			children = (
+				3A9CF60C251B24330060EC6F /* ColaCupPopovers.swift */,
+			);
+			path = Popovers;
+			sourceTree = "<group>";
+		};
 		3AB7E7CE2519C17A00E55926 /* ColaCup */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,7 +124,7 @@
 				3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */,
 				3AD9BFF225198CF700D2CD16 /* ColaCupController.swift */,
 				3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */,
-				3A5B63DE2519F46F00E00BF5 /* ColaCupCategoryBar.swift */,
+				3A5B63DE2519F46F00E00BF5 /* ColaCupFlagBar.swift */,
 				3A5B63E3251ADBDD00E00BF5 /* ColaCupLoadingView.swift */,
 				3A9CF601251AF0840060EC6F /* LogFlagCell.swift */,
 			);
@@ -197,6 +207,7 @@
 			children = (
 				3A9CF606251B220B0060EC6F /* Global */,
 				3AB7E7CE2519C17A00E55926 /* ColaCup */,
+				3A9CF611251B243C0060EC6F /* Popovers */,
 				3AB7E7CF2519C18000E55926 /* Details */,
 			);
 			path = Core;
@@ -397,12 +408,13 @@
 				3A9CF602251AF0840060EC6F /* LogFlagCell.swift in Sources */,
 				3AD9BFF425198CF700D2CD16 /* ColaCupController.swift in Sources */,
 				3AB7E7CA2519C17100E55926 /* ColaCupSearchBar.swift in Sources */,
-				3A5B63DF2519F46F00E00BF5 /* ColaCupCategoryBar.swift in Sources */,
+				3A5B63DF2519F46F00E00BF5 /* ColaCupFlagBar.swift in Sources */,
 				3A5B63E4251ADBDD00E00BF5 /* ColaCupLoadingView.swift in Sources */,
 				3AD9BFB425198C8D00D2CD16 /* ViewController.swift in Sources */,
 				3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */,
 				3AD9BFF525198CF700D2CD16 /* ColaCupViewModel.swift in Sources */,
 				3A9CF608251B221A0060EC6F /* ColorConfig.swift in Sources */,
+				3A9CF60D251B24330060EC6F /* ColaCupPopovers.swift in Sources */,
 				3A9CF5FA251AED510060EC6F /* ColaCupSelectedModel.swift in Sources */,
 				3AB7E75F2519A70700E55926 /* DetailsViewController.swift in Sources */,
 			);
