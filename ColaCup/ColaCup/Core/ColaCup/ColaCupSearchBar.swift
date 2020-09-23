@@ -58,7 +58,10 @@ open class ColaCupSearchBar: UIView {
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         
+        searchBar.placeholder = "search with keyword"
+        searchBar.tintColor = .theme
         searchBar.backgroundImage = UIImage()
+        searchBar.searchTextField.textColor = .normalText
         
         return searchBar
     }()

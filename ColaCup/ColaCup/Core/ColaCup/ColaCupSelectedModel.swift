@@ -2,7 +2,7 @@
 //  ColaCupSelectedModel.swift
 //  ColaCup
 //
-//  Created by MBCore on 2020/9/23.
+//  Created by Rakuyo on 2020/9/23.
 //  Copyright © 2020 Rakuyo. All rights reserved.
 //
 

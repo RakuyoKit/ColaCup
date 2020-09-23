@@ -34,6 +34,7 @@ open class LogFlagCell: UICollectionViewCell {
         label.textAlignment = .center
         label.numberOfLines = 1
         label.font = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
+        label.textColor = .normalText
         
         return label
     }()

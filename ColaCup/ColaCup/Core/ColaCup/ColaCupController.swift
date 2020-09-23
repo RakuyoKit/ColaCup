@@ -45,7 +45,7 @@ open class ColaCupController: UIViewController {
         let datePicker = UIDatePicker()
         
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.tintColor = themeColor
+        datePicker.tintColor = .theme
         datePicker.backgroundColor = .clear
         
         datePicker.maximumDate = Date()
@@ -74,7 +74,7 @@ open class ColaCupController: UIViewController {
         categoryBar.translatesAutoresizingMaskIntoConstraints = false
         categoryBar.backgroundColor = .white
         
-        categoryBar.modulesButton.tintColor = themeColor
+        categoryBar.modulesButton.tintColor = .theme
         
         categoryBar.flagCollectionView.register(LogFlagCell.self, forCellWithReuseIdentifier: "LogFlagCell")
         
@@ -105,13 +105,10 @@ open class ColaCupController: UIViewController {
         view.backgroundColor = .clear
         view.isHidden = true
         
-        view.activityIndicator.color = themeColor
+        view.activityIndicator.color = .theme
         
         return view
     }()
-    
-    /// Theme color. The default is a custom red.
-    open lazy var themeColor = UIColor(red:0.91, green:0.13, blue:0.23, alpha:1.00)
     
     /// Used to process data
     public let viewModel: ColaCupViewModel
