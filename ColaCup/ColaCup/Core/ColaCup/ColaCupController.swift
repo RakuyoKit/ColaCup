@@ -29,7 +29,7 @@ open class ColaCupController: UIViewController {
         let datePicker = UIDatePicker()
         
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.tintColor = UIColor(red:0.91, green:0.13, blue:0.23, alpha:1.00)
+        datePicker.tintColor = themeColor
         datePicker.backgroundColor = .clear
         
         datePicker.maximumDate = Date()
@@ -58,7 +58,7 @@ open class ColaCupController: UIViewController {
         categoryBar.translatesAutoresizingMaskIntoConstraints = false
         categoryBar.backgroundColor = .white
         
-        categoryBar.modulesButton.tintColor = UIColor(red:0.91, green:0.13, blue:0.23, alpha:1.00)
+        categoryBar.modulesButton.tintColor = themeColor
         
         return categoryBar
     }()
@@ -84,10 +84,13 @@ open class ColaCupController: UIViewController {
         view.backgroundColor = .clear
         view.isHidden = true
         
-        view.activityIndicator.color = UIColor(red:0.91, green:0.13, blue:0.23, alpha:1.00)
+        view.activityIndicator.color = themeColor
         
         return view
     }()
+    
+    /// Theme color. The default is a custom red.
+    open lazy var themeColor = UIColor(red:0.91, green:0.13, blue:0.23, alpha:1.00)
 }
 
 // MARK: - Life cycle
