@@ -27,6 +27,9 @@ open class ColaCupController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Used to process data
+    public let viewModel: ColaCupViewModel
+    
     /// Top view of the page. Include search box and label selection view.
     open lazy var headerView: UIView = {
         
@@ -45,23 +48,26 @@ open class ColaCupController: UIViewController {
         let searchBar = ColaCupSearchBar()
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Button to display the list of modules.
-        searchBar.footerView = {
-            
-            let button = UIButton(type: .system)
-            
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.tintColor = .theme
-            
-            button.setImage(UIImage(systemName: "list.dash"), for: .normal)
-            
-            button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25, weight: .unspecified), forImageIn: .normal)
-            
-            return button
-        }()
+        searchBar.footerView = showPopoverButton
         
         return searchBar
+    }()
+    
+    /// Button for displaying popups.
+    open lazy var showPopoverButton: UIButton = {
+        
+        let button = UIButton(type: .system)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .theme
+        
+        button.setImage(UIImage(systemName: "list.dash"), for: .normal)
+        
+        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25, weight: .unspecified), forImageIn: .normal)
+        
+        button.addTarget(self, action: #selector(showPopover(_:)), for: .touchUpInside)
+        
+        return button
     }()
     
     /// View to display the flag of logs.
@@ -105,9 +111,6 @@ open class ColaCupController: UIViewController {
         
         return view
     }()
-    
-    /// Used to process data
-    public let viewModel: ColaCupViewModel
 }
 
 // MARK: - Life cycle
@@ -127,6 +130,12 @@ extension ColaCupController {
         addInitialLayout()
         
         startProcessingData()
+    }
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        showPopoverButton.isEnabled = true
     }
 }
 
@@ -203,6 +212,26 @@ private extension ColaCupController {
             this.logsView.reloadData()
             this.flagBar.collectionView.reloadData()
         }
+    }
+}
+
+// MARK: - Action
+
+extension ColaCupController {
+    
+    /// Show pop-up view.
+    ///
+    /// - Parameter sender: Event trigger.
+    @objc open func showPopover(_ sender: UIButton) {
+        
+        sender.isEnabled = false
+        
+        let popover = ColaCupPopovers(
+            date: viewModel.selectedDate,
+            modules: viewModel.modules
+        )
+        
+        present(popover, animated: true, completion: nil)
     }
 }
 
