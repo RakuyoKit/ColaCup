@@ -127,6 +127,7 @@ extension ColaCupPopover: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
         
         cell.textLabel?.text = model.title
+        cell.tintColor = .theme
         cell.accessoryType = model.isSelected ? .checkmark : .none
         cell.selectionStyle = .none
         
