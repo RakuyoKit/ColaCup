@@ -31,13 +31,15 @@ open class ColaCupLoadingView: UIView {
         let view = UIVisualEffectView(effect: UIBlurEffect(style: .light))
         
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 10
+        view.layer.masksToBounds = true
         
         return view
     }()
     
     open lazy var activityIndicator: UIActivityIndicatorView = {
         
-        let view = UIActivityIndicatorView(style: .medium)
+        let view = UIActivityIndicatorView(style: .large)
         
         view.translatesAutoresizingMaskIntoConstraints = false
         view.hidesWhenStopped = false

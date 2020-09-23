@@ -74,6 +74,20 @@ open class ColaCupController: UIViewController {
         
         return tableView
     }()
+    
+    /// The view displayed when the log data is loaded.
+    open lazy var loadingView: ColaCupLoadingView = {
+        
+        let view = ColaCupLoadingView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        view.isHidden = true
+        
+        view.activityIndicator.color = UIColor(red:0.91, green:0.13, blue:0.23, alpha:1.00)
+        
+        return view
+    }()
 }
 
 // MARK: - Life cycle
@@ -91,6 +105,8 @@ extension ColaCupController {
         addSubviews()
         
         addInitialLayout()
+        
+        loadingView.isHidden = false
     }
 }
 
@@ -102,6 +118,7 @@ private extension ColaCupController {
         
         view.addSubview(headerView)
         view.addSubview(logsView)
+        view.addSubview(loadingView)
         
         headerView.addSubview(searchBar)
         headerView.addSubview(categoryBar)
@@ -145,6 +162,14 @@ private extension ColaCupController {
             logsView.leftAnchor.constraint(equalTo: headerView.leftAnchor),
             logsView.rightAnchor.constraint(equalTo: headerView.rightAnchor),
             logsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        // loadingView
+        NSLayoutConstraint.activate([
+            loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loadingView.widthAnchor.constraint(equalToConstant: 90),
+            loadingView.heightAnchor.constraint(equalTo: loadingView.widthAnchor),
         ])
     }
 }
