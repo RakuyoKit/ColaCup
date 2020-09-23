@@ -28,23 +28,108 @@ open class ColaCupPopover: UIViewController {
     }
     
     /// The date of the currently viewed log.
-    public let date: Date
+    public var date: Date
     
     /// The modules to which the currently viewed log belongs.
-    public let modules: [ColaCupSelectedModel]
+    public var modules: [ColaCupSelectedModel]
     
-    /// Used to select a date to view the log of the selected date.
-    open lazy var datePicker: UIDatePicker = {
+    /// TableView showing the list of modules
+    open lazy var tableView: UITableView = {
         
-        let datePicker = UIDatePicker()
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
         
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.tintColor = .theme
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.layer.cornerRadius = 10
+        tableView.backgroundColor = .clear
         
-        datePicker.maximumDate = Date()
-        datePicker.preferredDatePickerStyle = .compact
-        datePicker.datePickerMode = .date
+        tableView.delegate = self
+        tableView.dataSource = self
         
-        return datePicker
+        tableView.register(PopoverDatePickerCell.self, forCellReuseIdentifier: "PopoverDatePickerCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+        
+        return tableView
     }()
+}
+
+// MARK: - Life cycle
+
+extension ColaCupPopover {
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .systemGroupedBackground
+        
+        addSubviews()
+        
+        addInitialLayout()
+    }
+}
+
+// MARK: - Config
+
+private extension ColaCupPopover {
+    
+    func addSubviews() {
+        
+        view.addSubview(tableView)
+    }
+    
+    func addInitialLayout() {
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension ColaCupPopover: UITableViewDelegate {
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        modules[indexPath.row].isSelected = !modules[indexPath.row].isSelected
+        
+        tableView.cellForRow(at: indexPath)?.accessoryType = modules[indexPath.row].isSelected ? .checkmark : .none
+    }
+}
+
+// MARK: - UITableViewDataSource
+
+extension ColaCupPopover: UITableViewDataSource {
+    
+    public func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return section == 0 ? 1 : modules.count
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.section == 0 {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PopoverDatePickerCell", for: indexPath) as! PopoverDatePickerCell
+            
+            cell.datePicker.date = date
+            
+            return cell
+        }
+        
+        let model = modules[indexPath.row]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
+        
+        cell.textLabel?.text = model.title
+        cell.accessoryType = model.isSelected ? .checkmark : .none
+        cell.selectionStyle = .none
+        
+        return cell
+    }
 }
