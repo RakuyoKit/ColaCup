@@ -32,7 +32,6 @@ open class ColaCupCategoryBar: UIView {
         let button = UIButton(type: .system)
         
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.tintColor = UIColor(red:0.91, green:0.69, blue:0.40, alpha:1.00)
         
         button.setImage(UIImage(systemName: "list.dash"), for: .normal)
         

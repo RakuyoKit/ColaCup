@@ -29,7 +29,7 @@ open class ColaCupController: UIViewController {
         let datePicker = UIDatePicker()
         
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.tintColor = UIColor(red:0.91, green:0.69, blue:0.40, alpha:1.00)
+        datePicker.tintColor = UIColor(red:0.91, green:0.13, blue:0.23, alpha:1.00)
         datePicker.backgroundColor = .clear
         
         datePicker.maximumDate = Date()
@@ -57,6 +57,8 @@ open class ColaCupController: UIViewController {
         
         categoryBar.translatesAutoresizingMaskIntoConstraints = false
         categoryBar.backgroundColor = .white
+        
+        categoryBar.modulesButton.tintColor = UIColor(red:0.91, green:0.13, blue:0.23, alpha:1.00)
         
         return categoryBar
     }()
