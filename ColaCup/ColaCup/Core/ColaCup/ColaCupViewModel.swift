@@ -37,6 +37,8 @@ public extension ColaCupViewModel {
     ///   - completion: The callback when the processing is completed will be executed on the main thread.
     func processLogs(date: Date? = nil, completion: @escaping () -> Void) {
         
+        let all = ColaCupSelectedModel(isSelected: true, title: "ALL")
+        
         let logs: [Log] = {
             
             if let date = date {
@@ -47,6 +49,8 @@ public extension ColaCupViewModel {
         }()
         
         guard !logs.isEmpty else {
+            flags = [all]
+            modules = [all]
             completion()
             return
         }
@@ -64,8 +68,6 @@ public extension ColaCupViewModel {
                 flagSet.insert(log.flag)
                 moduleSet.insert(log.module)
             }
-            
-            let all = ColaCupSelectedModel(isSelected: true, title: "ALL")
             
             // Record
             var _flags = Array(flagSet).sorted().map { ColaCupSelectedModel(title: $0) }
