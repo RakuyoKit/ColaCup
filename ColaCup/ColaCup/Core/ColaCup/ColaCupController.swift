@@ -123,7 +123,7 @@ extension ColaCupController {
         // Solve the problem of hidden navigation bar
         navigationController?.delegate = self
         
-        view.backgroundColor = UIColor(red:0.98, green:0.95, blue:0.93, alpha:1.00)
+        view.backgroundColor = .systemGroupedBackground
         
         addSubviews()
         
@@ -226,7 +226,10 @@ extension ColaCupController {
         
         sender.isEnabled = false
         
+        let rect = sender.convert(sender.bounds, to: UIApplication.shared.delegate!.window!)
+        
         let popover = ColaCupPopover(
+            appearY: rect.maxY,
             date: viewModel.selectedDate,
             modules: viewModel.modules
         )
