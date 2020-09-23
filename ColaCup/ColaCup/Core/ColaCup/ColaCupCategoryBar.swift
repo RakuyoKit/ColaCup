@@ -54,11 +54,13 @@ open class ColaCupCategoryBar: UIView {
     /// View the view of the log flag.
     open lazy var flagCollectionView: UICollectionView = {
         
+        let padding = ColaCupCategoryBar.collectionViewPadding
+        
         let layout = UICollectionViewFlowLayout()
         
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 8
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        layout.minimumInteritemSpacing = padding
+        layout.sectionInset = UIEdgeInsets(top: 0, left: padding, bottom: 0, right: padding)
         
         let flagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -96,19 +98,19 @@ private extension ColaCupCategoryBar {
     func addInitialLayout() {
         
         NSLayoutConstraint.activate([
-            modulesButton.leftAnchor.constraint(equalTo: leftAnchor),
+            flagView.leftAnchor.constraint(equalTo: leftAnchor),
+            flagView.topAnchor.constraint(equalTo: topAnchor),
+            flagView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            modulesButton.leftAnchor.constraint(equalTo: flagView.rightAnchor, constant: 10),
+            modulesButton.rightAnchor.constraint(equalTo: rightAnchor),
             modulesButton.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
         
         modulesButton.setContentHuggingPriority(.required, for: .horizontal)
         modulesButton.setContentHuggingPriority(.required, for: .vertical)
-        
-        NSLayoutConstraint.activate([
-            flagView.leftAnchor.constraint(equalTo: modulesButton.rightAnchor, constant: 5),
-            flagView.rightAnchor.constraint(equalTo: rightAnchor),
-            flagView.topAnchor.constraint(equalTo: topAnchor),
-            flagView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
         
         NSLayoutConstraint.activate([
             flagCollectionView.leftAnchor.constraint(equalTo: flagView.leftAnchor),
@@ -117,6 +119,11 @@ private extension ColaCupCategoryBar {
             flagCollectionView.bottomAnchor.constraint(equalTo: flagView.bottomAnchor),
         ])
     }
+}
+
+public extension ColaCupCategoryBar {
+    
+    static let collectionViewPadding: CGFloat = 8
 }
 
 extension ColaCupCategoryBar {

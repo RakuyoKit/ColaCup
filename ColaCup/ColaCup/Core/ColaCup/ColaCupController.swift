@@ -174,8 +174,8 @@ private extension ColaCupController {
         // categoryBar
         NSLayoutConstraint.activate([
             categoryBar.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            categoryBar.leftAnchor.constraint(equalTo: searchBar.leftAnchor, constant: 5),
-            categoryBar.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -12),
+            categoryBar.leftAnchor.constraint(equalTo: searchBar.leftAnchor),
+            categoryBar.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -10),
             categoryBar.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -12),
             categoryBar.heightAnchor.constraint(equalToConstant: 37)
         ])
