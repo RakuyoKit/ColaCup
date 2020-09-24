@@ -70,6 +70,7 @@ public extension ColaCupViewModel {
             guard !this.integralLogs.isEmpty else {
                 this.flags = [all]
                 this.modules = [all]
+                this.showLogs = []
                 this.integralLogs = []
                 return
             }
