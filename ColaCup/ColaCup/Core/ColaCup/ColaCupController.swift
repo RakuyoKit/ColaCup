@@ -78,6 +78,8 @@ open class ColaCupController: UIViewController {
         bar.translatesAutoresizingMaskIntoConstraints = false
         bar.backgroundColor = .white
         
+        bar.delegate = self
+        
         return bar
     }()
     
@@ -294,6 +296,27 @@ extension ColaCupController: ColaCupPopoverDelegate {
     }
 }
 
+// MARK: - ColaCupFlagBarDelegate
+
+extension ColaCupController: ColaCupFlagBarDelegate {
+    
+    public func flagBar(_ flagBar: ColaCupFlagBar, flagButtonDidClick button: LogFlagButton) {
+        
+        loadingView.isHidden = false
+        
+        viewModel.clickFlag(at: button.tag, isSelectButton: button.isSelected) { [weak self] (a, b) in
+            
+            guard let this = self else { return }
+            
+            this.loadingView.isHidden = true
+            this.logsView.reloadData()
+            
+            a.forEach { this.flagBar.selectFlag(at: $0) }
+            b.forEach { this.flagBar.deselectFlag(at: $0) }
+        }
+    }
+}
+
 // MARK: - UINavigationControllerDelegate
 
 extension ColaCupController: UINavigationControllerDelegate {
@@ -304,62 +327,6 @@ extension ColaCupController: UINavigationControllerDelegate {
         navigationController.setNavigationBarHidden(isHide, animated: animated)
     }
 }
-
-//// MARK: - UICollectionViewDelegate
-//
-//extension ColaCupController: UICollectionViewDelegate {
-//
-//    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//
-//        loadingView.isHidden = false
-//
-//        // Move to the middle when clicked
-//        collectionView.scrollToItem(
-//            at: indexPath,
-//            at: [.centeredVertically, .centeredHorizontally],
-//            animated: true
-//        )
-//
-//        viewModel.selectedFlag(at: indexPath.item) { [weak self] in
-//
-//            guard let this = self else { return }
-//
-//            this.loadingView.isHidden = true
-//            this.logsView.reloadData()
-//
-//            $0.forEach {
-//                collectionView.cellForItem(at: IndexPath(item: $0, section: 0))?.isSelected = true
-//            }
-//
-//            $1.forEach {
-//                collectionView.cellForItem(at: IndexPath(item: $0, section: 0))?.isSelected = false
-//            }
-//        }
-//    }
-//
-//    public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-//
-//        guard indexPath.row != 0 else { return }
-//
-//        loadingView.isHidden = false
-//
-//        viewModel.deselectedFlag(at: indexPath.item) { [weak self] in
-//
-//            guard let this = self else { return }
-//
-//            this.loadingView.isHidden = true
-//            this.logsView.reloadData()
-//
-//            $0.forEach {
-//                collectionView.cellForItem(at: IndexPath(item: $0, section: 0))?.isSelected = true
-//            }
-//
-//            $1.forEach {
-//                collectionView.cellForItem(at: IndexPath(item: $0, section: 0))?.isSelected = false
-//            }
-//        }
-//    }
-//}
 
 // MARK: - UITableViewDelegate
 

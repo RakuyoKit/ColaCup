@@ -145,16 +145,29 @@ public extension ColaCupViewModel {
 
 // MARK: - Flag
 
-public extension ColaCupViewModel {
+extension ColaCupViewModel {
     
-    typealias SelectedFlagCompletion = (_ selectedIndexs: [Int], _ deselectedIndexs: [Int]) -> Void
+    public typealias SelectedFlagCompletion = (_ selectedIndexs: [Int], _ deselectedIndexs: [Int]) -> Void
+    
+    public func clickFlag(at index: Int, isSelectButton: Bool, completion: @escaping SelectedFlagCompletion) {
+        
+        if flags[index].isSelected {
+            
+            flags[index].isSelected = isSelectButton
+            deselectedFlag(at: index, completion: completion)
+            
+        } else {
+            flags[index].isSelected = isSelectButton
+            selectedFlag(at: index, completion: completion)
+        }
+    }
     
     /// Called when the flag is selected.
     ///
     /// - Parameters:
     ///   - index: Index of the choosed flag.
     ///   - completion: The callback when the processing is completed will be executed on the main thread.
-    func selectedFlag(at index: Int, completion: @escaping SelectedFlagCompletion) {
+    private func selectedFlag(at index: Int, completion: @escaping SelectedFlagCompletion) {
         
         flags[index].isSelected = true
         
@@ -204,7 +217,7 @@ public extension ColaCupViewModel {
     /// - Parameters:
     ///   - index: The index of the deselected flag.
     ///   - completion: The callback when the processing is completed will be executed on the main thread.
-    func deselectedFlag(at index: Int, completion: @escaping SelectedFlagCompletion) {
+    private func deselectedFlag(at index: Int, completion: @escaping SelectedFlagCompletion) {
         
         guard flags[index].title != "ALL" else { return }
         

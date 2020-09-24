@@ -8,6 +8,16 @@
 
 import UIKit
 
+public protocol ColaCupFlagBarDelegate: class {
+    
+    /// The callback executed when the flag button is clicked.
+    ///
+    /// - Parameters:
+    ///   - flagBar: Flag bar itself.
+    ///   - button: The button clicked.
+    func flagBar(_ flagBar: ColaCupFlagBar, flagButtonDidClick button: LogFlagButton)
+}
+
 /// View to display the flag of logs.
 open class ColaCupFlagBar: UIView {
     
@@ -25,6 +35,9 @@ open class ColaCupFlagBar: UIView {
         super.init(coder: coder)
         config()
     }
+    
+    /// The agent that calls back the click event.
+    open weak var delegate: ColaCupFlagBarDelegate? = nil
     
     /// Responsible for scrolling.
     open lazy var scrollView: UIScrollView = {
@@ -127,6 +140,14 @@ extension ColaCupFlagBar {
             flagsView.arrangedSubviews[i].isHidden = true
         }
     }
+    
+    open func selectFlag(at index: Int) {
+        (flagsView.arrangedSubviews[index] as? LogFlagButton)?.isSelected = true
+    }
+    
+    open func deselectFlag(at index: Int) {
+        (flagsView.arrangedSubviews[index] as? LogFlagButton)?.isSelected = false
+    }
 }
 
 // MARK: - Action
@@ -150,6 +171,8 @@ extension ColaCupFlagBar {
         
         // Invert other flags.
         button.isSelected = !button.isSelected
+        
+        delegate?.flagBar(self, flagButtonDidClick: button)
     }
 }
 
