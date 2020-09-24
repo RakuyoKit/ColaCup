@@ -8,6 +8,26 @@
 
 import UIKit
 
+public protocol ColaCupPopoverDelegate: class {
+    
+    /// Execute when the pop-up window is about to disappear,
+    /// and call back the data to the caller.
+    ///
+    /// All the data below will not detect whether the comparison has changed during initialization.
+    ///
+    /// You need to judge by yourself whether the data has changed.
+    ///
+    /// - Parameters:
+    ///   - popover: The popup itself.
+    ///   - date: The date currently selected by the user.
+    ///   - modules: Module array.
+    func popover(
+        _ popover: ColaCupPopover,
+        willDisappearWithDate date: Date,
+        modules: [ColaCupSelectedModel]
+    )
+}
+
 /// Pop-up view, including date selection and module filtering.
 open class ColaCupPopover: UIViewController {
     
@@ -32,13 +52,16 @@ open class ColaCupPopover: UIViewController {
     }
     
     /// The date of the currently viewed log.
-    public var date: Date
+    private var date: Date
     
     /// The modules to which the currently viewed log belongs.
-    public var modules: [ColaCupSelectedModel]
+    private var modules: [ColaCupSelectedModel]
     
     /// Y coordinate of the point.
-    public let appearY: CGFloat
+    private let appearY: CGFloat
+    
+    /// The proxy used for callback data.
+    open weak var delegate: ColaCupPopoverDelegate? = nil
     
     /// TableView showing the list of modules
     open lazy var tableView: UITableView = {
@@ -69,6 +92,13 @@ extension ColaCupPopover {
         addSubviews()
         
         addInitialLayout()
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // Call back the caller to facilitate the caller to refresh the page.
+        delegate?.popover(self, willDisappearWithDate: date, modules: modules)
     }
 }
 
