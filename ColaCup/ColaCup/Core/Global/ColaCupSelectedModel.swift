@@ -26,3 +26,10 @@ public struct ColaCupSelectedModel: Equatable {
     /// Used to cache the size of certain elements. The default is `nil`.
     public var size: CGSize? = nil
 }
+
+extension ColaCupSelectedModel {
+    
+    mutating func negateSelected() {
+        isSelected = !isSelected
+    }
+}
