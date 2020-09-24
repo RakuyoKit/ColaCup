@@ -35,6 +35,7 @@ open class LogFlagButton: UIControl {
         let view = UIView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = false
         view.backgroundColor = .tertiarySystemFill
         view.layer.cornerRadius = 5
         view.layer.masksToBounds = true

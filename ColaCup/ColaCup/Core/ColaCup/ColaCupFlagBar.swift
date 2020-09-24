@@ -71,11 +71,14 @@ extension ColaCupFlagBar {
         for i in 0 ..< _flags.count {
             
             let flag = _flags[i]
+            
             let button = LogFlagButton()
             
             button.tag = i
             button.titleLabel.text = flag.title
             button.isSelected = flag.isSelected
+            
+            button.addTarget(self, action: #selector(flagButtonDidClick(_:)), for: .touchUpInside)
             
             stackView.addArrangedSubview(button)
             
@@ -95,6 +98,8 @@ extension ColaCupFlagBar {
             for _ in 0 ..< diff {
                 
                 let button = LogFlagButton()
+                
+                button.addTarget(self, action: #selector(flagButtonDidClick(_:)), for: .touchUpInside)
                 
                 stackView.addArrangedSubview(button)
                 
@@ -121,6 +126,30 @@ extension ColaCupFlagBar {
         for i in (count + diff) ..< count {
             stackView.arrangedSubviews[i].isHidden = true
         }
+    }
+}
+
+// MARK: - Action
+
+extension ColaCupFlagBar {
+    
+    @objc open func flagButtonDidClick(_ button: LogFlagButton) {
+        
+        var offset = button.frame.midX - scrollView.frame.width * 0.5
+        
+        let _max = -scrollView.contentInset.left
+        let _min = stackView.frame.width - scrollView.frame.width + scrollView.contentInset.right
+        
+        offset = min(max(offset, _max), _min)
+        
+        // Move the clicked flag to the center.
+        scrollView.setContentOffset(CGPoint(x: offset, y: 0), animated: true)
+        
+        // The ALL flag in the selected state will not be inverted.
+        if button.tag == 0 && button.isSelected { return }
+        
+        // Invert other flags.
+        button.isSelected = !button.isSelected
     }
 }
 
