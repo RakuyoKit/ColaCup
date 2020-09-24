@@ -26,42 +26,102 @@ open class ColaCupFlagBar: UIView {
         config()
     }
     
-    /// The parent view that hosts the `flagCollectionView`
-    private lazy var flagView: UIView = {
+    /// Responsible for scrolling.
+    open lazy var scrollView: UIScrollView = {
         
-        let view = UIView()
+        let view = UIScrollView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
         
+        view.showsVerticalScrollIndicator = false
+        view.showsHorizontalScrollIndicator = false
+        view.scrollsToTop = false
+        
+        let padding = ColaCupFlagBar.padding
+        
+        view.contentInset = UIEdgeInsets(top: 0, left: padding, bottom: 0, right: padding)
+        
         return view
     }()
     
-    /// View the view of the log flag.
-    open lazy var collectionView: UICollectionView = {
+    /// The parent view of flags, and its child views are all of the type `LogFlagButton`.
+    open lazy var stackView: UIStackView = {
         
-        let padding = ColaCupFlagBar.collectionViewPadding
+        let view = UIStackView()
         
-        let layout = UICollectionViewFlowLayout()
+        view.translatesAutoresizingMaskIntoConstraints = false
         
-        layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = padding
-        layout.sectionInset = UIEdgeInsets(top: 0, left: padding, bottom: 0, right: padding)
+        view.axis = .horizontal
+        view.alignment = .center
+        view.distribution = .fill
+        view.spacing = ColaCupFlagBar.padding
         
-        let flagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
-        flagCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        flagCollectionView.backgroundColor = .clear
-        
-        flagCollectionView.showsVerticalScrollIndicator = false
-        flagCollectionView.showsHorizontalScrollIndicator = false
-        
-        flagCollectionView.allowsMultipleSelection = true
-        flagCollectionView.allowsSelection = true
-        flagCollectionView.scrollsToTop = false
-        
-        return flagCollectionView
+        return view
     }()
+}
+
+extension ColaCupFlagBar {
+    
+    /// Set up the data source.
+    ///
+    /// - Parameter _flags: The flags to be displayed
+    open func setFlags(_ _flags: [ColaCupSelectedModel]) {
+        
+        for i in 0 ..< _flags.count {
+            
+            let flag = _flags[i]
+            let button = LogFlagButton()
+            
+            button.tag = i
+            button.titleLabel.text = flag.title
+            button.isSelected = flag.isSelected
+            
+            stackView.addArrangedSubview(button)
+            
+            button.setContentHuggingPriority(.required, for: .horizontal)
+            button.setContentHuggingPriority(.required, for: .vertical)
+        }
+    }
+    
+    /// Refresh data.
+    ///
+    /// - Parameter flags: New data source.
+    open func reloadData(flags: [ColaCupSelectedModel]) {
+        
+        let diff = flags.count - stackView.arrangedSubviews.count
+        
+        if diff > 0 {
+            for _ in 0 ..< diff {
+                
+                let button = LogFlagButton()
+                
+                stackView.addArrangedSubview(button)
+                
+                button.setContentHuggingPriority(.required, for: .horizontal)
+                button.setContentHuggingPriority(.required, for: .vertical)
+            }
+        }
+        
+        for i in 0 ..< flags.count {
+            
+            let button = stackView.arrangedSubviews[i] as? LogFlagButton
+            
+            button?.tag = i
+            button?.isHidden = false
+            button?.titleLabel.text = flags[i].title
+            button?.isSelected = flags[i].isSelected
+        }
+        
+        // Hide redundant views
+        guard diff != 0 else { return }
+        
+        let count = stackView.arrangedSubviews.count
+        
+        for i in (count + diff) ..< count {
+            stackView.arrangedSubviews[i].isHidden = true
+        }
+    }
 }
 
 // MARK: - Config
@@ -76,32 +136,35 @@ private extension ColaCupFlagBar {
     
     func addSubviews() {
         
-        addSubview(flagView)
-        
-        flagView.addSubview(collectionView)
+        addSubview(scrollView)
+        scrollView.addSubview(stackView)
     }
     
     func addInitialLayout() {
         
         NSLayoutConstraint.activate([
-            flagView.leftAnchor.constraint(equalTo: leftAnchor),
-            flagView.rightAnchor.constraint(equalTo: rightAnchor),
-            flagView.topAnchor.constraint(equalTo: topAnchor),
-            flagView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            scrollView.leftAnchor.constraint(equalTo: leftAnchor),
+            scrollView.rightAnchor.constraint(equalTo: rightAnchor),
+            scrollView.topAnchor.constraint(equalTo: topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
         
         NSLayoutConstraint.activate([
-            collectionView.leftAnchor.constraint(equalTo: flagView.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: flagView.rightAnchor),
-            collectionView.topAnchor.constraint(equalTo: flagView.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: flagView.bottomAnchor),
+            stackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
+            stackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
         ])
+        
+        stackView.setContentHuggingPriority(.required, for: .horizontal)
+        stackView.setContentHuggingPriority(.required, for: .vertical)
     }
 }
 
 public extension ColaCupFlagBar {
     
-    static let collectionViewPadding: CGFloat = 8
+    static let padding: CGFloat = 8
 }
 
 extension ColaCupFlagBar {
@@ -109,16 +172,16 @@ extension ColaCupFlagBar {
     open override func layoutSubviews() {
         super.layoutSubviews()
         
-        guard flagView.bounds != .zero else { return }
+        guard bounds != .zero else { return }
         
         // update frame
-        if let mask = flagView.layer.mask {
-            mask.frame = flagView.bounds
+        if let mask = layer.mask {
+            mask.frame = bounds
             return
         }
         
         // Add a mask layer
-        flagView.layer.mask = addMaskLayer(withFrame: flagView.bounds)
+        layer.mask = addMaskLayer(withFrame: bounds)
     }
 }
 
@@ -132,9 +195,7 @@ private extension ColaCupFlagBar {
         let maskLayer = CAGradientLayer()
         maskLayer.frame = frame
         
-        let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-        
-        let padding: CGFloat = layout?.sectionInset.left ?? 0
+        let padding: CGFloat = ColaCupFlagBar.padding
         
         let firstBoundaryLine = padding / frame.size.width
         let secondBoundaryLine = (frame.size.width - padding) / frame.size.width

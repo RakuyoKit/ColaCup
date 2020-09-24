@@ -78,11 +78,6 @@ open class ColaCupController: UIViewController {
         bar.translatesAutoresizingMaskIntoConstraints = false
         bar.backgroundColor = .white
         
-        bar.collectionView.register(LogFlagCell.self, forCellWithReuseIdentifier: "LogFlagCell")
-        
-        bar.collectionView.delegate = self
-        bar.collectionView.dataSource = self
-        
         return bar
     }()
     
@@ -170,6 +165,7 @@ private extension ColaCupController {
             headerView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20)
         ])
         
+        headerView.setContentCompressionResistancePriority(.required, for: .vertical)
         headerView.setContentHuggingPriority(.required, for: .vertical)
         
         // searchBar
@@ -181,14 +177,15 @@ private extension ColaCupController {
         
         searchBar.setContentHuggingPriority(.required, for: .vertical)
         
-        // categoryBar
+        // flagBar
         NSLayoutConstraint.activate([
             flagBar.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             flagBar.leftAnchor.constraint(equalTo: searchBar.leftAnchor),
             flagBar.rightAnchor.constraint(equalTo: searchBar.rightAnchor),
             flagBar.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -12),
-            flagBar.heightAnchor.constraint(equalToConstant: 37)
         ])
+        
+        flagBar.setContentHuggingPriority(.required, for: .vertical)
         
         // logsView
         NSLayoutConstraint.activate([
@@ -217,7 +214,7 @@ private extension ColaCupController {
             
             this.loadingView.isHidden = true
             
-            this.flagBar.collectionView.reloadData()
+            this.flagBar.setFlags(this.viewModel.flags)
             this.logsView.reloadData()
         }
     }
@@ -271,7 +268,7 @@ extension ColaCupController: ColaCupPopoverDelegate {
                 
                 this.loadingView.isHidden = true
                 
-                this.flagBar.collectionView.reloadData()
+                this.reloadFlagData()
                 this.logsView.reloadData()
             }
             
@@ -291,7 +288,7 @@ extension ColaCupController: ColaCupPopoverDelegate {
             
             this.loadingView.isHidden = true
             
-            this.flagBar.collectionView.reloadData()
+            this.reloadFlagData()
             this.logsView.reloadData()
         }
     }
@@ -308,117 +305,61 @@ extension ColaCupController: UINavigationControllerDelegate {
     }
 }
 
-// MARK: - UICollectionViewDelegate
-
-extension ColaCupController: UICollectionViewDelegate {
-    
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        loadingView.isHidden = false
-        
-        // Move to the middle when clicked
-        collectionView.scrollToItem(
-            at: indexPath,
-            at: [.centeredVertically, .centeredHorizontally],
-            animated: true
-        )
-        
-        viewModel.selectedFlag(at: indexPath.item) { [weak self] in
-            
-            guard let this = self else { return }
-            
-            this.loadingView.isHidden = true
-            this.logsView.reloadData()
-            
-            $0.forEach {
-                collectionView.cellForItem(at: IndexPath(item: $0, section: 0))?.isSelected = true
-            }
-            
-            $1.forEach {
-                collectionView.cellForItem(at: IndexPath(item: $0, section: 0))?.isSelected = false
-            }
-        }
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        
-        guard indexPath.row != 0 else { return }
-        
-        loadingView.isHidden = false
-        
-        viewModel.deselectedFlag(at: indexPath.item) { [weak self] in
-            
-            guard let this = self else { return }
-            
-            this.loadingView.isHidden = true
-            this.logsView.reloadData()
-            
-            $0.forEach {
-                collectionView.cellForItem(at: IndexPath(item: $0, section: 0))?.isSelected = true
-            }
-            
-            $1.forEach {
-                collectionView.cellForItem(at: IndexPath(item: $0, section: 0))?.isSelected = false
-            }
-        }
-    }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-
-extension ColaCupController: UICollectionViewDelegateFlowLayout {
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let model = viewModel.flags[indexPath.item]
-        
-        if let size = model.size { return size }
-        
-        let height: CGFloat = 37
-        
-        let width = (model.title as NSString).boundingRect(
-            with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: height),
-            options: [.usesLineFragmentOrigin, .usesFontLeading],
-            attributes: [.font : UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)],
-            context: nil
-        ).width
-        
-        let minWidth: CGFloat = 50
-        
-        // When greater than the minimum width,
-        // a total of 112 spaces between the left and right sides are given.
-        let size = CGSize(
-            width: (width > minWidth) ? (width + 12) : minWidth,
-            height: height
-        )
-        
-        viewModel.flags[indexPath.item].size = size
-        
-        return size
-    }
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension ColaCupController: UICollectionViewDataSource {
-    
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return viewModel.flags.count
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LogFlagCell", for: indexPath) as! LogFlagCell
-        
-        let model = viewModel.flags[indexPath.item]
-        
-        cell.isSelected = model.isSelected
-        cell.titleLabel.text = model.title
-        
-        return cell
-    }
-}
+//// MARK: - UICollectionViewDelegate
+//
+//extension ColaCupController: UICollectionViewDelegate {
+//
+//    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//
+//        loadingView.isHidden = false
+//
+//        // Move to the middle when clicked
+//        collectionView.scrollToItem(
+//            at: indexPath,
+//            at: [.centeredVertically, .centeredHorizontally],
+//            animated: true
+//        )
+//
+//        viewModel.selectedFlag(at: indexPath.item) { [weak self] in
+//
+//            guard let this = self else { return }
+//
+//            this.loadingView.isHidden = true
+//            this.logsView.reloadData()
+//
+//            $0.forEach {
+//                collectionView.cellForItem(at: IndexPath(item: $0, section: 0))?.isSelected = true
+//            }
+//
+//            $1.forEach {
+//                collectionView.cellForItem(at: IndexPath(item: $0, section: 0))?.isSelected = false
+//            }
+//        }
+//    }
+//
+//    public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+//
+//        guard indexPath.row != 0 else { return }
+//
+//        loadingView.isHidden = false
+//
+//        viewModel.deselectedFlag(at: indexPath.item) { [weak self] in
+//
+//            guard let this = self else { return }
+//
+//            this.loadingView.isHidden = true
+//            this.logsView.reloadData()
+//
+//            $0.forEach {
+//                collectionView.cellForItem(at: IndexPath(item: $0, section: 0))?.isSelected = true
+//            }
+//
+//            $1.forEach {
+//                collectionView.cellForItem(at: IndexPath(item: $0, section: 0))?.isSelected = false
+//            }
+//        }
+//    }
+//}
 
 // MARK: - UITableViewDelegate
 
@@ -454,5 +395,14 @@ extension ColaCupController: UITableViewDataSource {
         cell.logLabel.text = log.safeLog
         
         return cell
+    }
+}
+
+// MARK: - Tools
+
+private extension ColaCupController {
+    
+    func reloadFlagData() {
+        flagBar.reloadData(flags: viewModel.flags)
     }
 }

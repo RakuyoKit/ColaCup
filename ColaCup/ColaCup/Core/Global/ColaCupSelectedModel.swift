@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import struct CoreGraphics.CGSize
 
 /// Model used to mark whether it is selected
 public struct ColaCupSelectedModel: Equatable {
@@ -22,9 +21,6 @@ public struct ColaCupSelectedModel: Equatable {
     
     /// The title of item.
     public let title: String
-    
-    /// Used to cache the size of certain elements. The default is `nil`.
-    public var size: CGSize? = nil
 }
 
 extension ColaCupSelectedModel {
