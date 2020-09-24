@@ -46,7 +46,7 @@ open class ColaCupFlagBar: UIView {
     }()
     
     /// The parent view of flags, and its child views are all of the type `LogFlagButton`.
-    open lazy var stackView: UIStackView = {
+    open lazy var flagsView: UIStackView = {
         
         let view = UIStackView()
         
@@ -80,7 +80,7 @@ extension ColaCupFlagBar {
             
             button.addTarget(self, action: #selector(flagButtonDidClick(_:)), for: .touchUpInside)
             
-            stackView.addArrangedSubview(button)
+            flagsView.addArrangedSubview(button)
             
             button.setContentHuggingPriority(.required, for: .horizontal)
             button.setContentHuggingPriority(.required, for: .vertical)
@@ -92,7 +92,7 @@ extension ColaCupFlagBar {
     /// - Parameter flags: New data source.
     open func reloadData(flags: [ColaCupSelectedModel]) {
         
-        let diff = flags.count - stackView.arrangedSubviews.count
+        let diff = flags.count - flagsView.arrangedSubviews.count
         
         if diff > 0 {
             for _ in 0 ..< diff {
@@ -101,7 +101,7 @@ extension ColaCupFlagBar {
                 
                 button.addTarget(self, action: #selector(flagButtonDidClick(_:)), for: .touchUpInside)
                 
-                stackView.addArrangedSubview(button)
+                flagsView.addArrangedSubview(button)
                 
                 button.setContentHuggingPriority(.required, for: .horizontal)
                 button.setContentHuggingPriority(.required, for: .vertical)
@@ -110,7 +110,7 @@ extension ColaCupFlagBar {
         
         for i in 0 ..< flags.count {
             
-            let button = stackView.arrangedSubviews[i] as? LogFlagButton
+            let button = flagsView.arrangedSubviews[i] as? LogFlagButton
             
             button?.tag = i
             button?.isHidden = false
@@ -121,10 +121,10 @@ extension ColaCupFlagBar {
         // Hide redundant views
         guard diff != 0 else { return }
         
-        let count = stackView.arrangedSubviews.count
+        let count = flagsView.arrangedSubviews.count
         
         for i in (count + diff) ..< count {
-            stackView.arrangedSubviews[i].isHidden = true
+            flagsView.arrangedSubviews[i].isHidden = true
         }
     }
 }
@@ -138,7 +138,7 @@ extension ColaCupFlagBar {
         var offset = button.frame.midX - scrollView.frame.width * 0.5
         
         let _max = -scrollView.contentInset.left
-        let _min = stackView.frame.width - scrollView.frame.width + scrollView.contentInset.right
+        let _min = flagsView.frame.width - scrollView.frame.width + scrollView.contentInset.right
         
         offset = min(max(offset, _max), _min)
         
@@ -166,7 +166,7 @@ private extension ColaCupFlagBar {
     func addSubviews() {
         
         addSubview(scrollView)
-        scrollView.addSubview(stackView)
+        scrollView.addSubview(flagsView)
     }
     
     func addInitialLayout() {
@@ -179,15 +179,15 @@ private extension ColaCupFlagBar {
         ])
         
         NSLayoutConstraint.activate([
-            stackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
-            stackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
-            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            flagsView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
+            flagsView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
+            flagsView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            flagsView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            flagsView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
         ])
         
-        stackView.setContentHuggingPriority(.required, for: .horizontal)
-        stackView.setContentHuggingPriority(.required, for: .vertical)
+        flagsView.setContentHuggingPriority(.required, for: .horizontal)
+        flagsView.setContentHuggingPriority(.required, for: .vertical)
     }
 }
 
