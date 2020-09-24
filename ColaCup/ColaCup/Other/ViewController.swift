@@ -15,7 +15,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Log.debug("debug log")
+        Log.debug("Test a very very long log to see what the final effect will look like.")
+        Log.debug("顺带再测试一下中文的效果，实际上的日志基本上都会是这个长度的。甚至还要再长一点，毕竟有的时候一行打不下")
         Log.warning("warning log")
         Log.success("success log")
         Log.error("error log")

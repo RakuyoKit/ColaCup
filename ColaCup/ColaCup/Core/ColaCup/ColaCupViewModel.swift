@@ -54,14 +54,15 @@ public extension ColaCupViewModel {
                 DispatchQueue.main.async(execute: completion)
             }
             
-            this.logs = {
+            this.logs = { () -> [Log] in
                 
                 if let date = this.selectedDate {
                     return this.logManager.readLogFromDisk(logDate: date) ?? []
                 }
                 
                 return this.logManager.logs
-            }()
+                
+            }().reversed()
             
             guard !this.logs.isEmpty else {
                 this.flags = [all]
@@ -108,14 +109,15 @@ public extension ColaCupViewModel {
                 DispatchQueue.main.async(execute: completion)
             }
             
-            let tmpLogs: [Log] = {
+            let tmpLogs: [Log] = { () -> [Log] in
                 
                 if let date = this.selectedDate {
                     return this.logManager.readLogFromDisk(logDate: date) ?? []
                 }
                 
                 return this.logManager.logs
-            }()
+                
+            }().reversed()
             
             let selectModules = this.modules.filter { $0.isSelected }.map { $0.title }
             

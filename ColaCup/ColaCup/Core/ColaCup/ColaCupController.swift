@@ -93,7 +93,16 @@ open class ColaCupController: UIViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
+        tableView.rowHeight =  UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
+        
+        tableView.separatorColor = UIColor.theme.withAlphaComponent(0.2)
+        
         tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.register(LogCell.self, forCellReuseIdentifier: "LogCell")
+        
         return tableView
     }()
     
@@ -389,3 +398,26 @@ extension ColaCupController: UITableViewDelegate {
     }
 }
 
+// MARK: - UITableViewDataSource
+
+extension ColaCupController: UITableViewDataSource {
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.logs.count
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LogCell", for: indexPath) as! LogCell
+        
+        cell.separatorInset = .zero
+        
+        let log = viewModel.logs[indexPath.row]
+        
+        cell.flagLabel.text = log.flag
+        cell.timeLabel.text = log.formatTime
+        cell.logLabel.text = log.safeLog
+        
+        return cell
+    }
+}

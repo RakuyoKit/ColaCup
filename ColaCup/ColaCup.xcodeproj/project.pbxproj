@@ -18,6 +18,7 @@
 		3A9CF60D251B24330060EC6F /* ColaCupPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9CF60C251B24330060EC6F /* ColaCupPopover.swift */; };
 		3AB7E75F2519A70700E55926 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7E75E2519A70700E55926 /* DetailsViewController.swift */; };
 		3AB7E7CA2519C17100E55926 /* ColaCupSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */; };
+		3AC29027251C3F21007CCD49 /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC29026251C3F21007CCD49 /* LogCell.swift */; };
 		3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFAF25198C8D00D2CD16 /* AppDelegate.swift */; };
 		3AD9BFB425198C8D00D2CD16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFB325198C8D00D2CD16 /* ViewController.swift */; };
 		3AD9BFB725198C8D00D2CD16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AD9BFB525198C8D00D2CD16 /* Main.storyboard */; };
@@ -59,6 +60,7 @@
 		3A9CF60C251B24330060EC6F /* ColaCupPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupPopover.swift; sourceTree = "<group>"; };
 		3AB7E75E2519A70700E55926 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupSearchBar.swift; sourceTree = "<group>"; };
+		3AC29026251C3F21007CCD49 /* LogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCell.swift; sourceTree = "<group>"; };
 		3AD9BFAC25198C8D00D2CD16 /* ColaCup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColaCup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AD9BFAF25198C8D00D2CD16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AD9BFB325198C8D00D2CD16 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */,
 				3A5B63DE2519F46F00E00BF5 /* ColaCupFlagBar.swift */,
 				3A9CF601251AF0840060EC6F /* LogFlagCell.swift */,
+				3AC29026251C3F21007CCD49 /* LogCell.swift */,
 			);
 			path = ColaCup;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				3A9CF602251AF0840060EC6F /* LogFlagCell.swift in Sources */,
 				3AD9BFF425198CF700D2CD16 /* ColaCupController.swift in Sources */,
 				3AB7E7CA2519C17100E55926 /* ColaCupSearchBar.swift in Sources */,
+				3AC29027251C3F21007CCD49 /* LogCell.swift in Sources */,
 				3A5B63DF2519F46F00E00BF5 /* ColaCupFlagBar.swift in Sources */,
 				3A5B63E4251ADBDD00E00BF5 /* ColaCupLoadingView.swift in Sources */,
 				3AD9BFB425198C8D00D2CD16 /* ViewController.swift in Sources */,
