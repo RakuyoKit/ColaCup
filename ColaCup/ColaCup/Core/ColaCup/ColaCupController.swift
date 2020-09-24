@@ -92,9 +92,8 @@ open class ColaCupController: UIViewController {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.layer.cornerRadius = 10
-        tableView.backgroundColor = .white
         
+        tableView.delegate = self
         return tableView
     }()
     
@@ -157,9 +156,9 @@ private extension ColaCupController {
         
         // headerView
         NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
-            headerView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10),
-            headerView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10)
+            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
+            headerView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+            headerView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20)
         ])
         
         headerView.setContentHuggingPriority(.required, for: .vertical)
@@ -184,9 +183,9 @@ private extension ColaCupController {
         
         // logsView
         NSLayoutConstraint.activate([
-            logsView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 12),
-            logsView.leftAnchor.constraint(equalTo: headerView.leftAnchor),
-            logsView.rightAnchor.constraint(equalTo: headerView.rightAnchor),
+            logsView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 15),
+            logsView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            logsView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             logsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
@@ -375,3 +374,18 @@ extension ColaCupController: UICollectionViewDataSource {
         return cell
     }
 }
+
+// MARK: - UITableViewDelegate
+
+extension ColaCupController: UITableViewDelegate {
+    
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.001
+    }
+    
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        return UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0.001))
+    }
+}
+
