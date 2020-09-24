@@ -270,7 +270,11 @@ extension ColaCupController: ColaCupPopoverDelegate {
             return
         }
         
-        guard modules != viewModel.modules else { return }
+        guard modules != viewModel.modules, !viewModel.logs.isEmpty else { return }
+        
+        loadingView.isHidden = false
+        
+        viewModel.modules = modules
         
         // Processing module data changes
         viewModel.processModuleChange { [weak self] in
