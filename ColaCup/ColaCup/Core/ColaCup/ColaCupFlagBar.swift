@@ -57,6 +57,7 @@ open class ColaCupFlagBar: UIView {
         flagCollectionView.showsHorizontalScrollIndicator = false
         
         flagCollectionView.allowsMultipleSelection = true
+        flagCollectionView.allowsSelection = true
         flagCollectionView.scrollsToTop = false
         
         return flagCollectionView

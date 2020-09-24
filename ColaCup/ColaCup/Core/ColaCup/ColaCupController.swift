@@ -278,7 +278,7 @@ extension ColaCupController: ColaCupPopoverDelegate {
             return
         }
         
-        guard modules != viewModel.modules, !viewModel.logs.isEmpty else { return }
+        guard modules != viewModel.modules, !viewModel.showLogs.isEmpty else { return }
         
         loadingView.isHidden = false
         
@@ -314,17 +314,53 @@ extension ColaCupController: UICollectionViewDelegate {
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        loadingView.isHidden = false
+        
         // Move to the middle when clicked
         collectionView.scrollToItem(
             at: indexPath,
             at: [.centeredVertically, .centeredHorizontally],
             animated: true
         )
+        
+        viewModel.selectedFlag(at: indexPath.item) { [weak self] in
+            
+            guard let this = self else { return }
+            
+            this.loadingView.isHidden = true
+            this.logsView.reloadData()
+            
+            $0.forEach {
+                collectionView.cellForItem(at: IndexPath(item: $0, section: 0))?.isSelected = true
+            }
+            
+            $1.forEach {
+                collectionView.cellForItem(at: IndexPath(item: $0, section: 0))?.isSelected = false
+            }
+        }
     }
     
     public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
+        guard indexPath.row != 0 else { return }
         
+        loadingView.isHidden = false
+        
+        viewModel.deselectedFlag(at: indexPath.item) { [weak self] in
+            
+            guard let this = self else { return }
+            
+            this.loadingView.isHidden = true
+            this.logsView.reloadData()
+            
+            $0.forEach {
+                collectionView.cellForItem(at: IndexPath(item: $0, section: 0))?.isSelected = true
+            }
+            
+            $1.forEach {
+                collectionView.cellForItem(at: IndexPath(item: $0, section: 0))?.isSelected = false
+            }
+        }
     }
 }
 
@@ -393,7 +429,6 @@ extension ColaCupController: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         return UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0.001))
     }
 }
@@ -403,7 +438,7 @@ extension ColaCupController: UITableViewDelegate {
 extension ColaCupController: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.logs.count
+        return viewModel.showLogs.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -412,7 +447,7 @@ extension ColaCupController: UITableViewDataSource {
         
         cell.separatorInset = .zero
         
-        let log = viewModel.logs[indexPath.row]
+        let log = viewModel.showLogs[indexPath.row]
         
         cell.flagLabel.text = log.flag
         cell.timeLabel.text = log.formatTime
