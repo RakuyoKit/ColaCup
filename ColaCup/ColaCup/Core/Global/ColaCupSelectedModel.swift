@@ -10,7 +10,7 @@ import Foundation
 import struct CoreGraphics.CGSize
 
 /// Model used to mark whether it is selected
-public struct ColaCupSelectedModel {
+public struct ColaCupSelectedModel: Equatable {
     
     public init(isSelected: Bool = false, title: String) {
         self.isSelected = isSelected

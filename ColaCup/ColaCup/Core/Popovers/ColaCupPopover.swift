@@ -23,7 +23,7 @@ public protocol ColaCupPopoverDelegate: class {
     ///   - modules: Module array.
     func popover(
         _ popover: ColaCupPopover,
-        willDisappearWithDate date: Date,
+        willDisappearWithDate date: Date?,
         modules: [ColaCupSelectedModel]
     )
 }
@@ -37,7 +37,7 @@ open class ColaCupPopover: UIViewController {
     ///   - appearY: Y coordinate of the point.
     ///   - date: The date of the currently viewed log.
     ///   - modules: The modules to which the currently viewed log belongs.
-    init(appearY: CGFloat, date: Date, modules: [ColaCupSelectedModel]) {
+    init(appearY: CGFloat, date: Date?, modules: [ColaCupSelectedModel]) {
         self.appearY = appearY
         self.date = date
         self.modules = modules
@@ -52,7 +52,7 @@ open class ColaCupPopover: UIViewController {
     }
     
     /// The date of the currently viewed log.
-    private var date: Date
+    private var date: Date?
     
     /// The modules to which the currently viewed log belongs.
     private var modules: [ColaCupSelectedModel]
@@ -132,6 +132,15 @@ private extension ColaCupPopover {
     }
 }
 
+// MARK: - Action
+
+extension ColaCupPopover {
+    
+    @objc open func handleDatePicker(_ datePicker: UIDatePicker) {
+        date = datePicker.date
+    }
+}
+
 // MARK: - UITableViewDelegate
 
 extension ColaCupPopover: UITableViewDelegate {
@@ -176,7 +185,8 @@ extension ColaCupPopover: UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "PopoverDatePickerCell", for: indexPath) as! PopoverDatePickerCell
             
-            cell.datePicker.date = date
+            cell.datePicker.date = date ?? Date()
+            cell.datePicker.addTarget(self, action: #selector(handleDatePicker(_:)), for: .valueChanged)
             
             return cell
         }

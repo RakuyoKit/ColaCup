@@ -209,8 +209,8 @@ private extension ColaCupController {
             
             this.loadingView.isHidden = true
             
-            this.logsView.reloadData()
             this.flagBar.collectionView.reloadData()
+            this.logsView.reloadData()
         }
     }
 }
@@ -234,7 +234,54 @@ extension ColaCupController {
             modules: viewModel.modules
         )
         
+        popover.delegate = self
+        
         present(popover, animated: true, completion: nil)
+    }
+}
+
+// MARK: - ColaCupPopoverDelegate
+
+extension ColaCupController: ColaCupPopoverDelegate {
+    
+    public func popover(_ popover: ColaCupPopover, willDisappearWithDate date: Date?, modules: [ColaCupSelectedModel]) {
+        
+        showPopoverButton.isEnabled = true
+        
+        // When changing the date, only the date is processed. Module data will be ignored.
+        //
+        // TODO: Use the module data selected by the user as a reference to process the selected state of the new module data
+        if date != viewModel.selectedDate {
+            
+            loadingView.isHidden = false
+            
+            viewModel.selectedDate = date
+            
+            viewModel.processLogs { [weak self] in
+                
+                guard let this = self else { return }
+                
+                this.loadingView.isHidden = true
+                
+                this.flagBar.collectionView.reloadData()
+                this.logsView.reloadData()
+            }
+            
+            return
+        }
+        
+        guard modules != viewModel.modules else { return }
+        
+        // Processing module data changes
+        viewModel.processModuleChange { [weak self] in
+            
+            guard let this = self else { return }
+            
+            this.loadingView.isHidden = true
+            
+            this.flagBar.collectionView.reloadData()
+            this.logsView.reloadData()
+        }
     }
 }
 

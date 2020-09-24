@@ -19,7 +19,7 @@ public class ColaCupViewModel {
     }
     
     /// The currently selected date. The default is the current day.
-    public lazy var selectedDate = Date()
+    public lazy var selectedDate: Date? = nil
     
     /// Only include the flag used in the currently viewed log. Will not repeat.
     public lazy var flags: [ColaCupSelectedModel] = []
@@ -35,16 +35,14 @@ public extension ColaCupViewModel {
     
     /// Process log data.
     ///
-    /// - Parameters:
-    ///   - date: The date of the log to be processed, if it is nil, it will be obtained directly from the log manager.
-    ///   - completion: The callback when the processing is completed will be executed on the main thread.
-    func processLogs(date: Date? = nil, completion: @escaping () -> Void) {
+    /// - Parameter completion: The callback when the processing is completed will be executed on the main thread.
+    func processLogs(completion: @escaping () -> Void) {
         
         let all = ColaCupSelectedModel(isSelected: true, title: "ALL")
         
         let logs: [Log] = {
             
-            if let date = date {
+            if let date = selectedDate {
                 return logManager.readLogFromDisk(logDate: date) ?? []
             }
             
@@ -84,5 +82,13 @@ public extension ColaCupViewModel {
             // Return to the main thread callback controller
             DispatchQueue.main.async(execute: completion)
         }
+    }
+    
+    /// Processing module data changes.
+    ///
+    /// - Parameter completion: The callback when the processing is completed will be executed on the main thread.
+    func processModuleChange(completion: @escaping () -> Void) {
+        
+        
     }
 }
