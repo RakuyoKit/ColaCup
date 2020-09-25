@@ -20,3 +20,9 @@ open class DetailsViewModel {
     
     private let log: Log
 }
+
+extension DetailsViewModel {
+    
+    /// Controller title
+    open var title: String { log.flag }
+}

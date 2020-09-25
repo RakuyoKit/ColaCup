@@ -11,7 +11,7 @@ import UIKit
 import RaLog
 
 /// Controller that displays the details of the log
-open class DetailsViewController: UIViewController {
+open class DetailsViewController: UITableViewController {
     
     /// Initialize with log data.
     ///
@@ -20,7 +20,7 @@ open class DetailsViewController: UIViewController {
         
         self.viewModel = DetailsViewModel(log: log)
         
-        super.init(nibName: nil, bundle: nil)
+        super.init(style: .insetGrouped)
     }
     
     public required init?(coder: NSCoder) {
@@ -38,7 +38,7 @@ extension DetailsViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        title = viewModel.title
         
         
     }

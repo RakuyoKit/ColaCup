@@ -131,7 +131,7 @@ extension ColaCupController {
         // Solve the problem of hidden navigation bar
         navigationController?.delegate = self
         
-        view.backgroundColor = .systemGroupedBackground
+        view.backgroundColor = logsView.backgroundColor
         
         addGesture()
         addSubviews()
