@@ -1,5 +1,5 @@
 PODS:
-  - JSONPreview (1.0.0)
+  - JSONPreview (1.0.1)
   - RaLog (1.0.1)
 
 DEPENDENCIES:
@@ -12,7 +12,7 @@ SPEC REPOS:
     - RaLog
 
 SPEC CHECKSUMS:
-  JSONPreview: bb476bf99b78a7b8aa0d6632f577a85441930cab
+  JSONPreview: 9ef4f5151f9121c243648a06fb2660eede3da2a5
   RaLog: 0c890204e33b31285bb3bad528cb7680bcd5906c
 
 PODFILE CHECKSUM: 3131c9934d5b1c41216fcf4c7d7ae65408c25cce
