@@ -55,9 +55,12 @@ extension DetailsViewModel {
         if let json = interceptJSON(from: content) {
             
             // Replace the original json to avoid repeated display.
-            let value = content.replacingOccurrences(of: json, with: "{ JSON at the bottom }")
+            dataSource[0].items[0].value = content.replacingOccurrences(
+                of: json,
+                with: "{ JSON at the bottom }"
+            )
             
-            dataSource.append(DetailsSectionModel(type: .json(json), title: "JSON", value: value))
+            dataSource.append(DetailsSectionModel(type: .json, title: "JSON", value: json))
         }
         
         return dataSource
@@ -69,8 +72,24 @@ extension DetailsViewModel {
     /// - Returns: The intercepted json string. Return nil when json is not found.
     private func interceptJSON(from string: String) -> String? {
         
+        let pattern = "(?s)(\\{.*(?=\\})\\}|\\[.*(?=\\])\\])"
         
+        // Create a regular expression object.
+        guard let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
+            return nil
+        }
         
-        return nil
+        // Start matching.
+        let res = regex.matches(in: string, options: .reportCompletion, range: NSRange(location: 0, length: string.count))
+        
+        guard !res.isEmpty else { return nil }
+        
+        let range = res[0].range
+        
+        let start = string.index(string.startIndex, offsetBy: range.location)
+        let end = string.index(start, offsetBy: range.length)
+        
+        // Intercept json.
+        return String(string[start ..< end])
     }
 }
