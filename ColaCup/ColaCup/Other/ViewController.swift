@@ -21,6 +21,8 @@ class ViewController: UIViewController {
         Log.success("success log")
         Log.error("error log")
         Log.javascript("javascript log")
+        
+        Log.debug("\n\nTry line breaks and spaces. \n\n So what?  ")
     }
     
     override func viewDidAppear(_ animated: Bool) {
