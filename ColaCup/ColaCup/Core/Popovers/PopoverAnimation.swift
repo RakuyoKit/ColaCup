@@ -44,10 +44,13 @@ class PopoverAppearAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         containerView.layer.shadowOpacity = 0.35
         containerView.layer.shadowRadius = 10
         
+        // Maximum width is 276.
+        let width = min(containerView.frame.width / 3 * 2, 276)
+        
         toView.frame = CGRect(
-            x: containerView.frame.width / 3 * 1 - 10,
+            x: containerView.frame.width - width - 20 - containerView.safeAreaInsets.right,
             y: appearY + 10,
-            width: containerView.frame.width / 3 * 2,
+            width: width,
             height: totalHeight
         )
         

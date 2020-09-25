@@ -116,6 +116,9 @@ open class ColaCupController: UIViewController {
         
         return view
     }()
+    
+    /// Whether the pop-up window is being displayed
+    private lazy var isShowingPopover = false
 }
 
 // MARK: - Life cycle
@@ -141,6 +144,13 @@ extension ColaCupController {
         super.viewWillAppear(animated)
         
         showPopoverButton.isEnabled = true
+    }
+    
+    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        if isShowingPopover {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 
@@ -243,7 +253,7 @@ extension ColaCupController {
         
         popover.delegate = self
         
-        present(popover, animated: true, completion: nil)
+        present(popover, animated: true) { self.isShowingPopover = true }
     }
 }
 
@@ -253,6 +263,7 @@ extension ColaCupController: ColaCupPopoverDelegate {
     
     public func popover(_ popover: ColaCupPopover, willDisappearWithDate date: Date?, modules: [ColaCupSelectedModel]) {
         
+        isShowingPopover = false
         showPopoverButton.isEnabled = true
         
         // When changing the date, only the date is processed. Module data will be ignored.
