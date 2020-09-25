@@ -67,6 +67,15 @@ open class ColaCupSearchBar: UIView {
     }()
 }
 
+extension ColaCupSearchBar {
+    
+    @discardableResult
+    open override func resignFirstResponder() -> Bool {
+        searchBar.resignFirstResponder()
+        return super.resignFirstResponder()
+    }
+}
+
 // MARK: - Config
 
 private extension ColaCupSearchBar {

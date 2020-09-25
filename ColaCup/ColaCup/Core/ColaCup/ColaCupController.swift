@@ -133,10 +133,9 @@ extension ColaCupController {
         
         view.backgroundColor = .systemGroupedBackground
         
+        addGesture()
         addSubviews()
-        
         addInitialLayout()
-        
         startProcessingData()
     }
     
@@ -157,6 +156,15 @@ extension ColaCupController {
 // MARK: - Config
 
 private extension ColaCupController {
+    
+    func addGesture() {
+        
+        let ges = UITapGestureRecognizer(target: searchBar, action: #selector(resignFirstResponder))
+        
+        ges.cancelsTouchesInView = false
+        
+        view.addGestureRecognizer(ges)
+    }
     
     func addSubviews() {
         
@@ -240,6 +248,8 @@ extension ColaCupController {
     ///
     /// - Parameter sender: Event trigger.
     @objc open func showPopover(_ sender: UIButton) {
+        
+        searchBar.resignFirstResponder()
         
         sender.isEnabled = false
         
