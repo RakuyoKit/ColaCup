@@ -29,6 +29,9 @@ open class DetailsViewController: UITableViewController {
     
     /// Used to process data.
     private let viewModel: DetailsViewModel
+    
+    /// Whether the tableView has been refreshed after the json has been loaded.
+    private lazy var isReloaded = false
 }
 
 // MARK: - Life cycle
@@ -101,7 +104,15 @@ extension DetailsViewController {
             
         case .json:
             let cell = _cell as! DetailsJSONCell
-            cell.jsonView.preview(model.value)
+            
+            cell.jsonView.preview(model.value) { [weak self] in
+                
+                guard let this = self, !this.isReloaded else { return }
+                
+                // The tableView needs to be refreshed to show the complete json view.
+                tableView.reloadData()
+                this.isReloaded = true
+            }
         }
         
         return _cell
