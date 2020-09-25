@@ -72,6 +72,8 @@ private extension LogCell {
     
     func config() {
         
+        separatorInset = .zero
+        
         addSubviews()
         addInitialLayout()
     }

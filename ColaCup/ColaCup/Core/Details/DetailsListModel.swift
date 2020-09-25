@@ -11,17 +11,17 @@ import Foundation
 /// The model used for the section in the detail page list.
 public struct DetailsSectionModel {
     
-    public init(title: String, items: [DetailsCellModel]) {
+    public init(title: String?, items: [DetailsCellModel]) {
         self.title = title
         self.items = items
     }
     
-    public init(type: DetailsCellType = .normal, title: String, value: String) {
+    public init(type: DetailsCellType = .normal, title: String?, value: String) {
         self.title = title
         self.items = [DetailsCellModel(type: type, value: value)]
     }
     
-    public let title: String
+    public let title: String?
     
     public let items: [DetailsCellModel]
 }

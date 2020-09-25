@@ -23,6 +23,17 @@ open class DetailsPositionCell: UITableViewCell {
         config()
     }
     
+    open lazy var iconView: UIImageView = {
+        
+        let view = UIImageView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.tintColor = .theme
+        view.contentMode = .scaleAspectFit
+        
+        return view
+    }()
+    
     open lazy var titleLabel: UILabel = {
         
         let label = UILabel()
@@ -57,6 +68,7 @@ private extension DetailsPositionCell {
     func config() {
         
         selectionStyle = .none
+        separatorInset = UIEdgeInsets(top: 0, left: 47, bottom: 0, right: 0)
         
         addSubviews()
         addInitialLayout()
@@ -64,6 +76,7 @@ private extension DetailsPositionCell {
     
     func addSubviews() {
         
+        contentView.addSubview(iconView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(valueLabel)
     }
@@ -71,9 +84,17 @@ private extension DetailsPositionCell {
     func addInitialLayout() {
         
         NSLayoutConstraint.activate([
+            iconView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15),
+            iconView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            iconView.widthAnchor.constraint(equalToConstant: 27)
+        ])
+        
+        iconView.setContentHuggingPriority(.required, for: .vertical)
+        
+        NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11.5),
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -11.5),
-            titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20)
+            titleLabel.leftAnchor.constraint(equalTo: iconView.rightAnchor, constant: 5)
         ])
         
         titleLabel.setContentHuggingPriority(.required, for: .horizontal)

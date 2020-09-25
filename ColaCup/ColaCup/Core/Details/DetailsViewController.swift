@@ -85,11 +85,19 @@ extension DetailsViewController {
             cell.titleLabel.text = model.title
             cell.valueLabel.text = model.value
             
+            if let name = model.imageName {
+                cell.iconView.image = UIImage(systemName: name)
+            }
+            
         case .function:
             let cell = _cell as! DetailsFunctionCell
             
             cell.titleLabel.text = model.title
             cell.valueLabel.text = model.value
+            
+            if let name = model.imageName {
+                cell.iconView.image = UIImage(systemName: name)
+            }
             
         case .json:
             let cell = _cell as! DetailsNormalCell

@@ -61,7 +61,7 @@ open class ColaCupController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .theme
         
-        button.setImage(UIImage(systemName: "list.dash"), for: .normal)
+        button.setImage(UIImage(systemName: "text.badge.checkmark"), for: .normal)
         
         button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25, weight: .unspecified), forImageIn: .normal)
         
@@ -381,8 +381,6 @@ extension ColaCupController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "LogCell", for: indexPath) as! LogCell
-        
-        cell.separatorInset = .zero
         
         let log = viewModel.showLogs[indexPath.row]
         

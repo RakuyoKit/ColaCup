@@ -42,10 +42,12 @@ extension DetailsViewModel {
             DetailsSectionModel(title: "Content", value: content),
             DetailsSectionModel(title: "Time", value: log.formatTime),
             DetailsSectionModel(title: "Position", items: [
-                DetailsCellModel(type: .position, image: "", title: "Module", value: log.module),
-                DetailsCellModel(type: .position, image: "", title: "File", value: log.file),
-                DetailsCellModel(type: .position, image: "", title: "Line", value: "\(log.line)"),
-                DetailsCellModel(type: .function, image: "", title: "Function", value: log.function),
+                DetailsCellModel(type: .position, image: "cube.transparent", title: "Module", value: log.module),
+                DetailsCellModel(type: .position, image: "doc.text", title: "File", value: log.file),
+                DetailsCellModel(type: .position, image: "number", title: "Line", value: "\(log.line)"),
+            ]),
+            DetailsSectionModel(title: nil, items: [
+                DetailsCellModel(type: .function, image: "function", title: "Function", value: log.function),
             ]),
         ]
         
