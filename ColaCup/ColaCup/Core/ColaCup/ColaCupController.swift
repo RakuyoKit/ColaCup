@@ -143,6 +143,9 @@ extension ColaCupController {
         super.viewWillAppear(animated)
         
         showPopoverButton.isEnabled = true
+        
+        // Cancel the selected effect of the selected Cell.
+        deselectRowIfNeeded()
     }
     
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -360,6 +363,11 @@ extension ColaCupController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0.001))
     }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        navigationController?.pushViewController(DetailsViewController(log: viewModel.showLogs[indexPath.row]), animated: true)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -389,6 +397,27 @@ extension ColaCupController: UITableViewDataSource {
 // MARK: - Tools
 
 private extension ColaCupController {
+    
+    /// Cancel the selected effect of the selected Cell.
+    func deselectRowIfNeeded() {
+        
+        guard let selectedIndexPath = logsView.indexPathForSelectedRow else { return }
+
+        guard let coordinator = transitionCoordinator else {
+            logsView.deselectRow(at: selectedIndexPath, animated: true)
+            return
+        }
+
+        coordinator.animate(
+            alongsideTransition: { _ in
+                self.logsView.deselectRow(at: selectedIndexPath, animated: true)
+            },
+            completion: { context in
+                guard context.isCancelled else { return }
+                self.logsView.selectRow(at: selectedIndexPath, animated: false, scrollPosition: .none)
+            }
+        )
+    }
     
     func reloadFlagData() {
         flagBar.reloadData(flags: viewModel.flags)
