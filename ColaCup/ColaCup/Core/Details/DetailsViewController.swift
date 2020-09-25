@@ -43,17 +43,10 @@ extension DetailsViewController {
         tableView.rowHeight =  UITableView.automaticDimension
         tableView.estimatedRowHeight = 50
         
-        tableView.separatorColor = UIColor.theme.withAlphaComponent(0.2)
+        tableView.separatorColor = UIColor.normalText.withAlphaComponent(0.2)
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+        DetailsCellType.allCases.forEach(tableView.register(withType:))
     }
-}
-
-// MARK: - UITableViewDelegate
-
-extension DetailsViewController {
-    
-    
 }
 
 // MARK: - UITableViewDataSource
@@ -75,13 +68,58 @@ extension DetailsViewController {
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
-        
         let model = viewModel.dataSource[indexPath.section].items[indexPath.row]
         
-        cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.text = model.value
+        let _cell = tableView.dequeueReusableCell(withIdentifier: model.type.rawValue, for: indexPath)
         
-        return cell
+        switch model.type {
+        
+        case .normal:
+            let cell = _cell as! DetailsNormalCell
+            
+            cell.textLabel?.text = model.value
+            
+        case .position:
+            let cell = _cell as! DetailsPositionCell
+            
+            cell.titleLabel.text = model.title
+            cell.valueLabel.text = model.value
+            
+        case .function:
+            let cell = _cell as! DetailsFunctionCell
+            
+            cell.titleLabel.text = model.title
+            cell.valueLabel.text = model.value
+            
+        case .json:
+            let cell = _cell as! DetailsNormalCell
+            
+            
+            
+        }
+        
+        return _cell
+    }
+}
+
+// MARK: - Tools
+
+fileprivate extension DetailsCellType {
+    
+    var cellClass: AnyClass {
+        
+        switch self {
+        case .normal:   return DetailsNormalCell.self
+        case .position: return DetailsPositionCell.self
+        case .function: return DetailsFunctionCell.self
+        case .json:     return DetailsNormalCell.self
+        }
+    }
+}
+
+fileprivate extension UITableView {
+    
+    func register(withType type: DetailsCellType) {
+        register(type.cellClass, forCellReuseIdentifier: type.rawValue)
     }
 }

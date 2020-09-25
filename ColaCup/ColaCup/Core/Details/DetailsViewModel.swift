@@ -42,16 +42,16 @@ extension DetailsViewModel {
             DetailsSectionModel(title: "Content", value: content),
             DetailsSectionModel(title: "Time", value: log.formatTime),
             DetailsSectionModel(title: "Position", items: [
-                DetailsCellModel(imageName: "", title: "Module", value: log.module),
-                DetailsCellModel(imageName: "", title: "File", value: log.file),
-                DetailsCellModel(imageName: "", title: "Line", value: "\(log.line)"),
-                DetailsCellModel(imageName: "", title: "Function", value: log.function),
+                DetailsCellModel(type: .position, image: "", title: "Module", value: log.module),
+                DetailsCellModel(type: .position, image: "", title: "File", value: log.file),
+                DetailsCellModel(type: .position, image: "", title: "Line", value: "\(log.line)"),
+                DetailsCellModel(type: .function, image: "", title: "Function", value: log.function),
             ]),
         ]
         
         if !content.isEmpty {
             let json = ""
-            dataSource.append(DetailsSectionModel(title: "JSON", value: json))
+            dataSource.append(DetailsSectionModel(type: .json, title: "JSON", value: json))
         }
         
         return dataSource

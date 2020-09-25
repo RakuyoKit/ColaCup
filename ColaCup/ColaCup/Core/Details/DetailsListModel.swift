@@ -16,9 +16,9 @@ public struct DetailsSectionModel {
         self.items = items
     }
     
-    public init(title: String, value: String) {
+    public init(type: DetailsCellType = .normal, title: String, value: String) {
         self.title = title
-        self.items = [DetailsCellModel(imageName: nil, title: nil, value: value)]
+        self.items = [DetailsCellModel(type: type, value: value)]
     }
     
     public let title: String
@@ -26,14 +26,38 @@ public struct DetailsSectionModel {
     public let items: [DetailsCellModel]
 }
 
+/// Type of detail page cell
+public enum DetailsCellType: String, CaseIterable {
+    
+    /// Used to show general content
+    case normal
+    
+    /// Used to show log position
+    case position
+    
+    /// Used to show function names
+    case function
+    
+    /// Used to show json
+    case json
+}
+
 /// The model used for the cell in the detail page list.
 public struct DetailsCellModel {
     
-    public init(imageName: String?, title: String?, value: String) {
-        self.imageName = imageName
+    public init(
+        type: DetailsCellType = .normal,
+        image: String? = nil,
+        title: String? = nil,
+        value: String
+    ) {
+        self.type = type
+        self.imageName = image
         self.title = title
         self.value = value
     }
+    
+    public let type: DetailsCellType
     
     public let imageName: String?
     
