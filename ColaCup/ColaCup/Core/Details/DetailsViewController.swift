@@ -40,6 +40,48 @@ extension DetailsViewController {
         
         title = viewModel.title
         
+        tableView.rowHeight =  UITableView.automaticDimension
+        tableView.estimatedRowHeight = 50
         
+        tableView.separatorColor = UIColor.theme.withAlphaComponent(0.2)
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension DetailsViewController {
+    
+    
+}
+
+// MARK: - UITableViewDataSource
+
+extension DetailsViewController {
+    
+    open override func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.dataSource.count
+    }
+    
+    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.dataSource[section].items.count
+    }
+    
+    open override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return viewModel.dataSource[section].title
+    }
+    
+    open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
+        
+        let model = viewModel.dataSource[indexPath.section].items[indexPath.row]
+        
+        cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.text = model.value
+        
+        return cell
     }
 }

@@ -8,15 +8,36 @@
 
 import Foundation
 
-/// Model used for detail page listing
-public struct DetailsListModel {
+/// The model used for the section in the detail page list.
+public struct DetailsSectionModel {
     
-    init(title: String, value: String) {
+    public init(title: String, items: [DetailsCellModel]) {
+        self.title = title
+        self.items = items
+    }
+    
+    public init(title: String, value: String) {
+        self.title = title
+        self.items = [DetailsCellModel(imageName: nil, title: nil, value: value)]
+    }
+    
+    public let title: String
+    
+    public let items: [DetailsCellModel]
+}
+
+/// The model used for the cell in the detail page list.
+public struct DetailsCellModel {
+    
+    public init(imageName: String?, title: String?, value: String) {
+        self.imageName = imageName
         self.title = title
         self.value = value
     }
     
-    public let title: String
+    public let imageName: String?
+    
+    public let title: String?
     
     public let value: String
 }
