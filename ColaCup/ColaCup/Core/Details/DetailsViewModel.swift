@@ -34,7 +34,7 @@ extension DetailsViewModel {
 extension DetailsViewModel {
     
     /// Create list data source
-    func createDataSource() -> [DetailsSectionModel] {
+    public func createDataSource() -> [DetailsSectionModel] {
         
         let content = log.safeLog.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -51,11 +51,26 @@ extension DetailsViewModel {
             ]),
         ]
         
-        if !content.isEmpty {
-            let json = content
-            dataSource.append(DetailsSectionModel(type: .json, title: "JSON", value: json))
+        // Find and intercept json from the log.
+        if let json = interceptJSON(from: content) {
+            
+            // Replace the original json to avoid repeated display.
+            let value = content.replacingOccurrences(of: json, with: "{ JSON at the bottom }")
+            
+            dataSource.append(DetailsSectionModel(type: .json(json), title: "JSON", value: value))
         }
         
         return dataSource
+    }
+    
+    /// Find and intercept json from the given string.
+    ///
+    /// - Parameter string: Range string.
+    /// - Returns: The intercepted json string. Return nil when json is not found.
+    private func interceptJSON(from string: String) -> String? {
+        
+        
+        
+        return nil
     }
 }

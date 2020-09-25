@@ -70,7 +70,10 @@ extension DetailsViewController {
         
         let model = viewModel.dataSource[indexPath.section].items[indexPath.row]
         
-        let _cell = tableView.dequeueReusableCell(withIdentifier: model.type.rawValue, for: indexPath)
+        let _cell = tableView.dequeueReusableCell(
+            withIdentifier: model.type.reuseIdentifier,
+            for: indexPath
+        )
         
         switch model.type {
         
@@ -99,9 +102,9 @@ extension DetailsViewController {
                 cell.iconView.image = UIImage(systemName: name)
             }
             
-        case .json:
+        case .json(let json):
             let cell = _cell as! DetailsJSONCell
-            cell.jsonView.preview(model.value)
+            cell.jsonView.preview(json)
         }
         
         return _cell
@@ -121,11 +124,20 @@ fileprivate extension DetailsCellType {
         case .json:     return DetailsJSONCell.self
         }
     }
+    
+    var reuseIdentifier: String {
+        switch self {
+        case .normal:   return "normal"
+        case .position: return "position"
+        case .function: return "function"
+        case .json:     return "json"
+        }
+    }
 }
 
 fileprivate extension UITableView {
     
     func register(withType type: DetailsCellType) {
-        register(type.cellClass, forCellReuseIdentifier: type.rawValue)
+        register(type.cellClass, forCellReuseIdentifier: type.reuseIdentifier)
     }
 }

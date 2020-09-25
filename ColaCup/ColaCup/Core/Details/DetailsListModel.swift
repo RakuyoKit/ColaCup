@@ -27,7 +27,9 @@ public struct DetailsSectionModel {
 }
 
 /// Type of detail page cell
-public enum DetailsCellType: String, CaseIterable {
+public enum DetailsCellType: CaseIterable {
+    
+    public static var allCases: [DetailsCellType] = [ .normal, .position, .function, .json("") ]
     
     /// Used to show general content
     case normal
@@ -39,7 +41,7 @@ public enum DetailsCellType: String, CaseIterable {
     case function
     
     /// Used to show json
-    case json
+    case json(String)
 }
 
 /// The model used for the cell in the detail page list.
