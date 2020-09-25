@@ -23,6 +23,8 @@ class ViewController: UIViewController {
         Log.javascript("javascript log")
         
         Log.debug("\n\nTry line breaks and spaces. \n\n So what?  ")
+        
+        tableView(tableView: nil, cellForRowAt: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -43,5 +45,12 @@ class ViewController: UIViewController {
         
         // Show ColaCupController
         present(UINavigationController(rootViewController: controller), animated: true, completion: nil)
+    }
+    
+    open func tableView(tableView: UITableView?, cellForRowAt indexPath: IndexPath?) -> UITableViewCell? {
+        
+        Log.debug("试一试这个长度")
+        
+        return nil
     }
 }
