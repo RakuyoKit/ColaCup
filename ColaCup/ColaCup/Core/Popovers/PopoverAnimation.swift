@@ -36,47 +36,89 @@ class PopoverAppearAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
-        guard let toView = transitionContext.view(forKey: .to) else { return }
+        // 1. Create target view.
+        guard let toView = createToView(from: transitionContext) else { return }
         
         let containerView = transitionContext.containerView
-        
-        containerView.layer.shadowColor = UIColor.lightGray.cgColor
-        containerView.layer.shadowOpacity = 0.35
-        containerView.layer.shadowRadius = 10
         
         // Maximum width is 276.
         let width = min(containerView.frame.width / 3 * 2, 276)
         
-        toView.frame = CGRect(
-            x: containerView.frame.width - width - 20 - containerView.safeAreaInsets.right,
-            y: appearY + 10,
-            width: width,
-            height: totalHeight
-        )
+        let x = containerView.frame.width - width - 20 - containerView.safeAreaInsets.right
         
-        let oldFrame = toView.frame
-        toView.layer.anchorPoint = CGPoint(x: 0.9, y: 0)
-        toView.frame = oldFrame
+        // 2. Set the frame to the target view.
+        toView.frame = CGRect(x: x, y: appearY + 10, width: width, height: totalHeight)
         
-        toView.transform = CGAffineTransform(scaleX: 0.0001, y: 0.0001)
+        // 3. Add shadows to the target views.
+        let newView = addShadow(to: toView)
         
-        toView.alpha = 0
+        // 4. Set some initial values for animation properties.
+        configToViewAnimate(newView)
+        
+        // 5. Add to the container view.
+        containerView.addSubview(newView)
+        
+        // 6. Start animation.
+        startAnimate(with: newView, using: transitionContext)
+    }
+}
+
+private extension PopoverAppearAnimation {
+    
+    func createToView(from transitionContext: UIViewControllerContextTransitioning) -> UIView? {
+        
+        guard let toView = transitionContext.view(forKey: .to) else { return nil }
         
         toView.layer.cornerRadius = 10
         toView.layer.masksToBounds = true
+        toView.layer.shouldRasterize = true
+        toView.layer.rasterizationScale = UIScreen.main.scale
         
-        containerView.addSubview(toView)
+        return toView
+    }
+    
+    func configToViewAnimate(_ view: UIView) {
+        
+        let oldFrame = view.frame
+        view.layer.anchorPoint = CGPoint(x: 0.9, y: 0)
+        view.frame = oldFrame
+        
+        view.transform = CGAffineTransform(scaleX: 0.0001, y: 0.0001)
+        view.alpha = 0
+    }
+    
+    func addShadow(to view: UIView) -> UIView {
+        
+        let shadowView = UIView()
+        
+        shadowView.backgroundColor = .clear
+        shadowView.layer.shadowColor = UIColor.lightGray.cgColor
+        shadowView.layer.shadowRadius = 10
+        shadowView.layer.shadowOpacity = 0.35
+        
+        shadowView.frame = view.frame
+        view.frame.origin = .zero
+        
+        shadowView.addSubview(view)
+        
+        return shadowView
+    }
+    
+    func startAnimate(
+        with view: UIView,
+        using transitionContext: UIViewControllerContextTransitioning
+    ) {
         
         let duration = transitionDuration(using: transitionContext)
         
         UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveLinear, animations: {
-
-            toView.transform = CGAffineTransform(scaleX: 1, y: 1)
-            toView.alpha = 1
-
+            
+            view.transform = CGAffineTransform(scaleX: 1, y: 1)
+            view.alpha = 1
+            
         }, completion: { _ in
             
-            toView.transform = .identity
+            view.transform = .identity
             transitionContext.completeTransition(true)
         })
     }
@@ -98,17 +140,17 @@ class PopoverDisappearAnimation: NSObject, UIViewControllerAnimatedTransitioning
         
         UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveLinear, animations: {
 
-            fromView.transform = CGAffineTransform(scaleX: 0.0001, y: 0.0001)
-            fromView.alpha = 0
+            fromView.superview?.transform = CGAffineTransform(scaleX: 0.0001, y: 0.0001)
+            fromView.superview?.alpha = 0
 
         }, completion: { _ in
             
             let isComplete = !transitionContext.transitionWasCancelled
             
             if isComplete {
-                fromView.isHidden = true
-                fromView.transform = .identity
-                fromView.removeFromSuperview()
+                fromView.superview?.isHidden = true
+                fromView.superview?.transform = .identity
+                fromView.superview?.removeFromSuperview()
             }
             
             transitionContext.completeTransition(isComplete)
