@@ -100,10 +100,8 @@ extension DetailsViewController {
             }
             
         case .json:
-            let cell = _cell as! DetailsNormalCell
-            
-            
-            
+            let cell = _cell as! DetailsJSONCell
+            cell.jsonView.preview(model.value)
         }
         
         return _cell
@@ -120,7 +118,7 @@ fileprivate extension DetailsCellType {
         case .normal:   return DetailsNormalCell.self
         case .position: return DetailsPositionCell.self
         case .function: return DetailsFunctionCell.self
-        case .json:     return DetailsNormalCell.self
+        case .json:     return DetailsJSONCell.self
         }
     }
 }

@@ -52,7 +52,7 @@ extension DetailsViewModel {
         ]
         
         if !content.isEmpty {
-            let json = ""
+            let json = content
             dataSource.append(DetailsSectionModel(type: .json, title: "JSON", value: json))
         }
         

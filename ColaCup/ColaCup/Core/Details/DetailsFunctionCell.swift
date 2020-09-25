@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// Used in the detail page, the cell that displays the function content
+/// Used in the detail page, the cell that displays the function content.
 open class DetailsFunctionCell: UITableViewCell {
     
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

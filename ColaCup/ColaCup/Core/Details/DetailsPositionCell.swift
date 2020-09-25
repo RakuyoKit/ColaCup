@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// Used in the detail page, the cell that displays the position content
+/// Used in the detail page, the cell that displays the position content.
 open class DetailsPositionCell: UITableViewCell {
     
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
