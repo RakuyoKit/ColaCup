@@ -13,15 +13,22 @@ import RaLog
 /// Controller that displays the details of the log
 open class DetailsViewController: UIViewController {
     
+    /// Initialize with log data.
+    ///
+    /// - Parameter log: The detailed log data to be viewed.
     public init(log: Log) {
+        
+        self.viewModel = DetailsViewModel(log: log)
+        
         super.init(nibName: nil, bundle: nil)
-        
-        
     }
     
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    /// Used to process data.
+    private let viewModel: DetailsViewModel
 }
 
 // MARK: - Life cycle
