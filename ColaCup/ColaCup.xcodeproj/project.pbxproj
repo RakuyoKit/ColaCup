@@ -30,6 +30,7 @@
 		3AD9BFF525198CF700D2CD16 /* ColaCupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */; };
 		3AE8043B251D95AF00CDB15B /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE8043A251D95AF00CDB15B /* DetailsViewModel.swift */; };
 		3AE80443251D9BD700CDB15B /* DetailsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE80442251D9BD700CDB15B /* DetailsListModel.swift */; };
+		3AE8044E251DB29500CDB15B /* DetailsPositionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE8044D251DB29500CDB15B /* DetailsPositionCell.swift */; };
 		87ED5FC480197ED5C837C496 /* Pods_ColaCup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73412698BDDB3F5B426CF181 /* Pods_ColaCup.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 		3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColaCupViewModel.swift; sourceTree = "<group>"; };
 		3AE8043A251D95AF00CDB15B /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 		3AE80442251D9BD700CDB15B /* DetailsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsListModel.swift; sourceTree = "<group>"; };
+		3AE8044D251DB29500CDB15B /* DetailsPositionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPositionCell.swift; sourceTree = "<group>"; };
 		492D2049C2A0FF58F1AAEAE7 /* Pods-ColaCup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColaCup.release.xcconfig"; path = "Target Support Files/Pods-ColaCup/Pods-ColaCup.release.xcconfig"; sourceTree = "<group>"; };
 		73412698BDDB3F5B426CF181 /* Pods_ColaCup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColaCup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A63FB274D55AA5DC3170E95B /* Pods-ColaCup.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColaCup.debug.xcconfig"; path = "Target Support Files/Pods-ColaCup/Pods-ColaCup.debug.xcconfig"; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				3AE80442251D9BD700CDB15B /* DetailsListModel.swift */,
 				3AE8043A251D95AF00CDB15B /* DetailsViewModel.swift */,
 				3AB7E75E2519A70700E55926 /* DetailsViewController.swift */,
+				3AE8044D251DB29500CDB15B /* DetailsPositionCell.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A65ABB2251B399300943B39 /* PopoverAnimation.swift in Sources */,
+				3AE8044E251DB29500CDB15B /* DetailsPositionCell.swift in Sources */,
 				3A65A7AF251B312D00943B39 /* PopoverDatePickerCell.swift in Sources */,
 				3AD9BFF425198CF700D2CD16 /* ColaCupController.swift in Sources */,
 				3AE80443251D9BD700CDB15B /* DetailsListModel.swift in Sources */,
