@@ -24,7 +24,47 @@ class ViewController: UIViewController {
         
         Log.debug("\n\nTry line breaks and spaces. \n\n So what?  ")
         
-        tableView(tableView: nil, cellForRowAt: nil)
+        _ = tableView(tableView: nil, cellForRowAt: nil)
+        
+        let json = """
+        [
+            {
+                "key_1" : "string",
+                "key_2" : 3.1415926,
+                "key_3" : -50,
+                "key_4" : [],
+                "key_5" : {},
+                "key_6" : {
+                    "key_6_1" : null,
+                    "key_6_2" : [
+                        "array_1",
+                        3.1415926,
+                        -50,
+                        true,
+                        false,
+                        null,
+                        {},
+                        {
+                            "some_key" : "some_value"
+                        }
+                    ],
+                    "key_6_3" : {
+                        "bool_1" : true,
+                        "bool_2" : false,
+                        "empty_string" : ""
+                    }
+                }
+            },
+            {
+                "some_key" : "A very very very very very very very very very very long string."
+            },
+            {
+                {123456}
+            }
+        ]
+        """
+        
+        Log.debug(json)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,7 +89,7 @@ class ViewController: UIViewController {
     
     open func tableView(tableView: UITableView?, cellForRowAt indexPath: IndexPath?) -> UITableViewCell? {
         
-        Log.debug("试一试这个长度")
+        Log.debug("Try this length")
         
         return nil
     }
