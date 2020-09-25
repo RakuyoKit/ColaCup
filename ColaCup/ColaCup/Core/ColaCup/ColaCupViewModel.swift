@@ -8,7 +8,7 @@
 
 import RaLog
 
-/// Mainly used to process log data
+/// Mainly used to process log data.
 public class ColaCupViewModel {
     
     /// Use the log manager to initialize the view model.

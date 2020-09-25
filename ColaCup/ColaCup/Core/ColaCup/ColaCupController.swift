@@ -27,8 +27,8 @@ open class ColaCupController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /// Used to process data
-    public let viewModel: ColaCupViewModel
+    /// Used to process data.
+    private let viewModel: ColaCupViewModel
     
     /// Top view of the page. Include search box and label selection view.
     open lazy var headerView: UIView = {
