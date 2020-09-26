@@ -27,6 +27,7 @@ class ViewController: UIViewController {
         _ = tableView(tableView: nil, cellForRowAt: nil)
         
         let json = """
+        Some useless text.
         [
             {
                 "key_1" : "string",
@@ -62,6 +63,7 @@ class ViewController: UIViewController {
                 {123456}
             }
         ]
+        Some useless text~
         """
         
         Log.debug(json)

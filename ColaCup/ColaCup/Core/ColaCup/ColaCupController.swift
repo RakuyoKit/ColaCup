@@ -370,11 +370,7 @@ extension ColaCupController: UISearchBarDelegate {
 extension ColaCupController: UITextFieldDelegate {
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         textField.resignFirstResponder()
-        
-        
-        
         return false
     }
 }

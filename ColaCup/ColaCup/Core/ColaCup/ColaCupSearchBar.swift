@@ -69,7 +69,7 @@ open class ColaCupSearchBar: UIView {
         searchBar.tintColor = .theme
         searchBar.backgroundImage = UIImage()
         
-        searchBar.returnKeyType = .search
+        searchBar.returnKeyType = .done
         searchBar.placeholder = "Search with keyword"
         searchBar.searchTextField.textColor = .normalText
         
