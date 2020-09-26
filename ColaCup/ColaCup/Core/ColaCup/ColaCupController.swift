@@ -50,6 +50,9 @@ open class ColaCupController: UIViewController {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.footerView = showPopoverButton
         
+        searchBar.searchDelegate = self
+        searchBar.textFieldDelegate = self
+        
         return searchBar
     }()
     
@@ -349,6 +352,30 @@ extension ColaCupController: UINavigationControllerDelegate {
         
         let isHide = viewController is ColaCupController
         navigationController.setNavigationBarHidden(isHide, animated: animated)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension ColaCupController: UISearchBarDelegate {
+    
+    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        Log.debug(searchText)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension ColaCupController: UITextFieldDelegate {
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        
+        
+        return false
     }
 }
 

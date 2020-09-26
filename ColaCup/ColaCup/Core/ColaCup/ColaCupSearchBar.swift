@@ -26,6 +26,14 @@ open class ColaCupSearchBar: UIView {
         config()
     }
     
+    open weak var searchDelegate: UISearchBarDelegate? = nil {
+        didSet { searchBar.delegate = searchDelegate }
+    }
+    
+    weak open var textFieldDelegate: UITextFieldDelegate? = nil {
+        didSet { searchBar.searchTextField.delegate = textFieldDelegate }
+    }
+    
     /// The parent view of all the views below. Responsible for layout constraints.
     open lazy var stackView: UIStackView = {
         
@@ -58,9 +66,11 @@ open class ColaCupSearchBar: UIView {
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         
-        searchBar.placeholder = "Search with keyword"
         searchBar.tintColor = .theme
         searchBar.backgroundImage = UIImage()
+        
+        searchBar.returnKeyType = .search
+        searchBar.placeholder = "Search with keyword"
         searchBar.searchTextField.textColor = .normalText
         
         return searchBar
