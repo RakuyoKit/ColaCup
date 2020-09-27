@@ -304,7 +304,7 @@ extension ColaCupController: ColaCupPopoverDelegate {
             return
         }
         
-        guard modules != viewModel.modules, !viewModel.showLogs.isEmpty else { return }
+        guard modules != viewModel.modules else { return }
         
         loadingView.isHidden = false
         
