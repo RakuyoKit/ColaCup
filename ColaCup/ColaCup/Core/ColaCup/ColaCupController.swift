@@ -331,15 +331,15 @@ extension ColaCupController: ColaCupFlagBarDelegate {
         
         loadingView.isHidden = false
         
-        viewModel.clickFlag(at: button.tag, isSelectButton: button.isSelected) { [weak self] (a, b) in
+        viewModel.clickFlag(at: button.tag, isSelectButton: button.isSelected) { [weak self] in
             
             guard let this = self else { return }
             
             this.loadingView.isHidden = true
             this.logsView.reloadData()
             
-            a.forEach { this.flagBar.selectFlag(at: $0) }
-            b.forEach { this.flagBar.deselectFlag(at: $0) }
+            $0.forEach { this.flagBar.selectFlag(at: $0) }
+            $1.forEach { this.flagBar.deselectFlag(at: $0) }
         }
     }
 }

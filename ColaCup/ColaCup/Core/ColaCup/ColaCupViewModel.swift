@@ -149,6 +149,12 @@ extension ColaCupViewModel {
     
     public typealias SelectedFlagCompletion = (_ selectedIndexs: [Int], _ deselectedIndexs: [Int]) -> Void
     
+    /// Execute when the flag button is clicked.
+    ///
+    /// - Parameters:
+    ///   - index: Index of the choosed flag.
+    ///   - isSelectButton: Whether the button is selected.
+    ///   - completion: The callback when the processing is completed will be executed on the main thread.
     public func clickFlag(at index: Int, isSelectButton: Bool, completion: @escaping SelectedFlagCompletion) {
         
         if flags[index].isSelected {
