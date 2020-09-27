@@ -139,10 +139,10 @@ class PopoverDisappearAnimation: NSObject, UIViewControllerAnimatedTransitioning
         let duration = transitionDuration(using: transitionContext)
         
         UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveLinear, animations: {
-
+            
             fromView.superview?.transform = CGAffineTransform(scaleX: 0.0001, y: 0.0001)
             fromView.superview?.alpha = 0
-
+            
         }, completion: { _ in
             
             let isComplete = !transitionContext.transitionWasCancelled
