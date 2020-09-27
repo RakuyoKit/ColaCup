@@ -18,6 +18,9 @@ public class ColaCupViewModel {
         self.logManager = logManager
     }
     
+    /// Log manager.
+    private let logManager: Storable.Type
+    
     /// The currently selected date. The default is the current day.
     public lazy var selectedDate: Date? = nil
     
@@ -33,8 +36,14 @@ public class ColaCupViewModel {
     /// Contains the complete log data under the current date.
     private lazy var integralLogs: [Log] = []
     
-    /// Log manager.
-    private let logManager: Storable.Type
+    /// Store the currently selected flag. Empty means `ALL` is selected.
+    private lazy var selectedFlags: Set<Log.Flag> = Set<Log.Flag>()
+    
+    /// Used to restrict the execution of search functions.
+    private lazy var throttler = Throttler(seconds: 0.3)
+    
+    /// What the user searched last time.
+    private lazy var lastSearchText: String? = nil
 }
 
 public extension ColaCupViewModel {
@@ -129,9 +138,10 @@ public extension ColaCupViewModel {
                 
                 this.showLogs = this.integralLogs.filter {
                     
-                    let isSelect = selectModules.contains($0.module)
-                    if isSelect { flagSet.insert($0.flag) }
-                    return isSelect
+                    let value = selectModules.contains($0.module)
+                    if value { flagSet.insert($0.flag) }
+                    
+                    return value
                 }
             }
             
@@ -190,10 +200,16 @@ extension ColaCupViewModel {
                 guard flags[i].isSelected else { continue }
                 
                 flags[i].isSelected = false
+                selectedFlags.remove(flags[i].title)
+                
                 deselectedIndexs.append(i)
             }
             
-            showLogs = integralLogs
+            if let keyword = lastSearchText, !keyword.isEmpty {
+                showLogs = integralLogs.filter { $0.safeLog.contains(keyword) }
+            } else {
+                showLogs = integralLogs
+            }
             
             // Return to the main thread callback controller
             DispatchQueue.main.async {
@@ -202,6 +218,8 @@ extension ColaCupViewModel {
             
         default:
             
+            selectedFlags.insert(flags[index].title)
+            
             if flags[0].isSelected {
                 flags[0].isSelected = false
                 deselectedIndexs.append(0)
@@ -209,7 +227,14 @@ extension ColaCupViewModel {
             
             let selectFlags = flags.filter { $0.isSelected }.map { $0.title }
             
-            showLogs = integralLogs.filter { selectFlags.contains($0.flag) }
+            if let keyword = lastSearchText, !keyword.isEmpty {
+                showLogs = integralLogs.filter {
+                    selectFlags.contains($0.flag) && $0.safeLog.contains(keyword)
+                }
+                
+            } else {
+                showLogs = integralLogs.filter { selectFlags.contains($0.flag) }
+            }
             
             // Return to the main thread callback controller
             DispatchQueue.main.async {
@@ -228,6 +253,7 @@ extension ColaCupViewModel {
         guard flags[index].title != "ALL" else { return }
         
         flags[index].isSelected = false
+        selectedFlags.remove(flags[index].title)
         
         var selectedIndexs: [Int] = []
         
@@ -236,15 +262,81 @@ extension ColaCupViewModel {
         if selectFlags.isEmpty {
             flags[0].isSelected = true
             selectedIndexs.append(0)
-            showLogs = integralLogs
+            
+            if let keyword = lastSearchText, !keyword.isEmpty {
+                showLogs = integralLogs.filter { $0.safeLog.contains(keyword) }
+                
+            } else {
+                showLogs = integralLogs
+            }
             
         } else {
-            showLogs = integralLogs.filter { selectFlags.contains($0.flag) }
+            
+            if let keyword = lastSearchText, !keyword.isEmpty {
+                showLogs = integralLogs.filter {
+                    selectFlags.contains($0.flag) && $0.safeLog.contains(keyword)
+                }
+                
+            } else {
+                showLogs = integralLogs.filter { selectFlags.contains($0.flag) }
+            }
         }
         
         // Return to the main thread callback controller
         DispatchQueue.main.async {
             completion(selectedIndexs, [index])
+        }
+    }
+}
+
+// MARK: - Search
+
+extension ColaCupViewModel {
+    
+    func search(with keyword: String?, executeImmediately: Bool, completion: @escaping () -> Void) {
+        
+        guard keyword != lastSearchText else { return }
+        
+        // Really responsible for the search method.
+        let searchBlock: () -> Void = { [weak self] in
+            guard let this = self else { return }
+            
+            defer {
+                
+                // Return to the main thread callback controller
+                DispatchQueue.main.async(execute: completion)
+            }
+            
+            this.lastSearchText = keyword
+            
+            if let _keyword = keyword, !_keyword.isEmpty {
+                
+                if this.selectedFlags.isEmpty {
+                    this.showLogs = this.integralLogs.filter { $0.safeLog.contains(_keyword) }
+                } else {
+                    this.showLogs = this.integralLogs.filter {
+                        this.selectedFlags.contains($0.flag) && $0.safeLog.contains(_keyword)
+                    }
+                }
+                
+            } else {
+                
+                if this.selectedFlags.isEmpty {
+                    this.showLogs = this.integralLogs
+                } else {
+                    this.showLogs = this.integralLogs.filter {
+                        this.selectedFlags.contains($0.flag)
+                    }
+                }
+            }
+        }
+        
+        if executeImmediately {
+            searchBlock()
+        } else {
+            
+            // In a certain time frame, the search method can only be executed once
+            throttler.execute(searchBlock)
         }
     }
 }

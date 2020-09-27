@@ -361,7 +361,9 @@ extension ColaCupController: UISearchBarDelegate {
     
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        Log.debug(searchText)
+        viewModel.search(with: searchText, executeImmediately: false) { [weak self] in
+            self?.logsView.reloadData()
+        }
     }
 }
 
@@ -370,7 +372,13 @@ extension ColaCupController: UISearchBarDelegate {
 extension ColaCupController: UITextFieldDelegate {
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
         textField.resignFirstResponder()
+        
+        viewModel.search(with: textField.text, executeImmediately: true) { [weak self] in
+            self?.logsView.reloadData()
+        }
+        
         return false
     }
 }

@@ -27,12 +27,12 @@ public struct DispatchSemaphoreWrapper {
 
 public class Throttler {
     
-    public init(seconds: Int) {
+    public init(seconds: Double) {
         self.maxInterval = seconds
         self.semaphore = DispatchSemaphoreWrapper(withValue: 1)
     }
     
-    private var maxInterval: Int
+    private var maxInterval: Double
     fileprivate let semaphore: DispatchSemaphoreWrapper
     
     private lazy var queue = DispatchQueue(label: "com.ColaCup.throttler", qos: .background)
@@ -40,7 +40,7 @@ public class Throttler {
     private lazy var job = DispatchWorkItem(block: {})
     private lazy var previousRun = Date.distantPast
     
-    public func execute(block: @escaping () -> ()) {
+    public func execute(_ block: @escaping () -> ()) {
         
         semaphore.sync  {
             job.cancel()
@@ -49,13 +49,13 @@ public class Throttler {
                 block()
             }
             let delay = Date.second(from: previousRun) > maxInterval ? 0 : maxInterval
-            queue.asyncAfter(deadline: .now() + Double(delay), execute: job)
+            queue.asyncAfter(deadline: .now() + delay, execute: job)
         }
     }
 }
- 
+
 private extension Date {
-    static func second(from referenceDate: Date) -> Int {
-        return Int(Date().timeIntervalSince(referenceDate).rounded())
+    static func second(from referenceDate: Date) -> TimeInterval {
+        return Date().timeIntervalSince(referenceDate).rounded()
     }
 }

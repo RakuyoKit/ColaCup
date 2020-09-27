@@ -72,6 +72,7 @@ open class ColaCupSearchBar: UIView {
         searchBar.returnKeyType = .done
         searchBar.placeholder = "Search with keyword"
         searchBar.searchTextField.textColor = .normalText
+        searchBar.enablesReturnKeyAutomatically = false
         
         return searchBar
     }()
