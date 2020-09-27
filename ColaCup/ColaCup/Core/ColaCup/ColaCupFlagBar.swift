@@ -148,6 +148,14 @@ extension ColaCupFlagBar {
     open func deselectFlag(at index: Int) {
         (flagsView.arrangedSubviews[index] as? LogFlagButton)?.isSelected = false
     }
+    
+    open func scrollToLeft(animated: Bool = true) {
+        
+        scrollView.setContentOffset(
+            CGPoint(x: -scrollView.contentInset.left, y: 0),
+            animated: animated
+        )
+    }
 }
 
 // MARK: - Action

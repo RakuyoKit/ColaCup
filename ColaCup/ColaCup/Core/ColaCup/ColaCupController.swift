@@ -317,6 +317,7 @@ extension ColaCupController: ColaCupPopoverDelegate {
             
             this.loadingView.isHidden = true
             
+            this.searchBar.text = ""
             this.reloadFlagData()
             this.logsView.reloadData()
         }
@@ -337,6 +338,10 @@ extension ColaCupController: ColaCupFlagBarDelegate {
             
             this.loadingView.isHidden = true
             this.logsView.reloadData()
+            
+            if $0.contains(0) {
+                flagBar.scrollToLeft()
+            }
             
             $0.forEach { this.flagBar.selectFlag(at: $0) }
             $1.forEach { this.flagBar.deselectFlag(at: $0) }
@@ -449,6 +454,7 @@ private extension ColaCupController {
     }
     
     func reloadFlagData() {
+        flagBar.scrollToLeft()
         flagBar.reloadData(flags: viewModel.flags)
     }
 }

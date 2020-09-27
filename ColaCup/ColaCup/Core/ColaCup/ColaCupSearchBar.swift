@@ -80,6 +80,11 @@ open class ColaCupSearchBar: UIView {
 
 extension ColaCupSearchBar {
     
+    open var text: String? {
+        set { searchBar.searchTextField.text = newValue }
+        get { searchBar.searchTextField.text }
+    }
+    
     @discardableResult
     open override func resignFirstResponder() -> Bool {
         searchBar.resignFirstResponder()
