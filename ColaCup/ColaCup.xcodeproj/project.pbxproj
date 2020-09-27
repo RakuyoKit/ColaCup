@@ -15,6 +15,7 @@
 		3A9CF5FA251AED510060EC6F /* ColaCupSelectedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9CF5F9251AED510060EC6F /* ColaCupSelectedModel.swift */; };
 		3A9CF608251B221A0060EC6F /* ColorConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9CF607251B221A0060EC6F /* ColorConfig.swift */; };
 		3A9CF60D251B24330060EC6F /* ColaCupPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9CF60C251B24330060EC6F /* ColaCupPopover.swift */; };
+		3AA06564252042B6007A60CA /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA06563252042B6007A60CA /* Throttler.swift */; };
 		3AB7E75F2519A70700E55926 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7E75E2519A70700E55926 /* DetailsViewController.swift */; };
 		3AB7E7CA2519C17100E55926 /* ColaCupSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */; };
 		3AC29027251C3F21007CCD49 /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC29026251C3F21007CCD49 /* LogCell.swift */; };
@@ -63,6 +64,7 @@
 		3A9CF5F9251AED510060EC6F /* ColaCupSelectedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupSelectedModel.swift; sourceTree = "<group>"; };
 		3A9CF607251B221A0060EC6F /* ColorConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConfig.swift; sourceTree = "<group>"; };
 		3A9CF60C251B24330060EC6F /* ColaCupPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupPopover.swift; sourceTree = "<group>"; };
+		3AA06563252042B6007A60CA /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		3AB7E75E2519A70700E55926 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupSearchBar.swift; sourceTree = "<group>"; };
 		3AC29026251C3F21007CCD49 /* LogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCell.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				3A9CF607251B221A0060EC6F /* ColorConfig.swift */,
 				3A5B63E3251ADBDD00E00BF5 /* ColaCupLoadingView.swift */,
 				3A9CF5F9251AED510060EC6F /* ColaCupSelectedModel.swift */,
+				3AA06563252042B6007A60CA /* Throttler.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */,
 				3AD9BFF525198CF700D2CD16 /* ColaCupViewModel.swift in Sources */,
 				3A9CF608251B221A0060EC6F /* ColorConfig.swift in Sources */,
+				3AA06564252042B6007A60CA /* Throttler.swift in Sources */,
 				3A9CF60D251B24330060EC6F /* ColaCupPopover.swift in Sources */,
 				3A9CF5FA251AED510060EC6F /* ColaCupSelectedModel.swift in Sources */,
 				3AB7E75F2519A70700E55926 /* DetailsViewController.swift in Sources */,
