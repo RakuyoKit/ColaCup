@@ -12,23 +12,21 @@ import UIKit
 
 class PopoverAppearAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     
-    /// Initialization method
+    /// Initialization method.
     ///
     /// - Parameters:
-    ///   - y: Y coordinate of trigger point
-    ///   - itemHeight: Height of each item
-    ///   - spacing: Padding between section
-    ///   - count: Number of items
-    init(y: CGFloat, itemHeight: CGFloat, spacing: CGFloat, count: Int) {
+    ///   - y: Y coordinate of trigger point.
+    ///   - height: Height of popup.
+    init(y: CGFloat, height: CGFloat) {
         self.appearY = y
-        self.totalHeight = itemHeight * CGFloat(count + 1) + spacing
+        self.height = height
     }
     
     /// Y coordinate of the point.
     private let appearY: CGFloat
     
-    /// The total height of the pop-up.
-    private let totalHeight: CGFloat
+    /// Height of popup.
+    private let height: CGFloat
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.4
@@ -47,7 +45,7 @@ class PopoverAppearAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         let x = containerView.frame.width - width - 20 - containerView.safeAreaInsets.right
         
         // 2. Set the frame to the target view.
-        toView.frame = CGRect(x: x, y: appearY + 10, width: width, height: totalHeight)
+        toView.frame = CGRect(x: x, y: appearY + 10, width: width, height: height)
         
         // 3. Add shadows to the target views.
         let newView = addShadow(to: toView)
