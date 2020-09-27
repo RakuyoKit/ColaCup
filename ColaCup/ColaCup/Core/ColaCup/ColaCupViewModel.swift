@@ -189,6 +189,12 @@ extension ColaCupViewModel {
         
         var deselectedIndexs: [Int] = []
         
+        var conditions: [(Log) -> Bool] = []
+        
+        if let keyword = lastSearchText, !keyword.isEmpty {
+            conditions.append({ $0.safeLog.contains(keyword) })
+        }
+        
         switch flags[index].title {
         
         case "ALL":
@@ -205,17 +211,6 @@ extension ColaCupViewModel {
                 deselectedIndexs.append(i)
             }
             
-            if let keyword = lastSearchText, !keyword.isEmpty {
-                showLogs = integralLogs.filter { $0.safeLog.contains(keyword) }
-            } else {
-                showLogs = integralLogs
-            }
-            
-            // Return to the main thread callback controller
-            DispatchQueue.main.async {
-                completion([], deselectedIndexs)
-            }
-            
         default:
             
             selectedFlags.insert(flags[index].title)
@@ -227,19 +222,14 @@ extension ColaCupViewModel {
             
             let selectFlags = flags.filter { $0.isSelected }.map { $0.title }
             
-            if let keyword = lastSearchText, !keyword.isEmpty {
-                showLogs = integralLogs.filter {
-                    selectFlags.contains($0.flag) && $0.safeLog.contains(keyword)
-                }
-                
-            } else {
-                showLogs = integralLogs.filter { selectFlags.contains($0.flag) }
-            }
-            
-            // Return to the main thread callback controller
-            DispatchQueue.main.async {
-                completion([], deselectedIndexs)
-            }
+            conditions.append({ selectFlags.contains($0.flag) })
+        }
+        
+        showLogs = integralLogs.filter(with: conditions)
+        
+        // Return to the main thread callback controller
+        DispatchQueue.main.async {
+            completion([], deselectedIndexs)
         }
     }
     
@@ -259,28 +249,21 @@ extension ColaCupViewModel {
         
         let selectFlags = flags.filter { $0.isSelected }.map { $0.title }
         
+        var conditions: [(Log) -> Bool] = []
+        
+        if let keyword = lastSearchText, !keyword.isEmpty {
+            conditions.append({ $0.safeLog.contains(keyword) })
+        }
+        
         if selectFlags.isEmpty {
             flags[0].isSelected = true
             selectedIndexs.append(0)
             
-            if let keyword = lastSearchText, !keyword.isEmpty {
-                showLogs = integralLogs.filter { $0.safeLog.contains(keyword) }
-                
-            } else {
-                showLogs = integralLogs
-            }
-            
         } else {
-            
-            if let keyword = lastSearchText, !keyword.isEmpty {
-                showLogs = integralLogs.filter {
-                    selectFlags.contains($0.flag) && $0.safeLog.contains(keyword)
-                }
-                
-            } else {
-                showLogs = integralLogs.filter { selectFlags.contains($0.flag) }
-            }
+            conditions.append({ selectFlags.contains($0.flag) })
         }
+        
+        showLogs = integralLogs.filter(with: conditions)
         
         // Return to the main thread callback controller
         DispatchQueue.main.async {
@@ -309,26 +292,17 @@ extension ColaCupViewModel {
             
             this.lastSearchText = keyword
             
-            if let _keyword = keyword, !_keyword.isEmpty {
-                
-                if this.selectedFlags.isEmpty {
-                    this.showLogs = this.integralLogs.filter { $0.safeLog.contains(_keyword) }
-                } else {
-                    this.showLogs = this.integralLogs.filter {
-                        this.selectedFlags.contains($0.flag) && $0.safeLog.contains(_keyword)
-                    }
-                }
-                
-            } else {
-                
-                if this.selectedFlags.isEmpty {
-                    this.showLogs = this.integralLogs
-                } else {
-                    this.showLogs = this.integralLogs.filter {
-                        this.selectedFlags.contains($0.flag)
-                    }
-                }
+            var conditions: [(Log) -> Bool] = []
+            
+            if !this.selectedFlags.isEmpty {
+                conditions.append({ this.selectedFlags.contains($0.flag) })
             }
+            
+            if let _keyword = keyword, !_keyword.isEmpty {
+                conditions.append({ $0.safeLog.contains(_keyword) })
+            }
+            
+            this.showLogs = this.integralLogs.filter(with: conditions)
         }
         
         if executeImmediately {
@@ -338,5 +312,15 @@ extension ColaCupViewModel {
             // In a certain time frame, the search method can only be executed once
             throttler.execute(searchBlock)
         }
+    }
+}
+
+// MARK: - Filter log
+
+fileprivate extension Array where Element == Log {
+    
+    func filter(with conditions: [(Log) -> Bool]) -> [Log] {
+        guard !conditions.isEmpty else { return self }
+        return filter { (log) in conditions.reduce(into: true) { $0 = $0 && $1(log) } }
     }
 }
