@@ -48,42 +48,47 @@ private extension PopoverDatePickerCell {
     
     func config() {
         
-        textLabel?.text = "Date"
         selectionStyle = .none
         
-        addSubviews()
-        addInitialLayout()
-    }
-    
-    func addSubviews() {
-        
         contentView.addSubview(datePicker)
-    }
-    
-    func addInitialLayout() {
-        
-        var constraints: [NSLayoutConstraint] = []
         
         if #available(iOS 13.4, *) {
-            constraints.append(datePicker.centerYAnchor.constraint(equalTo: contentView.centerYAnchor))
+            textLabel?.text = "Date"
+            addInitialLayout()
+            
         } else {
-            constraints.append(datePicker.topAnchor.constraint(equalTo: contentView.topAnchor))
-            constraints.append(datePicker.bottomAnchor.constraint(equalTo: contentView.bottomAnchor))
-            constraints.append(datePicker.heightAnchor.constraint(equalToConstant: 80))
-            constraints.append(datePicker.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.65))
+            addOldInitialLayout()
         }
+    }
+    
+    @available(iOS 13.4, *)
+    func addInitialLayout() {
+        
+        NSLayoutConstraint.activate([
+            datePicker.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            datePicker.rightAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.rightAnchor, constant: -12),
+        ])
+        
+        datePicker.setContentHuggingPriority(.required, for: .horizontal)
+        datePicker.setContentHuggingPriority(.required, for: .vertical)
+    }
+    
+    func addOldInitialLayout() {
+        
+        var constraints = [
+            datePicker.topAnchor.constraint(equalTo: contentView.topAnchor),
+            datePicker.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            datePicker.heightAnchor.constraint(equalToConstant: 80),
+        ]
         
         if #available(iOS 11.0, *) {
+            constraints.append(datePicker.leftAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leftAnchor, constant: 12))
             constraints.append(datePicker.rightAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.rightAnchor, constant: -12))
         } else {
+            constraints.append(datePicker.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 12))
             constraints.append(datePicker.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -12))
         }
         
         NSLayoutConstraint.activate(constraints)
-        
-        if #available(iOS 13.4, *) {
-            datePicker.setContentHuggingPriority(.required, for: .horizontal)
-            datePicker.setContentHuggingPriority(.required, for: .vertical)
-        }
     }
 }
