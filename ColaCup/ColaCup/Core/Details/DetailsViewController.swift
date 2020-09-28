@@ -126,13 +126,13 @@ extension DetailsViewController {
         
         let alert = UIAlertController(title: "Share", message: "Please choose how to share log data", preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Image", style: .default) { (action) in
+        alert.addAction(UIAlertAction(title: "Share screenshot", style: .default) { (action) in
             
             guard let image = self.createScreenshot() else { return }
             
         })
         
-        alert.addAction(UIAlertAction(title: "JSON", style: .default) { (action) in
+        alert.addAction(UIAlertAction(title: "Copy logs as JSON", style: .default) { (action) in
             
             
             
