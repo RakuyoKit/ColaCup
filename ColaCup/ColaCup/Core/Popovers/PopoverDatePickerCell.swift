@@ -36,8 +36,6 @@ open class PopoverDatePickerCell: UITableViewCell {
         
         if #available(iOS 13.4, *) {
             datePicker.preferredDatePickerStyle = .compact
-        } else {
-            
         }
         
         return datePicker
@@ -64,17 +62,28 @@ private extension PopoverDatePickerCell {
     
     func addInitialLayout() {
         
-        NSLayoutConstraint.activate([
-            datePicker.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            datePicker.rightAnchor.constraint(equalTo: {
-                guard #available(iOS 11.0, *) else {
-                    return contentView.rightAnchor
-                }
-                return contentView.safeAreaLayoutGuide.rightAnchor
-            }(), constant: -12),
-        ])
+        var constraints: [NSLayoutConstraint] = []
         
-        datePicker.setContentHuggingPriority(.required, for: .horizontal)
-        datePicker.setContentHuggingPriority(.required, for: .vertical)
+        if #available(iOS 13.4, *) {
+            constraints.append(datePicker.centerYAnchor.constraint(equalTo: contentView.centerYAnchor))
+        } else {
+            constraints.append(datePicker.topAnchor.constraint(equalTo: contentView.topAnchor))
+            constraints.append(datePicker.bottomAnchor.constraint(equalTo: contentView.bottomAnchor))
+            constraints.append(datePicker.heightAnchor.constraint(equalToConstant: 80))
+            constraints.append(datePicker.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.65))
+        }
+        
+        if #available(iOS 11.0, *) {
+            constraints.append(datePicker.rightAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.rightAnchor, constant: -12))
+        } else {
+            constraints.append(datePicker.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -12))
+        }
+        
+        NSLayoutConstraint.activate(constraints)
+        
+        if #available(iOS 13.4, *) {
+            datePicker.setContentHuggingPriority(.required, for: .horizontal)
+            datePicker.setContentHuggingPriority(.required, for: .vertical)
+        }
     }
 }

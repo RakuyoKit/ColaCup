@@ -98,7 +98,7 @@ open class ColaCupController: UIViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        tableView.rowHeight =  UITableView.automaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         
         tableView.separatorColor = UIColor.theme.withAlphaComponent(0.2)

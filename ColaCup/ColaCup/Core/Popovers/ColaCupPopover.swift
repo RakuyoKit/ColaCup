@@ -70,6 +70,9 @@ open class ColaCupPopover: UIViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 50
+        
         tableView.bounces = false
         
         tableView.delegate = self
@@ -219,7 +222,15 @@ extension ColaCupPopover: UIViewControllerTransitioningDelegate {
     
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
-        let height = 44 * CGFloat(modules.count + 1) + 12
+        let height: CGFloat = {
+            
+            if #available(iOS 13.4, *) {
+                return 44 * CGFloat(modules.count + 1)
+            }
+            
+            return 80 + 44 * CGFloat(modules.count)
+            
+        }() + 12
         
         return PopoverAppearAnimation(
             y: appearY,
