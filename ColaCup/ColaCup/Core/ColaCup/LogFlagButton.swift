@@ -36,9 +36,13 @@ open class LogFlagButton: UIControl {
         
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = false
-        view.backgroundColor = .tertiarySystemFill
         view.layer.cornerRadius = 5
         view.layer.masksToBounds = true
+        
+        view.backgroundColor = {
+            if #available(iOS 13.0, *) { return .tertiarySystemFill }
+            return .groupTableViewBackground
+        }()
         
         return view
     }()

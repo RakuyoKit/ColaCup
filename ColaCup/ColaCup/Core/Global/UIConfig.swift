@@ -1,5 +1,5 @@
 //
-//  ColorConfig.swift
+//  UIConfig.swift
 //  ColaCup
 //
 //  Created by Rakuyo on 2020/9/23.
@@ -16,4 +16,16 @@ extension UIColor {
     
     /// Text color in general
     static let normalText = UIColor(red:0.21, green:0.00, blue:0.01, alpha:1.00)
+}
+
+extension UIImage {
+    
+    convenience init?(name: String) {
+        
+        if #available(iOS 13.0, *) {
+            self.init(systemName: name)
+        } else {
+            self.init(named: name)
+        }
+    }
 }

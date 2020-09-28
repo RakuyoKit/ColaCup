@@ -154,7 +154,10 @@ extension ColaCupPopover: UITableViewDelegate {
         
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: section == 0 ? 0.001 : 12))
         
-        view.backgroundColor = .systemGroupedBackground
+        view.backgroundColor = {
+            if #available(iOS 13.0, *) { return .tertiarySystemFill }
+            return .groupTableViewBackground
+        }()
         
         return view
     }

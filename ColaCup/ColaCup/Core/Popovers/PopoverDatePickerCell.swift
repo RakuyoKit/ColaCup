@@ -32,8 +32,13 @@ open class PopoverDatePickerCell: UITableViewCell {
         datePicker.tintColor = .theme
         
         datePicker.maximumDate = Date()
-        datePicker.preferredDatePickerStyle = .compact
         datePicker.datePickerMode = .date
+        
+        if #available(iOS 13.4, *) {
+            datePicker.preferredDatePickerStyle = .compact
+        } else {
+            
+        }
         
         return datePicker
     }()

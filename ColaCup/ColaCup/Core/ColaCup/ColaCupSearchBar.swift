@@ -31,7 +31,7 @@ open class ColaCupSearchBar: UIView {
     }
     
     weak open var textFieldDelegate: UITextFieldDelegate? = nil {
-        didSet { searchBar.searchTextField.delegate = textFieldDelegate }
+        didSet { searchBar.getSearchTextFileld?.delegate = textFieldDelegate }
     }
     
     /// The parent view of all the views below. Responsible for layout constraints.
@@ -71,8 +71,8 @@ open class ColaCupSearchBar: UIView {
         
         searchBar.returnKeyType = .done
         searchBar.placeholder = "Search with keyword"
-        searchBar.searchTextField.textColor = .normalText
         searchBar.enablesReturnKeyAutomatically = false
+        searchBar.getSearchTextFileld?.textColor = .normalText
         
         return searchBar
     }()
@@ -81,8 +81,8 @@ open class ColaCupSearchBar: UIView {
 extension ColaCupSearchBar {
     
     open var text: String? {
-        set { searchBar.searchTextField.text = newValue }
-        get { searchBar.searchTextField.text }
+        set { searchBar.getSearchTextFileld?.text = newValue }
+        get { searchBar.getSearchTextFileld?.text }
     }
     
     @discardableResult
@@ -116,5 +116,19 @@ private extension ColaCupSearchBar {
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
+    }
+}
+
+// MARK: - Tools
+
+fileprivate extension UISearchBar {
+    
+    var getSearchTextFileld: UITextField? {
+        
+        if #available(iOS 13, *) {
+            return searchTextField
+        } else {
+            return value(forKey: "searchField") as? UITextField
+        }
     }
 }

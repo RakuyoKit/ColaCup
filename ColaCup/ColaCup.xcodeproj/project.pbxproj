@@ -13,7 +13,7 @@
 		3A65A7AF251B312D00943B39 /* PopoverDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A65A7AE251B312D00943B39 /* PopoverDatePickerCell.swift */; };
 		3A65ABB2251B399300943B39 /* PopoverAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A65ABB1251B399300943B39 /* PopoverAnimation.swift */; };
 		3A9CF5FA251AED510060EC6F /* ColaCupSelectedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9CF5F9251AED510060EC6F /* ColaCupSelectedModel.swift */; };
-		3A9CF608251B221A0060EC6F /* ColorConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9CF607251B221A0060EC6F /* ColorConfig.swift */; };
+		3A9CF608251B221A0060EC6F /* UIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9CF607251B221A0060EC6F /* UIConfig.swift */; };
 		3A9CF60D251B24330060EC6F /* ColaCupPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9CF60C251B24330060EC6F /* ColaCupPopover.swift */; };
 		3AA06564252042B6007A60CA /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA06563252042B6007A60CA /* Throttler.swift */; };
 		3AB7E75F2519A70700E55926 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7E75E2519A70700E55926 /* DetailsViewController.swift */; };
@@ -62,7 +62,7 @@
 		3A65A7AE251B312D00943B39 /* PopoverDatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverDatePickerCell.swift; sourceTree = "<group>"; };
 		3A65ABB1251B399300943B39 /* PopoverAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverAnimation.swift; sourceTree = "<group>"; };
 		3A9CF5F9251AED510060EC6F /* ColaCupSelectedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupSelectedModel.swift; sourceTree = "<group>"; };
-		3A9CF607251B221A0060EC6F /* ColorConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConfig.swift; sourceTree = "<group>"; };
+		3A9CF607251B221A0060EC6F /* UIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConfig.swift; sourceTree = "<group>"; };
 		3A9CF60C251B24330060EC6F /* ColaCupPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupPopover.swift; sourceTree = "<group>"; };
 		3AA06563252042B6007A60CA /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		3AB7E75E2519A70700E55926 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		3A9CF606251B220B0060EC6F /* Global */ = {
 			isa = PBXGroup;
 			children = (
-				3A9CF607251B221A0060EC6F /* ColorConfig.swift */,
+				3A9CF607251B221A0060EC6F /* UIConfig.swift */,
 				3A5B63E3251ADBDD00E00BF5 /* ColaCupLoadingView.swift */,
 				3A9CF5F9251AED510060EC6F /* ColaCupSelectedModel.swift */,
 				3AA06563252042B6007A60CA /* Throttler.swift */,
@@ -271,7 +271,7 @@
 				3AD9BFA825198C8D00D2CD16 /* Sources */,
 				3AD9BFA925198C8D00D2CD16 /* Frameworks */,
 				3AD9BFAA25198C8D00D2CD16 /* Resources */,
-				704726A4D276059D61320FC9 /* [CP] Copy Pods Resources */,
+				CB8F28B05D9ECA1101C118D8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -411,7 +411,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		704726A4D276059D61320FC9 /* [CP] Copy Pods Resources */ = {
+		CB8F28B05D9ECA1101C118D8 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -452,7 +452,7 @@
 				3AD9BFB425198C8D00D2CD16 /* ViewController.swift in Sources */,
 				3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */,
 				3AD9BFF525198CF700D2CD16 /* ColaCupViewModel.swift in Sources */,
-				3A9CF608251B221A0060EC6F /* ColorConfig.swift in Sources */,
+				3A9CF608251B221A0060EC6F /* UIConfig.swift in Sources */,
 				3AA06564252042B6007A60CA /* Throttler.swift in Sources */,
 				3A9CF60D251B24330060EC6F /* ColaCupPopover.swift in Sources */,
 				3A9CF5FA251AED510060EC6F /* ColaCupSelectedModel.swift in Sources */,
@@ -562,7 +562,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -617,7 +617,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -636,6 +636,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5Q8TLD2828;
 				INFOPLIST_FILE = "$(SRCROOT)/ColaCup/Other/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -656,6 +657,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5Q8TLD2828;
 				INFOPLIST_FILE = "$(SRCROOT)/ColaCup/Other/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -675,7 +677,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5Q8TLD2828;
 				INFOPLIST_FILE = ColaCupTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -697,7 +699,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5Q8TLD2828;
 				INFOPLIST_FILE = ColaCupTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

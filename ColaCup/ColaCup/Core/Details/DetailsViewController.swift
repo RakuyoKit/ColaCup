@@ -30,7 +30,10 @@ open class DetailsViewController: UIViewController {
     /// Responsible for displaying a list of log details.
     open lazy var tableView: UITableView = {
         
-        let tableView = UITableView(frame: .zero, style: .insetGrouped)
+        let tableView = UITableView(frame: .zero, style: {
+            if #available(iOS 13.0, *) { return .insetGrouped }
+            return .grouped
+        }())
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
@@ -65,14 +68,17 @@ extension DetailsViewController {
         addInitialLayout()
         
         let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
+        button.setImage(UIImage(name: "square.and.arrow.up"), for: .normal)
         button.addTarget(self, action: #selector(share), for: .touchUpInside)
         
         // Share
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
         
-        // PDF screenshot
-        UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.windowScene?.screenshotService?.delegate = self
+        if #available(iOS 13.0, *) {
+            
+            // PDF screenshot
+            UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.windowScene?.screenshotService?.delegate = self
+        }
     }
 }
 
@@ -100,6 +106,7 @@ extension DetailsViewController {
 
 extension DetailsViewController: UIScreenshotServiceDelegate {
     
+    @available(iOS 13.0, *)
     public func screenshotService(_ screenshotService: UIScreenshotService, generatePDFRepresentationWithCompletion completionHandler: @escaping (Data?, Int, CGRect) -> Void) {
         
         guard let image = createScreenshot() else {
@@ -209,7 +216,7 @@ extension DetailsViewController: UITableViewDataSource {
             cell.valueLabel.text = model.value
             
             if let name = model.imageName {
-                cell.iconView.image = UIImage(systemName: name)
+                cell.iconView.image = UIImage(name: name)
             }
             
         case .function:
@@ -219,7 +226,7 @@ extension DetailsViewController: UITableViewDataSource {
             cell.valueLabel.text = model.value
             
             if let name = model.imageName {
-                cell.iconView.image = UIImage(systemName: name)
+                cell.iconView.image = UIImage(name: name)
             }
             
         case .json:

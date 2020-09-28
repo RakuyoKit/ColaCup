@@ -39,7 +39,10 @@ open class ColaCupLoadingView: UIView {
     
     open lazy var activityIndicator: UIActivityIndicatorView = {
         
-        let view = UIActivityIndicatorView(style: .large)
+        let view = UIActivityIndicatorView(style: {
+            if #available(iOS 13.0, *) { return .large }
+            return .whiteLarge
+        }())
         
         view.translatesAutoresizingMaskIntoConstraints = false
         view.hidesWhenStopped = false

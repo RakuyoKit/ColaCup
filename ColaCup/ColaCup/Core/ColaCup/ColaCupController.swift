@@ -64,9 +64,11 @@ open class ColaCupController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .theme
         
-        button.setImage(UIImage(systemName: "text.badge.checkmark"), for: .normal)
+        button.setImage(UIImage(name: "text.badge.checkmark"), for: .normal)
         
-        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25, weight: .unspecified), forImageIn: .normal)
+        if #available(iOS 13.0, *) {
+            button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25, weight: .unspecified), forImageIn: .normal)
+        }
         
         button.addTarget(self, action: #selector(showPopover(_:)), for: .touchUpInside)
         
@@ -89,7 +91,10 @@ open class ColaCupController: UIViewController {
     /// The view responsible for displaying the log.
     open lazy var logsView: UITableView = {
         
-        let tableView = UITableView(frame: .zero, style: .insetGrouped)
+        let tableView = UITableView(frame: .zero, style: {
+            if #available(iOS 13.0, *) { return .insetGrouped }
+            return .grouped
+        }())
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
