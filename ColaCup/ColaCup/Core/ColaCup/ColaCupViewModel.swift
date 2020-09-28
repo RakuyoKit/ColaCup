@@ -279,6 +279,12 @@ extension ColaCupViewModel {
 
 extension ColaCupViewModel {
     
+    /// Search the log.
+    ///
+    /// - Parameters:
+    ///   - keyword: Search keywords.
+    ///   - executeImmediately: Whether to perform the search immediately. If it is `false`, the throttling algorithm will be used. See the `throttler` property for details.
+    ///   - completion: The callback when the search is completed will be executed on the main thread.
     func search(with keyword: String?, executeImmediately: Bool, completion: @escaping () -> Void) {
         
         guard keyword != lastSearchText else { return }
