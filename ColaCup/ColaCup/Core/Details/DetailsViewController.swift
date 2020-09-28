@@ -64,8 +64,12 @@ extension DetailsViewController {
         addSubviews()
         addInitialLayout()
         
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
+        button.addTarget(self, action: #selector(share), for: .touchUpInside)
+        
         // Share
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(share))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
         
         // PDF screenshot
         UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.windowScene?.screenshotService?.delegate = self
@@ -140,6 +144,8 @@ extension DetailsViewController {
             }
             
             let activity = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+            
+            activity.excludedActivityTypes = [.assignToContact]
             
             this.present(activity, animated: true, completion: nil)
         })
@@ -240,6 +246,30 @@ private extension DetailsViewController {
     /// Create screenshot
     func createScreenshot() -> UIImage? {
         
+        guard let tableView = createTableViewScreenshot(),
+              let navi = createNaviScreenshot() else {
+            
+            return nil
+        }
+        
+        let size = CGSize(
+            width: max(navi.size.width, tableView.size.width),
+            height: navi.size.height + tableView.size.height
+        )
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        
+        navi.draw(in: CGRect(origin: .zero, size: navi.size))
+        
+        tableView.draw(
+            in: CGRect(origin: CGPoint(x: 0, y: navi.size.height), size: tableView.size)
+        )
+        
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+    
+    func createTableViewScreenshot() -> UIImage? {
+        
         var screenshot: UIImage? = nil
         
         UIGraphicsBeginImageContextWithOptions(tableView.contentSize, false, 0.0)
@@ -269,6 +299,26 @@ private extension DetailsViewController {
 
         UIGraphicsEndImageContext()
 
+        return screenshot
+    }
+    
+    func createNaviScreenshot() -> UIImage? {
+        
+        guard let navigationBar = navigationController?.navigationBar else { return nil }
+        
+        navigationItem.setHidesBackButton(true, animated: false)
+        navigationItem.rightBarButtonItem?.customView?.isHidden = true
+        
+        UIGraphicsBeginImageContextWithOptions(navigationBar.frame.size, false, 0.0)
+        
+        navigationBar.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        navigationItem.setHidesBackButton(false, animated: false)
+        navigationItem.rightBarButtonItem?.customView?.isHidden = false
+        
         return screenshot
     }
 }
