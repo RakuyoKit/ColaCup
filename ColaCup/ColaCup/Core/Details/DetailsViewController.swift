@@ -139,6 +139,9 @@ extension DetailsViewController {
                 return
             }
             
+            let activity = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+            
+            this.present(activity, animated: true, completion: nil)
         })
         
         alert.addAction(UIAlertAction(title: "Copy logs as JSON", style: .default) { [weak self] _ in
