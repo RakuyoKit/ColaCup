@@ -11,7 +11,7 @@ import UIKit
 import RaLog
 
 /// Controller that displays the details of the log
-open class DetailsViewController: UITableViewController {
+open class DetailsViewController: UIViewController {
     
     /// Initialize with log data.
     ///
@@ -20,12 +20,30 @@ open class DetailsViewController: UITableViewController {
         
         self.viewModel = DetailsViewModel(log: log)
         
-        super.init(style: .insetGrouped)
+        super.init(nibName: nil, bundle: nil)
     }
     
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    /// Responsible for displaying a list of log details.
+    open lazy var tableView: UITableView = {
+        
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        
+        tableView.rowHeight =  UITableView.automaticDimension
+        tableView.estimatedRowHeight = 50
+        
+        tableView.separatorColor = UIColor.normalText.withAlphaComponent(0.2)
+        
+        DetailsCellType.allCases.forEach(tableView.register(withType:))
+        
+        return tableView
+    }()
     
     /// Used to process data.
     private let viewModel: DetailsViewModel
@@ -43,33 +61,55 @@ extension DetailsViewController {
         
         title = viewModel.title
         
-        tableView.rowHeight =  UITableView.automaticDimension
-        tableView.estimatedRowHeight = 50
+        addSubviews()
+        addInitialLayout()
         
-        tableView.separatorColor = UIColor.normalText.withAlphaComponent(0.2)
         
-        DetailsCellType.allCases.forEach(tableView.register(withType:))
     }
+}
+
+// MARK: - Config
+
+extension DetailsViewController {
+    
+    func addSubviews() {
+        
+        view.addSubview(tableView)
+    }
+    
+    func addInitialLayout() {
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+    }
+}
+
+extension DetailsViewController {
+    
 }
 
 // MARK: - UITableViewDataSource
 
-extension DetailsViewController {
+extension DetailsViewController: UITableViewDataSource {
     
-    open override func numberOfSections(in tableView: UITableView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.dataSource.count
     }
     
-    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.dataSource[section].items.count
     }
     
-    open override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         return viewModel.dataSource[section].title
     }
     
-    open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let model = viewModel.dataSource[indexPath.section].items[indexPath.row]
         
