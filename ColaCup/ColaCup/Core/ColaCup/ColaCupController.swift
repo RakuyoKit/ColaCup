@@ -131,10 +131,11 @@ extension ColaCupController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = logsView.backgroundColor
+        
         // Solve the problem of hidden navigation bar
         navigationController?.delegate = self
-        
-        view.backgroundColor = logsView.backgroundColor
+        navigationController?.navigationBar.tintColor = .theme
         
         addGesture()
         addSubviews()
