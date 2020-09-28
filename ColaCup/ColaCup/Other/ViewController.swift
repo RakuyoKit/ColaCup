@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         Log.debug("Test a very very long log to see what the final effect will look like.")
-        Log.debug("顺带再测试一下中文的效果，实际上的日志基本上都会是这个长度的。甚至还要再长一点，毕竟有的时候一行打不下")
+        Log.debug("顺带再测试一下中文的效果\n实际上的日志基本上都会是这个长度的\n甚至还要再长一点\n毕竟有的时候一行打不下\n现在需要测试一下高度\n非常非常\n高的情况\n可能会比\n一个屏幕\n还要高\n这种情况\n下\n复用问题\n会不会\n有问题\n呢\n顺带再测试一下中文的效果\n实际上的日志基本上都会是这个长度的\n甚至还要再长一点\n毕竟有的时候一行打不下\n现在需要测试一下高度\n非常非常\n高的情况\n可能会比\n一个屏幕\n还要高\n这种情况\n下\n复用问题\n会不会\n有问题\n呢\n顺带再测试一下中文的效果\n实际上的日志基本上都会是这个长度的\n甚至还要再长一点\n毕竟有的时候一行打不下\n现在需要测试一下高度\n非常非常\n高的情况\n可能会比\n一个屏幕\n还要高\n这种情况\n下\n复用问题\n会不会\n有问题\n呢\n")
         Log.warning("warning log")
         Log.success("success log")
         Log.error("error log")
