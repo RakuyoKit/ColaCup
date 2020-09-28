@@ -126,9 +126,18 @@ extension DetailsViewController {
         
         let alert = UIAlertController(title: "Share", message: "Please choose how to share log data", preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Share screenshot", style: .default) { (action) in
+        alert.addAction(UIAlertAction(title: "Share screenshot", style: .default) { [weak self] _ in
             
-            guard let image = self.createScreenshot() else { return }
+            guard let this = self else { return }
+            
+            guard let image = this.createScreenshot() else {
+                let failuerAlert = UIAlertController(title: "CreatesScreenshot failure", message: "Please try again or choose another way to share the log.", preferredStyle: .alert)
+                
+                failuerAlert.addAction(UIAlertAction(title: "Done", style: .cancel))
+                
+                this.present(failuerAlert, animated: true, completion: nil)
+                return
+            }
             
         })
         
@@ -140,7 +149,7 @@ extension DetailsViewController {
                 UIPasteboard.general.string = json
 
             } else {
-                let failuerAlert = UIAlertController(title: "Create JSON Failure", message: "Please try again or choose another way to share the log.", preferredStyle: .alert)
+                let failuerAlert = UIAlertController(title: "Create JSON failure", message: "Please try again or choose another way to share the log.", preferredStyle: .alert)
                 
                 failuerAlert.addAction(UIAlertAction(title: "Done", style: .cancel))
                 
