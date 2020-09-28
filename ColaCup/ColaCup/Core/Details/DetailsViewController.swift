@@ -132,10 +132,20 @@ extension DetailsViewController {
             
         })
         
-        alert.addAction(UIAlertAction(title: "Copy logs as JSON", style: .default) { (action) in
+        alert.addAction(UIAlertAction(title: "Copy logs as JSON", style: .default) { [weak self] _ in
             
+            guard let this = self else { return }
             
-            
+            if let json = this.viewModel.sharedJSON {
+                UIPasteboard.general.string = json
+
+            } else {
+                let failuerAlert = UIAlertController(title: "Create JSON Failure", message: "Please try again or choose another way to share the log.", preferredStyle: .alert)
+                
+                failuerAlert.addAction(UIAlertAction(title: "Done", style: .cancel))
+                
+                this.present(failuerAlert, animated: true, completion: nil)
+            }
         })
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
