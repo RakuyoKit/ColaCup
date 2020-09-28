@@ -191,11 +191,20 @@ private extension ColaCupController {
     func addInitialLayout() {
         
         // headerView
-        NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
-            headerView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-            headerView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20)
-        ])
+        if #available(iOS 11.0, *) {
+            NSLayoutConstraint.activate([
+                headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
+                headerView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+                headerView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20)
+            ])
+            
+        } else {
+            NSLayoutConstraint.activate([
+                headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 15),
+                headerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+                headerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20)
+            ])
+        }
         
         headerView.setContentCompressionResistancePriority(.required, for: .vertical)
         headerView.setContentHuggingPriority(.required, for: .vertical)
@@ -220,12 +229,20 @@ private extension ColaCupController {
         flagBar.setContentHuggingPriority(.required, for: .vertical)
         
         // logsView
-        NSLayoutConstraint.activate([
+        var logsViewConstraints = [
             logsView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 15),
-            logsView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            logsView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             logsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        ]
+        
+        if #available(iOS 11.0, *) {
+            logsViewConstraints.append(logsView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor))
+            logsViewConstraints.append(logsView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor))
+        } else {
+            logsViewConstraints.append(logsView.leftAnchor.constraint(equalTo: view.leftAnchor))
+            logsViewConstraints.append(logsView.rightAnchor.constraint(equalTo: view.rightAnchor))
+        }
+        
+        NSLayoutConstraint.activate(logsViewConstraints)
         
         // loadingView
         NSLayoutConstraint.activate([

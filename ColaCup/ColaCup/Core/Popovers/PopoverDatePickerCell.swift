@@ -66,7 +66,12 @@ private extension PopoverDatePickerCell {
         
         NSLayoutConstraint.activate([
             datePicker.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            datePicker.rightAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.rightAnchor, constant: -12),
+            datePicker.rightAnchor.constraint(equalTo: {
+                guard #available(iOS 11.0, *) else {
+                    return contentView.rightAnchor
+                }
+                return contentView.safeAreaLayoutGuide.rightAnchor
+            }(), constant: -12),
         ])
         
         datePicker.setContentHuggingPriority(.required, for: .horizontal)

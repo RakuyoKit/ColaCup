@@ -42,7 +42,10 @@ class PopoverAppearAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         // Maximum width is 276.
         let width = min(containerView.frame.width / 3 * 2, 276)
         
-        let x = containerView.frame.width - width - 20 - containerView.safeAreaInsets.right
+        let x = containerView.frame.width - width - 20 - {
+            guard #available(iOS 11.0, *) else { return 0 }
+            return containerView.safeAreaInsets.right
+        }()
         
         // 2. Set the frame to the target view.
         toView.frame = CGRect(x: x, y: appearY + 10, width: width, height: height)
