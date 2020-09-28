@@ -88,6 +88,22 @@ open class ColaCupController: UIViewController {
         return bar
     }()
     
+    /// Button to control the order of logs
+    open lazy var sortButton: UIButton = {
+        
+        let button = UIButton(type: .system)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.tintColor = .theme
+        button.tag = 1
+        
+        button.setTitle("Time ↓", for: .normal)
+        button.addTarget(self, action: #selector(sortButtonDidClick(_:)), for: .touchUpInside)
+        
+        return button
+    }()
+    
     /// The view responsible for displaying the log.
     open lazy var logsView: UITableView = {
         
@@ -181,6 +197,7 @@ private extension ColaCupController {
     func addSubviews() {
         
         view.addSubview(headerView)
+        view.addSubview(sortButton)
         view.addSubview(logsView)
         view.addSubview(loadingView)
         
@@ -228,9 +245,39 @@ private extension ColaCupController {
         
         flagBar.setContentHuggingPriority(.required, for: .vertical)
         
+        // sortButton
+        var sortButtonConstraints = [
+            sortButton.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 10),
+        ]
+        
+        sortButtonConstraints.append({
+            
+            let right = sortButton.rightAnchor
+            let value: CGFloat = 10
+            
+            if #available(iOS 13.0, *) {
+                return right.constraint(
+                    equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -(value + 20)
+                )
+            }
+            
+            if #available(iOS 11.0, *) {
+                return right.constraint(
+                    equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -value
+                )
+            }
+            
+            return right.constraint(equalTo: view.rightAnchor, constant: -value)
+        }())
+        
+        NSLayoutConstraint.activate(sortButtonConstraints)
+        
+        sortButton.setContentHuggingPriority(.required, for: .vertical)
+        sortButton.setContentHuggingPriority(.required, for: .horizontal)
+        
         // logsView
         var logsViewConstraints = [
-            logsView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 15),
+            logsView.topAnchor.constraint(equalTo: sortButton.bottomAnchor, constant: 3),
             logsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ]
         
@@ -293,6 +340,25 @@ extension ColaCupController {
         popover.delegate = self
         
         present(popover, animated: true) { self.isShowingPopover = true }
+    }
+    
+    /// Sort button click event.
+    ///
+    /// - Parameter button: `sortButton`.
+    @objc func sortButtonDidClick(_ button: UIButton) {
+        
+        if button.tag == 1 {
+            button.tag = 2
+            button.setTitle("Time ↑", for: .normal)
+            
+            
+            
+        } else {
+            button.tag = 1
+            button.setTitle("Time ↓", for: .normal)
+            
+            
+        }
     }
 }
 

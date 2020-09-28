@@ -277,7 +277,7 @@ extension ColaCupViewModel {
 
 // MARK: - Search
 
-extension ColaCupViewModel {
+public extension ColaCupViewModel {
     
     /// Search the log.
     ///
@@ -321,6 +321,19 @@ extension ColaCupViewModel {
             // In a certain time frame, the search method can only be executed once
             throttler.execute(searchBlock)
         }
+    }
+}
+
+// MARK: - Sort
+
+public extension ColaCupViewModel {
+    
+    func ascendingSort() {
+        
+    }
+    
+    func descendingSort() {
+        
     }
 }
 
