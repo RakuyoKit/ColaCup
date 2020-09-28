@@ -64,6 +64,8 @@ extension DetailsViewController {
         addSubviews()
         addInitialLayout()
         
+        // Share
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(share))
         
         // PDF screenshot
         UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.windowScene?.screenshotService?.delegate = self
@@ -115,8 +117,31 @@ extension DetailsViewController: UIScreenshotServiceDelegate {
     }
 }
 
+// MARK: - Action
+
 extension DetailsViewController {
     
+    /// Share log information.
+    @objc func share() {
+        
+        let alert = UIAlertController(title: "Share", message: "Please choose how to share log data", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Image", style: .default) { (action) in
+            
+            guard let image = self.createScreenshot() else { return }
+            
+        })
+        
+        alert.addAction(UIAlertAction(title: "JSON", style: .default) { (action) in
+            
+            
+            
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 // MARK: - UITableViewDataSource
