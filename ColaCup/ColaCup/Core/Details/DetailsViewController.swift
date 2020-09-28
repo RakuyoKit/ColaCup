@@ -16,7 +16,7 @@ open class DetailsViewController: UITableViewController {
     /// Initialize with log data.
     ///
     /// - Parameter log: The detailed log data to be viewed.
-    public init(log: Log) {
+    public init(log: LogModelProtocol) {
         
         self.viewModel = DetailsViewModel(log: log)
         

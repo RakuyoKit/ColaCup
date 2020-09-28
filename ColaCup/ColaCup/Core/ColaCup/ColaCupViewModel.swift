@@ -31,10 +31,10 @@ public class ColaCupViewModel {
     public lazy var modules: [ColaCupSelectedModel] = []
     
     /// The log data to be displayed.
-    public lazy var showLogs: [Log] = []
+    public lazy var showLogs: [LogModelProtocol] = []
     
     /// Contains the complete log data under the current date.
-    private lazy var integralLogs: [Log] = []
+    private lazy var integralLogs: [LogModelProtocol] = []
     
     /// Store the currently selected flag. Empty means `ALL` is selected.
     private lazy var selectedFlags: Set<Log.Flag> = Set<Log.Flag>()
@@ -66,10 +66,13 @@ public extension ColaCupViewModel {
                 DispatchQueue.main.async(execute: completion)
             }
             
-            this.integralLogs = { () -> [Log] in
+            this.integralLogs = { () -> [LogModelProtocol] in
                 
                 if let date = this.selectedDate {
-                    return this.logManager.readLogFromDisk(logDate: date) ?? []
+                    
+                    let _logs: [Log] = this.logManager.readLogFromDisk(logDate: date) ?? []
+                    
+                    return _logs as [LogModelProtocol]
                 }
                 
                 return this.logManager.logs
@@ -189,7 +192,7 @@ extension ColaCupViewModel {
         
         var deselectedIndexs: [Int] = []
         
-        var conditions: [(Log) -> Bool] = []
+        var conditions: [(LogModelProtocol) -> Bool] = []
         
         if let keyword = lastSearchText, !keyword.isEmpty {
             conditions.append({ $0.safeLog.contains(keyword) })
@@ -249,7 +252,7 @@ extension ColaCupViewModel {
         
         let selectFlags = flags.filter { $0.isSelected }.map { $0.title }
         
-        var conditions: [(Log) -> Bool] = []
+        var conditions: [(LogModelProtocol) -> Bool] = []
         
         if let keyword = lastSearchText, !keyword.isEmpty {
             conditions.append({ $0.safeLog.contains(keyword) })
@@ -292,7 +295,7 @@ extension ColaCupViewModel {
             
             this.lastSearchText = keyword
             
-            var conditions: [(Log) -> Bool] = []
+            var conditions: [(LogModelProtocol) -> Bool] = []
             
             if !this.selectedFlags.isEmpty {
                 conditions.append({ this.selectedFlags.contains($0.flag) })
@@ -317,9 +320,9 @@ extension ColaCupViewModel {
 
 // MARK: - Filter log
 
-fileprivate extension Array where Element == Log {
+fileprivate extension Array where Element == LogModelProtocol {
     
-    func filter(with conditions: [(Log) -> Bool]) -> [Log] {
+    func filter(with conditions: [(Element) -> Bool]) -> [Element] {
         guard !conditions.isEmpty else { return self }
         return filter { (log) in conditions.reduce(into: true) { $0 = $0 && $1(log) } }
     }

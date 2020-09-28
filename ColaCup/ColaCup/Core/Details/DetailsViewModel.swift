@@ -14,12 +14,12 @@ open class DetailsViewModel {
     /// Initialize with log data.
     ///
     /// - Parameter log: The detailed log data to be viewed.
-    public init(log: Log) {
+    public init(log: LogModelProtocol) {
         self.log = log
     }
     
     /// The detailed log data to be viewed.
-    private let log: Log
+    private let log: LogModelProtocol
     
     /// List data source.
     open lazy var dataSource: [DetailsSectionModel] = createDataSource()
