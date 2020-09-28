@@ -218,7 +218,10 @@ extension ColaCupPopover: UIViewControllerTransitioningDelegate {
         
         let height = 44 * CGFloat(modules.count + 1) + 12
         
-        return PopoverAppearAnimation(y: appearY, height: height)
+        return PopoverAppearAnimation(
+            y: appearY,
+            height: min(UIScreen.main.bounds.height * 0.7, height)
+        )
     }
     
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
