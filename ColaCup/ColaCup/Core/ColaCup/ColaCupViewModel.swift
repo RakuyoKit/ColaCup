@@ -328,14 +328,9 @@ public extension ColaCupViewModel {
 
 public extension ColaCupViewModel {
     
-    /// Arrange the logs to be displayed in ascending order according to the printing time.
-    func ascendingSort() {
-        
-    }
-    
-    /// Sort the logs to be displayed in descending order according to the printing time.
-    func descendingSort() {
-        
+    /// Reverse log data source
+    func reverseDataSource() {
+        showLogs.reverse()
     }
 }
 

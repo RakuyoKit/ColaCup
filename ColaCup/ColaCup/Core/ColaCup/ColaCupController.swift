@@ -351,14 +351,13 @@ extension ColaCupController {
             button.tag = 2
             button.setTitle("Time ↑", for: .normal)
             
-            viewModel.ascendingSort()
-            
         } else {
             button.tag = 1
             button.setTitle("Time ↓", for: .normal)
-            
-            viewModel.descendingSort()
         }
+        
+        viewModel.reverseDataSource()
+        logsView.reloadData()
     }
 }
 
