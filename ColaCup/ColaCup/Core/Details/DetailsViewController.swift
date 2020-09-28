@@ -65,6 +65,8 @@ extension DetailsViewController {
         addInitialLayout()
         
         
+        // PDF screenshot
+        UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.windowScene?.screenshotService?.delegate = self
     }
 }
 
@@ -85,6 +87,31 @@ extension DetailsViewController {
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+}
+
+// MARK: - UIScreenshotServiceDelegate
+
+extension DetailsViewController: UIScreenshotServiceDelegate {
+    
+    public func screenshotService(_ screenshotService: UIScreenshotService, generatePDFRepresentationWithCompletion completionHandler: @escaping (Data?, Int, CGRect) -> Void) {
+        
+        guard let image = createScreenshot() else {
+            completionHandler(nil, 0, .zero)
+            return
+        }
+        
+        // Convert screenshots to pdf data.
+        let pdfData = NSMutableData()
+        let imgView = UIImageView(image: image)
+        let imageRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+        UIGraphicsBeginPDFContextToData(pdfData, imageRect, nil)
+        UIGraphicsBeginPDFPage()
+        let context = UIGraphicsGetCurrentContext()
+        imgView.layer.render(in: context!)
+        UIGraphicsEndPDFContext()
+        
+        completionHandler(pdfData as Data, 0, .zero)
     }
 }
 
@@ -160,6 +187,44 @@ extension DetailsViewController: UITableViewDataSource {
 }
 
 // MARK: - Tools
+
+private extension DetailsViewController {
+    
+    /// Create screenshot
+    func createScreenshot() -> UIImage? {
+        
+        var screenshot: UIImage? = nil
+        
+        UIGraphicsBeginImageContextWithOptions(tableView.contentSize, false, 0.0)
+        
+        // 1. Save the original offset.
+        let savedContentOffset = tableView.contentOffset
+        
+        // 2. Set the offset and frame required for the screenshot.
+        tableView.contentOffset = .zero
+        tableView.frame = CGRect(x: 0, y: 0, width: tableView.contentSize.width, height: tableView.contentSize.height)
+        
+        // 3. Create a temporary view, and add the view to be screenshot to the temporary view.
+        let tempView = UIView(frame: tableView.frame)
+        tableView.removeFromSuperview()
+        tempView.addSubview(tableView)
+        
+        // 4. Take a screenshot of the temporary view.
+        tempView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        
+        // 5. Restore the original state of the screenshot view.
+        tableView.removeFromSuperview()
+        tableView.contentOffset = savedContentOffset
+        
+        addSubviews()
+        addInitialLayout()
+
+        UIGraphicsEndImageContext()
+
+        return screenshot
+    }
+}
 
 fileprivate extension DetailsCellType {
     
