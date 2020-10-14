@@ -60,6 +60,9 @@ open class ColaCupPopover: UIViewController {
     /// Y coordinate of the point.
     private let appearY: CGFloat
     
+    /// Number of modules selected.
+    private lazy var selectedCount = 1
+    
     /// The proxy used for callback data.
     open weak var delegate: ColaCupPopoverDelegate? = nil
     
@@ -167,9 +170,50 @@ extension ColaCupPopover: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        modules[indexPath.row].isSelected = !modules[indexPath.row].isSelected
+        // Choose `ALL` module
+        guard indexPath.row != 0 else {
+            
+            guard !modules[0].isSelected else { return }
+            
+            modules[0].isSelected = true
+            
+            for i in 1 ..< modules.count {
+                modules[i].isSelected = false
+            }
+            
+            selectedCount = 1
+            tableView.reloadData()
+            
+            return
+        }
+        
+        // When selecting a module other than ʻALL`,
+        // cancel the selected state of the ʻALL` module.
+        if modules[0].isSelected {
+            
+            modules[0].isSelected = false
+            selectedCount -= 1
+            
+            tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.accessoryType = .none
+        }
+        
+        if modules[indexPath.row].isSelected {
+            modules[indexPath.row].isSelected = false
+            selectedCount -= 1
+        } else {
+            modules[indexPath.row].isSelected = true
+            selectedCount += 1
+        }
         
         tableView.cellForRow(at: indexPath)?.accessoryType = modules[indexPath.row].isSelected ? .checkmark : .none
+        
+        // When there is no selected module, select ʻALL`.
+        guard selectedCount <= 0 else { return }
+        
+        modules[0].isSelected = true
+        selectedCount = 1
+        
+        tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.accessoryType = .checkmark
     }
 }
 
