@@ -35,4 +35,7 @@ Pod::Spec.new do |s|
       'ColaCupBundle' => [ 'ColaCup/ColaCup/Other/*.xcassets' ]
   }
   
+  s.dependency 'RaLog'
+  s.dependency 'JSONPreview'
+  
 end
