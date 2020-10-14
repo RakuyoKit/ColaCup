@@ -121,6 +121,15 @@ extension ColaCupFlagBar {
             }
         }
         
+        // Hide redundant views
+        else {
+            let count = flagsView.arrangedSubviews.count
+            
+            for i in (count + diff) ..< count {
+                flagsView.arrangedSubviews[i].isHidden = true
+            }
+        }
+        
         for i in 0 ..< flags.count {
             
             let button = flagsView.arrangedSubviews[i] as? LogFlagButton
@@ -129,15 +138,6 @@ extension ColaCupFlagBar {
             button?.isHidden = false
             button?.titleLabel.text = flags[i].title
             button?.isSelected = flags[i].isSelected
-        }
-        
-        // Hide redundant views
-        guard diff != 0 else { return }
-        
-        let count = flagsView.arrangedSubviews.count
-        
-        for i in (count + diff) ..< count {
-            flagsView.arrangedSubviews[i].isHidden = true
         }
     }
     
