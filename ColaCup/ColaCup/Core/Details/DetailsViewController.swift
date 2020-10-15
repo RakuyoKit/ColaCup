@@ -141,16 +141,16 @@ extension DetailsViewController {
         
         let alert = UIAlertController(title: "Share", message: "Please choose how to share log data", preferredStyle: .actionSheet)
         
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            alert.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        }
+        
         alert.addAction(UIAlertAction(title: "Share screenshot", style: .default) { [weak self] _ in
             
             guard let this = self else { return }
             
             guard let image = this.createScreenshot() else {
-                let failuerAlert = UIAlertController(title: "CreatesScreenshot failure", message: "Please try again or choose another way to share the log.", preferredStyle: .alert)
-                
-                failuerAlert.addAction(UIAlertAction(title: "Done", style: .cancel))
-                
-                this.present(failuerAlert, animated: true, completion: nil)
+                this.showShareFailureAlert(title: "Create Screenshot failure")
                 return
             }
             
@@ -160,6 +160,10 @@ extension DetailsViewController {
             let activity = UIActivityViewController(activityItems: [image, this], applicationActivities: nil)
             
             activity.excludedActivityTypes = [.assignToContact]
+            
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                activity.popoverPresentationController?.barButtonItem = this.navigationItem.rightBarButtonItem
+            }
             
             this.present(activity, animated: true, completion: nil)
         })
@@ -172,15 +176,24 @@ extension DetailsViewController {
                 UIPasteboard.general.string = json
 
             } else {
-                let failuerAlert = UIAlertController(title: "Create JSON failure", message: "Please try again or choose another way to share the log.", preferredStyle: .alert)
-                
-                failuerAlert.addAction(UIAlertAction(title: "Done", style: .cancel))
-                
-                this.present(failuerAlert, animated: true, completion: nil)
+                this.showShareFailureAlert(title: "Create JSON failure")
             }
         })
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func showShareFailureAlert(title: String) {
+        
+        let alert = UIAlertController(title: title, message: "Please try again or choose another way to share the log.", preferredStyle: .alert)
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            alert.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        }
+        
+        alert.addAction(UIAlertAction(title: "Done", style: .cancel))
         
         present(alert, animated: true, completion: nil)
     }
