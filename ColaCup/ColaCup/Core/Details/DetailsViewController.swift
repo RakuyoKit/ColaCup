@@ -71,12 +71,7 @@ extension DetailsViewController {
         addSubviews()
         addInitialLayout()
         
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(name: "square.and.arrow.up"), for: .normal)
-        button.addTarget(self, action: #selector(share), for: .touchUpInside)
-        
-        // Share
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
+        configNavigationBar()
         
         if #available(iOS 13.0, *) {
             
@@ -103,6 +98,24 @@ extension DetailsViewController {
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+    
+    func configNavigationBar() {
+        
+        let bar = navigationController?.navigationBar
+        
+        bar?.tintColor = .theme
+        bar?.barTintColor = nil
+        bar?.titleTextAttributes = nil
+        
+        // TODO: Restore the back button to the system style. No good solution has been found yet. https://stackoverflow.com/q/64349176/9166124
+        
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(name: "square.and.arrow.up"), for: .normal)
+        button.addTarget(self, action: #selector(share), for: .touchUpInside)
+        
+        // Share
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
     }
 }
 
