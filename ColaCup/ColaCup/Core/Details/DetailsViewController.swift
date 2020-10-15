@@ -145,7 +145,7 @@ extension DetailsViewController {
             alert.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         }
         
-        alert.addAction(UIAlertAction(title: "Share screenshot", style: .default) { [weak self] _ in
+        alert.addAction(UIAlertAction(title: "Screenshot", style: .default) { [weak self] _ in
             
             guard let this = self else { return }
             
@@ -157,32 +157,46 @@ extension DetailsViewController {
             // Temporary storage of pictures to avoid repeated creation of pictures in the ʻUIActivityItemSource` protocol.
             this.sharedScreenshot = image
             
-            let activity = UIActivityViewController(activityItems: [image, this], applicationActivities: nil)
-            
-            activity.excludedActivityTypes = [.assignToContact]
-            
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                activity.popoverPresentationController?.barButtonItem = this.navigationItem.rightBarButtonItem
-            }
-            
-            this.present(activity, animated: true, completion: nil)
+            this.showActivity(with: image)
         })
         
-        alert.addAction(UIAlertAction(title: "Copy logs as JSON", style: .default) { [weak self] _ in
+        alert.addAction(UIAlertAction(title: "JSON", style: .default) { [weak self] _ in
             
             guard let this = self else { return }
             
-            if let json = this.viewModel.sharedJSON {
-                UIPasteboard.general.string = json
-
-            } else {
+            guard let json = this.viewModel.sharedJSON else {
                 this.showShareFailureAlert(title: "Create JSON failure")
+                return
             }
+            
+            this.showActivity(with: json)
         })
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    private func showActivity(with item: Any) {
+        
+        let items: [Any] = {
+            if let image = item as? UIImage { return [image, self] }
+            if let json  = item as? String  { return [json] }
+            return [item, self]
+        }()
+        
+        let activity = UIActivityViewController(
+            activityItems: items,
+            applicationActivities: nil
+        )
+        
+        activity.excludedActivityTypes = [.assignToContact]
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            activity.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        }
+        
+        present(activity, animated: true, completion: nil)
     }
     
     private func showShareFailureAlert(title: String) {
