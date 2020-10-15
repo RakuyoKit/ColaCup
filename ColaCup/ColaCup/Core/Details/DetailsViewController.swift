@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LinkPresentation
 
 import RaLog
 
@@ -53,6 +54,9 @@ open class DetailsViewController: UIViewController {
     
     /// Whether the tableView has been refreshed after the json has been loaded.
     private lazy var isReloaded = false
+    
+    /// It is used to temporarily store the images generated during sharing to avoid repeated generation of images.
+    private lazy var sharedScreenshot: UIImage? = nil
 }
 
 // MARK: - Life cycle
@@ -150,7 +154,10 @@ extension DetailsViewController {
                 return
             }
             
-            let activity = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+            // Temporary storage of pictures to avoid repeated creation of pictures in the ʻUIActivityItemSource` protocol.
+            this.sharedScreenshot = image
+            
+            let activity = UIActivityViewController(activityItems: [image, this], applicationActivities: nil)
             
             activity.excludedActivityTypes = [.assignToContact]
             
@@ -176,6 +183,32 @@ extension DetailsViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
         present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: - UIActivityItemSource
+
+extension DetailsViewController: UIActivityItemSource {
+    
+    public func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+        return ""
+    }
+
+    public func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        return nil
+    }
+
+    @available(iOS 13.0, *)
+    public func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
+        
+        guard let image = sharedScreenshot else { return nil }
+        
+        let metadata = LPLinkMetadata()
+        
+        metadata.title = "log_detail_screenshot"
+        metadata.imageProvider = NSItemProvider(object: image)
+        
+        return metadata
     }
 }
 
