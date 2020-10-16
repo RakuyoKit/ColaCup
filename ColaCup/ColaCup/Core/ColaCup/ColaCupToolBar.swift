@@ -28,7 +28,10 @@ open class ColaCupToolBar: UIStackView {
     /// Close button.
     open lazy var closeButton = UIButton(type: .custom)
     
-    /// Button to open the filter log tab.
+    /// Button to open the time popover.
+    open lazy var timeButton = UIButton(type: .custom)
+    
+    /// Button to open the filter popover.
     open lazy var filterButton = UIButton(type: .custom)
     
     /// Button to sort log list.
@@ -47,6 +50,7 @@ private extension ColaCupToolBar {
         
         [
             (closeButton,  "xmark.circle"),
+            (timeButton,   "clock"),
             (filterButton, "line.horizontal.3.decrease.circle"),
             (sortButton,   "arrow.clockwise.circle")
         ].forEach {

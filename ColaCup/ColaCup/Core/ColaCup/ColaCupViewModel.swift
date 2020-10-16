@@ -21,14 +21,17 @@ public class ColaCupViewModel {
     /// Log manager.
     private let logManager: Storable.Type
     
-    /// The currently selected date. The default is the current day.
-    public lazy var selectedDate: Date? = nil
+    /// Data required by the pop-up.
+    public lazy var popoverModel = PopoverModel()
     
-    /// Only include the flag used in the currently viewed log. Will not repeat.
-    public lazy var flags: [ColaCupSelectedModel] = []
-    
-    /// Only include the module in the currently viewed log. Will not repeat.
-    public lazy var modules: [ColaCupSelectedModel] = []
+//    /// The currently selected date. The default is the current day.
+//    public lazy var selectedDate: Date? = nil
+//
+//    /// Only include the flag used in the currently viewed log. Will not repeat.
+//    public lazy var flags: [ColaCupSelectedModel<String>] = []
+//
+//    /// Only include the module in the currently viewed log. Will not repeat.
+//    public lazy var modules: [ColaCupSelectedModel<String>] = []
     
     /// The log data to be displayed.
     public lazy var showLogs: [LogModelProtocol] = []
@@ -36,14 +39,14 @@ public class ColaCupViewModel {
     /// Contains the complete log data under the current date.
     private lazy var integralLogs: [LogModelProtocol] = []
     
-    /// Store the currently selected flag. Empty means `ALL` is selected.
-    private lazy var selectedFlags: Set<Log.Flag> = Set<Log.Flag>()
+//    /// Store the currently selected flag. Empty means `ALL` is selected.
+//    private lazy var selectedFlags: Set<Log.Flag> = Set<Log.Flag>()
     
-    /// Used to restrict the execution of search functions.
-    private lazy var throttler = Throttler(seconds: 0.3)
-    
-    /// What the user searched last time.
-    private lazy var lastSearchText: String? = nil
+//    /// Used to restrict the execution of search functions.
+//    private lazy var throttler = Throttler(seconds: 0.3)
+//
+//    /// What the user searched last time.
+//    private lazy var lastSearchText: String? = nil
 }
 
 public extension ColaCupViewModel {
@@ -53,7 +56,7 @@ public extension ColaCupViewModel {
     /// - Parameter completion: The callback when the processing is completed will be executed on the main thread.
     func processLogs(completion: @escaping () -> Void) {
         
-        let all = ColaCupSelectedModel(isSelected: true, title: "ALL")
+        let all = ColaCupSelectedModel(isSelected: true, value: "ALL")
         
         // Because the log volume may be large, a new thread is opened to process the log.
         DispatchQueue.global().async { [weak self] in
@@ -68,7 +71,7 @@ public extension ColaCupViewModel {
             
             this.integralLogs = { () -> [LogModelProtocol] in
                 
-                if let date = this.selectedDate {
+                if let date = this.popoverModel.targetDate {
                     
                     let _logs: [Log] = this.logManager.readLogFromDisk(logDate: date) ?? []
                     
@@ -80,8 +83,8 @@ public extension ColaCupViewModel {
             }().reversed()
             
             guard !this.integralLogs.isEmpty else {
-                this.flags = [all]
-                this.modules = [all]
+                this.popoverModel.flags = [all]
+                this.popoverModel.modules = [all]
                 this.showLogs = []
                 this.integralLogs = []
                 return
@@ -99,13 +102,13 @@ public extension ColaCupViewModel {
             // Record
             this.showLogs = this.integralLogs
             
-            var _flags = Array(flagSet).sorted().map { ColaCupSelectedModel(title: $0) }
+            var _flags = Array(flagSet).sorted().map { ColaCupSelectedModel(value: $0) }
             _flags.insert(all, at: 0)
-            this.flags = _flags
+            this.popoverModel.flags = _flags
             
-            var _modules = Array(moduleSet).sorted().map { ColaCupSelectedModel(title: $0) }
+            var _modules = Array(moduleSet).sorted().map { ColaCupSelectedModel(value: $0) }
             _modules.insert(all, at: 0)
-            this.modules = _modules
+            this.popoverModel.modules = _modules
         }
     }
     
@@ -128,7 +131,7 @@ public extension ColaCupViewModel {
                 DispatchQueue.main.async(execute: completion)
             }
             
-            let selectModules = this.modules.filter { $0.isSelected }.map { $0.title }
+            let selectModules = this.popoverModel.modules.filter { $0.isSelected }.map { $0.value }
             
             var flagSet = Set<Log.Flag>()
             
@@ -149,9 +152,9 @@ public extension ColaCupViewModel {
             }
             
             // Record
-            var _flags = Array(flagSet).sorted().map { ColaCupSelectedModel(title: $0) }
-            _flags.insert(ColaCupSelectedModel(isSelected: true, title: "ALL"), at: 0)
-            this.flags = _flags
+            var _flags = Array(flagSet).sorted().map { ColaCupSelectedModel(value: $0) }
+            _flags.insert(ColaCupSelectedModel(isSelected: true, value: "ALL"), at: 0)
+            this.popoverModel.flags = _flags
         }
     }
 }
@@ -170,13 +173,13 @@ extension ColaCupViewModel {
     ///   - completion: The callback when the processing is completed will be executed on the main thread.
     public func clickFlag(at index: Int, isSelectButton: Bool, completion: @escaping SelectedFlagCompletion) {
         
-        if flags[index].isSelected {
+        if popoverModel.flags[index].isSelected {
             
-            flags[index].isSelected = isSelectButton
+            popoverModel.flags[index].isSelected = isSelectButton
             deselectedFlag(at: index, completion: completion)
             
         } else {
-            flags[index].isSelected = isSelectButton
+            popoverModel.flags[index].isSelected = isSelectButton
             selectedFlag(at: index, completion: completion)
         }
     }
@@ -188,52 +191,52 @@ extension ColaCupViewModel {
     ///   - completion: The callback when the processing is completed will be executed on the main thread.
     private func selectedFlag(at index: Int, completion: @escaping SelectedFlagCompletion) {
         
-        flags[index].isSelected = true
-        
-        var deselectedIndexs: [Int] = []
-        
-        var conditions: [(LogModelProtocol) -> Bool] = []
-        
-        if let keyword = lastSearchText, !keyword.isEmpty {
-            conditions.append({ $0.safeLog.contains(keyword) })
-        }
-        
-        switch flags[index].title {
-        
-        case "ALL":
-            
-            let count = flags.count
-            
-            for i in 1 ..< count {
-                
-                guard flags[i].isSelected else { continue }
-                
-                flags[i].isSelected = false
-                selectedFlags.remove(flags[i].title)
-                
-                deselectedIndexs.append(i)
-            }
-            
-        default:
-            
-            selectedFlags.insert(flags[index].title)
-            
-            if flags[0].isSelected {
-                flags[0].isSelected = false
-                deselectedIndexs.append(0)
-            }
-            
-            let selectFlags = flags.filter { $0.isSelected }.map { $0.title }
-            
-            conditions.append({ selectFlags.contains($0.flag) })
-        }
-        
-        showLogs = integralLogs.filter(with: conditions)
-        
-        // Return to the main thread callback controller
-        DispatchQueue.main.async {
-            completion([], deselectedIndexs)
-        }
+//        popoverModel.flags[index].isSelected = true
+//
+//        var deselectedIndexs: [Int] = []
+//
+//        var conditions: [(LogModelProtocol) -> Bool] = []
+//
+//        if let keyword = popoverModel.searchKeyword, !keyword.isEmpty {
+//            conditions.append({ $0.safeLog.contains(keyword) })
+//        }
+//
+//        switch popoverModel.flags[index].value {
+//
+//        case "ALL":
+//
+//            let count = popoverModel.flags.count
+//
+//            for i in 1 ..< count {
+//
+//                guard popoverModel.flags[i].isSelected else { continue }
+//
+//                popoverModel.flags[i].isSelected = false
+//                selectedFlags.remove(flags[i].value)
+//
+//                deselectedIndexs.append(i)
+//            }
+//
+//        default:
+//
+//            selectedFlags.insert(flags[index].value)
+//
+//            if flags[0].isSelected {
+//                flags[0].isSelected = false
+//                deselectedIndexs.append(0)
+//            }
+//
+//            let selectFlags = flags.filter { $0.isSelected }.map { $0.value }
+//
+//            conditions.append({ selectFlags.contains($0.flag) })
+//        }
+//
+//        showLogs = integralLogs.filter(with: conditions)
+//
+//        // Return to the main thread callback controller
+//        DispatchQueue.main.async {
+//            completion([], deselectedIndexs)
+//        }
     }
     
     /// Called when the flag is deselected.
@@ -243,35 +246,35 @@ extension ColaCupViewModel {
     ///   - completion: The callback when the processing is completed will be executed on the main thread.
     private func deselectedFlag(at index: Int, completion: @escaping SelectedFlagCompletion) {
         
-        guard flags[index].title != "ALL" else { return }
-        
-        flags[index].isSelected = false
-        selectedFlags.remove(flags[index].title)
-        
-        var selectedIndexs: [Int] = []
-        
-        let selectFlags = flags.filter { $0.isSelected }.map { $0.title }
-        
-        var conditions: [(LogModelProtocol) -> Bool] = []
-        
-        if let keyword = lastSearchText, !keyword.isEmpty {
-            conditions.append({ $0.safeLog.contains(keyword) })
-        }
-        
-        if selectFlags.isEmpty {
-            flags[0].isSelected = true
-            selectedIndexs.append(0)
-            
-        } else {
-            conditions.append({ selectFlags.contains($0.flag) })
-        }
-        
-        showLogs = integralLogs.filter(with: conditions)
-        
-        // Return to the main thread callback controller
-        DispatchQueue.main.async {
-            completion(selectedIndexs, [index])
-        }
+//        guard flags[index].value != "ALL" else { return }
+//
+//        flags[index].isSelected = false
+//        selectedFlags.remove(flags[index].value)
+//
+//        var selectedIndexs: [Int] = []
+//
+//        let selectFlags = flags.filter { $0.isSelected }.map { $0.value }
+//
+//        var conditions: [(LogModelProtocol) -> Bool] = []
+//
+//        if let keyword = lastSearchText, !keyword.isEmpty {
+//            conditions.append({ $0.safeLog.contains(keyword) })
+//        }
+//
+//        if selectFlags.isEmpty {
+//            flags[0].isSelected = true
+//            selectedIndexs.append(0)
+//
+//        } else {
+//            conditions.append({ selectFlags.contains($0.flag) })
+//        }
+//
+//        showLogs = integralLogs.filter(with: conditions)
+//
+//        // Return to the main thread callback controller
+//        DispatchQueue.main.async {
+//            completion(selectedIndexs, [index])
+//        }
     }
 }
 
@@ -287,40 +290,40 @@ public extension ColaCupViewModel {
     ///   - completion: The callback when the search is completed will be executed on the main thread.
     func search(with keyword: String?, executeImmediately: Bool, completion: @escaping () -> Void) {
         
-        guard keyword != lastSearchText else { return }
-        
-        // Really responsible for the search method.
-        let searchBlock: () -> Void = { [weak self] in
-            guard let this = self else { return }
-            
-            defer {
-                
-                // Return to the main thread callback controller
-                DispatchQueue.main.async(execute: completion)
-            }
-            
-            this.lastSearchText = keyword
-            
-            var conditions: [(LogModelProtocol) -> Bool] = []
-            
-            if !this.selectedFlags.isEmpty {
-                conditions.append({ this.selectedFlags.contains($0.flag) })
-            }
-            
-            if let _keyword = keyword, !_keyword.isEmpty {
-                conditions.append({ $0.safeLog.contains(_keyword) })
-            }
-            
-            this.showLogs = this.integralLogs.filter(with: conditions)
-        }
-        
-        if executeImmediately {
-            searchBlock()
-        } else {
-            
-            // In a certain time frame, the search method can only be executed once
-            throttler.execute(searchBlock)
-        }
+//        guard keyword != lastSearchText else { return }
+//
+//        // Really responsible for the search method.
+//        let searchBlock: () -> Void = { [weak self] in
+//            guard let this = self else { return }
+//
+//            defer {
+//
+//                // Return to the main thread callback controller
+//                DispatchQueue.main.async(execute: completion)
+//            }
+//
+//            this.lastSearchText = keyword
+//
+//            var conditions: [(LogModelProtocol) -> Bool] = []
+//
+//            if !this.selectedFlags.isEmpty {
+//                conditions.append({ this.selectedFlags.contains($0.flag) })
+//            }
+//
+//            if let _keyword = keyword, !_keyword.isEmpty {
+//                conditions.append({ $0.safeLog.contains(_keyword) })
+//            }
+//
+//            this.showLogs = this.integralLogs.filter(with: conditions)
+//        }
+//
+//        if executeImmediately {
+//            searchBlock()
+//        } else {
+//
+//            // In a certain time frame, the search method can only be executed once
+//            throttler.execute(searchBlock)
+//        }
     }
 }
 

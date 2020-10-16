@@ -15,15 +15,15 @@ class PopoverAppearAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     /// Initialization method.
     ///
     /// - Parameters:
-    ///   - y: Y coordinate of trigger point.
+    ///   - position: The position to be displayed.
     ///   - height: Height of popup.
-    init(y: CGFloat, height: CGFloat) {
-        self.appearY = y
+    init(position: CGPoint, height: CGFloat) {
+        self.appearPosition = position
         self.height = height
     }
     
-    /// Y coordinate of the point.
-    private let appearY: CGFloat
+    /// The position to be displayed.
+    private let appearPosition: CGPoint
     
     /// Height of popup.
     private let height: CGFloat
@@ -42,11 +42,11 @@ class PopoverAppearAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         // The minimum width is 282.
         let width = max(containerView.frame.width / 4 * 3, 282)
         
-        // Center display.
-        let x = (containerView.frame.width - width) * 0.5
-        
         // 2. Set the frame to the target view.
-        toView.frame = CGRect(x: x, y: appearY + 10, width: width, height: height)
+        toView.frame = CGRect(
+            origin: appearPosition,
+            size: CGSize(width: width, height: height)
+        )
         
         // 3. Add shadows to the target views.
         let newView = addShadow(to: toView)

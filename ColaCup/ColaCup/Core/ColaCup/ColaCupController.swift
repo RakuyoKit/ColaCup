@@ -30,36 +30,6 @@ open class ColaCupController: UIViewController {
     /// Used to process data.
     private let viewModel: ColaCupViewModel
     
-    
-    
-    /// Used to search logs.
-    open lazy var searchBar: ColaCupSearchBar = {
-        
-        let searchBar = ColaCupSearchBar()
-        
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        
-        searchBar.searchDelegate = self
-        searchBar.textFieldDelegate = self
-        
-        return searchBar
-    }()
-    
-    /// View to display the flag of logs.
-    open lazy var flagBar: ColaCupFlagBar = {
-        
-        let bar = ColaCupFlagBar()
-        
-        bar.translatesAutoresizingMaskIntoConstraints = false
-        bar.backgroundColor = .white
-        
-        bar.delegate = self
-        
-        return bar
-    }()
-    
-    
-    
     /// Top toolbar.
     open lazy var toolBar: ColaCupToolBar = {
         
@@ -134,7 +104,6 @@ extension ColaCupController {
         navigationController?.delegate = self
         navigationController?.navigationBar.tintColor = .theme
         
-        addGesture()
         addSubviews()
         addInitialLayout()
         startProcessingData()
@@ -164,15 +133,6 @@ extension ColaCupController {
 // MARK: - Config
 
 private extension ColaCupController {
-    
-    func addGesture() {
-        
-        let ges = UITapGestureRecognizer(target: searchBar, action: #selector(resignFirstResponder))
-        
-        ges.cancelsTouchesInView = false
-        
-        view.addGestureRecognizer(ges)
-    }
     
     func addSubviews() {
         
@@ -235,8 +195,6 @@ private extension ColaCupController {
             guard let this = self else { return }
             
             this.loadingView.isHidden = true
-            
-            this.flagBar.setFlags(this.viewModel.flags)
             this.logsView.reloadData()
         }
     }
@@ -262,15 +220,19 @@ extension ColaCupController {
         
         let rect = button.convert(button.bounds, to: UIApplication.shared.delegate!.window!)
         
-        let popover = ColaCupPopover(
-            appearY: rect.maxY,
-            date: viewModel.selectedDate,
-            modules: viewModel.modules
-        )
         
-        popover.delegate = self
         
-        present(popover, animated: true) { self.isShowingPopover = true }
+//        let popover = FilterPopover()
+        
+//        let popover = ColaCupPopover(
+//            appearY: rect.maxY,
+//            date: viewModel.selectedDate,
+//            modules: viewModel.modules
+//        )
+//        
+//        popover.delegate = self
+//        
+//        present(popover, animated: true) { self.isShowingPopover = true }
     }
     
     /// Sort button click event.
@@ -292,81 +254,81 @@ extension ColaCupController {
     }
 }
 
-// MARK: - ColaCupPopoverDelegate
+//// MARK: - ColaCupPopoverDelegate
+//
+//extension ColaCupController: ColaCupPopoverDelegate {
+//    
+//    public func popover(_ popover: ColaCupPopover, willDisappearWithDate date: Date?, modules: [ColaCupSelectedModel]) {
+//        
+//        isShowingPopover = false
+//        toolBar.filterButton.isEnabled = true
+//        
+//        // When changing the date, only the date is processed. Module data will be ignored.
+//        //
+//        // TODO: Use the module data selected by the user as a reference to process the selected state of the new module data
+//        if date != viewModel.selectedDate {
+//            
+//            loadingView.isHidden = false
+//            
+//            viewModel.selectedDate = date
+//            
+//            viewModel.processLogs { [weak self] in
+//                
+//                guard let this = self else { return }
+//                
+//                this.loadingView.isHidden = true
+//                
+//                this.reloadFlagData()
+//                this.logsView.reloadData()
+//            }
+//            
+//            return
+//        }
+//        
+//        guard modules != viewModel.modules else { return }
+//        
+//        loadingView.isHidden = false
+//        
+//        viewModel.modules = modules
+//        
+//        // Processing module data changes
+//        viewModel.processModuleChange { [weak self] in
+//            
+//            guard let this = self else { return }
+//            
+//            this.loadingView.isHidden = true
+//            
+////            this.searchBar.text = ""
+//            this.reloadFlagData()
+//            this.logsView.reloadData()
+//        }
+//    }
+//}
 
-extension ColaCupController: ColaCupPopoverDelegate {
-    
-    public func popover(_ popover: ColaCupPopover, willDisappearWithDate date: Date?, modules: [ColaCupSelectedModel]) {
-        
-        isShowingPopover = false
-        toolBar.filterButton.isEnabled = true
-        
-        // When changing the date, only the date is processed. Module data will be ignored.
-        //
-        // TODO: Use the module data selected by the user as a reference to process the selected state of the new module data
-        if date != viewModel.selectedDate {
-            
-            loadingView.isHidden = false
-            
-            viewModel.selectedDate = date
-            
-            viewModel.processLogs { [weak self] in
-                
-                guard let this = self else { return }
-                
-                this.loadingView.isHidden = true
-                
-                this.reloadFlagData()
-                this.logsView.reloadData()
-            }
-            
-            return
-        }
-        
-        guard modules != viewModel.modules else { return }
-        
-        loadingView.isHidden = false
-        
-        viewModel.modules = modules
-        
-        // Processing module data changes
-        viewModel.processModuleChange { [weak self] in
-            
-            guard let this = self else { return }
-            
-            this.loadingView.isHidden = true
-            
-            this.searchBar.text = ""
-            this.reloadFlagData()
-            this.logsView.reloadData()
-        }
-    }
-}
-
-// MARK: - ColaCupFlagBarDelegate
-
-extension ColaCupController: ColaCupFlagBarDelegate {
-    
-    public func flagBar(_ flagBar: ColaCupFlagBar, flagButtonDidClick button: LogFlagButton) {
-        
-        loadingView.isHidden = false
-        
-        viewModel.clickFlag(at: button.tag, isSelectButton: button.isSelected) { [weak self] in
-            
-            guard let this = self else { return }
-            
-            this.loadingView.isHidden = true
-            this.logsView.reloadData()
-            
-            if $0.contains(0) {
-                flagBar.scrollToLeft()
-            }
-            
-            $0.forEach { this.flagBar.selectFlag(at: $0) }
-            $1.forEach { this.flagBar.deselectFlag(at: $0) }
-        }
-    }
-}
+//// MARK: - ColaCupFlagBarDelegate
+//
+//extension ColaCupController: ColaCupFlagBarDelegate {
+//
+//    public func flagBar(_ flagBar: ColaCupFlagBar, flagButtonDidClick button: LogFlagButton) {
+//
+//        loadingView.isHidden = false
+//
+//        viewModel.clickFlag(at: button.tag, isSelectButton: button.isSelected) { [weak self] in
+//
+//            guard let this = self else { return }
+//
+//            this.loadingView.isHidden = true
+//            this.logsView.reloadData()
+//
+//            if $0.contains(0) {
+//                flagBar.scrollToLeft()
+//            }
+//
+//            $0.forEach { this.flagBar.selectFlag(at: $0) }
+//            $1.forEach { this.flagBar.deselectFlag(at: $0) }
+//        }
+//    }
+//}
 
 // MARK: - UINavigationControllerDelegate
 
@@ -497,7 +459,7 @@ private extension ColaCupController {
     }
     
     func reloadFlagData() {
-        flagBar.scrollToLeft()
-        flagBar.reloadData(flags: viewModel.flags)
+//        flagBar.scrollToLeft()
+//        flagBar.reloadData(flags: viewModel.flags)
     }
 }

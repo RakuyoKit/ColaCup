@@ -8,19 +8,18 @@
 
 import Foundation
 
-/// Model used to mark whether it is selected
-public struct ColaCupSelectedModel: Equatable {
+/// Model used to mark whether it is selected.
+public struct ColaCupSelectedModel<T: Equatable>: Equatable {
     
-    public init(isSelected: Bool = false, title: String) {
+    public init(isSelected: Bool = false, value: T) {
         self.isSelected = isSelected
-        self.title = title
+        self.value = value
     }
     
     /// Is it selected.
     public var isSelected: Bool
     
-    /// The title of item.
-    public let title: String
+    public let value: T
 }
 
 extension ColaCupSelectedModel {
