@@ -516,7 +516,31 @@ extension ColaCupController: UITableViewDataSource {
         cell.timeLabel.text = log.formatTime
         cell.logLabel.text = log.safeLog
         
+        if traitCollection.forceTouchCapability == .available {
+            registerForPreviewing(with: self, sourceView: cell)
+        }
+        
         return cell
+    }
+}
+
+// MARK: - UIViewControllerPreviewingDelegate
+
+extension ColaCupController: UIViewControllerPreviewingDelegate {
+    
+    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        
+        guard let cell = previewingContext.sourceView as? UITableViewCell,
+              let indexPath = logsView.indexPath(for: cell) else {
+            return nil
+        }
+        
+        return DetailsViewController(log: viewModel.showLogs[indexPath.row])
+    }
+    
+    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 }
 
