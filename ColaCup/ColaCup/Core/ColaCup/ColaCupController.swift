@@ -179,6 +179,10 @@ extension ColaCupController {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
+    open override var shouldAutorotate: Bool { true }
+    
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .all }
 }
 
 // MARK: - Config
