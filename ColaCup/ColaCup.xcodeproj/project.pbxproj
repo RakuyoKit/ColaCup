@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A5B63DF2519F46F00E00BF5 /* ColaCupFlagBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B63DE2519F46F00E00BF5 /* ColaCupFlagBar.swift */; };
 		3A5B63E4251ADBDD00E00BF5 /* ColaCupLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B63E3251ADBDD00E00BF5 /* ColaCupLoadingView.swift */; };
+		3A5D8E8F25396D23003A3ED5 /* ColaCupToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5D8E8E25396D23003A3ED5 /* ColaCupToolBar.swift */; };
 		3A649E3C25199F7500DED905 /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A649E3B25199F7500DED905 /* default.png */; };
 		3A65A7AF251B312D00943B39 /* PopoverDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A65A7AE251B312D00943B39 /* PopoverDatePickerCell.swift */; };
 		3A65ABB2251B399300943B39 /* PopoverAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A65ABB1251B399300943B39 /* PopoverAnimation.swift */; };
@@ -60,6 +61,7 @@
 /* Begin PBXFileReference section */
 		3A5B63DE2519F46F00E00BF5 /* ColaCupFlagBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupFlagBar.swift; sourceTree = "<group>"; };
 		3A5B63E3251ADBDD00E00BF5 /* ColaCupLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupLoadingView.swift; sourceTree = "<group>"; };
+		3A5D8E8E25396D23003A3ED5 /* ColaCupToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupToolBar.swift; sourceTree = "<group>"; };
 		3A649E3B25199F7500DED905 /* default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default.png; sourceTree = "<group>"; };
 		3A65A7AE251B312D00943B39 /* PopoverDatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverDatePickerCell.swift; sourceTree = "<group>"; };
 		3A65ABB1251B399300943B39 /* PopoverAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverAnimation.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			children = (
 				3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */,
 				3AD9BFF225198CF700D2CD16 /* ColaCupController.swift */,
+				3A5D8E8E25396D23003A3ED5 /* ColaCupToolBar.swift */,
 				3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */,
 				3A5B63DE2519F46F00E00BF5 /* ColaCupFlagBar.swift */,
 				3AC2907F251C804F007CCD49 /* LogFlagButton.swift */,
@@ -455,6 +458,7 @@
 				3AC29027251C3F21007CCD49 /* LogCell.swift in Sources */,
 				3AE80458251DB3CA00CDB15B /* DetailsNormalCell.swift in Sources */,
 				3AC29080251C804F007CCD49 /* LogFlagButton.swift in Sources */,
+				3A5D8E8F25396D23003A3ED5 /* ColaCupToolBar.swift in Sources */,
 				3A5B63DF2519F46F00E00BF5 /* ColaCupFlagBar.swift in Sources */,
 				3A5B63E4251ADBDD00E00BF5 /* ColaCupLoadingView.swift in Sources */,
 				3AD9BFB425198C8D00D2CD16 /* ViewController.swift in Sources */,

@@ -30,17 +30,7 @@ open class ColaCupController: UIViewController {
     /// Used to process data.
     private let viewModel: ColaCupViewModel
     
-    /// Top view of the page. Include search box and label selection view.
-    open lazy var headerView: UIView = {
-        
-        let view = UIView()
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 10
-        view.backgroundColor = .white
-        
-        return view
-    }()
+    
     
     /// Used to search logs.
     open lazy var searchBar: ColaCupSearchBar = {
@@ -48,31 +38,11 @@ open class ColaCupController: UIViewController {
         let searchBar = ColaCupSearchBar()
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.footerView = showPopoverButton
         
         searchBar.searchDelegate = self
         searchBar.textFieldDelegate = self
         
         return searchBar
-    }()
-    
-    /// Button for displaying popups.
-    open lazy var showPopoverButton: UIButton = {
-        
-        let button = UIButton(type: .system)
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.tintColor = .theme
-        
-        button.setImage(UIImage(name: "text.badge.checkmark"), for: .normal)
-        
-        if #available(iOS 13.0, *) {
-            button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25, weight: .unspecified), forImageIn: .normal)
-        }
-        
-        button.addTarget(self, action: #selector(showPopover(_:)), for: .touchUpInside)
-        
-        return button
     }()
     
     /// View to display the flag of logs.
@@ -88,20 +58,26 @@ open class ColaCupController: UIViewController {
         return bar
     }()
     
-    /// Button to control the order of logs
-    open lazy var sortButton: UIButton = {
+    
+    
+    /// Top toolbar.
+    open lazy var toolBar: ColaCupToolBar = {
         
-        let button = UIButton(type: .system)
+        let bar = ColaCupToolBar()
         
-        button.translatesAutoresizingMaskIntoConstraints = false
+        bar.translatesAutoresizingMaskIntoConstraints = false
         
-        button.tintColor = .theme
-        button.tag = 1
+        // closeButton
+        bar.closeButton.addTarget(self, action: #selector(closeButtonDidClick(_:)), for: .touchUpInside)
         
-        button.setTitle("Time ↓", for: .normal)
-        button.addTarget(self, action: #selector(sortButtonDidClick(_:)), for: .touchUpInside)
+        // sortButton
+        bar.sortButton.tag = 1
+        bar.sortButton.addTarget(self, action: #selector(sortButtonDidClick(_:)), for: .touchUpInside)
         
-        return button
+        // filterButton
+        bar.filterButton.addTarget(self, action: #selector(filterButtonDidClick(_:)), for: .touchUpInside)
+        
+        return bar
     }()
     
     /// The view responsible for displaying the log.
@@ -167,7 +143,7 @@ extension ColaCupController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        showPopoverButton.isEnabled = true
+        toolBar.filterButton.isEnabled = true
         
         // Cancel the selected effect of the selected Cell.
         deselectRowIfNeeded()
@@ -200,88 +176,34 @@ private extension ColaCupController {
     
     func addSubviews() {
         
-        view.addSubview(headerView)
-        view.addSubview(sortButton)
+        view.addSubview(toolBar)
         view.addSubview(logsView)
         view.addSubview(loadingView)
-        
-        headerView.addSubview(searchBar)
-        headerView.addSubview(flagBar)
     }
     
     func addInitialLayout() {
         
-        // headerView
+        // toolBar
         if #available(iOS 11.0, *) {
             NSLayoutConstraint.activate([
-                headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
-                headerView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-                headerView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20)
+                toolBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
+                toolBar.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+                toolBar.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20)
             ])
             
         } else {
             NSLayoutConstraint.activate([
-                headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 15),
-                headerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-                headerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20)
+                toolBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 15),
+                toolBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+                toolBar.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20)
             ])
         }
         
-        headerView.setContentCompressionResistancePriority(.required, for: .vertical)
-        headerView.setContentHuggingPriority(.required, for: .vertical)
-        
-        // searchBar
-        NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 2),
-            searchBar.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 10),
-            searchBar.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -10)
-        ])
-        
-        searchBar.setContentHuggingPriority(.required, for: .vertical)
-        
-        // flagBar
-        NSLayoutConstraint.activate([
-            flagBar.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            flagBar.leftAnchor.constraint(equalTo: searchBar.leftAnchor),
-            flagBar.rightAnchor.constraint(equalTo: searchBar.rightAnchor),
-            flagBar.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -12),
-        ])
-        
-        flagBar.setContentHuggingPriority(.required, for: .vertical)
-        
-        // sortButton
-        var sortButtonConstraints = [
-            sortButton.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 10),
-        ]
-        
-        sortButtonConstraints.append({
-            
-            let right = sortButton.rightAnchor
-            let value: CGFloat = 10
-            
-            if #available(iOS 13.0, *) {
-                return right.constraint(
-                    equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -(value + 20)
-                )
-            }
-            
-            if #available(iOS 11.0, *) {
-                return right.constraint(
-                    equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -value
-                )
-            }
-            
-            return right.constraint(equalTo: view.rightAnchor, constant: -value)
-        }())
-        
-        NSLayoutConstraint.activate(sortButtonConstraints)
-        
-        sortButton.setContentHuggingPriority(.required, for: .vertical)
-        sortButton.setContentHuggingPriority(.required, for: .horizontal)
+        toolBar.setContentHuggingPriority(.required, for: .vertical)
         
         // logsView
         var logsViewConstraints = [
-            logsView.topAnchor.constraint(equalTo: sortButton.bottomAnchor, constant: 3),
+            logsView.topAnchor.constraint(equalTo: toolBar.bottomAnchor, constant: 15),
             logsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ]
         
@@ -324,16 +246,21 @@ private extension ColaCupController {
 
 extension ColaCupController {
     
-    /// Show pop-up view.
+    /// Close button click event.
     ///
-    /// - Parameter sender: Event trigger.
-    @objc open func showPopover(_ sender: UIButton) {
+    /// - Parameter button: `toolBar.closeButton`.
+    @objc open func closeButtonDidClick(_ button: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    /// Filter button click event.
+    ///
+    /// - Parameter button: `toolBar.filterButton`.
+    @objc open func filterButtonDidClick(_ button: UIButton) {
         
-        searchBar.resignFirstResponder()
+        button.isEnabled = false
         
-        sender.isEnabled = false
-        
-        let rect = sender.convert(sender.bounds, to: UIApplication.shared.delegate!.window!)
+        let rect = button.convert(button.bounds, to: UIApplication.shared.delegate!.window!)
         
         let popover = ColaCupPopover(
             appearY: rect.maxY,
@@ -348,16 +275,16 @@ extension ColaCupController {
     
     /// Sort button click event.
     ///
-    /// - Parameter button: `sortButton`.
-    @objc func sortButtonDidClick(_ button: UIButton) {
+    /// - Parameter button: `toolBar.sortButton`.
+    @objc open func sortButtonDidClick(_ button: UIButton) {
         
         if button.tag == 1 {
             button.tag = 2
-            button.setTitle("Time ↑", for: .normal)
+            button.setImage(UIImage(name: "arrow.counterclockwise.circle"), for: .normal)
             
         } else {
             button.tag = 1
-            button.setTitle("Time ↓", for: .normal)
+            button.setImage(UIImage(name: "arrow.clockwise.circle"), for: .normal)
         }
         
         viewModel.reverseDataSource()
@@ -372,7 +299,7 @@ extension ColaCupController: ColaCupPopoverDelegate {
     public func popover(_ popover: ColaCupPopover, willDisappearWithDate date: Date?, modules: [ColaCupSelectedModel]) {
         
         isShowingPopover = false
-        showPopoverButton.isEnabled = true
+        toolBar.filterButton.isEnabled = true
         
         // When changing the date, only the date is processed. Module data will be ignored.
         //

@@ -39,13 +39,11 @@ class PopoverAppearAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         
         let containerView = transitionContext.containerView
         
-        // Maximum width is 276.
-        let width = min(containerView.frame.width / 3 * 2, 276)
+        // The minimum width is 282.
+        let width = max(containerView.frame.width / 4 * 3, 282)
         
-        let x = containerView.frame.width - width - 20 - {
-            guard #available(iOS 11.0, *) else { return 0 }
-            return containerView.safeAreaInsets.right
-        }()
+        // Center display.
+        let x = (containerView.frame.width - width) * 0.5
         
         // 2. Set the frame to the target view.
         toView.frame = CGRect(x: x, y: appearY + 10, width: width, height: height)
@@ -81,7 +79,7 @@ private extension PopoverAppearAnimation {
     func configToViewAnimate(_ view: UIView) {
         
         let oldFrame = view.frame
-        view.layer.anchorPoint = CGPoint(x: 0.9, y: 0)
+        view.layer.anchorPoint = CGPoint(x: 0.5, y: 0)
         view.frame = oldFrame
         
         view.transform = CGAffineTransform(scaleX: 0.0001, y: 0.0001)
@@ -93,9 +91,9 @@ private extension PopoverAppearAnimation {
         let shadowView = UIView()
         
         shadowView.backgroundColor = .clear
-        shadowView.layer.shadowColor = UIColor.lightGray.cgColor
+        shadowView.layer.shadowColor = UIColor.gray.cgColor
         shadowView.layer.shadowRadius = 10
-        shadowView.layer.shadowOpacity = 0.35
+        shadowView.layer.shadowOpacity = 0.45
         
         shadowView.frame = view.frame
         view.frame.origin = .zero
