@@ -153,6 +153,9 @@
 				3ABF488F253D256800909FBE /* FilterPopoverModel.swift */,
 				3A4A91D325398808003C5957 /* FilterPopoverViewModel.swift */,
 				3A4A91CB253987C9003C5957 /* FilterPopover.swift */,
+				3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */,
+				3A5B63DE2519F46F00E00BF5 /* ColaCupFlagBar.swift */,
+				3AC2907F251C804F007CCD49 /* LogFlagButton.swift */,
 			);
 			path = Filter;
 			sourceTree = "<group>";
@@ -193,9 +196,6 @@
 				3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */,
 				3AD9BFF225198CF700D2CD16 /* ColaCupController.swift */,
 				3A5D8E8E25396D23003A3ED5 /* ColaCupToolBar.swift */,
-				3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */,
-				3A5B63DE2519F46F00E00BF5 /* ColaCupFlagBar.swift */,
-				3AC2907F251C804F007CCD49 /* LogFlagButton.swift */,
 				3AC29026251C3F21007CCD49 /* LogCell.swift */,
 			);
 			path = ColaCup;
