@@ -8,25 +8,7 @@
 
 import UIKit
 
-//public protocol ColaCupPopoverDelegate: class {
-//    
-//    /// Execute when the pop-up window is about to disappear,
-//    /// and call back the data to the caller.
-//    ///
-//    /// All the data below will not detect whether the comparison has changed during initialization.
-//    ///
-//    /// You need to judge by yourself whether the data has changed.
-//    ///
-//    /// - Parameters:
-//    ///   - popover: The popup itself.
-//    ///   - date: The date currently selected by the user.
-//    ///   - modules: Module array.
-//    func popover(
-//        _ popover: ColaCupPopover,
-//        willDisappearWithDate date: Date?,
-//        modules: [ColaCupSelectedModel]
-//    )
-//}
+
 //
 ///// Pop-up view, including date selection and module filtering.
 //open class ColaCupPopover: UIViewController {

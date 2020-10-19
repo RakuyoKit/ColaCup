@@ -252,7 +252,7 @@ extension ColaCupController {
             dataSource: viewModel.filterModel
         )
         
-//        popover.delegate = self
+        popover.delegate = self
         
         present(popover, animated: true) { self.isShowingPopover = true }
     }
@@ -276,10 +276,18 @@ extension ColaCupController {
     }
 }
 
-//// MARK: - ColaCupPopoverDelegate
-//
-//extension ColaCupController: ColaCupPopoverDelegate {
-//    
+// MARK: - ColaCupPopoverDelegate
+
+extension ColaCupController: ColaCupPopoverDelegate {
+    
+    public func popoverWillDisappear<Popover>(_ popover: Popover) where Popover : BasePopover {
+        
+        isShowingPopover = false
+        
+        toolBar.timeButton.isEnabled = true
+        toolBar.filterButton.isEnabled = true
+    }
+    
 //    public func popover(_ popover: ColaCupPopover, willDisappearWithDate date: Date?, modules: [ColaCupSelectedModel]) {
 //        
 //        isShowingPopover = false
@@ -325,7 +333,7 @@ extension ColaCupController {
 //            this.logsView.reloadData()
 //        }
 //    }
-//}
+}
 
 //// MARK: - ColaCupFlagBarDelegate
 //

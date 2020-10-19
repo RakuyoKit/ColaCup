@@ -8,6 +8,14 @@
 
 import UIKit
 
+public protocol ColaCupPopoverDelegate: class {
+    
+    /// Execute when the pop-up is about to disappear.
+    ///
+    /// - Parameter popover: The currently displayed pop-up.
+    func popoverWillDisappear<Popover: BasePopover>(_ popover: Popover)
+}
+
 open class BasePopover: UIViewController {
     
     /// Initialization method.
@@ -27,6 +35,9 @@ open class BasePopover: UIViewController {
     
     /// The position to be displayed.
     private let appearPosition: CGPoint
+    
+    /// Controller delegate.
+    public weak var delegate: ColaCupPopoverDelegate? = nil
     
     /// The parent view of all the following views.
     open lazy var stackView: UIStackView = {
@@ -75,6 +86,12 @@ extension BasePopover {
             stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -space),
             stackView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        delegate?.popoverWillDisappear(self)
     }
 }
 
