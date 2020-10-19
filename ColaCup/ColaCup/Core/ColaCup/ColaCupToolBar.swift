@@ -40,6 +40,15 @@ open class ColaCupToolBar: UIStackView {
 
 // MARK: - Config
 
+extension ColaCupToolBar {
+    
+    enum Constant {
+        
+        /// The size of each button
+        static let buttonSize: CGFloat = 40
+    }
+}
+
 private extension ColaCupToolBar {
     
     func config() {
@@ -61,21 +70,19 @@ private extension ColaCupToolBar {
             $0.0.tintColor = .theme
             $0.0.setImage(UIImage(name: $0.1), for: .normal)
             
-            let size: CGFloat = 40
-            
             if #available(iOS 13.0, *) {
                 $0.0.setPreferredSymbolConfiguration(
-                    UIImage.SymbolConfiguration(pointSize: size * 0.55),
+                    UIImage.SymbolConfiguration(pointSize: Constant.buttonSize * 0.55),
                     forImageIn: .normal
                 )
             }
             
-            $0.0.layer.cornerRadius = size * 0.5
+            $0.0.layer.cornerRadius = Constant.buttonSize * 0.5
             
             addArrangedSubview($0.0)
             
             NSLayoutConstraint.activate([
-                $0.0.widthAnchor.constraint(equalToConstant: size),
+                $0.0.widthAnchor.constraint(equalToConstant: Constant.buttonSize),
                 $0.0.heightAnchor.constraint(equalTo: $0.0.widthAnchor)
             ])
         }
