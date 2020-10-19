@@ -33,23 +33,8 @@ public class ColaCupViewModel {
     /// Contains the complete log data under the current date.
     private lazy var integralLogs: [LogModelProtocol] = []
     
-//    /// The currently selected date. The default is the current day.
-//    public lazy var selectedDate: Date? = nil
-//
-//    /// Only include the flag used in the currently viewed log. Will not repeat.
-//    public lazy var flags: [ColaCupSelectedModel<String>] = []
-//
-//    /// Only include the module in the currently viewed log. Will not repeat.
-//    public lazy var modules: [ColaCupSelectedModel<String>] = []
-//
-//    /// Store the currently selected flag. Empty means `ALL` is selected.
-//    private lazy var selectedFlags: Set<Log.Flag> = Set<Log.Flag>()
-    
     /// Used to restrict the execution of search functions.
     private lazy var throttler = Throttler(seconds: 0.3)
-    
-//    /// What the user searched last time.
-//    private lazy var lastSearchText: String? = nil
 }
 
 public extension ColaCupViewModel {
@@ -162,41 +147,6 @@ public extension ColaCupViewModel {
     }
 }
 
-// MARK: - Flag
-
-extension ColaCupViewModel {
-    
-    public func updateFlags(_ flags: [ColaCupSelectedModel<Log.Flag>]) {
-        filterModel.flags = flags
-    }
-    
-    /// Execute when the flag button is clicked.
-    ///
-    /// - Parameters:
-    ///   - index: Index of the choosed flag.
-    ///   - completion: The callback when the processing is completed will be executed on the main thread.
-    public func clickFlag(at index: Int, completion: @escaping () -> Void) {
-        
-        var conditions: [(LogModelProtocol) -> Bool] = []
-        
-        if let keyword = filterModel.searchKeyword, !keyword.isEmpty {
-            conditions.append({ $0.safeLog.contains(keyword) })
-        }
-        
-        if !filterModel.flags[0].isSelected {
-            
-            let selectFlags = filterModel.flags.filter { $0.isSelected }.map { $0.value }
-            
-            conditions.append({ selectFlags.contains($0.flag) })
-        }
-        
-        showLogs = integralLogs.filter(with: conditions)
-        
-        // Return to the main thread callback controller
-        DispatchQueue.main.async(execute: completion)
-    }
-}
-
 // MARK: - Search
 
 public extension ColaCupViewModel {
@@ -243,6 +193,41 @@ public extension ColaCupViewModel {
             // In a certain time frame, the search method can only be executed once
             throttler.execute(searchBlock)
         }
+    }
+}
+
+// MARK: - Flag
+
+extension ColaCupViewModel {
+    
+    public func updateFlags(_ flags: [ColaCupSelectedModel<Log.Flag>]) {
+        filterModel.flags = flags
+    }
+    
+    /// Execute when the flag button is clicked.
+    ///
+    /// - Parameters:
+    ///   - index: Index of the choosed flag.
+    ///   - completion: The callback when the processing is completed will be executed on the main thread.
+    public func clickFlag(at index: Int, completion: @escaping () -> Void) {
+        
+        var conditions: [(LogModelProtocol) -> Bool] = []
+        
+        if let keyword = filterModel.searchKeyword, !keyword.isEmpty {
+            conditions.append({ $0.safeLog.contains(keyword) })
+        }
+        
+        if !filterModel.flags[0].isSelected {
+            
+            let selectFlags = filterModel.flags.filter { $0.isSelected }.map { $0.value }
+            
+            conditions.append({ selectFlags.contains($0.flag) })
+        }
+        
+        showLogs = integralLogs.filter(with: conditions)
+        
+        // Return to the main thread callback controller
+        DispatchQueue.main.async(execute: completion)
     }
 }
 

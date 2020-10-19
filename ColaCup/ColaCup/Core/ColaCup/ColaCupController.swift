@@ -309,7 +309,6 @@ extension ColaCupController: ColaCupPopoverDelegate {
 //                
 //                this.loadingView.isHidden = true
 //                
-//                this.reloadFlagData()
 //                this.logsView.reloadData()
 //            }
 //            
@@ -330,7 +329,6 @@ extension ColaCupController: ColaCupPopoverDelegate {
 //            this.loadingView.isHidden = true
 //            
 ////            this.searchBar.text = ""
-//            this.reloadFlagData()
 //            this.logsView.reloadData()
 //        }
 //    }
@@ -461,10 +459,5 @@ private extension ColaCupController {
                 self.logsView.selectRow(at: selectedIndexPath, animated: false, scrollPosition: .none)
             }
         )
-    }
-    
-    func reloadFlagData() {
-//        flagBar.scrollToLeft()
-//        flagBar.reloadData(flags: viewModel.flags)
     }
 }
