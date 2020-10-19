@@ -13,7 +13,7 @@ public class FilterPopoverViewModel {
     /// Initialization method.
     ///
     /// - Parameter dataSource: The data source model of the content of the pop-up.
-    public init(dataSource: PopoverModel) {
+    public init(dataSource: FilterPopoverModel) {
         
         
     }

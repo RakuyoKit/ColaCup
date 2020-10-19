@@ -21,8 +21,17 @@ public class ColaCupViewModel {
     /// Log manager.
     private let logManager: Storable.Type
     
-    /// Data required by the pop-up.
-    public lazy var popoverModel = PopoverModel()
+    /// A model for storing time-related data.
+    public lazy var timeModel = TimePopoverModel()
+    
+    /// A model for storing data related to filter options.
+    public lazy var filterModel = FilterPopoverModel()
+    
+    /// The log data to be displayed.
+    public lazy var showLogs: [LogModelProtocol] = []
+    
+    /// Contains the complete log data under the current date.
+    private lazy var integralLogs: [LogModelProtocol] = []
     
 //    /// The currently selected date. The default is the current day.
 //    public lazy var selectedDate: Date? = nil
@@ -32,16 +41,10 @@ public class ColaCupViewModel {
 //
 //    /// Only include the module in the currently viewed log. Will not repeat.
 //    public lazy var modules: [ColaCupSelectedModel<String>] = []
-    
-    /// The log data to be displayed.
-    public lazy var showLogs: [LogModelProtocol] = []
-    
-    /// Contains the complete log data under the current date.
-    private lazy var integralLogs: [LogModelProtocol] = []
-    
+//
 //    /// Store the currently selected flag. Empty means `ALL` is selected.
 //    private lazy var selectedFlags: Set<Log.Flag> = Set<Log.Flag>()
-    
+//
 //    /// Used to restrict the execution of search functions.
 //    private lazy var throttler = Throttler(seconds: 0.3)
 //
@@ -71,7 +74,7 @@ public extension ColaCupViewModel {
             
             this.integralLogs = { () -> [LogModelProtocol] in
                 
-                if let date = this.popoverModel.targetDate {
+                if let date = this.timeModel.targetDate {
                     
                     let _logs: [Log] = this.logManager.readLogFromDisk(logDate: date) ?? []
                     
@@ -83,8 +86,8 @@ public extension ColaCupViewModel {
             }().reversed()
             
             guard !this.integralLogs.isEmpty else {
-                this.popoverModel.flags = [all]
-                this.popoverModel.modules = [all]
+                this.filterModel.flags = [all]
+                this.filterModel.modules = [all]
                 this.showLogs = []
                 this.integralLogs = []
                 return
@@ -104,11 +107,11 @@ public extension ColaCupViewModel {
             
             var _flags = Array(flagSet).sorted().map { ColaCupSelectedModel(value: $0) }
             _flags.insert(all, at: 0)
-            this.popoverModel.flags = _flags
+            this.filterModel.flags = _flags
             
             var _modules = Array(moduleSet).sorted().map { ColaCupSelectedModel(value: $0) }
             _modules.insert(all, at: 0)
-            this.popoverModel.modules = _modules
+            this.filterModel.modules = _modules
         }
     }
     
@@ -131,7 +134,7 @@ public extension ColaCupViewModel {
                 DispatchQueue.main.async(execute: completion)
             }
             
-            let selectModules = this.popoverModel.modules.filter { $0.isSelected }.map { $0.value }
+            let selectModules = this.filterModel.modules.filter { $0.isSelected }.map { $0.value }
             
             var flagSet = Set<Log.Flag>()
             
@@ -154,7 +157,7 @@ public extension ColaCupViewModel {
             // Record
             var _flags = Array(flagSet).sorted().map { ColaCupSelectedModel(value: $0) }
             _flags.insert(ColaCupSelectedModel(isSelected: true, value: "ALL"), at: 0)
-            this.popoverModel.flags = _flags
+            this.filterModel.flags = _flags
         }
     }
 }
@@ -173,13 +176,13 @@ extension ColaCupViewModel {
     ///   - completion: The callback when the processing is completed will be executed on the main thread.
     public func clickFlag(at index: Int, isSelectButton: Bool, completion: @escaping SelectedFlagCompletion) {
         
-        if popoverModel.flags[index].isSelected {
+        if filterModel.flags[index].isSelected {
             
-            popoverModel.flags[index].isSelected = isSelectButton
+            filterModel.flags[index].isSelected = isSelectButton
             deselectedFlag(at: index, completion: completion)
             
         } else {
-            popoverModel.flags[index].isSelected = isSelectButton
+            filterModel.flags[index].isSelected = isSelectButton
             selectedFlag(at: index, completion: completion)
         }
     }

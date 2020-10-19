@@ -49,7 +49,7 @@ extension BasePopover {
     /// The height of the pop-up.
     ///
     /// Need to be overwritten by subclasses to return the exact height.
-    open var height: CGFloat { 0 }
+    @objc open var height: CGFloat { 0 }
 }
 
 // MARK: - Life cycle
@@ -58,6 +58,12 @@ extension BasePopover {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemGroupedBackground
+        } else {
+            view.backgroundColor = .groupTableViewBackground
+        }
         
         view.addSubview(stackView)
         

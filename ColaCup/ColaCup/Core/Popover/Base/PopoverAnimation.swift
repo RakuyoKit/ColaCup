@@ -43,10 +43,8 @@ class PopoverAppearAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         let width = max(containerView.frame.width / 4 * 3, 282)
         
         // 2. Set the frame to the target view.
-        toView.frame = CGRect(
-            origin: appearPosition,
-            size: CGSize(width: width, height: height)
-        )
+        toView.frame = CGRect(x: 0, y: appearPosition.y, width: width, height: height)
+        toView.center.x = appearPosition.x
         
         // 3. Add shadows to the target views.
         let newView = addShadow(to: toView)

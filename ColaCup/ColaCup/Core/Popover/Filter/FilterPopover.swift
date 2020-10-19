@@ -14,7 +14,7 @@ public class FilterPopover: BasePopover {
     /// Initialization method.
     /// 
     /// - Parameter dataSource: The data source model of the content of the pop-up.
-    public init(position: CGPoint, dataSource: PopoverModel) {
+    public init(position: CGPoint, dataSource: FilterPopoverModel) {
         viewModel = FilterPopoverViewModel(dataSource: dataSource)
         
         super.init(position: position)
@@ -52,6 +52,10 @@ public class FilterPopover: BasePopover {
         
         return bar
     }()
+    
+    public override var height: CGFloat {
+        100
+    }
 }
 
 // MARK: - Life cycle

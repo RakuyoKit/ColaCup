@@ -44,6 +44,9 @@ open class ColaCupController: UIViewController {
         bar.sortButton.tag = 1
         bar.sortButton.addTarget(self, action: #selector(sortButtonDidClick(_:)), for: .touchUpInside)
         
+        // timeButton
+        bar.timeButton.addTarget(self, action: #selector(timeButtonDidClick(_:)), for: .touchUpInside)
+        
         // filterButton
         bar.filterButton.addTarget(self, action: #selector(filterButtonDidClick(_:)), for: .touchUpInside)
         
@@ -112,6 +115,7 @@ extension ColaCupController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        toolBar.timeButton.isEnabled = true
         toolBar.filterButton.isEnabled = true
         
         // Cancel the selected effect of the selected Cell.
@@ -211,6 +215,27 @@ extension ColaCupController {
         dismiss(animated: true, completion: nil)
     }
     
+    /// Time button click event.
+    ///
+    /// - Parameter button: `toolBar.timeButton`.
+    @objc open func timeButtonDidClick(_ button: UIButton) {
+        
+        button.isEnabled = false
+        
+        let rect = button.convert(button.bounds, to: UIApplication.shared.delegate!.window!)
+        
+        let appearPosition = CGPoint(x: button.center.x, y: rect.maxY)
+        
+//        let popover = FilterPopover(
+//            position: appearPosition,
+//            dataSource: viewModel.filterModel
+//        )
+        
+//        popover.delegate = self
+        
+//        present(popover, animated: true) { self.isShowingPopover = true }
+    }
+    
     /// Filter button click event.
     ///
     /// - Parameter button: `toolBar.filterButton`.
@@ -220,19 +245,16 @@ extension ColaCupController {
         
         let rect = button.convert(button.bounds, to: UIApplication.shared.delegate!.window!)
         
+        let appearPosition = CGPoint(x: button.center.x, y: rect.maxY)
         
+        let popover = FilterPopover(
+            position: appearPosition,
+            dataSource: viewModel.filterModel
+        )
         
-//        let popover = FilterPopover()
-        
-//        let popover = ColaCupPopover(
-//            appearY: rect.maxY,
-//            date: viewModel.selectedDate,
-//            modules: viewModel.modules
-//        )
-//        
 //        popover.delegate = self
-//        
-//        present(popover, animated: true) { self.isShowingPopover = true }
+        
+        present(popover, animated: true) { self.isShowingPopover = true }
     }
     
     /// Sort button click event.
