@@ -173,7 +173,7 @@ extension FilterPopover: UITableViewDelegate {
             return getCell(IndexPath(row: 0, section: 0))
         }
         
-        viewModel.selectModule(at: indexPath.row) {
+        viewModel.selectModule(at: indexPath.row, animations: {
             
             switch $0 {
             
@@ -192,7 +192,7 @@ extension FilterPopover: UITableViewDelegate {
             case .uncheckClicked:
                 getCell(indexPath)?.accessoryType = .none
             }
-        }
+        })
     }
 }
 

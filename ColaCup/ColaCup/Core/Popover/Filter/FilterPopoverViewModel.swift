@@ -32,7 +32,7 @@ public class FilterPopoverViewModel {
     /// The number of fully displayed modules.
     ///
     /// Modules with more than this value will scroll to view.
-    public lazy var showModuleCount = CGFloat(modules.count >= 5 ? 5 : modules.count)
+    public lazy var showModuleCount = CGFloat(modules.count >= 10 ? 10 : modules.count)
     
     /// Number of modules selected.
     private lazy var selectedCount = 1
