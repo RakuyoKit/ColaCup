@@ -44,10 +44,10 @@ public class ColaCupViewModel {
 //
 //    /// Store the currently selected flag. Empty means `ALL` is selected.
 //    private lazy var selectedFlags: Set<Log.Flag> = Set<Log.Flag>()
-//
-//    /// Used to restrict the execution of search functions.
-//    private lazy var throttler = Throttler(seconds: 0.3)
-//
+    
+    /// Used to restrict the execution of search functions.
+    private lazy var throttler = Throttler(seconds: 0.3)
+    
 //    /// What the user searched last time.
 //    private lazy var lastSearchText: String? = nil
 }
@@ -293,40 +293,40 @@ public extension ColaCupViewModel {
     ///   - completion: The callback when the search is completed will be executed on the main thread.
     func search(with keyword: String?, executeImmediately: Bool, completion: @escaping () -> Void) {
         
-//        guard keyword != lastSearchText else { return }
-//
-//        // Really responsible for the search method.
-//        let searchBlock: () -> Void = { [weak self] in
-//            guard let this = self else { return }
-//
-//            defer {
-//
-//                // Return to the main thread callback controller
-//                DispatchQueue.main.async(execute: completion)
-//            }
-//
-//            this.lastSearchText = keyword
-//
-//            var conditions: [(LogModelProtocol) -> Bool] = []
-//
-//            if !this.selectedFlags.isEmpty {
-//                conditions.append({ this.selectedFlags.contains($0.flag) })
-//            }
-//
-//            if let _keyword = keyword, !_keyword.isEmpty {
-//                conditions.append({ $0.safeLog.contains(_keyword) })
-//            }
-//
-//            this.showLogs = this.integralLogs.filter(with: conditions)
-//        }
-//
-//        if executeImmediately {
-//            searchBlock()
-//        } else {
-//
-//            // In a certain time frame, the search method can only be executed once
-//            throttler.execute(searchBlock)
-//        }
+        // Really responsible for the search method.
+        let searchBlock: () -> Void = { [weak self] in
+            guard let this = self else { return }
+            
+            defer {
+                
+                // Return to the main thread callback controller
+                DispatchQueue.main.async(execute: completion)
+            }
+            
+            this.filterModel.searchKeyword = keyword
+            
+            var conditions: [(LogModelProtocol) -> Bool] = []
+            
+            let selectedFlags = this.filterModel.flags.filter { $0.isSelected }.map { $0.value }
+            
+            if !selectedFlags.isEmpty && selectedFlags != ["ALL"] {
+                conditions.append({ selectedFlags.contains($0.flag) })
+            }
+            
+            if let _keyword = keyword, !_keyword.isEmpty {
+                conditions.append({ $0.safeLog.contains(_keyword) })
+            }
+            
+            this.showLogs = this.integralLogs.filter(with: conditions)
+        }
+        
+        if executeImmediately {
+            searchBlock()
+        } else {
+            
+            // In a certain time frame, the search method can only be executed once
+            throttler.execute(searchBlock)
+        }
     }
 }
 

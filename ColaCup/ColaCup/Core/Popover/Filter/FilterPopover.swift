@@ -8,6 +8,17 @@
 
 import UIKit
 
+/// Delegate for callback data.
+public protocol FilterPopoverDataDelegate: class {
+    
+    /// Execute when searching.
+    ///
+    /// - Parameters:
+    ///   - popover: `FilterPopover`.
+    ///   - keyword: The keyword that the user wants to search.
+    func filterPopover(_ popover: FilterPopover, search keyword: String)
+}
+
 /// A pop-up window for displaying filter options.
 public class FilterPopover: BasePopover {
     
@@ -27,15 +38,19 @@ public class FilterPopover: BasePopover {
     /// View Model.
     private let viewModel: FilterPopoverViewModel
     
+    /// delegate for callback data
+    public weak var dataDelegate: FilterPopoverDataDelegate? = nil
+    
     /// Used to search logs.
     open lazy var searchBar: ColaCupSearchBar = {
         
         let searchBar = ColaCupSearchBar()
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.text = viewModel.searchKeyword
         
-//        searchBar.searchDelegate = self
-//        searchBar.textFieldDelegate = self
+        searchBar.searchDelegate = self
+        searchBar.textFieldDelegate = self
         
         return searchBar
     }()
@@ -138,6 +153,32 @@ private extension FilterPopover {
             moduleView.heightAnchor.constraint(equalToConstant: height),
             moduleView.widthAnchor.constraint(equalTo: stackView.widthAnchor)
         ])
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension FilterPopover: UISearchBarDelegate {
+    
+    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        guard searchText != viewModel.searchKeyword else { return }
+        
+        viewModel.searchKeyword = searchText
+        
+        dataDelegate?.filterPopover(self, search: searchText)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension FilterPopover: UITextFieldDelegate {
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        return false
     }
 }
 

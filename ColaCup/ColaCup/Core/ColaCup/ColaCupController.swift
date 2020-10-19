@@ -253,6 +253,7 @@ extension ColaCupController {
         )
         
         popover.delegate = self
+        popover.dataDelegate = self
         
         present(popover, animated: true) { self.isShowingPopover = true }
     }
@@ -360,6 +361,18 @@ extension ColaCupController: ColaCupPopoverDelegate {
 //    }
 //}
 
+// MARK: - FilterPopoverDataDelegate
+
+extension ColaCupController: FilterPopoverDataDelegate {
+    
+    public func filterPopover(_ popover: FilterPopover, search keyword: String) {
+        
+        viewModel.search(with: keyword, executeImmediately: false) { [weak self] in
+            self?.logsView.reloadData()
+        }
+    }
+}
+
 // MARK: - UINavigationControllerDelegate
 
 extension ColaCupController: UINavigationControllerDelegate {
@@ -368,34 +381,6 @@ extension ColaCupController: UINavigationControllerDelegate {
         
         let isHide = viewController is ColaCupController
         navigationController.setNavigationBarHidden(isHide, animated: animated)
-    }
-}
-
-// MARK: - UISearchBarDelegate
-
-extension ColaCupController: UISearchBarDelegate {
-    
-    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        viewModel.search(with: searchText, executeImmediately: false) { [weak self] in
-            self?.logsView.reloadData()
-        }
-    }
-}
-
-// MARK: - UITextFieldDelegate
-
-extension ColaCupController: UITextFieldDelegate {
-    
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        textField.resignFirstResponder()
-        
-        viewModel.search(with: textField.text, executeImmediately: true) { [weak self] in
-            self?.logsView.reloadData()
-        }
-        
-        return false
     }
 }
 
