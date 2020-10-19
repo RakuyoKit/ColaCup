@@ -60,32 +60,11 @@ import UIKit
 //    /// Y coordinate of the point.
 //    private let appearY: CGFloat
 //    
-//    /// Number of modules selected.
-//    private lazy var selectedCount = 1
 //    
 //    /// The proxy used for callback data.
 //    open weak var delegate: ColaCupPopoverDelegate? = nil
 //    
-//    /// TableView showing the list of modules
-//    open lazy var tableView: UITableView = {
-//        
-//        let tableView = UITableView(frame: .zero, style: .plain)
-//        
-//        tableView.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        tableView.rowHeight = UITableView.automaticDimension
-//        tableView.estimatedRowHeight = 50
-//        
-//        tableView.bounces = false
-//        
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//        
-//        tableView.register(PopoverDatePickerCell.self, forCellReuseIdentifier: "PopoverDatePickerCell")
-//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
-//        
-//        return tableView
-//    }()
+    
 //}
 //
 //// MARK: - Life cycle
@@ -147,114 +126,8 @@ import UIKit
 //    }
 //}
 //
-//// MARK: - UITableViewDelegate
-//
-//extension ColaCupPopover: UITableViewDelegate {
-//    
-//    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        
-//        return section == 0 ? 0.001 : 12
-//    }
-//    
-//    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        
-//        let view = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: section == 0 ? 0.001 : 12))
-//        
-//        view.backgroundColor = {
-//            if #available(iOS 13.0, *) { return .tertiarySystemFill }
-//            return .groupTableViewBackground
-//        }()
-//        
-//        return view
-//    }
-//    
-//    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        
-//        // Choose `ALL` module
-//        guard indexPath.row != 0 else {
-//            
-//            guard !modules[0].isSelected else { return }
-//            
-//            modules[0].isSelected = true
-//            
-//            for i in 1 ..< modules.count {
-//                modules[i].isSelected = false
-//            }
-//            
-//            selectedCount = 1
-//            tableView.reloadData()
-//            
-//            return
-//        }
-//        
-//        // When selecting a module other than ʻALL`,
-//        // cancel the selected state of the ʻALL` module.
-//        if modules[0].isSelected {
-//            
-//            modules[0].isSelected = false
-//            selectedCount -= 1
-//            
-//            tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.accessoryType = .none
-//        }
-//        
-//        if modules[indexPath.row].isSelected {
-//            modules[indexPath.row].isSelected = false
-//            selectedCount -= 1
-//        } else {
-//            modules[indexPath.row].isSelected = true
-//            selectedCount += 1
-//        }
-//        
-//        tableView.cellForRow(at: indexPath)?.accessoryType = modules[indexPath.row].isSelected ? .checkmark : .none
-//        
-//        // When there is no selected module, select ʻALL`.
-//        guard selectedCount <= 0 else { return }
-//        
-//        modules[0].isSelected = true
-//        selectedCount = 1
-//        
-//        tableView.cellForRow(at: IndexPath(row: 0, section: 1))?.accessoryType = .checkmark
-//    }
-//}
-//
-//// MARK: - UITableViewDataSource
-//
-//extension ColaCupPopover: UITableViewDataSource {
-//    
-//    public func numberOfSections(in tableView: UITableView) -> Int {
-//        return 2
-//    }
-//    
-//    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return section == 0 ? 1 : modules.count
-//    }
-//    
-//    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        
-//        if indexPath.section == 0 {
-//            
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "PopoverDatePickerCell", for: indexPath) as! PopoverDatePickerCell
-//            
-//            cell.datePicker.date = date ?? Date()
-//            cell.datePicker.addTarget(self, action: #selector(handleDatePicker(_:)), for: .valueChanged)
-//            
-//            return cell
-//        }
-//        
-//        let model = modules[indexPath.row]
-//        
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
-//        
-//        cell.separatorInset = .zero
-//        cell.textLabel?.text = model.title
-//        cell.tintColor = .theme
-//        cell.accessoryType = model.isSelected ? .checkmark : .none
-//        cell.selectionStyle = .none
-//        
-//        return cell
-//    }
-//}
-//
+
+
 //// MARK: - UIViewControllerTransitioningDelegate
 //
 //extension ColaCupPopover: UIViewControllerTransitioningDelegate {

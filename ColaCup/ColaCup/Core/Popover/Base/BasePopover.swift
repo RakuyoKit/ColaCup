@@ -38,7 +38,7 @@ open class BasePopover: UIViewController {
         view.axis = .vertical
         view.alignment = .fill
         view.distribution = .equalSpacing
-        view.spacing = 15
+        view.spacing = Constant.spacing
         
         return view
     }()
@@ -67,16 +67,30 @@ extension BasePopover {
         
         view.addSubview(stackView)
         
+        let space = Constant.topBottomSpacing
+        
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.topAnchor),
+            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: space),
             stackView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -space),
             stackView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
     }
 }
 
 // MARK: - Config
+
+extension BasePopover {
+    
+    enum Constant {
+        
+        /// The spacing of each item in `stackView`.
+        static let spacing: CGFloat = 15
+        
+        /// `stackView` top and bottom spacing.
+        static let topBottomSpacing: CGFloat = 10
+    }
+}
 
 private extension BasePopover {
     
