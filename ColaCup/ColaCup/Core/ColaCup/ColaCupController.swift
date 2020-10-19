@@ -344,11 +344,16 @@ extension ColaCupController: FilterPopoverDataDelegate {
     
     public func filterPopover(_ popover: FilterPopover, clickedFlagAt index: Int, flags: [ColaCupSelectedModel<Log.Flag>]) {
         
-        loadingView.isHidden = false
-        
         viewModel.updateFlags(flags)
         
         refreshLogData(executeImmediately: true)
+    }
+    
+    public func filterPopover(_ popover: FilterPopover, clickedModuleAt index: Int, modules: [ColaCupSelectedModel<String>]) {
+        
+        viewModel.updateModules(modules)
+        
+        refreshLogData(executeImmediately: false)
     }
 }
 
@@ -435,6 +440,8 @@ private extension ColaCupController {
     /// 
     /// - Parameter executeImmediately: Whether to perform the search immediately.
     func refreshLogData(executeImmediately: Bool) {
+        
+        loadingView.isHidden = false
         
         viewModel.refreshLogData(executeImmediately: executeImmediately) { [weak self] in
             

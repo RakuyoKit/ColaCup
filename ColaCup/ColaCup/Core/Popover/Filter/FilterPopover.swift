@@ -22,8 +22,15 @@ public protocol FilterPopoverDataDelegate: class {
     ///
     /// - Parameters:
     ///   - popover: `FilterPopover`.
-    ///   - index: The position of the flag button that the user clicked. Start from 0.
+    ///   - index: The index of the flag button that the user clicked. Start from 0.
     func filterPopover(_ popover: FilterPopover, clickedFlagAt index: Int, flags: [ColaCupSelectedModel<Log.Flag>])
+    
+    /// Execute when the module item is clicked.
+    ///
+    /// - Parameters:
+    ///   - popover: `FilterPopover`.
+    ///   - index: The index of the module item that the user clicked. Start from 0.
+    func filterPopover(_ popover: FilterPopover, clickedModuleAt index: Int, modules: [ColaCupSelectedModel<String>])
 }
 
 /// A pop-up window for displaying filter options.
@@ -252,18 +259,22 @@ extension FilterPopover: UITableViewDelegate {
             case .reload:
                 tableView.reloadData()
                 
-            case .checkAll:
+            case .selectAll:
                 getAllCell()?.accessoryType = .checkmark
                 
-            case .uncheckAll:
+            case .unselectAll:
                 getAllCell()?.accessoryType = .none
                 
-            case .checkClicked:
+            case .selectClicked:
                 getCell(indexPath)?.accessoryType = .checkmark
                 
-            case .uncheckClicked:
+            case .unselectClicked:
                 getCell(indexPath)?.accessoryType = .none
             }
+            
+        }, completion: {
+            
+            dataDelegate?.filterPopover(self, clickedModuleAt: indexPath.row, modules: viewModel.modules)
         })
     }
 }

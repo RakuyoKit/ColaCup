@@ -42,6 +42,7 @@ public class FilterPopoverViewModel {
 
 public extension FilterPopoverViewModel {
     
+    /// Whether to enable the `bounces` property of the TableView.
     var isTableViewBounces: Bool { showModuleCount != CGFloat(modules.count) }
 }
 
@@ -137,20 +138,36 @@ extension FilterPopoverViewModel {
 
 public extension FilterPopoverViewModel {
     
+    /// After selecting the module, the type of animation to be executed.
     enum AnimationType {
         
+        /// Refresh the TableView directly.
         case reload
         
-        case checkAll
+        /// Select `ALL` modules.
+        case selectAll
         
-        case uncheckAll
+        /// Unselect `ALL` modules.
+        case unselectAll
         
-        case checkClicked
+        /// Select the clicked module.
+        case selectClicked
         
-        case uncheckClicked
+        /// Unselect the clicked module.
+        case unselectClicked
     }
     
-    func selectModule(at index: Int, animations: (AnimationType) -> Void) {
+    /// Select module.
+    ///
+    /// - Parameters:
+    ///   - index: The index of the selected module.
+    ///   - animations: Callback when the animation is executed. See ʻAnimationType` for details
+    ///   - completion: The callback after processing the data.
+    func selectModule(
+        at index: Int,
+        animations: (AnimationType) -> Void,
+        completion: () -> Void
+    ) {
         
         // Choose `ALL` module
         guard index != 0 else {
@@ -166,8 +183,12 @@ public extension FilterPopoverViewModel {
             selectedCount = 1
             animations(.reload)
             
+            completion()
+            
             return
         }
+        
+        defer { completion() }
         
         // When selecting a module other than ʻALL`,
         // cancel the selected state of the ʻALL` module.
@@ -176,7 +197,7 @@ public extension FilterPopoverViewModel {
             modules[0].isSelected = false
             selectedCount -= 1
             
-            animations(.uncheckAll)
+            animations(.unselectAll)
         }
         
         if modules[index].isSelected {
@@ -187,7 +208,7 @@ public extension FilterPopoverViewModel {
             selectedCount += 1
         }
         
-        animations(modules[index].isSelected ? .checkClicked : .uncheckClicked)
+        animations(modules[index].isSelected ? .selectClicked : .unselectClicked)
         
         // When there is no selected module, select ʻALL`.
         guard selectedCount <= 0 else { return }
@@ -195,6 +216,6 @@ public extension FilterPopoverViewModel {
         modules[0].isSelected = true
         selectedCount = 1
         
-        animations(.checkAll)
+        animations(.selectAll)
     }
 }
