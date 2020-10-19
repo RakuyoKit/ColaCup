@@ -158,6 +158,20 @@ class PopoverDisappearAnimation: NSObject, UIViewControllerAnimatedTransitioning
 
 class PopoverPresentationController: UIPresentationController {
     
+    override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
+        
+        super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIResponder.keyboardDidHideNotification, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private lazy var keyboardIsVisible: Bool = false
+    
     private lazy var backgroundView: UIView = {
         
         let view = UIView()
@@ -192,7 +206,21 @@ extension PopoverPresentationController {
 
 private extension PopoverPresentationController {
     
+    @objc func keyboardDidShow() {
+        keyboardIsVisible = true
+    }
+    
+    @objc func keyboardDidHide() {
+        keyboardIsVisible = false
+    }
+    
     @objc func dismiss(_ recognizer: UITapGestureRecognizer) {
-        presentedViewController.dismiss(animated: true, completion: nil)
+        
+        if keyboardIsVisible {
+            UIApplication.shared.keyWindow?.endEditing(true)
+            
+        } else {
+            presentedViewController.dismiss(animated: true, completion: nil)
+        }
     }
 }
