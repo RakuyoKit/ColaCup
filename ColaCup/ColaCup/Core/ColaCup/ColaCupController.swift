@@ -245,7 +245,7 @@ extension ColaCupController {
         
         let rect = button.convert(button.bounds, to: UIApplication.shared.delegate!.window!)
         
-        let appearPosition = CGPoint(x: button.center.x, y: rect.maxY)
+        let appearPosition = CGPoint(x: rect.midX, y: rect.maxY)
         
         let popover = FilterPopover(
             position: appearPosition,
