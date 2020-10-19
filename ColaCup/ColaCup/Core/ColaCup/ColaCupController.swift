@@ -226,14 +226,14 @@ extension ColaCupController {
         
         let appearPosition = CGPoint(x: button.center.x, y: rect.maxY)
         
-//        let popover = FilterPopover(
-//            position: appearPosition,
-//            dataSource: viewModel.filterModel
-//        )
+        let popover = TimePopover(
+            position: appearPosition,
+            dataSource: viewModel.timeModel
+        )
         
-//        popover.delegate = self
+        popover.delegate = self
         
-//        present(popover, animated: true) { self.isShowingPopover = true }
+        present(popover, animated: true) { self.isShowingPopover = true }
     }
     
     /// Filter button click event.
