@@ -13,8 +13,8 @@ public struct FilterPopoverModel {
     
     public init(
         searchKeyword: String? = nil,
-        selectedFlags: [ColaCupSelectedModel<Log.Flag>] = [],
-        selectedModules: [ColaCupSelectedModel<String>] = []
+        selectedFlags: [SelectedModel<Log.Flag>] = [],
+        selectedModules: [SelectedModel<String>] = []
     ) {
         self.searchKeyword = searchKeyword
         self.flags = selectedFlags
@@ -25,8 +25,8 @@ public struct FilterPopoverModel {
     public var searchKeyword: String?
     
     /// Currently selected flags.
-    public var flags: [ColaCupSelectedModel<Log.Flag>]
+    public var flags: [SelectedModel<Log.Flag>]
     
     /// Currently selected modules.
-    public var modules: [ColaCupSelectedModel<String>]
+    public var modules: [SelectedModel<String>]
 }

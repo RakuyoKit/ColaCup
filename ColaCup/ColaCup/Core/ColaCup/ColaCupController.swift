@@ -342,14 +342,14 @@ extension ColaCupController: FilterPopoverDataDelegate {
         refreshLogData(executeImmediately: false)
     }
     
-    public func filterPopover(_ popover: FilterPopover, clickedFlagAt index: Int, flags: [ColaCupSelectedModel<Log.Flag>]) {
+    public func filterPopover(_ popover: FilterPopover, clickedFlagAt index: Int, flags: [SelectedModel<Log.Flag>]) {
         
         viewModel.updateFlags(flags)
         
         refreshLogData(executeImmediately: true)
     }
     
-    public func filterPopover(_ popover: FilterPopover, clickedModuleAt index: Int, modules: [ColaCupSelectedModel<String>]) {
+    public func filterPopover(_ popover: FilterPopover, clickedModuleAt index: Int, modules: [SelectedModel<String>]) {
         
         viewModel.updateModules(modules)
         

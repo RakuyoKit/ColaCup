@@ -23,14 +23,14 @@ public protocol FilterPopoverDataDelegate: class {
     /// - Parameters:
     ///   - popover: `FilterPopover`.
     ///   - index: The index of the flag button that the user clicked. Start from 0.
-    func filterPopover(_ popover: FilterPopover, clickedFlagAt index: Int, flags: [ColaCupSelectedModel<Log.Flag>])
+    func filterPopover(_ popover: FilterPopover, clickedFlagAt index: Int, flags: [SelectedModel<Log.Flag>])
     
     /// Execute when the module item is clicked.
     ///
     /// - Parameters:
     ///   - popover: `FilterPopover`.
     ///   - index: The index of the module item that the user clicked. Start from 0.
-    func filterPopover(_ popover: FilterPopover, clickedModuleAt index: Int, modules: [ColaCupSelectedModel<String>])
+    func filterPopover(_ popover: FilterPopover, clickedModuleAt index: Int, modules: [SelectedModel<String>])
 }
 
 /// A pop-up window for displaying filter options.

@@ -79,7 +79,7 @@ extension ColaCupFlagBar {
     /// Set up the data source.
     ///
     /// - Parameter _flags: The flags to be displayed
-    open func setFlags(_ _flags: [ColaCupSelectedModel<String>]) {
+    open func setFlags(_ _flags: [SelectedModel<String>]) {
         
         for i in 0 ..< _flags.count {
             
@@ -103,7 +103,7 @@ extension ColaCupFlagBar {
     /// Refresh data.
     ///
     /// - Parameter flags: New data source.
-    open func reloadData(flags: [ColaCupSelectedModel<String>]) {
+    open func reloadData(flags: [SelectedModel<String>]) {
         
         let diff = flags.count - flagsView.arrangedSubviews.count
         

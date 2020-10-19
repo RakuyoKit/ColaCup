@@ -37,14 +37,14 @@ public class ColaCupViewModel {
     private lazy var throttler = Throttler(seconds: 0.3)
 }
 
+// MARK: - Initial data
+
 public extension ColaCupViewModel {
     
     /// Process log data.
     ///
     /// - Parameter completion: The callback when the processing is completed will be executed on the main thread.
     func processLogs(completion: @escaping () -> Void) {
-        
-        let all = ColaCupSelectedModel(isSelected: true, value: "ALL")
         
         // Because the log volume may be large, a new thread is opened to process the log.
         DispatchQueue.global().async { [weak self] in
@@ -71,8 +71,8 @@ public extension ColaCupViewModel {
             }().reversed()
             
             guard !this.integralLogs.isEmpty else {
-                this.filterModel.flags = [all]
-                this.filterModel.modules = [all]
+                this.filterModel.flags = [.all]
+                this.filterModel.modules = [.all]
                 this.showLogs = []
                 this.integralLogs = []
                 return
@@ -90,59 +90,13 @@ public extension ColaCupViewModel {
             // Record
             this.showLogs = this.integralLogs
             
-            var _flags = Array(flagSet).sorted().map { ColaCupSelectedModel(value: $0) }
-            _flags.insert(all, at: 0)
+            var _flags = Array(flagSet).sorted().map { SelectedModel(value: $0) }
+            _flags.insert(.all, at: 0)
             this.filterModel.flags = _flags
             
-            var _modules = Array(moduleSet).sorted().map { ColaCupSelectedModel(value: $0) }
-            _modules.insert(all, at: 0)
+            var _modules = Array(moduleSet).sorted().map { SelectedModel(value: $0) }
+            _modules.insert(.all, at: 0)
             this.filterModel.modules = _modules
-        }
-    }
-    
-    /// Processing module data changes.
-    ///
-    /// - Parameter completion: The callback when the processing is completed will be executed on the main thread.
-    func processModuleChange(completion: @escaping () -> Void) {
-        
-        // No callback required
-        guard !integralLogs.isEmpty else { return }
-        
-        // Because the log volume may be large, a new thread is opened to process the log.
-        DispatchQueue.global().async { [weak self] in
-            
-            guard let this = self else { return }
-            
-            defer {
-                
-                // Return to the main thread callback controller
-                DispatchQueue.main.async(execute: completion)
-            }
-            
-            let selectModules = this.filterModel.modules.filter { $0.isSelected }.map { $0.value }
-            
-            var flagSet = Set<Log.Flag>()
-            
-            if selectModules == ["ALL"] {
-                
-                this.showLogs = this.integralLogs
-                this.showLogs.forEach { flagSet.insert($0.flag) }
-                
-            } else {
-                
-                this.showLogs = this.integralLogs.filter {
-                    
-                    let value = selectModules.contains($0.module)
-                    if value { flagSet.insert($0.flag) }
-                    
-                    return value
-                }
-            }
-            
-            // Record
-            var _flags = Array(flagSet).sorted().map { ColaCupSelectedModel(value: $0) }
-            _flags.insert(ColaCupSelectedModel(isSelected: true, value: "ALL"), at: 0)
-            this.filterModel.flags = _flags
         }
     }
 }
@@ -155,11 +109,11 @@ public extension ColaCupViewModel {
         filterModel.searchKeyword = keyword
     }
     
-    func updateFlags(_ flags: [ColaCupSelectedModel<Log.Flag>]) {
+    func updateFlags(_ flags: [SelectedModel<Log.Flag>]) {
         filterModel.flags = flags
     }
     
-    func updateModules(_ modules: [ColaCupSelectedModel<String>]) {
+    func updateModules(_ modules: [SelectedModel<String>]) {
         filterModel.modules = modules
     }
 }

@@ -24,10 +24,10 @@ public class FilterPopoverViewModel {
     public var searchKeyword: String?
     
     /// Currently selected flags.
-    public var flags: [ColaCupSelectedModel<Log.Flag>]
+    public var flags: [SelectedModel<Log.Flag>]
     
     /// Currently selected modules.
-    public var modules: [ColaCupSelectedModel<String>]
+    public var modules: [SelectedModel<String>]
     
     /// The number of fully displayed modules.
     ///
@@ -114,7 +114,7 @@ extension FilterPopoverViewModel {
     ///   - completion: The callback when the processing is completed will be executed on the main thread.
     private func deselectedFlag(at index: Int, completion: @escaping SelectedFlagCompletion) {
         
-        guard flags[index].value != "ALL" else { return }
+        guard index != 0 else { return }
         
         flags[index].isSelected = false
         
