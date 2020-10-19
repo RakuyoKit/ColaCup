@@ -147,20 +147,35 @@ public extension ColaCupViewModel {
     }
 }
 
-// MARK: - Search
+// MARK: - Update Data
 
 public extension ColaCupViewModel {
     
-    /// Search the log.
+    func updateSearchKeyword(_ keyword: String) {
+        filterModel.searchKeyword = keyword
+    }
+    
+    func updateFlags(_ flags: [ColaCupSelectedModel<Log.Flag>]) {
+        filterModel.flags = flags
+    }
+    
+    func updateModules(_ modules: [ColaCupSelectedModel<String>]) {
+        filterModel.modules = modules
+    }
+}
+
+public extension ColaCupViewModel {
+    
+    /// Refresh log data.
     ///
     /// - Parameters:
-    ///   - keyword: Search keywords.
     ///   - executeImmediately: Whether to perform the search immediately. If it is `false`, the throttling algorithm will be used. See the `throttler` property for details.
-    ///   - completion: The callback when the search is completed will be executed on the main thread.
-    func search(with keyword: String?, executeImmediately: Bool, completion: @escaping () -> Void) {
+    ///   - completion: Completed callback. Will be guaranteed to execute on the main thread.
+    func refreshLogData(executeImmediately: Bool, completion: @escaping () -> Void) {
         
         // Really responsible for the search method.
         let searchBlock: () -> Void = { [weak self] in
+            
             guard let this = self else { return }
             
             defer {
@@ -169,18 +184,24 @@ public extension ColaCupViewModel {
                 DispatchQueue.main.async(execute: completion)
             }
             
-            this.filterModel.searchKeyword = keyword
-            
             var conditions: [(LogModelProtocol) -> Bool] = []
             
-            let selectedFlags = this.filterModel.flags.filter { $0.isSelected }.map { $0.value }
-            
-            if !selectedFlags.isEmpty && selectedFlags != ["ALL"] {
-                conditions.append({ selectedFlags.contains($0.flag) })
+            if let keyword = this.filterModel.searchKeyword, !keyword.isEmpty {
+                conditions.append({ $0.safeLog.contains(keyword) })
             }
             
-            if let _keyword = keyword, !_keyword.isEmpty {
-                conditions.append({ $0.safeLog.contains(_keyword) })
+            if !this.filterModel.flags[0].isSelected {
+                
+                let selectFlags = this.filterModel.flags.filter { $0.isSelected }.map { $0.value }
+                
+                conditions.append({ selectFlags.contains($0.flag) })
+            }
+            
+            if !this.filterModel.modules[0].isSelected {
+                
+                let selectModules = this.filterModel.modules.filter { $0.isSelected }.map { $0.value }
+                
+                conditions.append({ selectModules.contains($0.module) })
             }
             
             this.showLogs = this.integralLogs.filter(with: conditions)
@@ -193,41 +214,6 @@ public extension ColaCupViewModel {
             // In a certain time frame, the search method can only be executed once
             throttler.execute(searchBlock)
         }
-    }
-}
-
-// MARK: - Flag
-
-extension ColaCupViewModel {
-    
-    public func updateFlags(_ flags: [ColaCupSelectedModel<Log.Flag>]) {
-        filterModel.flags = flags
-    }
-    
-    /// Execute when the flag button is clicked.
-    ///
-    /// - Parameters:
-    ///   - index: Index of the choosed flag.
-    ///   - completion: The callback when the processing is completed will be executed on the main thread.
-    public func clickFlag(at index: Int, completion: @escaping () -> Void) {
-        
-        var conditions: [(LogModelProtocol) -> Bool] = []
-        
-        if let keyword = filterModel.searchKeyword, !keyword.isEmpty {
-            conditions.append({ $0.safeLog.contains(keyword) })
-        }
-        
-        if !filterModel.flags[0].isSelected {
-            
-            let selectFlags = filterModel.flags.filter { $0.isSelected }.map { $0.value }
-            
-            conditions.append({ selectFlags.contains($0.flag) })
-        }
-        
-        showLogs = integralLogs.filter(with: conditions)
-        
-        // Return to the main thread callback controller
-        DispatchQueue.main.async(execute: completion)
     }
 }
 

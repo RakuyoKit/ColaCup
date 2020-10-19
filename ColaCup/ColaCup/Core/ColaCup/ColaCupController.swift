@@ -291,9 +291,6 @@ extension ColaCupController: ColaCupPopoverDelegate {
     
 //    public func popover(_ popover: ColaCupPopover, willDisappearWithDate date: Date?, modules: [ColaCupSelectedModel]) {
 //        
-//        isShowingPopover = false
-//        toolBar.filterButton.isEnabled = true
-//        
 //        // When changing the date, only the date is processed. Module data will be ignored.
 //        //
 //        // TODO: Use the module data selected by the user as a reference to process the selected state of the new module data
@@ -340,9 +337,9 @@ extension ColaCupController: FilterPopoverDataDelegate {
     
     public func filterPopover(_ popover: FilterPopover, search keyword: String) {
         
-        viewModel.search(with: keyword, executeImmediately: false) { [weak self] in
-            self?.logsView.reloadData()
-        }
+        viewModel.updateSearchKeyword(keyword)
+        
+        refreshLogData(executeImmediately: false)
     }
     
     public func filterPopover(_ popover: FilterPopover, clickedFlagAt index: Int, flags: [ColaCupSelectedModel<Log.Flag>]) {
@@ -351,13 +348,7 @@ extension ColaCupController: FilterPopoverDataDelegate {
         
         viewModel.updateFlags(flags)
         
-        viewModel.clickFlag(at: index) { [weak self] in
-            
-            guard let this = self else { return }
-            
-            this.loadingView.isHidden = true
-            this.logsView.reloadData()
-        }
+        refreshLogData(executeImmediately: true)
     }
 }
 
@@ -439,6 +430,20 @@ extension ColaCupController: UIViewControllerPreviewingDelegate {
 // MARK: - Tools
 
 private extension ColaCupController {
+    
+    /// Refresh log data.
+    /// 
+    /// - Parameter executeImmediately: Whether to perform the search immediately.
+    func refreshLogData(executeImmediately: Bool) {
+        
+        viewModel.refreshLogData(executeImmediately: executeImmediately) { [weak self] in
+            
+            guard let this = self else { return }
+            
+            this.loadingView.isHidden = true
+            this.logsView.reloadData()
+        }
+    }
     
     /// Cancel the selected effect of the selected Cell.
     func deselectRowIfNeeded() {
