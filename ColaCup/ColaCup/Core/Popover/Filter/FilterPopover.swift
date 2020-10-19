@@ -6,7 +6,7 @@
 //  Copyright © 2020 Rakuyo. All rights reserved.
 //
 
-import UIKit
+import RaLog
 
 /// Delegate for callback data.
 public protocol FilterPopoverDataDelegate: class {
@@ -17,6 +17,13 @@ public protocol FilterPopoverDataDelegate: class {
     ///   - popover: `FilterPopover`.
     ///   - keyword: The keyword that the user wants to search.
     func filterPopover(_ popover: FilterPopover, search keyword: String)
+    
+    /// Execute when the flag button is clicked.
+    ///
+    /// - Parameters:
+    ///   - popover: `FilterPopover`.
+    ///   - index: The position of the flag button that the user clicked. Start from 0.
+    func filterPopover(_ popover: FilterPopover, clickedFlagAt index: Int, flags: [ColaCupSelectedModel<Log.Flag>])
 }
 
 /// A pop-up window for displaying filter options.
@@ -63,7 +70,7 @@ public class FilterPopover: BasePopover {
         bar.translatesAutoresizingMaskIntoConstraints = false
         bar.backgroundColor = .white
         
-//        bar.delegate = self
+        bar.delegate = self
         
         return bar
     }()
@@ -153,6 +160,30 @@ private extension FilterPopover {
             moduleView.heightAnchor.constraint(equalToConstant: height),
             moduleView.widthAnchor.constraint(equalTo: stackView.widthAnchor)
         ])
+    }
+}
+
+// MARK: - ColaCupFlagBarDelegate
+
+extension FilterPopover: ColaCupFlagBarDelegate {
+    
+    public func flagBar(_ flagBar: ColaCupFlagBar, flagButtonDidClick button: LogFlagButton) {
+        
+        let index = button.tag
+        
+        viewModel.clickFlag(at: index) { [weak self] in
+            
+            guard let this = self else { return }
+            
+            if $0.contains(0) {
+                flagBar.scrollToLeft()
+            }
+            
+            $0.forEach { this.flagBar.selectFlag(at: $0) }
+            $1.forEach { this.flagBar.deselectFlag(at: $0) }
+            
+            this.dataDelegate?.filterPopover(this, clickedFlagAt: index, flags: this.viewModel.flags)
+        }
     }
 }
 

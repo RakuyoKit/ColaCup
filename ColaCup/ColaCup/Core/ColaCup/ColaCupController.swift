@@ -336,31 +336,6 @@ extension ColaCupController: ColaCupPopoverDelegate {
 //    }
 }
 
-//// MARK: - ColaCupFlagBarDelegate
-//
-//extension ColaCupController: ColaCupFlagBarDelegate {
-//
-//    public func flagBar(_ flagBar: ColaCupFlagBar, flagButtonDidClick button: LogFlagButton) {
-//
-//        loadingView.isHidden = false
-//
-//        viewModel.clickFlag(at: button.tag, isSelectButton: button.isSelected) { [weak self] in
-//
-//            guard let this = self else { return }
-//
-//            this.loadingView.isHidden = true
-//            this.logsView.reloadData()
-//
-//            if $0.contains(0) {
-//                flagBar.scrollToLeft()
-//            }
-//
-//            $0.forEach { this.flagBar.selectFlag(at: $0) }
-//            $1.forEach { this.flagBar.deselectFlag(at: $0) }
-//        }
-//    }
-//}
-
 // MARK: - FilterPopoverDataDelegate
 
 extension ColaCupController: FilterPopoverDataDelegate {
@@ -369,6 +344,21 @@ extension ColaCupController: FilterPopoverDataDelegate {
         
         viewModel.search(with: keyword, executeImmediately: false) { [weak self] in
             self?.logsView.reloadData()
+        }
+    }
+    
+    public func filterPopover(_ popover: FilterPopover, clickedFlagAt index: Int, flags: [ColaCupSelectedModel<Log.Flag>]) {
+        
+        loadingView.isHidden = false
+        
+        viewModel.updateFlags(flags)
+        
+        viewModel.clickFlag(at: index) { [weak self] in
+            
+            guard let this = self else { return }
+            
+            this.loadingView.isHidden = true
+            this.logsView.reloadData()
         }
     }
 }

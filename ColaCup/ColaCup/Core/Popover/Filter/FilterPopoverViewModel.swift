@@ -38,10 +38,102 @@ public class FilterPopoverViewModel {
     private lazy var selectedCount = 1
 }
 
+// MARK: - Table View
+
 public extension FilterPopoverViewModel {
     
     var isTableViewBounces: Bool { showModuleCount != CGFloat(modules.count) }
 }
+
+// MARK: - Flag
+
+extension FilterPopoverViewModel {
+    
+    public typealias SelectedFlagCompletion = (_ selectedIndexs: [Int], _ deselectedIndexs: [Int]) -> Void
+    
+    /// Execute when the flag button is clicked.
+    ///
+    /// - Parameters:
+    ///   - index: Index of the choosed flag.
+    ///   - completion: The callback when the processing is completed will be executed on the main thread.
+    public func clickFlag(at index: Int, completion: @escaping SelectedFlagCompletion) {
+        
+        if flags[index].isSelected {
+            deselectedFlag(at: index, completion: completion)
+            
+        } else {
+            selectedFlag(at: index, completion: completion)
+        }
+    }
+    
+    /// Called when the flag is selected.
+    ///
+    /// - Parameters:
+    ///   - index: Index of the choosed flag.
+    ///   - completion: The callback when the processing is completed will be executed on the main thread.
+    private func selectedFlag(at index: Int, completion: @escaping SelectedFlagCompletion) {
+        
+        flags[index].isSelected = true
+        
+        var deselectedIndexs: [Int] = []
+        
+        switch flags[index].value {
+        
+        case "ALL":
+            
+            let count = flags.count
+            
+            for i in 1 ..< count {
+                
+                guard flags[i].isSelected else { continue }
+                
+                flags[i].isSelected = false
+                
+                deselectedIndexs.append(i)
+            }
+            
+        default:
+            
+            if flags[0].isSelected {
+                flags[0].isSelected = false
+                deselectedIndexs.append(0)
+            }
+        }
+        
+        // Return to the main thread callback controller
+        DispatchQueue.main.async {
+            completion([], deselectedIndexs)
+        }
+    }
+    
+    /// Called when the flag is deselected.
+    ///
+    /// - Parameters:
+    ///   - index: The index of the deselected flag.
+    ///   - completion: The callback when the processing is completed will be executed on the main thread.
+    private func deselectedFlag(at index: Int, completion: @escaping SelectedFlagCompletion) {
+        
+        guard flags[index].value != "ALL" else { return }
+        
+        flags[index].isSelected = false
+        
+        var selectedIndexs: [Int] = []
+        
+        let selectFlags = flags.filter { $0.isSelected }.map { $0.value }
+        
+        if selectFlags.isEmpty {
+            flags[0].isSelected = true
+            selectedIndexs.append(0)
+        }
+        
+        // Return to the main thread callback controller
+        DispatchQueue.main.async {
+            completion(selectedIndexs, [index])
+        }
+    }
+}
+
+// MARK: - Module
 
 public extension FilterPopoverViewModel {
     

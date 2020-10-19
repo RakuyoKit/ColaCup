@@ -166,118 +166,34 @@ public extension ColaCupViewModel {
 
 extension ColaCupViewModel {
     
-    public typealias SelectedFlagCompletion = (_ selectedIndexs: [Int], _ deselectedIndexs: [Int]) -> Void
+    public func updateFlags(_ flags: [ColaCupSelectedModel<Log.Flag>]) {
+        filterModel.flags = flags
+    }
     
     /// Execute when the flag button is clicked.
     ///
     /// - Parameters:
     ///   - index: Index of the choosed flag.
-    ///   - isSelectButton: Whether the button is selected.
     ///   - completion: The callback when the processing is completed will be executed on the main thread.
-    public func clickFlag(at index: Int, isSelectButton: Bool, completion: @escaping SelectedFlagCompletion) {
+    public func clickFlag(at index: Int, completion: @escaping () -> Void) {
         
-        if filterModel.flags[index].isSelected {
-            
-            filterModel.flags[index].isSelected = isSelectButton
-            deselectedFlag(at: index, completion: completion)
-            
-        } else {
-            filterModel.flags[index].isSelected = isSelectButton
-            selectedFlag(at: index, completion: completion)
+        var conditions: [(LogModelProtocol) -> Bool] = []
+        
+        if let keyword = filterModel.searchKeyword, !keyword.isEmpty {
+            conditions.append({ $0.safeLog.contains(keyword) })
         }
-    }
-    
-    /// Called when the flag is selected.
-    ///
-    /// - Parameters:
-    ///   - index: Index of the choosed flag.
-    ///   - completion: The callback when the processing is completed will be executed on the main thread.
-    private func selectedFlag(at index: Int, completion: @escaping SelectedFlagCompletion) {
         
-//        popoverModel.flags[index].isSelected = true
-//
-//        var deselectedIndexs: [Int] = []
-//
-//        var conditions: [(LogModelProtocol) -> Bool] = []
-//
-//        if let keyword = popoverModel.searchKeyword, !keyword.isEmpty {
-//            conditions.append({ $0.safeLog.contains(keyword) })
-//        }
-//
-//        switch popoverModel.flags[index].value {
-//
-//        case "ALL":
-//
-//            let count = popoverModel.flags.count
-//
-//            for i in 1 ..< count {
-//
-//                guard popoverModel.flags[i].isSelected else { continue }
-//
-//                popoverModel.flags[i].isSelected = false
-//                selectedFlags.remove(flags[i].value)
-//
-//                deselectedIndexs.append(i)
-//            }
-//
-//        default:
-//
-//            selectedFlags.insert(flags[index].value)
-//
-//            if flags[0].isSelected {
-//                flags[0].isSelected = false
-//                deselectedIndexs.append(0)
-//            }
-//
-//            let selectFlags = flags.filter { $0.isSelected }.map { $0.value }
-//
-//            conditions.append({ selectFlags.contains($0.flag) })
-//        }
-//
-//        showLogs = integralLogs.filter(with: conditions)
-//
-//        // Return to the main thread callback controller
-//        DispatchQueue.main.async {
-//            completion([], deselectedIndexs)
-//        }
-    }
-    
-    /// Called when the flag is deselected.
-    ///
-    /// - Parameters:
-    ///   - index: The index of the deselected flag.
-    ///   - completion: The callback when the processing is completed will be executed on the main thread.
-    private func deselectedFlag(at index: Int, completion: @escaping SelectedFlagCompletion) {
+        if !filterModel.flags[0].isSelected {
+            
+            let selectFlags = filterModel.flags.filter { $0.isSelected }.map { $0.value }
+            
+            conditions.append({ selectFlags.contains($0.flag) })
+        }
         
-//        guard flags[index].value != "ALL" else { return }
-//
-//        flags[index].isSelected = false
-//        selectedFlags.remove(flags[index].value)
-//
-//        var selectedIndexs: [Int] = []
-//
-//        let selectFlags = flags.filter { $0.isSelected }.map { $0.value }
-//
-//        var conditions: [(LogModelProtocol) -> Bool] = []
-//
-//        if let keyword = lastSearchText, !keyword.isEmpty {
-//            conditions.append({ $0.safeLog.contains(keyword) })
-//        }
-//
-//        if selectFlags.isEmpty {
-//            flags[0].isSelected = true
-//            selectedIndexs.append(0)
-//
-//        } else {
-//            conditions.append({ selectFlags.contains($0.flag) })
-//        }
-//
-//        showLogs = integralLogs.filter(with: conditions)
-//
-//        // Return to the main thread callback controller
-//        DispatchQueue.main.async {
-//            completion(selectedIndexs, [index])
-//        }
+        showLogs = integralLogs.filter(with: conditions)
+        
+        // Return to the main thread callback controller
+        DispatchQueue.main.async(execute: completion)
     }
 }
 
