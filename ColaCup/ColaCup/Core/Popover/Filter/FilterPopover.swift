@@ -293,11 +293,13 @@ extension FilterPopover: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
         
-        cell.separatorInset = .zero
-        cell.textLabel?.text = model.value
         cell.tintColor = .theme
-        cell.accessoryType = model.isSelected ? .checkmark : .none
+        cell.separatorInset = .zero
         cell.selectionStyle = .none
+        cell.accessoryType = model.isSelected ? .checkmark : .none
+        
+        cell.textLabel?.textColor = .normalText
+        cell.textLabel?.text = model.value
         
         return cell
     }
