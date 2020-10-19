@@ -102,9 +102,11 @@ public class FilterPopover: BasePopover {
     
     public override var height: CGFloat {
         
-        return BasePopover.Constant.topBottomSpacing * 2
-             + BasePopover.Constant.spacing * 2
-             + Constant.itemHeight * (2 + viewModel.showModuleCount)
+        let con = BasePopover.Constant.self
+        
+        return con.topBottomSpacing * 2
+             + con.spacing * 2
+             + con.itemHeight * (2 + viewModel.showModuleCount)
              + 2
     }
 }
@@ -125,15 +127,6 @@ extension FilterPopover {
 }
 
 // MARK: - Config
-
-private extension FilterPopover {
-    
-    enum Constant {
-        
-        /// The height of each item
-        static let itemHeight: CGFloat = 44
-    }
-}
 
 private extension FilterPopover {
     

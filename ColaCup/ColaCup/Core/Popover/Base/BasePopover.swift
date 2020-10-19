@@ -106,6 +106,9 @@ extension BasePopover {
         
         /// `stackView` top and bottom spacing.
         static let topBottomSpacing: CGFloat = 10
+        
+        /// The height of each item.
+        static let itemHeight: CGFloat = 44
     }
 }
 

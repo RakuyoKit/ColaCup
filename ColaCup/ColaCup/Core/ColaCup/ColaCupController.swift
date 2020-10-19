@@ -224,14 +224,21 @@ extension ColaCupController {
         
         let rect = button.convert(button.bounds, to: UIApplication.shared.delegate!.window!)
         
-        let popover = TimePopover(
-            position: CGPoint(x: rect.midX, y: rect.maxY),
-            dataSource: viewModel.timeModel
-        )
-        
-        popover.delegate = self
-        
-        present(popover, animated: true) { self.isShowingPopover = true }
+        if #available(iOS 14.0, *) {
+            
+            let popover = TimePopover(
+                position: CGPoint(x: rect.midX, y: rect.maxY),
+                dataSource: viewModel.timeModel
+            )
+            
+            popover.delegate = self
+            
+            present(popover, animated: true) { self.isShowingPopover = true }
+            
+        } else {
+            
+            
+        }
     }
     
     /// Filter button click event.

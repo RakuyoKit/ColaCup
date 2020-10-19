@@ -13,9 +13,10 @@
 		3A5B63E4251ADBDD00E00BF5 /* ColaCupLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B63E3251ADBDD00E00BF5 /* ColaCupLoadingView.swift */; };
 		3A5D8E8F25396D23003A3ED5 /* ColaCupToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5D8E8E25396D23003A3ED5 /* ColaCupToolBar.swift */; };
 		3A649E3C25199F7500DED905 /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A649E3B25199F7500DED905 /* default.png */; };
-		3A65A7AF251B312D00943B39 /* PopoverDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A65A7AE251B312D00943B39 /* PopoverDatePickerCell.swift */; };
 		3A65ABB2251B399300943B39 /* PopoverAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A65ABB1251B399300943B39 /* PopoverAnimation.swift */; };
 		3A66029925399E350006FC28 /* BasePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A66029825399E350006FC28 /* BasePopover.swift */; };
+		3A7A9B89253D828800C7D606 /* SelectDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7A9B88253D828800C7D606 /* SelectDataView.swift */; };
+		3A7A9B91253D865800C7D606 /* SelectPeriodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7A9B90253D865800C7D606 /* SelectPeriodView.swift */; };
 		3A7EBCB4253D73540085EF5F /* TimePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7EBCB3253D73540085EF5F /* TimePopover.swift */; };
 		3A8F79252536A7C5007E6C90 /* push.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3A8F79232536A7C5007E6C90 /* push.sh */; };
 		3A8F79262536A7C5007E6C90 /* ColaCup.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3A8F79242536A7C5007E6C90 /* ColaCup.podspec */; };
@@ -70,9 +71,10 @@
 		3A5B63E3251ADBDD00E00BF5 /* ColaCupLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupLoadingView.swift; sourceTree = "<group>"; };
 		3A5D8E8E25396D23003A3ED5 /* ColaCupToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupToolBar.swift; sourceTree = "<group>"; };
 		3A649E3B25199F7500DED905 /* default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default.png; sourceTree = "<group>"; };
-		3A65A7AE251B312D00943B39 /* PopoverDatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverDatePickerCell.swift; sourceTree = "<group>"; };
 		3A65ABB1251B399300943B39 /* PopoverAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverAnimation.swift; sourceTree = "<group>"; };
 		3A66029825399E350006FC28 /* BasePopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePopover.swift; sourceTree = "<group>"; };
+		3A7A9B88253D828800C7D606 /* SelectDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDataView.swift; sourceTree = "<group>"; };
+		3A7A9B90253D865800C7D606 /* SelectPeriodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPeriodView.swift; sourceTree = "<group>"; };
 		3A7EBCB3253D73540085EF5F /* TimePopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePopover.swift; sourceTree = "<group>"; };
 		3A8F79232536A7C5007E6C90 /* push.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = push.sh; sourceTree = SOURCE_ROOT; };
 		3A8F79242536A7C5007E6C90 /* ColaCup.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = ColaCup.podspec; sourceTree = SOURCE_ROOT; };
@@ -175,7 +177,8 @@
 			children = (
 				3ABF4897253D25CD00909FBE /* TimePopoverModel.swift */,
 				3A7EBCB3253D73540085EF5F /* TimePopover.swift */,
-				3A65A7AE251B312D00943B39 /* PopoverDatePickerCell.swift */,
+				3A7A9B88253D828800C7D606 /* SelectDataView.swift */,
+				3A7A9B90253D865800C7D606 /* SelectPeriodView.swift */,
 			);
 			path = Time;
 			sourceTree = "<group>";
@@ -487,7 +490,6 @@
 			files = (
 				3A65ABB2251B399300943B39 /* PopoverAnimation.swift in Sources */,
 				3AE8044E251DB29500CDB15B /* DetailsPositionCell.swift in Sources */,
-				3A65A7AF251B312D00943B39 /* PopoverDatePickerCell.swift in Sources */,
 				3A4A91D425398808003C5957 /* FilterPopoverViewModel.swift in Sources */,
 				3AD9BFF425198CF700D2CD16 /* ColaCupController.swift in Sources */,
 				3A66029925399E350006FC28 /* BasePopover.swift in Sources */,
@@ -507,12 +509,14 @@
 				3ABF4898253D25CD00909FBE /* TimePopoverModel.swift in Sources */,
 				3A5B63E4251ADBDD00E00BF5 /* ColaCupLoadingView.swift in Sources */,
 				3AD9BFB425198C8D00D2CD16 /* ViewController.swift in Sources */,
+				3A7A9B89253D828800C7D606 /* SelectDataView.swift in Sources */,
 				3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */,
 				3AD9BFF525198CF700D2CD16 /* ColaCupViewModel.swift in Sources */,
 				3A9CF608251B221A0060EC6F /* UIConfig.swift in Sources */,
 				3AA06564252042B6007A60CA /* Throttler.swift in Sources */,
 				3A9CF5FA251AED510060EC6F /* SelectedModel.swift in Sources */,
 				3AB7E75F2519A70700E55926 /* DetailsViewController.swift in Sources */,
+				3A7A9B91253D865800C7D606 /* SelectPeriodView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
