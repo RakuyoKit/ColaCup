@@ -50,6 +50,10 @@ open class ColaCupController: UIViewController {
         // filterButton
         bar.filterButton.addTarget(self, action: #selector(filterButtonDidClick(_:)), for: .touchUpInside)
         
+        [bar.closeButton, bar.sortButton, bar.timeButton, bar.filterButton].forEach {
+            $0.addTarget(self, action: #selector(buttonDidTouchDown(_:)), for: .touchDown)
+        }
+        
         return bar
     }()
     
@@ -90,8 +94,11 @@ open class ColaCupController: UIViewController {
         return view
     }()
     
-    /// Whether the pop-up window is being displayed
+    /// Whether the pop-up window is being displayed.
     private lazy var isShowingPopover = false
+    
+    /// Used to provide vibration feedback.
+    private lazy var feedbackGenerator = UISelectionFeedbackGenerator()
 }
 
 // MARK: - Life cycle
@@ -208,10 +215,18 @@ private extension ColaCupController {
 
 extension ColaCupController {
     
+    /// Execute when the button is pressed.
+    ///
+    /// - Parameter button: Button pressed.
+    @objc open func buttonDidTouchDown(_ button: UIButton) {
+        feedbackGenerator.prepare()
+    }
+    
     /// Close button click event.
     ///
     /// - Parameter button: `toolBar.closeButton`.
     @objc open func closeButtonDidClick(_ button: UIButton) {
+        feedbackGenerator.selectionChanged()
         dismiss(animated: true, completion: nil)
     }
     
@@ -219,6 +234,8 @@ extension ColaCupController {
     ///
     /// - Parameter button: `toolBar.timeButton`.
     @objc open func timeButtonDidClick(_ button: UIButton) {
+        
+        feedbackGenerator.selectionChanged()
         
         button.isEnabled = false
         
@@ -247,6 +264,8 @@ extension ColaCupController {
     /// - Parameter button: `toolBar.filterButton`.
     @objc open func filterButtonDidClick(_ button: UIButton) {
         
+        feedbackGenerator.selectionChanged()
+        
         button.isEnabled = false
         
         let rect = button.convert(button.bounds, to: UIApplication.shared.delegate!.window!)
@@ -266,6 +285,8 @@ extension ColaCupController {
     ///
     /// - Parameter button: `toolBar.sortButton`.
     @objc open func sortButtonDidClick(_ button: UIButton) {
+        
+        feedbackGenerator.selectionChanged()
         
         if button.tag == 1 {
             button.tag = 2
