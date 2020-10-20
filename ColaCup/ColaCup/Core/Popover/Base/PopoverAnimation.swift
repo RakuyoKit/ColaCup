@@ -15,15 +15,15 @@ class PopoverAppearAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     /// Initialization method.
     ///
     /// - Parameters:
-    ///   - y: Y coordinate of trigger point.
+    ///   - position: The position to be displayed.
     ///   - height: Height of popup.
-    init(y: CGFloat, height: CGFloat) {
-        self.appearY = y
+    init(position: CGPoint, height: CGFloat) {
+        self.appearPosition = position
         self.height = height
     }
     
-    /// Y coordinate of the point.
-    private let appearY: CGFloat
+    /// The position to be displayed.
+    private let appearPosition: CGPoint
     
     /// Height of popup.
     private let height: CGFloat
@@ -39,16 +39,11 @@ class PopoverAppearAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         
         let containerView = transitionContext.containerView
         
-        // Maximum width is 276.
-        let width = min(containerView.frame.width / 3 * 2, 276)
-        
-        let x = containerView.frame.width - width - 20 - {
-            guard #available(iOS 11.0, *) else { return 0 }
-            return containerView.safeAreaInsets.right
-        }()
+        let width = (containerView.frame.width) / 3 * 2
         
         // 2. Set the frame to the target view.
-        toView.frame = CGRect(x: x, y: appearY + 10, width: width, height: height)
+        toView.frame = CGRect(x: 0, y: appearPosition.y + 10, width: width, height: height)
+        toView.center.x = appearPosition.x
         
         // 3. Add shadows to the target views.
         let newView = addShadow(to: toView)
@@ -81,7 +76,7 @@ private extension PopoverAppearAnimation {
     func configToViewAnimate(_ view: UIView) {
         
         let oldFrame = view.frame
-        view.layer.anchorPoint = CGPoint(x: 0.9, y: 0)
+        view.layer.anchorPoint = CGPoint(x: 0.5, y: 0)
         view.frame = oldFrame
         
         view.transform = CGAffineTransform(scaleX: 0.0001, y: 0.0001)
@@ -93,9 +88,9 @@ private extension PopoverAppearAnimation {
         let shadowView = UIView()
         
         shadowView.backgroundColor = .clear
-        shadowView.layer.shadowColor = UIColor.lightGray.cgColor
+        shadowView.layer.shadowColor = UIColor.gray.cgColor
         shadowView.layer.shadowRadius = 10
-        shadowView.layer.shadowOpacity = 0.35
+        shadowView.layer.shadowOpacity = 0.45
         
         shadowView.frame = view.frame
         view.frame.origin = .zero
@@ -163,6 +158,20 @@ class PopoverDisappearAnimation: NSObject, UIViewControllerAnimatedTransitioning
 
 class PopoverPresentationController: UIPresentationController {
     
+    override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
+        
+        super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIResponder.keyboardDidHideNotification, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private lazy var keyboardIsVisible: Bool = false
+    
     private lazy var backgroundView: UIView = {
         
         let view = UIView()
@@ -197,7 +206,21 @@ extension PopoverPresentationController {
 
 private extension PopoverPresentationController {
     
+    @objc func keyboardDidShow() {
+        keyboardIsVisible = true
+    }
+    
+    @objc func keyboardDidHide() {
+        keyboardIsVisible = false
+    }
+    
     @objc func dismiss(_ recognizer: UITapGestureRecognizer) {
-        presentedViewController.dismiss(animated: true, completion: nil)
+        
+        if keyboardIsVisible {
+            UIApplication.shared.keyWindow?.endEditing(true)
+            
+        } else {
+            presentedViewController.dismiss(animated: true, completion: nil)
+        }
     }
 }

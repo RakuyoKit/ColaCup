@@ -85,8 +85,12 @@ class ViewController: UIViewController {
         
         let controller = ColaCupController(logManager: Log.self)
         
+        let navi = UINavigationController(rootViewController: controller)
+        
+        navi.modalPresentationStyle = .fullScreen
+        
         // Show ColaCupController
-        present(UINavigationController(rootViewController: controller), animated: true, completion: nil)
+        present(navi, animated: true, completion: nil)
     }
     
     open func tableView(tableView: UITableView?, cellForRowAt indexPath: IndexPath?) -> UITableViewCell? {

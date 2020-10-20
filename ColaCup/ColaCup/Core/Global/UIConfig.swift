@@ -22,8 +22,9 @@ extension UIImage {
     
     convenience init?(name: String) {
         
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, *), UIImage(systemName: name) != nil {
             self.init(systemName: name)
+            
         } else {
             self.init(named: name)
         }

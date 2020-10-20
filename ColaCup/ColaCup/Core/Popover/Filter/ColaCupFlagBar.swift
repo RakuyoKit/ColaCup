@@ -79,7 +79,7 @@ extension ColaCupFlagBar {
     /// Set up the data source.
     ///
     /// - Parameter _flags: The flags to be displayed
-    open func setFlags(_ _flags: [ColaCupSelectedModel]) {
+    open func setFlags(_ _flags: [SelectedModel<String>]) {
         
         for i in 0 ..< _flags.count {
             
@@ -88,7 +88,7 @@ extension ColaCupFlagBar {
             let button = LogFlagButton()
             
             button.tag = i
-            button.titleLabel.text = flag.title
+            button.titleLabel.text = flag.value
             button.isSelected = flag.isSelected
             
             button.addTarget(self, action: #selector(flagButtonDidClick(_:)), for: .touchUpInside)
@@ -103,7 +103,7 @@ extension ColaCupFlagBar {
     /// Refresh data.
     ///
     /// - Parameter flags: New data source.
-    open func reloadData(flags: [ColaCupSelectedModel]) {
+    open func reloadData(flags: [SelectedModel<String>]) {
         
         let diff = flags.count - flagsView.arrangedSubviews.count
         
@@ -136,7 +136,7 @@ extension ColaCupFlagBar {
             
             button?.tag = i
             button?.isHidden = false
-            button?.titleLabel.text = flags[i].title
+            button?.titleLabel.text = flags[i].value
             button?.isSelected = flags[i].isSelected
         }
     }

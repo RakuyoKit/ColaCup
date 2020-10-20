@@ -30,78 +30,31 @@ open class ColaCupController: UIViewController {
     /// Used to process data.
     private let viewModel: ColaCupViewModel
     
-    /// Top view of the page. Include search box and label selection view.
-    open lazy var headerView: UIView = {
+    /// Top toolbar.
+    open lazy var toolBar: ColaCupToolBar = {
         
-        let view = UIView()
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 10
-        view.backgroundColor = .white
-        
-        return view
-    }()
-    
-    /// Used to search logs.
-    open lazy var searchBar: ColaCupSearchBar = {
-        
-        let searchBar = ColaCupSearchBar()
-        
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.footerView = showPopoverButton
-        
-        searchBar.searchDelegate = self
-        searchBar.textFieldDelegate = self
-        
-        return searchBar
-    }()
-    
-    /// Button for displaying popups.
-    open lazy var showPopoverButton: UIButton = {
-        
-        let button = UIButton(type: .system)
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.tintColor = .theme
-        
-        button.setImage(UIImage(name: "text.badge.checkmark"), for: .normal)
-        
-        if #available(iOS 13.0, *) {
-            button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25, weight: .unspecified), forImageIn: .normal)
-        }
-        
-        button.addTarget(self, action: #selector(showPopover(_:)), for: .touchUpInside)
-        
-        return button
-    }()
-    
-    /// View to display the flag of logs.
-    open lazy var flagBar: ColaCupFlagBar = {
-        
-        let bar = ColaCupFlagBar()
+        let bar = ColaCupToolBar()
         
         bar.translatesAutoresizingMaskIntoConstraints = false
-        bar.backgroundColor = .white
         
-        bar.delegate = self
+        // closeButton
+        bar.closeButton.addTarget(self, action: #selector(closeButtonDidClick(_:)), for: .touchUpInside)
+        
+        // sortButton
+        bar.sortButton.tag = 1
+        bar.sortButton.addTarget(self, action: #selector(sortButtonDidClick(_:)), for: .touchUpInside)
+        
+        // timeButton
+        bar.timeButton.addTarget(self, action: #selector(timeButtonDidClick(_:)), for: .touchUpInside)
+        
+        // filterButton
+        bar.filterButton.addTarget(self, action: #selector(filterButtonDidClick(_:)), for: .touchUpInside)
+        
+        [bar.closeButton, bar.sortButton, bar.timeButton, bar.filterButton].forEach {
+            $0.addTarget(self, action: #selector(buttonDidTouchDown(_:)), for: .touchDown)
+        }
         
         return bar
-    }()
-    
-    /// Button to control the order of logs
-    open lazy var sortButton: UIButton = {
-        
-        let button = UIButton(type: .system)
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.tintColor = .theme
-        button.tag = 1
-        
-        button.setTitle("Time ↓", for: .normal)
-        button.addTarget(self, action: #selector(sortButtonDidClick(_:)), for: .touchUpInside)
-        
-        return button
     }()
     
     /// The view responsible for displaying the log.
@@ -141,8 +94,11 @@ open class ColaCupController: UIViewController {
         return view
     }()
     
-    /// Whether the pop-up window is being displayed
+    /// Whether the pop-up window is being displayed.
     private lazy var isShowingPopover = false
+    
+    /// Used to provide vibration feedback.
+    private lazy var feedbackGenerator = UISelectionFeedbackGenerator()
 }
 
 // MARK: - Life cycle
@@ -158,7 +114,6 @@ extension ColaCupController {
         navigationController?.delegate = self
         navigationController?.navigationBar.tintColor = .theme
         
-        addGesture()
         addSubviews()
         addInitialLayout()
         startProcessingData()
@@ -167,7 +122,8 @@ extension ColaCupController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        showPopoverButton.isEnabled = true
+        toolBar.timeButton.isEnabled = true
+        toolBar.filterButton.isEnabled = true
         
         // Cancel the selected effect of the selected Cell.
         deselectRowIfNeeded()
@@ -189,99 +145,36 @@ extension ColaCupController {
 
 private extension ColaCupController {
     
-    func addGesture() {
-        
-        let ges = UITapGestureRecognizer(target: searchBar, action: #selector(resignFirstResponder))
-        
-        ges.cancelsTouchesInView = false
-        
-        view.addGestureRecognizer(ges)
-    }
-    
     func addSubviews() {
         
-        view.addSubview(headerView)
-        view.addSubview(sortButton)
+        view.addSubview(toolBar)
         view.addSubview(logsView)
         view.addSubview(loadingView)
-        
-        headerView.addSubview(searchBar)
-        headerView.addSubview(flagBar)
     }
     
     func addInitialLayout() {
         
-        // headerView
+        // toolBar
         if #available(iOS 11.0, *) {
             NSLayoutConstraint.activate([
-                headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
-                headerView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-                headerView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20)
+                toolBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
+                toolBar.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+                toolBar.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20)
             ])
             
         } else {
             NSLayoutConstraint.activate([
-                headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 15),
-                headerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-                headerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20)
+                toolBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 15),
+                toolBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+                toolBar.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20)
             ])
         }
         
-        headerView.setContentCompressionResistancePriority(.required, for: .vertical)
-        headerView.setContentHuggingPriority(.required, for: .vertical)
-        
-        // searchBar
-        NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 2),
-            searchBar.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 10),
-            searchBar.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -10)
-        ])
-        
-        searchBar.setContentHuggingPriority(.required, for: .vertical)
-        
-        // flagBar
-        NSLayoutConstraint.activate([
-            flagBar.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            flagBar.leftAnchor.constraint(equalTo: searchBar.leftAnchor),
-            flagBar.rightAnchor.constraint(equalTo: searchBar.rightAnchor),
-            flagBar.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -12),
-        ])
-        
-        flagBar.setContentHuggingPriority(.required, for: .vertical)
-        
-        // sortButton
-        var sortButtonConstraints = [
-            sortButton.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 10),
-        ]
-        
-        sortButtonConstraints.append({
-            
-            let right = sortButton.rightAnchor
-            let value: CGFloat = 10
-            
-            if #available(iOS 13.0, *) {
-                return right.constraint(
-                    equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -(value + 20)
-                )
-            }
-            
-            if #available(iOS 11.0, *) {
-                return right.constraint(
-                    equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -value
-                )
-            }
-            
-            return right.constraint(equalTo: view.rightAnchor, constant: -value)
-        }())
-        
-        NSLayoutConstraint.activate(sortButtonConstraints)
-        
-        sortButton.setContentHuggingPriority(.required, for: .vertical)
-        sortButton.setContentHuggingPriority(.required, for: .horizontal)
+        toolBar.setContentHuggingPriority(.required, for: .vertical)
         
         // logsView
         var logsViewConstraints = [
-            logsView.topAnchor.constraint(equalTo: sortButton.bottomAnchor, constant: 3),
+            logsView.topAnchor.constraint(equalTo: toolBar.bottomAnchor, constant: 15),
             logsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ]
         
@@ -313,8 +206,6 @@ private extension ColaCupController {
             guard let this = self else { return }
             
             this.loadingView.isHidden = true
-            
-            this.flagBar.setFlags(this.viewModel.flags)
             this.logsView.reloadData()
         }
     }
@@ -324,40 +215,86 @@ private extension ColaCupController {
 
 extension ColaCupController {
     
-    /// Show pop-up view.
+    /// Execute when the button is pressed.
     ///
-    /// - Parameter sender: Event trigger.
-    @objc open func showPopover(_ sender: UIButton) {
+    /// - Parameter button: Button pressed.
+    @objc open func buttonDidTouchDown(_ button: UIButton) {
+        feedbackGenerator.prepare()
+    }
+    
+    /// Close button click event.
+    ///
+    /// - Parameter button: `toolBar.closeButton`.
+    @objc open func closeButtonDidClick(_ button: UIButton) {
+        feedbackGenerator.selectionChanged()
+        dismiss(animated: true, completion: nil)
+    }
+    
+    /// Time button click event.
+    ///
+    /// - Parameter button: `toolBar.timeButton`.
+    @objc open func timeButtonDidClick(_ button: UIButton) {
         
-        searchBar.resignFirstResponder()
+        feedbackGenerator.selectionChanged()
         
-        sender.isEnabled = false
+        button.isEnabled = false
         
-        let rect = sender.convert(sender.bounds, to: UIApplication.shared.delegate!.window!)
+        let rect = button.convert(button.bounds, to: UIApplication.shared.delegate!.window!)
         
-        let popover = ColaCupPopover(
-            appearY: rect.maxY,
-            date: viewModel.selectedDate,
-            modules: viewModel.modules
+        if #available(iOS 14.0, *) {
+            
+            let popover = TimePopover(
+                position: CGPoint(x: rect.midX, y: rect.maxY),
+                dataSource: viewModel.timeModel
+            )
+            
+            popover.delegate = self
+            popover.dataDelegate = self
+            
+            present(popover, animated: true) { self.isShowingPopover = true }
+            
+        } else {
+            
+            
+        }
+    }
+    
+    /// Filter button click event.
+    ///
+    /// - Parameter button: `toolBar.filterButton`.
+    @objc open func filterButtonDidClick(_ button: UIButton) {
+        
+        feedbackGenerator.selectionChanged()
+        
+        button.isEnabled = false
+        
+        let rect = button.convert(button.bounds, to: UIApplication.shared.delegate!.window!)
+        
+        let popover = FilterPopover(
+            position: CGPoint(x: rect.midX, y: rect.maxY),
+            dataSource: viewModel.filterModel
         )
         
         popover.delegate = self
+        popover.dataDelegate = self
         
         present(popover, animated: true) { self.isShowingPopover = true }
     }
     
     /// Sort button click event.
     ///
-    /// - Parameter button: `sortButton`.
-    @objc func sortButtonDidClick(_ button: UIButton) {
+    /// - Parameter button: `toolBar.sortButton`.
+    @objc open func sortButtonDidClick(_ button: UIButton) {
+        
+        feedbackGenerator.selectionChanged()
         
         if button.tag == 1 {
             button.tag = 2
-            button.setTitle("Time ↑", for: .normal)
+            button.setImage(UIImage(name: "arrow.counterclockwise.circle"), for: .normal)
             
         } else {
             button.tag = 1
-            button.setTitle("Time ↓", for: .normal)
+            button.setImage(UIImage(name: "arrow.clockwise.circle"), for: .normal)
         }
         
         viewModel.reverseDataSource()
@@ -369,75 +306,51 @@ extension ColaCupController {
 
 extension ColaCupController: ColaCupPopoverDelegate {
     
-    public func popover(_ popover: ColaCupPopover, willDisappearWithDate date: Date?, modules: [ColaCupSelectedModel]) {
+    public func popoverWillDisappear<Popover>(_ popover: Popover) where Popover : BasePopover {
         
         isShowingPopover = false
-        showPopoverButton.isEnabled = true
         
-        // When changing the date, only the date is processed. Module data will be ignored.
-        //
-        // TODO: Use the module data selected by the user as a reference to process the selected state of the new module data
-        if date != viewModel.selectedDate {
-            
-            loadingView.isHidden = false
-            
-            viewModel.selectedDate = date
-            
-            viewModel.processLogs { [weak self] in
-                
-                guard let this = self else { return }
-                
-                this.loadingView.isHidden = true
-                
-                this.reloadFlagData()
-                this.logsView.reloadData()
-            }
-            
-            return
-        }
-        
-        guard modules != viewModel.modules else { return }
-        
-        loadingView.isHidden = false
-        
-        viewModel.modules = modules
-        
-        // Processing module data changes
-        viewModel.processModuleChange { [weak self] in
-            
-            guard let this = self else { return }
-            
-            this.loadingView.isHidden = true
-            
-            this.searchBar.text = ""
-            this.reloadFlagData()
-            this.logsView.reloadData()
-        }
+        toolBar.timeButton.isEnabled = true
+        toolBar.filterButton.isEnabled = true
     }
 }
 
-// MARK: - ColaCupFlagBarDelegate
+// MARK: - TimePopoverDataDelegate
 
-extension ColaCupController: ColaCupFlagBarDelegate {
+@available(iOS 14.0, *)
+extension ColaCupController: TimePopoverDataDelegate {
     
-    public func flagBar(_ flagBar: ColaCupFlagBar, flagButtonDidClick button: LogFlagButton) {
+    public func timePopover(_ popover: TimePopover, didChangedViewedLogDate model: TimePopoverModel) {
         
-        loadingView.isHidden = false
+        viewModel.updateTimeModel(model)
         
-        viewModel.clickFlag(at: button.tag, isSelectButton: button.isSelected) { [weak self] in
-            
-            guard let this = self else { return }
-            
-            this.loadingView.isHidden = true
-            this.logsView.reloadData()
-            
-            if $0.contains(0) {
-                flagBar.scrollToLeft()
-            }
-            
-            $0.forEach { this.flagBar.selectFlag(at: $0) }
-            $1.forEach { this.flagBar.deselectFlag(at: $0) }
-        }
+        refreshLogData(executeImmediately: true)
+    }
+}
+
+// MARK: - FilterPopoverDataDelegate
+
+extension ColaCupController: FilterPopoverDataDelegate {
+    
+    public func filterPopover(_ popover: FilterPopover, search keyword: String) {
+        
+        viewModel.updateSearchKeyword(keyword)
+        
+        refreshLogData(executeImmediately: false)
+    }
+    
+    public func filterPopover(_ popover: FilterPopover, clickedFlagAt index: Int, flags: [SelectedModel<Log.Flag>]) {
+        
+        viewModel.updateFlags(flags)
+        
+        refreshLogData(executeImmediately: true)
+    }
+    
+    public func filterPopover(_ popover: FilterPopover, clickedModuleAt index: Int, modules: [SelectedModel<String>]) {
+        
+        viewModel.updateModules(modules)
+        
+        refreshLogData(executeImmediately: false)
     }
 }
 
@@ -449,34 +362,6 @@ extension ColaCupController: UINavigationControllerDelegate {
         
         let isHide = viewController is ColaCupController
         navigationController.setNavigationBarHidden(isHide, animated: animated)
-    }
-}
-
-// MARK: - UISearchBarDelegate
-
-extension ColaCupController: UISearchBarDelegate {
-    
-    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        viewModel.search(with: searchText, executeImmediately: false) { [weak self] in
-            self?.logsView.reloadData()
-        }
-    }
-}
-
-// MARK: - UITextFieldDelegate
-
-extension ColaCupController: UITextFieldDelegate {
-    
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        textField.resignFirstResponder()
-        
-        viewModel.search(with: textField.text, executeImmediately: true) { [weak self] in
-            self?.logsView.reloadData()
-        }
-        
-        return false
     }
 }
 
@@ -548,6 +433,22 @@ extension ColaCupController: UIViewControllerPreviewingDelegate {
 
 private extension ColaCupController {
     
+    /// Refresh log data.
+    /// 
+    /// - Parameter executeImmediately: Whether to perform the search immediately.
+    func refreshLogData(executeImmediately: Bool) {
+        
+        loadingView.isHidden = false
+        
+        viewModel.refreshLogData(executeImmediately: executeImmediately) { [weak self] in
+            
+            guard let this = self else { return }
+            
+            this.loadingView.isHidden = true
+            this.logsView.reloadData()
+        }
+    }
+    
     /// Cancel the selected effect of the selected Cell.
     func deselectRowIfNeeded() {
         
@@ -567,10 +468,5 @@ private extension ColaCupController {
                 self.logsView.selectRow(at: selectedIndexPath, animated: false, scrollPosition: .none)
             }
         )
-    }
-    
-    func reloadFlagData() {
-        flagBar.scrollToLeft()
-        flagBar.reloadData(flags: viewModel.flags)
     }
 }
