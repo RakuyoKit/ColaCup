@@ -72,8 +72,8 @@ public class TimePopover: BasePopover {
         
         let period = dataSource.period
         
-        view.startPicker.date = Date(timeIntervalSince1970: period.start)
-        view.endPicker.date = Date(timeIntervalSince1970: period.end)
+        view.startPicker.date = period.start
+        view.endPicker.date = period.end
         
         view.startPicker.addTarget(self, action: #selector(startPeriodDidChange(_:)), for: .valueChanged)
         view.endPicker.addTarget(self, action: #selector(endPeriodDidChange(_:)), for: .valueChanged)
@@ -151,12 +151,12 @@ private extension TimePopover {
     
     @objc func startPeriodDidChange(_ picker: UIDatePicker) {
         isDataChanged = true
-        dataSource.period.start = picker.date.timeIntervalSince1970
+        dataSource.period.start = picker.date
     }
     
     @objc func endPeriodDidChange(_ picker: UIDatePicker) {
         isDataChanged = true
-        dataSource.period.end = picker.date.timeIntervalSince1970
+        dataSource.period.end = picker.date
     }
     
     @objc func doneButtonDidClick(_ button: UIButton) {

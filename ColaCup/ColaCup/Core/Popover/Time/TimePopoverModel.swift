@@ -11,34 +11,23 @@ import UIKit
 /// Data source model for `TimePopover`.
 public struct TimePopoverModel {
     
-    public init(
-        targetDate: Date? = nil,
-        targetPeriod: (start: TimeInterval, end: TimeInterval)? = nil
-    ) {
+    public init(date: Date? = nil) {
         
-        self.date = targetDate
+        self.date = date
         
-        if let period = targetPeriod {
-            self.period = period
-            
-        } else {
-            
-            let calendar = Calendar.current
-            
-            let components = calendar.dateComponents(
-                Set(arrayLiteral: .year, .month, .day),
-                from: targetDate ?? Date()
-            )
-            
-            let startInterval = calendar.date(from: components)?.timeIntervalSince1970 ?? 0
-            
-            self.period = (start: startInterval, end: startInterval + 86400 - 1)
-        }
+        let _date = date ?? Date()
+        let calendar = Calendar.current
+        
+        let components = calendar.dateComponents(Set(arrayLiteral: .year, .month, .day), from: _date)
+        
+        let startDate = calendar.date(from: components) ?? _date
+        
+        self.period = DateInterval(start: startDate, duration: 24 * 60 * 60 - 1)
     }
     
     /// The date of the log to be viewed. In days.
     public var date: Date?
     
     /// The log to be viewed and the time period. In minutes.
-    public var period: (start: TimeInterval, end: TimeInterval)
+    public var period: DateInterval
 }

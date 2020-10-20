@@ -125,6 +125,39 @@ public extension ColaCupViewModel {
         isDateChanged = model.date != timeModel.date
         
         timeModel = model
+        
+        guard isDateChanged, let targetDate = timeModel.date else { return }
+        
+        let calendar = Calendar.current
+        
+        var targetComponents = calendar.dateComponents(
+            Set(arrayLiteral: .year, .month, .day),
+            from: targetDate
+        )
+        
+        let startComponents = calendar.dateComponents(
+            Set(arrayLiteral: .hour, .minute),
+            from: timeModel.period.start
+        )
+        
+        targetComponents.setValue(startComponents.value(for: .hour), for: .hour)
+        targetComponents.setValue(startComponents.value(for: .minute), for: .minute)
+        
+        if let startDate = calendar.date(from: targetComponents) {
+            timeModel.period.start = startDate
+        }
+        
+        let endComponents = calendar.dateComponents(
+            Set(arrayLiteral: .hour, .minute),
+            from: timeModel.period.end
+        )
+        
+        targetComponents.setValue(endComponents.value(for: .hour), for: .hour)
+        targetComponents.setValue(endComponents.value(for: .minute), for: .minute)
+        
+        if let endDate = calendar.date(from: targetComponents) {
+            timeModel.period.end = endDate
+        }
     }
 }
 
@@ -157,13 +190,14 @@ public extension ColaCupViewModel {
                 this.integralLogs = _logs as [LogModelProtocol]
             }
             
+            var conditions: [(LogModelProtocol) -> Bool] = []
+            
             // Period
-            var conditions: [(LogModelProtocol) -> Bool] = [
-                {
-                    let period = this.timeModel.period
-                    return $0.timestamp > period.start && $0.timestamp < period.end
-                }
-            ]
+            let period = this.timeModel.period
+            let startTimestamp = period.start.timeIntervalSince1970
+            let endTimestamp = period.end.timeIntervalSince1970
+            
+            conditions.append({ $0.timestamp >= startTimestamp && $0.timestamp <= endTimestamp })
             
             // Search
             if let keyword = this.filterModel.searchKeyword, !keyword.isEmpty {
