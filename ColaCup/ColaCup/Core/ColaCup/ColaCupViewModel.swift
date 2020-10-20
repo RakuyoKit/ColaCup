@@ -62,7 +62,7 @@ public extension ColaCupViewModel {
             
             this.integralLogs = { () -> [LogModelProtocol] in
                 
-                if let date = this.timeModel.targetDate {
+                if let date = this.timeModel.date {
                     
                     let _logs: [Log] = this.logManager.readLogFromDisk(logDate: date) ?? []
                     
@@ -122,7 +122,7 @@ public extension ColaCupViewModel {
     
     func updateTimeModel(_ model: TimePopoverModel) {
         
-        isDateChanged = model.targetDate != timeModel.targetDate
+        isDateChanged = model.date != timeModel.date
         
         timeModel = model
     }
@@ -149,7 +149,7 @@ public extension ColaCupViewModel {
             }
             
             // If the user modifies the date, the log data will be retrieved.
-            if this.isDateChanged, let date = this.timeModel.targetDate {
+            if this.isDateChanged, let date = this.timeModel.date {
                 
                 this.isDateChanged = false
                 
@@ -160,7 +160,7 @@ public extension ColaCupViewModel {
             // Period
             var conditions: [(LogModelProtocol) -> Bool] = [
                 {
-                    let period = this.timeModel.targetPeriod
+                    let period = this.timeModel.period
                     return $0.timestamp > period.start && $0.timestamp < period.end
                 }
             ]

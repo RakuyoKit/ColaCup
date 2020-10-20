@@ -16,10 +16,10 @@ public struct TimePopoverModel {
         targetPeriod: (start: TimeInterval, end: TimeInterval)? = nil
     ) {
         
-        self.targetDate = targetDate
+        self.date = targetDate
         
         if let period = targetPeriod {
-            self.targetPeriod = period
+            self.period = period
             
         } else {
             
@@ -32,13 +32,13 @@ public struct TimePopoverModel {
             
             let startInterval = calendar.date(from: components)?.timeIntervalSince1970 ?? 0
             
-            self.targetPeriod = (start: startInterval, end: startInterval + 86400 - 1)
+            self.period = (start: startInterval, end: startInterval + 86400 - 1)
         }
     }
     
     /// The date of the log to be viewed. In days.
-    public var targetDate: Date?
+    public var date: Date?
     
     /// The log to be viewed and the time period. In minutes.
-    public var targetPeriod: (start: TimeInterval, end: TimeInterval)
+    public var period: (start: TimeInterval, end: TimeInterval)
 }
