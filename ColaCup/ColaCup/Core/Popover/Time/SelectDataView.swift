@@ -47,7 +47,6 @@ open class SelectDataView: UIView {
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.tintColor = .theme
         
-        datePicker.maximumDate = Date()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
         

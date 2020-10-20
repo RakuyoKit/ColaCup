@@ -8,6 +8,18 @@
 
 import UIKit
 
+/// Delegate for callback data.
+@available(iOS 14.0, *)
+public protocol TimePopoverDataDelegate: class {
+    
+    /// The callback executed after the user clicks the OK button on the pop-up.
+    ///
+    /// - Parameters:
+    ///   - popover: `TimePopover`.
+    ///   - model: Modified model.
+    func timePopover(_ popover: TimePopover, didChangedViewedLogDate model: TimePopoverModel)
+}
+
 /// A pop-up window for displaying time options.
 @available(iOS 14.0, *)
 public class TimePopover: BasePopover {
@@ -16,8 +28,7 @@ public class TimePopover: BasePopover {
     ///
     /// - Parameter dataSource: The data source model of the content of the pop-up.
     public init(position: CGPoint, dataSource: TimePopoverModel) {
-//        viewModel = TimePopoverViewModel(dataSource: dataSource)
-        
+        self.dataSource = dataSource
         super.init(position: position)
     }
     
@@ -25,12 +36,29 @@ public class TimePopover: BasePopover {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Data source.
+    private var dataSource: TimePopoverModel
+    
+    /// Whether the tag data has changed.
+    private lazy var isDataChanged: Bool = false
+    
+    /// delegate for callback data
+    public weak var dataDelegate: TimePopoverDataDelegate? = nil
+    
     /// The view used to select the date of the log to be viewed.
-    public lazy var dataView: SelectDataView = {
+    public lazy var dateView: SelectDataView = {
         
         let view = SelectDataView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.datePicker.maximumDate = Date()
+        
+        if let date = dataSource.targetDate {
+            view.datePicker.date = date
+        }
+        
+        view.datePicker.addTarget(self, action: #selector(datePickerDidChange(_:)), for: .valueChanged)
         
         return view
     }()
@@ -41,6 +69,14 @@ public class TimePopover: BasePopover {
         let view = SelectPeriodView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
+        
+        let period = dataSource.targetPeriod
+        
+        view.startPicker.date = Date(timeIntervalSince1970: period.start)
+        view.endPicker.date = Date(timeIntervalSince1970: period.end)
+        
+        view.startPicker.addTarget(self, action: #selector(startPeriodDidChange(_:)), for: .valueChanged)
+        view.endPicker.addTarget(self, action: #selector(endPeriodDidChange(_:)), for: .valueChanged)
         
         return view
     }()
@@ -55,6 +91,8 @@ public class TimePopover: BasePopover {
         button.backgroundColor = .theme
         
         button.layer.cornerRadius = 22
+        
+        button.addTarget(self, action: #selector(doneButtonDidClick(_:)), for: .touchUpInside)
         
         return button
     }()
@@ -85,18 +123,48 @@ private extension TimePopover {
     
     func addSubviews() {
         
-        stackView.addArrangedSubview(dataView)
+        stackView.addArrangedSubview(dateView)
         stackView.addArrangedSubview(periodView)
         stackView.addArrangedSubview(doneButton)
     }
     
     func addInitialLayout() {
         
-        [dataView, periodView, doneButton].forEach {
+        [dateView, periodView, doneButton].forEach {
             NSLayoutConstraint.activate([
                 $0.heightAnchor.constraint(equalToConstant: 44),
                 $0.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.9)
             ])
+        }
+    }
+}
+
+// MARK: - Action
+
+@available(iOS 14.0, *)
+private extension TimePopover {
+    
+    @objc func datePickerDidChange(_ picker: UIDatePicker) {
+        isDataChanged = true
+        dataSource.targetDate = picker.date
+    }
+    
+    @objc func startPeriodDidChange(_ picker: UIDatePicker) {
+        isDataChanged = true
+        dataSource.targetPeriod.start = picker.date.timeIntervalSince1970
+    }
+    
+    @objc func endPeriodDidChange(_ picker: UIDatePicker) {
+        isDataChanged = true
+        dataSource.targetPeriod.end = picker.date.timeIntervalSince1970
+    }
+    
+    @objc func doneButtonDidClick(_ button: UIButton) {
+        
+        dismiss(animated: true, completion: nil)
+        
+        if isDataChanged {
+            dataDelegate?.timePopover(self, didChangedViewedLogDate: dataSource)
         }
     }
 }

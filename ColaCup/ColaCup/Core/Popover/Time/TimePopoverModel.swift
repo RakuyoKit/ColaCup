@@ -13,10 +13,27 @@ public struct TimePopoverModel {
     
     public init(
         targetDate: Date? = nil,
-        targetPeriod: (start: TimeInterval, end: TimeInterval) = (start: TimeInterval(0), end: Date().timeIntervalSince1970)
+        targetPeriod: (start: TimeInterval, end: TimeInterval)? = nil
     ) {
+        
         self.targetDate = targetDate
-        self.targetPeriod = targetPeriod
+        
+        if let period = targetPeriod {
+            self.targetPeriod = period
+            
+        } else {
+            
+            let calendar = Calendar.current
+            
+            let components = calendar.dateComponents(
+                Set(arrayLiteral: .year, .month, .day),
+                from: targetDate ?? Date()
+            )
+            
+            let startInterval = calendar.date(from: components)?.timeIntervalSince1970 ?? 0
+            
+            self.targetPeriod = (start: startInterval, end: startInterval + 86400 - 1)
+        }
     }
     
     /// The date of the log to be viewed. In days.

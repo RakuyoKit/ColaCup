@@ -35,6 +35,9 @@ public class ColaCupViewModel {
     
     /// Used to restrict the execution of search functions.
     private lazy var throttler = Throttler(seconds: 0.3)
+    
+    /// Whether the user modified the date of the log to be viewed.
+    private lazy var isDateChanged: Bool = false
 }
 
 // MARK: - Initial data
@@ -116,6 +119,13 @@ public extension ColaCupViewModel {
     func updateModules(_ modules: [SelectedModel<String>]) {
         filterModel.modules = modules
     }
+    
+    func updateTimeModel(_ model: TimePopoverModel) {
+        
+        isDateChanged = model.targetDate != timeModel.targetDate
+        
+        timeModel = model
+    }
 }
 
 public extension ColaCupViewModel {
@@ -127,8 +137,8 @@ public extension ColaCupViewModel {
     ///   - completion: Completed callback. Will be guaranteed to execute on the main thread.
     func refreshLogData(executeImmediately: Bool, completion: @escaping () -> Void) {
         
-        // Really responsible for the search method.
-        let searchBlock: () -> Void = { [weak self] in
+        // Really responsible for the filter method.
+        let filterBlock: () -> Void = { [weak self] in
             
             guard let this = self else { return }
             
@@ -138,23 +148,39 @@ public extension ColaCupViewModel {
                 DispatchQueue.main.async(execute: completion)
             }
             
-            var conditions: [(LogModelProtocol) -> Bool] = []
+            // If the user modifies the date, the log data will be retrieved.
+            if this.isDateChanged, let date = this.timeModel.targetDate {
+                
+                this.isDateChanged = false
+                
+                let _logs: [Log] = this.logManager.readLogFromDisk(logDate: date) ?? []
+                this.integralLogs = _logs as [LogModelProtocol]
+            }
             
+            // Period
+            var conditions: [(LogModelProtocol) -> Bool] = [
+                {
+                    let period = this.timeModel.targetPeriod
+                    return $0.timestamp > period.start && $0.timestamp < period.end
+                }
+            ]
+            
+            // Search
             if let keyword = this.filterModel.searchKeyword, !keyword.isEmpty {
                 conditions.append({ $0.safeLog.contains(keyword) })
             }
             
+            // Flag
             if !this.filterModel.flags[0].isSelected {
                 
                 let selectFlags = this.filterModel.flags.filter { $0.isSelected }.map { $0.value }
-                
                 conditions.append({ selectFlags.contains($0.flag) })
             }
             
+            // Module
             if !this.filterModel.modules[0].isSelected {
                 
                 let selectModules = this.filterModel.modules.filter { $0.isSelected }.map { $0.value }
-                
                 conditions.append({ selectModules.contains($0.module) })
             }
             
@@ -162,11 +188,11 @@ public extension ColaCupViewModel {
         }
         
         if executeImmediately {
-            searchBlock()
+            filterBlock()
         } else {
             
             // In a certain time frame, the search method can only be executed once
-            throttler.execute(searchBlock)
+            throttler.execute(filterBlock)
         }
     }
 }

@@ -232,6 +232,7 @@ extension ColaCupController {
             )
             
             popover.delegate = self
+            popover.dataDelegate = self
             
             present(popover, animated: true) { self.isShowingPopover = true }
             
@@ -291,47 +292,19 @@ extension ColaCupController: ColaCupPopoverDelegate {
         toolBar.timeButton.isEnabled = true
         toolBar.filterButton.isEnabled = true
     }
+}
+
+// MARK: - TimePopoverDataDelegate
+
+@available(iOS 14.0, *)
+extension ColaCupController: TimePopoverDataDelegate {
     
-//    public func popover(_ popover: ColaCupPopover, willDisappearWithDate date: Date?, modules: [ColaCupSelectedModel]) {
-//        
-//        // When changing the date, only the date is processed. Module data will be ignored.
-//        //
-//        // TODO: Use the module data selected by the user as a reference to process the selected state of the new module data
-//        if date != viewModel.selectedDate {
-//            
-//            loadingView.isHidden = false
-//            
-//            viewModel.selectedDate = date
-//            
-//            viewModel.processLogs { [weak self] in
-//                
-//                guard let this = self else { return }
-//                
-//                this.loadingView.isHidden = true
-//                
-//                this.logsView.reloadData()
-//            }
-//            
-//            return
-//        }
-//        
-//        guard modules != viewModel.modules else { return }
-//        
-//        loadingView.isHidden = false
-//        
-//        viewModel.modules = modules
-//        
-//        // Processing module data changes
-//        viewModel.processModuleChange { [weak self] in
-//            
-//            guard let this = self else { return }
-//            
-//            this.loadingView.isHidden = true
-//            
-////            this.searchBar.text = ""
-//            this.logsView.reloadData()
-//        }
-//    }
+    public func timePopover(_ popover: TimePopover, didChangedViewedLogDate model: TimePopoverModel) {
+        
+        viewModel.updateTimeModel(model)
+        
+        refreshLogData(executeImmediately: true)
+    }
 }
 
 // MARK: - FilterPopoverDataDelegate
