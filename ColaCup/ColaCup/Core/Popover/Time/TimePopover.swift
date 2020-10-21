@@ -184,7 +184,7 @@ private extension TimePopover {
         
         let date = picker.date
         
-        if date < dataSource.period.start {
+        if date > dataSource.period.start {
             isDataChanged = true
             dataSource.period.end = date
             
