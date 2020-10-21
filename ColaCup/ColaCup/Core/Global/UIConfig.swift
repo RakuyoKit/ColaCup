@@ -26,7 +26,15 @@ extension UIImage {
             self.init(systemName: name)
             
         } else {
-            self.init(named: name)
+            
+            if let resourcePath = Bundle(for: type(of: self)).resourcePath,
+               let bundle = Bundle(path: resourcePath + "/ColaCupBundle.bundle") {
+                
+                self.init(named: name, in: bundle, compatibleWith: nil)
+                
+            } else {
+                self.init(named: name)
+            }
         }
     }
 }
