@@ -81,7 +81,7 @@ private extension SelectTimeView {
         titleLabel.setContentHuggingPriority(.required, for: .horizontal)
         
         NSLayoutConstraint.activate([
-            picker.leftAnchor.constraint(greaterThanOrEqualTo: titleLabel.rightAnchor, constant: 5),
+            picker.leftAnchor.constraint(greaterThanOrEqualTo: titleLabel.rightAnchor),
             picker.rightAnchor.constraint(equalTo: rightAnchor, constant: 8),
             picker.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor)
         ])
