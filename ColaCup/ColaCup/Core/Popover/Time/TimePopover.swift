@@ -63,20 +63,32 @@ public class TimePopover: BasePopover {
         return view
     }()
     
-    /// The view used to select the time period of the log to be viewed.
-    public lazy var periodView: SelectPeriodView = {
+    /// The view used to select the start time.
+    public lazy var startTimeView: SelectTimeView = {
         
-        let view = SelectPeriodView()
+        let view = SelectTimeView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        let period = dataSource.period
+        view.titleLabel.text = "Start"
+        view.picker.date = dataSource.period.start
         
-        view.startPicker.date = period.start
-        view.endPicker.date = period.end
+        view.picker.addTarget(self, action: #selector(startPeriodDidChange(_:)), for: .valueChanged)
         
-        view.startPicker.addTarget(self, action: #selector(startPeriodDidChange(_:)), for: .valueChanged)
-        view.endPicker.addTarget(self, action: #selector(endPeriodDidChange(_:)), for: .valueChanged)
+        return view
+    }()
+    
+    /// The view used to select the end time.
+    public lazy var endTimeView: SelectTimeView = {
+        
+        let view = SelectTimeView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.titleLabel.text = "End"
+        view.picker.date = dataSource.period.end
+        
+        view.picker.addTarget(self, action: #selector(endPeriodDidChange(_:)), for: .valueChanged)
         
         return view
     }()
@@ -102,8 +114,8 @@ public class TimePopover: BasePopover {
         let con = BasePopover.Constant.self
         
         return con.topBottomSpacing * 2
-             + con.spacing * 2
-             + con.itemHeight * 3
+             + con.spacing * 3
+             + con.itemHeight * 4
     }
     
     public override func viewDidLoad() {
@@ -124,13 +136,14 @@ private extension TimePopover {
     func addSubviews() {
         
         stackView.addArrangedSubview(dateView)
-        stackView.addArrangedSubview(periodView)
+        stackView.addArrangedSubview(startTimeView)
+        stackView.addArrangedSubview(endTimeView)
         stackView.addArrangedSubview(doneButton)
     }
     
     func addInitialLayout() {
         
-        [dateView, periodView, doneButton].forEach {
+        [dateView, startTimeView, endTimeView, doneButton].forEach {
             NSLayoutConstraint.activate([
                 $0.heightAnchor.constraint(equalToConstant: 44),
                 $0.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.9)
