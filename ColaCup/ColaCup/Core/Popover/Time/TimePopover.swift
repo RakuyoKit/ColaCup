@@ -98,11 +98,14 @@ public class TimePopover: BasePopover {
         
         let button = UIButton(type: .system)
         
+        button.backgroundColor = .theme
+        button.layer.cornerRadius = 22
+        
         button.setTitle("Done", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .theme
         
-        button.layer.cornerRadius = 22
+        button.setTitle("Time range error", for: .disabled)
+        button.setTitleColor(.lightGray, for: .disabled)
         
         button.addTarget(self, action: #selector(doneButtonDidClick(_:)), for: .touchUpInside)
         
@@ -163,13 +166,33 @@ private extension TimePopover {
     }
     
     @objc func startPeriodDidChange(_ picker: UIDatePicker) {
-        isDataChanged = true
-        dataSource.period.start = picker.date
+        
+        let date = picker.date
+        
+        if date < dataSource.period.end {
+            isDataChanged = true
+            dataSource.period.start = date
+            
+            doneButton.isEnabled = true
+            
+        } else {
+            doneButton.isEnabled = false
+        }
     }
     
     @objc func endPeriodDidChange(_ picker: UIDatePicker) {
-        isDataChanged = true
-        dataSource.period.end = picker.date
+        
+        let date = picker.date
+        
+        if date < dataSource.period.start {
+            isDataChanged = true
+            dataSource.period.end = date
+            
+            doneButton.isEnabled = true
+            
+        } else {
+            doneButton.isEnabled = false
+        }
     }
     
     @objc func doneButtonDidClick(_ button: UIButton) {
