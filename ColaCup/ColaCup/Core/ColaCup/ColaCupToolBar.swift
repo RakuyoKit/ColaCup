@@ -26,16 +26,16 @@ open class ColaCupToolBar: UIStackView {
     }
     
     /// Close button.
-    open lazy var closeButton = UIButton(type: .custom)
+    open lazy var closeButton = UIButton(type: .system)
     
     /// Button to open the time popover.
-    open lazy var timeButton = UIButton(type: .custom)
+    open lazy var timeButton = UIButton(type: .system)
     
     /// Button to open the filter popover.
-    open lazy var filterButton = UIButton(type: .custom)
+    open lazy var filterButton = UIButton(type: .system)
     
     /// Button to sort log list.
-    open lazy var sortButton = UIButton(type: .custom)
+    open lazy var sortButton = UIButton(type: .system)
 }
 
 // MARK: - Config

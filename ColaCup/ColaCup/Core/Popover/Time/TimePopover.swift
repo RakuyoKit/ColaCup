@@ -96,7 +96,7 @@ public class TimePopover: BasePopover {
     /// Confirm button. Used to submit the date and time selected by the user.
     public lazy var doneButton: UIButton = {
         
-        let button = UIButton(type: .custom)
+        let button = UIButton(type: .system)
         
         button.setTitle("Done", for: .normal)
         button.setTitleColor(.white, for: .normal)
