@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 import LinkPresentation
 
 import RaLog
@@ -305,6 +306,7 @@ extension DetailsViewController: UITableViewDataSource {
         case .json:
             let cell = _cell as! DetailsJSONCell
             
+            cell.jsonView.jsonTextView.delegate = self
             cell.jsonView.preview(model.value) { [weak self] in
                 
                 guard let this = self, !this.isReloaded else { return }
@@ -316,6 +318,32 @@ extension DetailsViewController: UITableViewDataSource {
         }
         
         return _cell
+    }
+}
+
+// MARK: - UITextViewDelegate
+
+extension DetailsViewController: UITextViewDelegate {
+    
+    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        var _url = URL
+        
+        if let scheme = URL.scheme {
+            guard scheme == "http" || scheme == "https" else { return true }
+            
+        } else {
+            
+            guard let newURL = Foundation.URL(string: "http://" + _url.absoluteString) else {
+                return true
+            }
+            
+            _url = newURL
+        }
+        
+        present(SFSafariViewController(url: _url), animated: true, completion: nil)
+        
+        return false
     }
 }
 
