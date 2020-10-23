@@ -39,7 +39,7 @@ class PopoverAppearAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         
         let containerView = transitionContext.containerView
         
-        let width = (containerView.frame.width) / 3 * 2
+        let width = min((containerView.frame.width) / 3 * 2, 375)
         
         // 2. Set the frame to the target view.
         toView.frame = CGRect(x: 0, y: appearPosition.y + 10, width: width, height: height)
