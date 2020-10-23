@@ -38,6 +38,8 @@ class ViewController: UIViewController {
                 "key_6" : {
                     "key_6_1" : null,
                     "key_6_2" : [
+                        "stackoverflow.com",
+                        "http://www.apple.com",
                         "array_1",
                         3.1415926,
                         -50,
@@ -52,7 +54,9 @@ class ViewController: UIViewController {
                     "key_6_3" : {
                         "bool_1" : true,
                         "bool_2" : false,
-                        "empty_string" : ""
+                        "empty_string" : "",
+                        "url" : "172.168.0.1",
+                        "test_url_escaping" : "https:\\/\\/www.github.com"
                     }
                 }
             },
