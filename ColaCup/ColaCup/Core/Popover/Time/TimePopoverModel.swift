@@ -22,12 +22,16 @@ public struct TimePopoverModel {
         
         let startDate = calendar.date(from: components) ?? _date
         
-        self.period = DateInterval(start: startDate, duration: 24 * 60 * 60 - 1)
+        self.startInterval = startDate.timeIntervalSince1970
+        self.endInterval = self.startInterval + (24 * 60 * 60 - 1)
     }
     
     /// The date of the log to be viewed. In days.
     public var date: Date?
     
-    /// The log to be viewed and the time period. In minutes.
-    public var period: DateInterval
+    /// When previewing logs in a certain period of time, it is used to indicate the **start** time.
+    public var startInterval: TimeInterval
+    
+    /// When previewing logs in a certain period of time, it is used to indicate the **end** time.
+    public var endInterval: TimeInterval
 }

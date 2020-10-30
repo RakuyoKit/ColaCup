@@ -9,7 +9,6 @@
 import UIKit
 
 /// Delegate for callback data.
-@available(iOS 14.0, *)
 public protocol TimePopoverDataDelegate: class {
     
     /// The callback executed after the user clicks the OK button on the pop-up.
@@ -21,7 +20,6 @@ public protocol TimePopoverDataDelegate: class {
 }
 
 /// A pop-up window for displaying time options.
-@available(iOS 14.0, *)
 public class TimePopover: BasePopover {
     
     /// Initialization method.
@@ -46,6 +44,7 @@ public class TimePopover: BasePopover {
     public weak var dataDelegate: TimePopoverDataDelegate? = nil
     
     /// The view used to select the date of the log to be viewed.
+    @available(iOS 13.4, *)
     public lazy var dateView: SelectDataView = {
         
         let view = SelectDataView()
@@ -63,32 +62,16 @@ public class TimePopover: BasePopover {
         return view
     }()
     
-    /// The view used to select the start time.
-    public lazy var startTimeView: SelectTimeView = {
+    /// View to show time period.
+    public lazy var periodView: SelectPeriodView = {
         
-        let view = SelectTimeView()
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.titleLabel.text = "Start"
-        view.picker.date = dataSource.period.start
-        
-        view.picker.addTarget(self, action: #selector(startPeriodDidChange(_:)), for: .valueChanged)
-        
-        return view
-    }()
-    
-    /// The view used to select the end time.
-    public lazy var endTimeView: SelectTimeView = {
-        
-        let view = SelectTimeView()
+        let view = SelectPeriodView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.titleLabel.text = "End"
-        view.picker.date = dataSource.period.end
-        
-        view.picker.addTarget(self, action: #selector(endPeriodDidChange(_:)), for: .valueChanged)
+        view.titleLabel.text = "Period"
+        view.startView.timeLabel.text = "00:00"
+        view.endView.timeLabel.text = "24:00"
         
         return view
     }()
@@ -116,9 +99,11 @@ public class TimePopover: BasePopover {
         
         let con = BasePopover.Constant.self
         
+        let itemCount: CGFloat = 3
+        
         return con.topBottomSpacing * 2
-             + con.spacing * 3
-             + con.itemHeight * 4
+             + con.spacing * (itemCount - 1)
+             + con.itemHeight * itemCount
     }
     
     public override func viewDidLoad() {
@@ -133,20 +118,26 @@ public class TimePopover: BasePopover {
 
 // MARK: - Config
 
-@available(iOS 14.0, *)
+private extension TimePopover {
+    
+    /// Under the current system, the available dateView.
+    var availableDateView: UIView {
+        if #available(iOS 13.4, *) { return dateView } else { return UIView() }
+    }
+}
+
 private extension TimePopover {
     
     func addSubviews() {
         
-        stackView.addArrangedSubview(dateView)
-        stackView.addArrangedSubview(startTimeView)
-        stackView.addArrangedSubview(endTimeView)
+        stackView.addArrangedSubview(availableDateView)
+        stackView.addArrangedSubview(periodView)
         stackView.addArrangedSubview(doneButton)
     }
     
     func addInitialLayout() {
         
-        [dateView, startTimeView, endTimeView, doneButton].forEach {
+        [availableDateView, periodView, doneButton].forEach {
             NSLayoutConstraint.activate([
                 $0.heightAnchor.constraint(equalToConstant: 44),
                 $0.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.9)
@@ -157,7 +148,6 @@ private extension TimePopover {
 
 // MARK: - Action
 
-@available(iOS 14.0, *)
 private extension TimePopover {
     
     @objc func datePickerDidChange(_ picker: UIDatePicker) {
@@ -165,35 +155,35 @@ private extension TimePopover {
         dataSource.date = picker.date
     }
     
-    @objc func startPeriodDidChange(_ picker: UIDatePicker) {
-        
-        let date = picker.date
-        
-        if date < dataSource.period.end {
-            isDataChanged = true
-            dataSource.period.start = date
-            
-            doneButton.isEnabled = true
-            
-        } else {
-            doneButton.isEnabled = false
-        }
-    }
-    
-    @objc func endPeriodDidChange(_ picker: UIDatePicker) {
-        
-        let date = picker.date
-        
-        if date > dataSource.period.start {
-            isDataChanged = true
-            dataSource.period.end = date
-            
-            doneButton.isEnabled = true
-            
-        } else {
-            doneButton.isEnabled = false
-        }
-    }
+//    @objc func startPeriodDidChange(_ picker: UIDatePicker) {
+//
+//        let date = picker.date
+//
+//        if date < dataSource.period.end {
+//            isDataChanged = true
+//            dataSource.period.start = date
+//
+//            doneButton.isEnabled = true
+//
+//        } else {
+//            doneButton.isEnabled = false
+//        }
+//    }
+//
+//    @objc func endPeriodDidChange(_ picker: UIDatePicker) {
+//
+//        let date = picker.date
+//
+//        if date > dataSource.period.start {
+//            isDataChanged = true
+//            dataSource.period.end = date
+//
+//            doneButton.isEnabled = true
+//
+//        } else {
+//            doneButton.isEnabled = false
+//        }
+//    }
     
     @objc func doneButtonDidClick(_ button: UIButton) {
         
