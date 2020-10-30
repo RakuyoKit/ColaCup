@@ -26,10 +26,6 @@ open class ShowTimeView: UIControl {
         config()
     }
     
-    deinit {
-        removeObserver(self, forKeyPath: "highlighted")
-    }
-    
     /// Text box showing time.
     open lazy var timeLabel: UILabel = {
         
@@ -46,6 +42,20 @@ open class ShowTimeView: UIControl {
     open override var tintColor: UIColor! {
         didSet {
             layer.borderColor = tintColor.cgColor
+        }
+    }
+    
+    open override var isSelected: Bool {
+        didSet {
+            
+            if isSelected {
+                timeLabel.textColor = tintColor
+                layer.borderWidth = 1.5
+                
+            } else {
+                timeLabel.textColor = .black
+                layer.borderWidth = 0
+            }
         }
     }
 }
@@ -73,32 +83,5 @@ private extension ShowTimeView {
             timeLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 7),
             timeLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -7)
         ])
-        
-        // Monitor the highlight state to set the border and text color.
-        addObserver(self, forKeyPath: "highlighted", options: [.new, .old], context: nil)
-    }
-}
-
-// MARK: - KVO
-
-extension ShowTimeView {
-    
-    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        
-        guard keyPath == "highlighted" else { return }
-        
-        switch self.state {
-        case .highlighted:
-            
-            timeLabel.textColor = tintColor
-            layer.borderWidth = 1.5
-            
-        case .normal:
-            
-            timeLabel.textColor = .black
-            layer.borderWidth = 0
-            
-        default: break
-        }
     }
 }
