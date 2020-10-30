@@ -51,6 +51,7 @@ public class TimePopover: BasePopover {
         
         view.translatesAutoresizingMaskIntoConstraints = false
         
+        view.titleLabel.text = "Date"
         view.datePicker.maximumDate = Date()
         
         if let date = dataSource.date {
