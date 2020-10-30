@@ -18,6 +18,12 @@ open class TimePickerController: UIViewController {
         bar.translatesAutoresizingMaskIntoConstraints = false
         bar.tintColor = .theme
         
+        bar.items = [
+            UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil),
+        ]
+        
         return bar
     }()
     
@@ -28,6 +34,9 @@ open class TimePickerController: UIViewController {
         
         view.translatesAutoresizingMaskIntoConstraints = false
         
+        view.delegate = self
+        view.dataSource = self
+        
         return view
     }()
 }
@@ -36,6 +45,8 @@ extension TimePickerController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .white
         
         addSubviews()
         addInitialLayout()
@@ -68,5 +79,51 @@ private extension TimePickerController {
             pickerView.leftAnchor.constraint(equalTo: view.leftAnchor),
             pickerView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
+    }
+}
+
+// MARK: - UIPickerViewDelegate
+
+extension TimePickerController: UIPickerViewDelegate {
+    
+    public func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        
+        return component == 1 ? 44 : (pickerView.frame.size.width - 44) * 0.35
+    }
+    
+    public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        var label = view as? UILabel
+        
+        if label == nil {
+            
+            label = UILabel()
+            
+            label?.textAlignment = .center
+            label?.font = UIFont.systemFont(ofSize: 30)
+        }
+        
+        label?.text = component == 1 ? ":" : String(format: "%02zd", row)
+        
+        return label!
+    }
+}
+
+// MARK: - UIPickerViewDataSource
+
+extension TimePickerController: UIPickerViewDataSource {
+    
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 3
+    }
+    
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
+        switch component {
+        case 0:  return 24
+        case 1:  return 1
+        case 2:  return 60
+        default: return 0
+        }
     }
 }
