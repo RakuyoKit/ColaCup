@@ -107,7 +107,7 @@ private extension SelectPeriodView {
         
         NSLayoutConstraint.activate([
             prepositionLabel.centerYAnchor.constraint(equalTo: endView.centerYAnchor),
-            prepositionLabel.rightAnchor.constraint(equalTo: endView.leftAnchor, constant: -4)
+            prepositionLabel.rightAnchor.constraint(equalTo: endView.leftAnchor, constant: -5)
         ])
         
         prepositionLabel.setContentHuggingPriority(.required, for: .horizontal)
@@ -116,7 +116,7 @@ private extension SelectPeriodView {
         NSLayoutConstraint.activate([
             startView.widthAnchor.constraint(equalTo: endView.widthAnchor),
             startView.centerYAnchor.constraint(equalTo: endView.centerYAnchor),
-            startView.rightAnchor.constraint(equalTo: prepositionLabel.leftAnchor, constant: -4)
+            startView.rightAnchor.constraint(equalTo: prepositionLabel.leftAnchor, constant: -5)
         ])
         
         startView.setContentHuggingPriority(.required, for: .horizontal)
