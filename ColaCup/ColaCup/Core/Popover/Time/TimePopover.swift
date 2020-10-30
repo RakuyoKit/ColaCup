@@ -74,6 +74,9 @@ public class TimePopover: BasePopover {
         view.startView.timeLabel.text = "00:00"
         view.endView.timeLabel.text = "24:00"
         
+        view.startView.addTarget(self, action: #selector(startViewDidClick(_:)), for: .touchUpInside)
+        view.endView.addTarget(self, action: #selector(endViewDidClick(_:)), for: .touchUpInside)
+        
         return view
     }()
     
@@ -154,6 +157,20 @@ private extension TimePopover {
     @objc func datePickerDidChange(_ picker: UIDatePicker) {
         isDataChanged = true
         dataSource.date = picker.date
+    }
+    
+    @objc func startViewDidClick(_ view: ShowTimeView) {
+        
+        let controller = TimePickerController()
+        
+        present(controller, animated: true, completion: nil)
+    }
+    
+    @objc func endViewDidClick(_ view: ShowTimeView) {
+        
+        let controller = TimePickerController()
+        
+        present(controller, animated: true, completion: nil)
     }
     
 //    @objc func startPeriodDidChange(_ picker: UIDatePicker) {
