@@ -149,23 +149,6 @@
 			path = Popover;
 			sourceTree = "<group>";
 		};
-		3A85ADB3254114320030FAE0 /* iOS14 */ = {
-			isa = PBXGroup;
-			children = (
-				3A7EBCB3253D73540085EF5F /* TimePopover.swift */,
-				3A7A9B88253D828800C7D606 /* SelectDataView.swift */,
-				3A7A9B90253D865800C7D606 /* SelectTimeView.swift */,
-			);
-			path = iOS14;
-			sourceTree = "<group>";
-		};
-		3A85ADB4254114440030FAE0 /* Below_iOS14 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Below_iOS14;
-			sourceTree = "<group>";
-		};
 		3A9924CF253D24C4001BB23C /* Filter */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,8 +176,9 @@
 			isa = PBXGroup;
 			children = (
 				3ABF4897253D25CD00909FBE /* TimePopoverModel.swift */,
-				3A85ADB3254114320030FAE0 /* iOS14 */,
-				3A85ADB4254114440030FAE0 /* Below_iOS14 */,
+				3A7EBCB3253D73540085EF5F /* TimePopover.swift */,
+				3A7A9B88253D828800C7D606 /* SelectDataView.swift */,
+				3A7A9B90253D865800C7D606 /* SelectTimeView.swift */,
 			);
 			path = Time;
 			sourceTree = "<group>";
