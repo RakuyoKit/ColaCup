@@ -10,6 +10,7 @@
 		3A045D28254C14B300B08C56 /* TimePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A045D26254C14B300B08C56 /* TimePickerController.swift */; };
 		3A045D29254C14B300B08C56 /* PickerAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A045D27254C14B300B08C56 /* PickerAnimation.swift */; };
 		3A045D2F254C185F00B08C56 /* BasePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A045D2E254C185F00B08C56 /* BasePickerController.swift */; };
+		3A045D3D254C192F00B08C56 /* PickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A045D3C254C192F00B08C56 /* PickerDelegate.swift */; };
 		3A0ACA85254BAB6B00BC9242 /* SelectPeriodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0ACA84254BAB6B00BC9242 /* SelectPeriodView.swift */; };
 		3A4A91CC253987C9003C5957 /* FilterPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A91CB253987C9003C5957 /* FilterPopover.swift */; };
 		3A4A91D425398808003C5957 /* FilterPopoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A91D325398808003C5957 /* FilterPopoverViewModel.swift */; };
@@ -72,6 +73,7 @@
 		3A045D26254C14B300B08C56 /* TimePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerController.swift; sourceTree = "<group>"; };
 		3A045D27254C14B300B08C56 /* PickerAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerAnimation.swift; sourceTree = "<group>"; };
 		3A045D2E254C185F00B08C56 /* BasePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePickerController.swift; sourceTree = "<group>"; };
+		3A045D3C254C192F00B08C56 /* PickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDelegate.swift; sourceTree = "<group>"; };
 		3A0ACA84254BAB6B00BC9242 /* SelectPeriodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPeriodView.swift; sourceTree = "<group>"; };
 		3A4A91CB253987C9003C5957 /* FilterPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPopover.swift; sourceTree = "<group>"; };
 		3A4A91D325398808003C5957 /* FilterPopoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPopoverViewModel.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				3A045D27254C14B300B08C56 /* PickerAnimation.swift */,
+				3A045D3C254C192F00B08C56 /* PickerDelegate.swift */,
 				3A045D2E254C185F00B08C56 /* BasePickerController.swift */,
 				3A045D26254C14B300B08C56 /* TimePickerController.swift */,
 			);
@@ -548,6 +551,7 @@
 				3A0ACA85254BAB6B00BC9242 /* SelectPeriodView.swift in Sources */,
 				3AA06564252042B6007A60CA /* Throttler.swift in Sources */,
 				3A9CF5FA251AED510060EC6F /* SelectedModel.swift in Sources */,
+				3A045D3D254C192F00B08C56 /* PickerDelegate.swift in Sources */,
 				3AB7E75F2519A70700E55926 /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
