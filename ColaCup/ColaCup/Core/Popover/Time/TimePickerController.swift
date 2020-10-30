@@ -10,6 +10,16 @@ import UIKit
 
 open class TimePickerController: UIViewController {
     
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: nil)
+        
+        configAnimation()
+    }
+    
+    public required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     /// Top toolbar.
     open lazy var toolBar: UIToolbar = {
         
@@ -56,6 +66,16 @@ extension TimePickerController {
 // MARK: - Config
 
 private extension TimePickerController {
+    
+    func configAnimation() {
+        
+        modalPresentationStyle = .custom
+        
+        // Set the animation agent to itself,
+        // so that regardless of any external controller displaying the controller,
+        // the identity of the animation will be guaranteed
+        transitioningDelegate = self
+    }
     
     func addSubviews() {
         
@@ -141,5 +161,25 @@ extension TimePickerController: UIPickerViewDataSource {
         case 2:  return 60
         default: return 0
         }
+    }
+}
+
+// MARK: - UIViewControllerTransitioningDelegate
+
+extension TimePickerController: UIViewControllerTransitioningDelegate {
+    
+    public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        
+        return PickerPresentationController(presentedViewController: presented, presenting: presenting)
+    }
+    
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        return PickerAppearAnimation()
+    }
+    
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        return PickerDisappearAnimation()
     }
 }
