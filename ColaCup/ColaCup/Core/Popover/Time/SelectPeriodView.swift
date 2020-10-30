@@ -130,8 +130,5 @@ private extension SelectPeriodView {
         
         
         titleLabel.setContentHuggingPriority(.required, for: .vertical)
-        
-        
-//        CompressionResistance
     }
 }
