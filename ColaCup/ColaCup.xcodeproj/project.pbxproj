@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A045D28254C14B300B08C56 /* TimePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A045D26254C14B300B08C56 /* TimePickerController.swift */; };
+		3A045D29254C14B300B08C56 /* PickerAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A045D27254C14B300B08C56 /* PickerAnimation.swift */; };
 		3A0ACA85254BAB6B00BC9242 /* SelectPeriodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0ACA84254BAB6B00BC9242 /* SelectPeriodView.swift */; };
-		3A0AEC70254BEE9A00BC9242 /* TimePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0AEC6F254BEE9A00BC9242 /* TimePickerController.swift */; };
-		3A0AF112254C017800BC9242 /* PickerAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0AF111254C017800BC9242 /* PickerAnimation.swift */; };
 		3A4A91CC253987C9003C5957 /* FilterPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A91CB253987C9003C5957 /* FilterPopover.swift */; };
 		3A4A91D425398808003C5957 /* FilterPopoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A91D325398808003C5957 /* FilterPopoverViewModel.swift */; };
 		3A5B63DF2519F46F00E00BF5 /* ColaCupFlagBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B63DE2519F46F00E00BF5 /* ColaCupFlagBar.swift */; };
@@ -68,9 +68,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A045D26254C14B300B08C56 /* TimePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerController.swift; sourceTree = "<group>"; };
+		3A045D27254C14B300B08C56 /* PickerAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerAnimation.swift; sourceTree = "<group>"; };
 		3A0ACA84254BAB6B00BC9242 /* SelectPeriodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPeriodView.swift; sourceTree = "<group>"; };
-		3A0AEC6F254BEE9A00BC9242 /* TimePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerController.swift; sourceTree = "<group>"; };
-		3A0AF111254C017800BC9242 /* PickerAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerAnimation.swift; sourceTree = "<group>"; };
 		3A4A91CB253987C9003C5957 /* FilterPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPopover.swift; sourceTree = "<group>"; };
 		3A4A91D325398808003C5957 /* FilterPopoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPopoverViewModel.swift; sourceTree = "<group>"; };
 		3A5B63DE2519F46F00E00BF5 /* ColaCupFlagBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupFlagBar.swift; sourceTree = "<group>"; };
@@ -145,12 +145,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A045D25254C14B300B08C56 /* Picker */ = {
+			isa = PBXGroup;
+			children = (
+				3A045D26254C14B300B08C56 /* TimePickerController.swift */,
+				3A045D27254C14B300B08C56 /* PickerAnimation.swift */,
+			);
+			path = Picker;
+			sourceTree = "<group>";
+		};
+		3A045D2D254C14BE00B08C56 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				3ABF4897253D25CD00909FBE /* TimePopoverModel.swift */,
+				3A7EBCB3253D73540085EF5F /* TimePopover.swift */,
+				3A7A9B88253D828800C7D606 /* SelectDataView.swift */,
+				3A0ACA84254BAB6B00BC9242 /* SelectPeriodView.swift */,
+				3ADBD779254BA16F00D2A9C5 /* ShowTimeView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		3A66028F25399D7A0006FC28 /* Popover */ = {
 			isa = PBXGroup;
 			children = (
 				3A9924D0253D24CC001BB23C /* Base */,
-				3A9924D1253D24D8001BB23C /* Time */,
 				3A9924CF253D24C4001BB23C /* Filter */,
+				3A9924D1253D24D8001BB23C /* Time */,
 			);
 			path = Popover;
 			sourceTree = "<group>";
@@ -181,13 +202,8 @@
 		3A9924D1253D24D8001BB23C /* Time */ = {
 			isa = PBXGroup;
 			children = (
-				3ABF4897253D25CD00909FBE /* TimePopoverModel.swift */,
-				3A7EBCB3253D73540085EF5F /* TimePopover.swift */,
-				3A7A9B88253D828800C7D606 /* SelectDataView.swift */,
-				3A0ACA84254BAB6B00BC9242 /* SelectPeriodView.swift */,
-				3ADBD779254BA16F00D2A9C5 /* ShowTimeView.swift */,
-				3A0AF111254C017800BC9242 /* PickerAnimation.swift */,
-				3A0AEC6F254BEE9A00BC9242 /* TimePickerController.swift */,
+				3A045D2D254C14BE00B08C56 /* Main */,
+				3A045D25254C14B300B08C56 /* Picker */,
 			);
 			path = Time;
 			sourceTree = "<group>";
@@ -509,9 +525,9 @@
 				3AB7E7CA2519C17100E55926 /* ColaCupSearchBar.swift in Sources */,
 				3AC29027251C3F21007CCD49 /* LogCell.swift in Sources */,
 				3AE80458251DB3CA00CDB15B /* DetailsNormalCell.swift in Sources */,
-				3A0AEC70254BEE9A00BC9242 /* TimePickerController.swift in Sources */,
+				3A045D28254C14B300B08C56 /* TimePickerController.swift in Sources */,
 				3ABF4890253D256800909FBE /* FilterPopoverModel.swift in Sources */,
-				3A0AF112254C017800BC9242 /* PickerAnimation.swift in Sources */,
+				3A045D29254C14B300B08C56 /* PickerAnimation.swift in Sources */,
 				3AC29080251C804F007CCD49 /* LogFlagButton.swift in Sources */,
 				3A5D8E8F25396D23003A3ED5 /* ColaCupToolBar.swift in Sources */,
 				3A5B63DF2519F46F00E00BF5 /* ColaCupFlagBar.swift in Sources */,
