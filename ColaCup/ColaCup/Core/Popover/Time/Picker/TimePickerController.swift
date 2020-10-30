@@ -8,7 +8,21 @@
 
 import UIKit
 
+public protocol TimePickerDelegate: PickerDelegate {
+    
+    /// Called when time is selected.
+    ///
+    /// - Parameters:
+    ///   - controller: `TimePickerController`
+    ///   - hour: Selected hour
+    ///   - minute: Selected minute
+    func timePicker(_ controller: TimePickerController, didSelectHour hour: Int, minute: Int)
+}
+
 open class TimePickerController: BasePickerController {
+    
+    /// Delegate.
+    public weak var delegate: TimePickerDelegate? = nil
     
     /// The picker used to select the time.
     open lazy var pickerView: UIPickerView = {
@@ -22,6 +36,20 @@ open class TimePickerController: BasePickerController {
         
         return view
     }()
+    
+    /// The currently selected time, hour.
+    public lazy var selectHour: Int = 0 {
+        didSet {
+            pickerView.selectRow(selectHour, inComponent: 0, animated: false)
+        }
+    }
+    
+    /// The currently selected time, minute.
+    public lazy var selectMinute: Int = 0 {
+        didSet {
+            pickerView.selectRow(selectMinute, inComponent: 2, animated: false)
+        }
+    }
 }
 
 extension TimePickerController {
@@ -38,6 +66,12 @@ extension TimePickerController {
             pickerView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
     }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        delegate?.pickerWillDisappear(self)
+    }
 }
 
 // MARK: - Action
@@ -47,7 +81,7 @@ extension TimePickerController {
     @objc open override func doneButtonDidClick() {
         super.doneButtonDidClick()
         
-        
+        delegate?.timePicker(self, didSelectHour: selectHour, minute: selectMinute)
     }
 }
 
@@ -75,6 +109,15 @@ extension TimePickerController: UIPickerViewDelegate {
         label?.text = component == 1 ? ":" : String(format: "%02zd", row)
         
         return label!
+    }
+    
+    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        if component == 0 {
+            selectHour = row
+        } else if component == 2 {
+            selectMinute = row
+        }
     }
 }
 
