@@ -71,10 +71,13 @@ public class TimePopover: BasePopover {
         view.translatesAutoresizingMaskIntoConstraints = false
         
         view.titleLabel.text = "Period"
-        view.startView.timeLabel.text = "00:00"
-        view.endView.timeLabel.text = "24:00"
         
+        view.startView.tag = Constant.startTag
+        view.startView.timeLabel.text = "00:00"
         view.startView.addTarget(self, action: #selector(startViewDidClick(_:)), for: .touchUpInside)
+        
+        view.endView.tag = Constant.endTag
+        view.endView.timeLabel.text = "24:00"
         view.endView.addTarget(self, action: #selector(endViewDidClick(_:)), for: .touchUpInside)
         
         return view
@@ -121,6 +124,15 @@ public class TimePopover: BasePopover {
 }
 
 // MARK: - Config
+
+extension TimePopover {
+    
+    enum Constant {
+        
+        static let startTag = 40
+        static let endTag   = 50
+    }
+}
 
 private extension TimePopover {
     
