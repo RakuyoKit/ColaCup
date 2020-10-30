@@ -19,9 +19,9 @@ open class TimePickerController: UIViewController {
         bar.tintColor = .theme
         
         bar.items = [
-            UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonDidClick)),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonDidClick)),
         ]
         
         return bar
@@ -79,6 +79,22 @@ private extension TimePickerController {
             pickerView.leftAnchor.constraint(equalTo: view.leftAnchor),
             pickerView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
+    }
+}
+
+// MARK: - Action
+
+private extension TimePickerController {
+    
+    @objc func cancelButtonDidClick() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func doneButtonDidClick() {
+        
+        dismiss(animated: true, completion: nil)
+        
+        
     }
 }
 
