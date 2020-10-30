@@ -161,12 +161,16 @@ private extension TimePopover {
     
     @objc func startViewDidClick(_ view: ShowTimeView) {
         
+        view.isSelected = true
+        
         let controller = TimePickerController()
         
         present(controller, animated: true, completion: nil)
     }
     
     @objc func endViewDidClick(_ view: ShowTimeView) {
+        
+        view.isSelected = true
         
         let controller = TimePickerController()
         
