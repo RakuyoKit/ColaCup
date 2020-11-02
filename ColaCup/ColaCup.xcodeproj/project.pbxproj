@@ -27,6 +27,7 @@
 		3A9CF5FA251AED510060EC6F /* SelectedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9CF5F9251AED510060EC6F /* SelectedModel.swift */; };
 		3A9CF608251B221A0060EC6F /* UIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9CF607251B221A0060EC6F /* UIConfig.swift */; };
 		3AA06564252042B6007A60CA /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA06563252042B6007A60CA /* Throttler.swift */; };
+		3AAC7246254FD402008C3943 /* ShowDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC7245254FD402008C3943 /* ShowDateView.swift */; };
 		3AB7E75F2519A70700E55926 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7E75E2519A70700E55926 /* DetailsViewController.swift */; };
 		3AB7E7CA2519C17100E55926 /* ColaCupSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */; };
 		3ABF4890253D256800909FBE /* FilterPopoverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABF488F253D256800909FBE /* FilterPopoverModel.swift */; };
@@ -90,6 +91,7 @@
 		3A9CF5F9251AED510060EC6F /* SelectedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedModel.swift; sourceTree = "<group>"; };
 		3A9CF607251B221A0060EC6F /* UIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConfig.swift; sourceTree = "<group>"; };
 		3AA06563252042B6007A60CA /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
+		3AAC7245254FD402008C3943 /* ShowDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDateView.swift; sourceTree = "<group>"; };
 		3AB7E75E2519A70700E55926 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupSearchBar.swift; sourceTree = "<group>"; };
 		3ABF488F253D256800909FBE /* FilterPopoverModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPopoverModel.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				3A7EBCB3253D73540085EF5F /* TimePopover.swift */,
 				3A7A9B88253D828800C7D606 /* SelectDataView.swift */,
 				3A0ACA84254BAB6B00BC9242 /* SelectPeriodView.swift */,
+				3AAC7245254FD402008C3943 /* ShowDateView.swift */,
 				3ADBD779254BA16F00D2A9C5 /* ShowTimeView.swift */,
 			);
 			path = Time;
@@ -543,6 +546,7 @@
 				3A0ACA85254BAB6B00BC9242 /* SelectPeriodView.swift in Sources */,
 				3AA06564252042B6007A60CA /* Throttler.swift in Sources */,
 				3A9CF5FA251AED510060EC6F /* SelectedModel.swift in Sources */,
+				3AAC7246254FD402008C3943 /* ShowDateView.swift in Sources */,
 				3A045D3D254C192F00B08C56 /* PickerDelegate.swift in Sources */,
 				3AB7E75F2519A70700E55926 /* DetailsViewController.swift in Sources */,
 			);
