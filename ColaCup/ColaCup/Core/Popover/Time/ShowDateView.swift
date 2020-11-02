@@ -9,6 +9,7 @@
 import UIKit
 
 /// View to display date.
+@available(iOS, deprecated: 13.4)
 open class ShowDateView: UIControl {
     
     public init() {
