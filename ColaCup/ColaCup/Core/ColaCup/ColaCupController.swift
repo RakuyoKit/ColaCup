@@ -241,22 +241,15 @@ extension ColaCupController {
         
         let rect = button.convert(button.bounds, to: UIApplication.shared.delegate!.window!)
         
-        if #available(iOS 14.0, *) {
-            
-            let popover = TimePopover(
-                position: CGPoint(x: rect.midX, y: rect.maxY),
-                dataSource: viewModel.timeModel
-            )
-            
-            popover.delegate = self
-            popover.dataDelegate = self
-            
-            present(popover, animated: true) { self.isShowingPopover = true }
-            
-        } else {
-            
-            
-        }
+        let popover = TimePopover(
+            position: CGPoint(x: rect.midX, y: rect.maxY),
+            dataSource: viewModel.timeModel
+        )
+        
+        popover.delegate = self
+        popover.dataDelegate = self
+        
+        present(popover, animated: true) { self.isShowingPopover = true }
     }
     
     /// Filter button click event.
@@ -317,7 +310,6 @@ extension ColaCupController: ColaCupPopoverDelegate {
 
 // MARK: - TimePopoverDataDelegate
 
-@available(iOS 14.0, *)
 extension ColaCupController: TimePopoverDataDelegate {
     
     public func timePopover(_ popover: TimePopover, didChangedViewedLogDate model: TimePopoverModel) {

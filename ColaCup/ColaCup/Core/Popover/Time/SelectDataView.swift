@@ -32,9 +32,7 @@ open class SelectDataView: UIView {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        
         label.textColor = .normalText
-        label.text = "Date"
         
         return label
     }()

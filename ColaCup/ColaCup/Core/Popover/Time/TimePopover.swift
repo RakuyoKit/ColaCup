@@ -9,7 +9,6 @@
 import UIKit
 
 /// Delegate for callback data.
-@available(iOS 14.0, *)
 public protocol TimePopoverDataDelegate: class {
     
     /// The callback executed after the user clicks the OK button on the pop-up.
@@ -21,14 +20,25 @@ public protocol TimePopoverDataDelegate: class {
 }
 
 /// A pop-up window for displaying time options.
-@available(iOS 14.0, *)
 public class TimePopover: BasePopover {
     
     /// Initialization method.
     ///
     /// - Parameter dataSource: The data source model of the content of the pop-up.
     public init(position: CGPoint, dataSource: TimePopoverModel) {
-        self.dataSource = dataSource
+        
+        self.date = dataSource.date
+        
+        let config: (TimeInterval) -> (Int, Int) = {
+            
+            let diff = $0 - dataSource.zeroHour
+            let hour = Int(diff / 60 / 60)
+            return (hour, Int((diff - TimeInterval(hour * 60 * 60)) / 60))
+        }
+        
+        self.start = config(dataSource.startInterval)
+        self.end = config(dataSource.endInterval)
+        
         super.init(position: position)
     }
     
@@ -36,8 +46,30 @@ public class TimePopover: BasePopover {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /// Data source.
-    private var dataSource: TimePopoverModel
+    /// Currently displayed date.
+    private var date: Date?
+    
+    /// Currently selected start time.
+    private var start: (hour: Int, minute: Int) {
+        didSet {
+            periodView.startView.timeLabel.text = String(format: "%02zd:%02zd", start.hour, start.minute)
+            
+            isDataChanged = true
+            doneButton.isEnabled = !((start.hour > end.hour)
+                                        || (start.hour == end.hour && start.minute > end.minute))
+        }
+    }
+    
+    /// Currently selected end time
+    private var end: (hour: Int, minute: Int) {
+        didSet {
+            periodView.endView.timeLabel.text = String(format: "%02zd:%02zd", end.hour, end.minute)
+            
+            isDataChanged = true
+            doneButton.isEnabled = !((start.hour > end.hour)
+                                        || (start.hour == end.hour && start.minute > end.minute))
+        }
+    }
     
     /// Whether the tag data has changed.
     private lazy var isDataChanged: Bool = false
@@ -46,15 +78,17 @@ public class TimePopover: BasePopover {
     public weak var dataDelegate: TimePopoverDataDelegate? = nil
     
     /// The view used to select the date of the log to be viewed.
+    @available(iOS 13.4, *)
     public lazy var dateView: SelectDataView = {
         
         let view = SelectDataView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
         
+        view.titleLabel.text = "Date"
         view.datePicker.maximumDate = Date()
         
-        if let date = dataSource.date {
+        if let date = date {
             view.datePicker.date = date
         }
         
@@ -63,32 +97,20 @@ public class TimePopover: BasePopover {
         return view
     }()
     
-    /// The view used to select the start time.
-    public lazy var startTimeView: SelectTimeView = {
+    /// View to show time period.
+    public lazy var periodView: SelectPeriodView = {
         
-        let view = SelectTimeView()
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.titleLabel.text = "Start"
-        view.picker.date = dataSource.period.start
-        
-        view.picker.addTarget(self, action: #selector(startPeriodDidChange(_:)), for: .valueChanged)
-        
-        return view
-    }()
-    
-    /// The view used to select the end time.
-    public lazy var endTimeView: SelectTimeView = {
-        
-        let view = SelectTimeView()
+        let view = SelectPeriodView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.titleLabel.text = "End"
-        view.picker.date = dataSource.period.end
+        view.titleLabel.text = "Period"
         
-        view.picker.addTarget(self, action: #selector(endPeriodDidChange(_:)), for: .valueChanged)
+        view.startView.timeLabel.text = String(format: "%02zd:%02zd", start.hour, start.minute)
+        view.startView.addTarget(self, action: #selector(startViewDidClick(_:)), for: .touchUpInside)
+        
+        view.endView.timeLabel.text = String(format: "%02zd:%02zd", end.hour, end.minute)
+        view.endView.addTarget(self, action: #selector(endViewDidClick(_:)), for: .touchUpInside)
         
         return view
     }()
@@ -116,12 +138,17 @@ public class TimePopover: BasePopover {
         
         let con = BasePopover.Constant.self
         
+        let itemCount: CGFloat = 3
+        
         return con.topBottomSpacing * 2
-             + con.spacing * 3
-             + con.itemHeight * 4
+             + con.spacing * (itemCount - 1)
+             + con.itemHeight * itemCount
     }
+}
+
+public extension TimePopover {
     
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         stackView.alignment = .center
@@ -133,20 +160,26 @@ public class TimePopover: BasePopover {
 
 // MARK: - Config
 
-@available(iOS 14.0, *)
+private extension TimePopover {
+    
+    /// Under the current system, the available dateView.
+    var availableDateView: UIView {
+        if #available(iOS 13.4, *) { return dateView } else { return UIView() }
+    }
+}
+
 private extension TimePopover {
     
     func addSubviews() {
         
-        stackView.addArrangedSubview(dateView)
-        stackView.addArrangedSubview(startTimeView)
-        stackView.addArrangedSubview(endTimeView)
+        stackView.addArrangedSubview(availableDateView)
+        stackView.addArrangedSubview(periodView)
         stackView.addArrangedSubview(doneButton)
     }
     
     func addInitialLayout() {
         
-        [dateView, startTimeView, endTimeView, doneButton].forEach {
+        [availableDateView, periodView, doneButton].forEach {
             NSLayoutConstraint.activate([
                 $0.heightAnchor.constraint(equalToConstant: 44),
                 $0.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.9)
@@ -157,42 +190,37 @@ private extension TimePopover {
 
 // MARK: - Action
 
-@available(iOS 14.0, *)
 private extension TimePopover {
     
     @objc func datePickerDidChange(_ picker: UIDatePicker) {
         isDataChanged = true
-        dataSource.date = picker.date
+        date = picker.date
     }
     
-    @objc func startPeriodDidChange(_ picker: UIDatePicker) {
+    @objc func startViewDidClick(_ view: ShowTimeView) {
         
-        let date = picker.date
+        view.isSelected = true
         
-        if date < dataSource.period.end {
-            isDataChanged = true
-            dataSource.period.start = date
-            
-            doneButton.isEnabled = true
-            
-        } else {
-            doneButton.isEnabled = false
-        }
+        let controller = TimePickerController()
+        
+        controller.selectHour = start.hour
+        controller.selectMinute = start.minute
+        controller.delegate = self
+        
+        present(controller, animated: true, completion: nil)
     }
     
-    @objc func endPeriodDidChange(_ picker: UIDatePicker) {
+    @objc func endViewDidClick(_ view: ShowTimeView) {
         
-        let date = picker.date
+        view.isSelected = true
         
-        if date > dataSource.period.start {
-            isDataChanged = true
-            dataSource.period.end = date
-            
-            doneButton.isEnabled = true
-            
-        } else {
-            doneButton.isEnabled = false
-        }
+        let controller = TimePickerController()
+        
+        controller.selectHour = end.hour
+        controller.selectMinute = end.minute
+        controller.delegate = self
+        
+        present(controller, animated: true, completion: nil)
     }
     
     @objc func doneButtonDidClick(_ button: UIButton) {
@@ -200,7 +228,41 @@ private extension TimePopover {
         dismiss(animated: true, completion: nil)
         
         if isDataChanged {
-            dataDelegate?.timePopover(self, didChangedViewedLogDate: dataSource)
+            
+            dataDelegate?.timePopover(self,
+                didChangedViewedLogDate: TimePopoverModel(date: date, start: start, end: end)
+            )
+        }
+    }
+}
+
+// MARK: - PickerDelegate
+
+extension TimePopover: PickerDelegate {
+    
+    public func pickerWillDisappear(_ controller: BasePickerController) {
+        
+        if periodView.startView.isSelected {
+            periodView.startView.isSelected = false
+        }
+        
+        if periodView.endView.isSelected {
+            periodView.endView.isSelected = false
+        }
+    }
+}
+
+// MARK: - TimePickerDelegate
+
+extension TimePopover: TimePickerDelegate {
+    
+    public func timePicker(_ controller: TimePickerController, didSelectHour hour: Int, minute: Int) {
+        
+        if periodView.startView.isSelected {
+            start = (hour, minute)
+            
+        } else if periodView.endView.isSelected {
+            end = (hour, minute)
         }
     }
 }

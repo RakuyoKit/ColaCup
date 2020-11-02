@@ -123,41 +123,7 @@ public extension ColaCupViewModel {
     func updateTimeModel(_ model: TimePopoverModel) {
         
         isDateChanged = model.date != timeModel.date
-        
         timeModel = model
-        
-        guard isDateChanged, let targetDate = timeModel.date else { return }
-        
-        let calendar = Calendar.current
-        
-        var targetComponents = calendar.dateComponents(
-            Set(arrayLiteral: .year, .month, .day),
-            from: targetDate
-        )
-        
-        let startComponents = calendar.dateComponents(
-            Set(arrayLiteral: .hour, .minute),
-            from: timeModel.period.start
-        )
-        
-        targetComponents.setValue(startComponents.value(for: .hour), for: .hour)
-        targetComponents.setValue(startComponents.value(for: .minute), for: .minute)
-        
-        if let startDate = calendar.date(from: targetComponents) {
-            timeModel.period.start = startDate
-        }
-        
-        let endComponents = calendar.dateComponents(
-            Set(arrayLiteral: .hour, .minute),
-            from: timeModel.period.end
-        )
-        
-        targetComponents.setValue(endComponents.value(for: .hour), for: .hour)
-        targetComponents.setValue(endComponents.value(for: .minute), for: .minute)
-        
-        if let endDate = calendar.date(from: targetComponents) {
-            timeModel.period.end = endDate
-        }
     }
 }
 
@@ -193,9 +159,8 @@ public extension ColaCupViewModel {
             var conditions: [(LogModelProtocol) -> Bool] = []
             
             // Period
-            let period = this.timeModel.period
-            let startTimestamp = period.start.timeIntervalSince1970
-            let endTimestamp = period.end.timeIntervalSince1970
+            let startTimestamp = this.timeModel.startInterval
+            let endTimestamp = this.timeModel.endInterval
             
             conditions.append({ $0.timestamp >= startTimestamp && $0.timestamp <= endTimestamp })
             
