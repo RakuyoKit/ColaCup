@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// View to display time
+/// View to display time.
 open class ShowTimeView: UIControl {
     
     public init() {
@@ -26,7 +26,7 @@ open class ShowTimeView: UIControl {
         config()
     }
     
-    /// Text box showing time.
+    /// Text label showing time.
     open lazy var timeLabel: UILabel = {
         
         let label = UILabel()
