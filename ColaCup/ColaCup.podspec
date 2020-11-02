@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
   s.module_name      = 'ColaCup'
   
   s.source_files     = 'ColaCup/ColaCup/Core/*/*', # Global,ColaCup,Details
-                       'ColaCup/ColaCup/Core/*/*/*', # Popover/(Base,Filter,Time,Picker)
+                       'ColaCup/ColaCup/Core/*/*/*' # Popover/(Base,Filter,Time,Picker)
   
   s.resource_bundle = {
       'ColaCupBundle' => [ 'ColaCup/ColaCup/Other/*.xcassets' ]
