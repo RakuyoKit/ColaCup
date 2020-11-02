@@ -169,6 +169,8 @@ private extension TimePopover {
         
         let controller = TimePickerController()
         
+        controller.delegate = self
+        
         present(controller, animated: true, completion: nil)
     }
     
@@ -177,6 +179,8 @@ private extension TimePopover {
         view.isSelected = true
         
         let controller = TimePickerController()
+        
+        controller.delegate = self
         
         present(controller, animated: true, completion: nil)
     }
@@ -188,5 +192,32 @@ private extension TimePopover {
         if isDataChanged {
             dataDelegate?.timePopover(self, didChangedViewedLogDate: dataSource)
         }
+    }
+}
+
+// MARK: - PickerDelegate
+
+extension TimePopover: PickerDelegate {
+    
+    public func pickerWillDisappear(_ controller: BasePickerController) {
+        
+        if periodView.startView.isSelected {
+            periodView.startView.isSelected = false
+        }
+        
+        if periodView.endView.isSelected {
+            periodView.endView.isSelected = false
+        }
+    }
+}
+
+// MARK: - TimePickerDelegate
+
+extension TimePopover: TimePickerDelegate {
+    
+    public func timePicker(_ controller: TimePickerController, didSelectHour hour: Int, minute: Int) {
+        
+        isDataChanged = true
+        
     }
 }
