@@ -75,7 +75,7 @@ public class TimePopover: BasePopover {
         view.startView.timeLabel.text = "00:00"
         view.startView.addTarget(self, action: #selector(startViewDidClick(_:)), for: .touchUpInside)
         
-        view.endView.timeLabel.text = "24:00"
+        view.endView.timeLabel.text = "23:59"
         view.endView.addTarget(self, action: #selector(endViewDidClick(_:)), for: .touchUpInside)
         
         return view
@@ -110,8 +110,11 @@ public class TimePopover: BasePopover {
              + con.spacing * (itemCount - 1)
              + con.itemHeight * itemCount
     }
+}
+
+public extension TimePopover {
     
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         stackView.alignment = .center
@@ -177,36 +180,6 @@ private extension TimePopover {
         
         present(controller, animated: true, completion: nil)
     }
-    
-//    @objc func startPeriodDidChange(_ picker: UIDatePicker) {
-//
-//        let date = picker.date
-//
-//        if date < dataSource.period.end {
-//            isDataChanged = true
-//            dataSource.period.start = date
-//
-//            doneButton.isEnabled = true
-//
-//        } else {
-//            doneButton.isEnabled = false
-//        }
-//    }
-//
-//    @objc func endPeriodDidChange(_ picker: UIDatePicker) {
-//
-//        let date = picker.date
-//
-//        if date > dataSource.period.start {
-//            isDataChanged = true
-//            dataSource.period.end = date
-//
-//            doneButton.isEnabled = true
-//
-//        } else {
-//            doneButton.isEnabled = false
-//        }
-//    }
     
     @objc func doneButtonDidClick(_ button: UIButton) {
         
