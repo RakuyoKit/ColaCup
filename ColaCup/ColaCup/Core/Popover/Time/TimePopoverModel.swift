@@ -19,13 +19,22 @@ public struct TimePopoverModel {
         self.endInterval = self.startInterval + (24 * 60 * 60 - 1)
     }
     
-    public init(date: Date?, startInterval: TimeInterval, endInterval: TimeInterval) {
+    public init(
+        date: Date?,
+        start: (hour: Int, minute: Int),
+        end: (hour: Int, minute: Int)
+    ) {
+        
+        let zeroHour = TimePopoverModel.getZeroHour(of: date)
+        
+        let config: ((hour: Int, minute: Int)) -> TimeInterval = {
+            return zeroHour + TimeInterval($0.hour) * 60 * 60 + TimeInterval($0.minute) * 60
+        }
         
         self.date = date
-        self.startInterval = startInterval
-        self.endInterval = endInterval
-        
-        self.zeroHour = TimePopoverModel.getZeroHour(of: self.date)
+        self.zeroHour = zeroHour
+        self.startInterval = config(start)
+        self.endInterval = config(end)
     }
     
     /// The date of the log to be viewed. In days.
