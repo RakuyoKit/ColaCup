@@ -27,7 +27,7 @@ public class TimePopover: BasePopover {
     /// - Parameter dataSource: The data source model of the content of the pop-up.
     public init(position: CGPoint, dataSource: TimePopoverModel) {
         
-        self.date = dataSource.date
+        self.date = dataSource.date ?? Date()
         
         let config: (TimeInterval) -> (Int, Int) = {
             
@@ -47,7 +47,7 @@ public class TimePopover: BasePopover {
     }
     
     /// Currently displayed date.
-    private var date: Date?
+    private var date: Date
     
     /// Currently selected start time.
     private var start: (hour: Int, minute: Int) {
@@ -78,7 +78,6 @@ public class TimePopover: BasePopover {
     public weak var dataDelegate: TimePopoverDataDelegate? = nil
     
     /// The view used to select the date of the log to be viewed.
-    @available(iOS 13.4, *)
     public lazy var dateView: SelectDataView = {
         
         let view = SelectDataView()
@@ -86,13 +85,17 @@ public class TimePopover: BasePopover {
         view.translatesAutoresizingMaskIntoConstraints = false
         
         view.titleLabel.text = "Date"
-        view.datePicker.maximumDate = Date()
         
-        if let date = date {
+        if #available(iOS 13.4, *) {
             view.datePicker.date = date
+            view.datePicker.maximumDate = Date()
+            view.datePicker.addTarget(self, action: #selector(datePickerDidChange(_:)), for: .valueChanged)
+            
+        } else {
+            
+            view.showDateView.dateLabel.text = dateFormatter.string(from: date)
+            view.showDateView.addTarget(self, action: #selector(showDateViewDidClick(_:)), for: .touchUpInside)
         }
-        
-        view.datePicker.addTarget(self, action: #selector(datePickerDidChange(_:)), for: .valueChanged)
         
         return view
     }()
@@ -144,6 +147,17 @@ public class TimePopover: BasePopover {
              + con.spacing * (itemCount - 1)
              + con.itemHeight * itemCount
     }
+    
+    /// Used to format the date
+    @available(iOS, deprecated: 13.4)
+    private lazy var dateFormatter: DateFormatter = {
+        
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        return formatter
+    }()
 }
 
 public extension TimePopover {
@@ -162,24 +176,16 @@ public extension TimePopover {
 
 private extension TimePopover {
     
-    /// Under the current system, the available dateView.
-    var availableDateView: UIView {
-        if #available(iOS 13.4, *) { return dateView } else { return UIView() }
-    }
-}
-
-private extension TimePopover {
-    
     func addSubviews() {
         
-        stackView.addArrangedSubview(availableDateView)
+        stackView.addArrangedSubview(dateView)
         stackView.addArrangedSubview(periodView)
         stackView.addArrangedSubview(doneButton)
     }
     
     func addInitialLayout() {
         
-        [availableDateView, periodView, doneButton].forEach {
+        [dateView, periodView, doneButton].forEach {
             NSLayoutConstraint.activate([
                 $0.heightAnchor.constraint(equalToConstant: 44),
                 $0.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.9)
@@ -192,9 +198,18 @@ private extension TimePopover {
 
 private extension TimePopover {
     
+    @available(iOS 13.4, *)
     @objc func datePickerDidChange(_ picker: UIDatePicker) {
         isDataChanged = true
         date = picker.date
+    }
+    
+    @available(iOS, deprecated: 13.4)
+    @objc func showDateViewDidClick(_ view: ShowDateView) {
+        
+        view.isSelected = true
+        
+        
     }
     
     @objc func startViewDidClick(_ view: ShowTimeView) {

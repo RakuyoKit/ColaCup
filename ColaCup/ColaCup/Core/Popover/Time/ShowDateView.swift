@@ -1,15 +1,16 @@
 //
-//  ShowTimeView.swift
+//  ShowDateView.swift
 //  ColaCup
 //
-//  Created by Rakuyo on 2020/10/30.
+//  Created by Rakuyo on 2020/11/2.
 //  Copyright © 2020 Rakuyo. All rights reserved.
 //
 
 import UIKit
 
-/// View to display time.
-open class ShowTimeView: UIControl {
+/// View to display date.
+@available(iOS, deprecated: 13.4)
+open class ShowDateView: UIControl {
     
     public init() {
         super.init(frame: .zero)
@@ -26,15 +27,13 @@ open class ShowTimeView: UIControl {
         config()
     }
     
-    /// Text label showing time.
-    open lazy var timeLabel: UILabel = {
+    /// Text label showing date.
+    open lazy var dateLabel: UILabel = {
         
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 21)
         
         return label
     }()
@@ -49,11 +48,11 @@ open class ShowTimeView: UIControl {
         didSet {
             
             if isSelected {
-                timeLabel.textColor = tintColor
+                dateLabel.textColor = tintColor
                 layer.borderWidth = 1.5
                 
             } else {
-                timeLabel.textColor = .black
+                dateLabel.textColor = .black
                 layer.borderWidth = 0
             }
         }
@@ -62,7 +61,7 @@ open class ShowTimeView: UIControl {
 
 // MARK: - Config
 
-private extension ShowTimeView {
+private extension ShowDateView {
     
     func config() {
         
@@ -75,13 +74,13 @@ private extension ShowTimeView {
         layer.cornerRadius = 8
         layer.masksToBounds = true
         
-        addSubview(timeLabel)
+        addSubview(dateLabel)
         
         NSLayoutConstraint.activate([
-            timeLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            timeLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
-            timeLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 7),
-            timeLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -7)
+            dateLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            dateLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            dateLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
+            dateLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10)
         ])
     }
 }

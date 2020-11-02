@@ -8,7 +8,6 @@
 
 import UIKit
 
-@available(iOS 13.4, *)
 open class SelectDataView: UIView {
     
     public init() {
@@ -38,6 +37,7 @@ open class SelectDataView: UIView {
     }()
     
     /// Used to select a date to view the log of the selected date.
+    @available(iOS 13.4, *)
     open lazy var datePicker: UIDatePicker = {
         
         let datePicker = UIDatePicker()
@@ -50,11 +50,30 @@ open class SelectDataView: UIView {
         
         return datePicker
     }()
+    
+    /// A view showing the date. In iOS 13.4 and above, please use `datePicker`.
+    @available(iOS, deprecated: 13.4)
+    open lazy var showDateView: ShowDateView = {
+        
+        let view = ShowDateView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.tintColor = .theme
+        
+        return view
+    }()
 }
 
 // MARK: - Config
 
-@available(iOS 13.4, *)
+private extension SelectDataView {
+
+    /// Under the current system, the available dateView.
+    var availableDateView: UIView {
+        if #available(iOS 13.4, *) { return datePicker } else { return showDateView }
+    }
+}
+
 private extension SelectDataView {
     
     func config() {
@@ -66,22 +85,24 @@ private extension SelectDataView {
     func addSubviews() {
         
         addSubview(titleLabel)
-        addSubview(datePicker)
+        addSubview(availableDateView)
     }
     
     func addInitialLayout() {
         
+        let view = availableDateView
+        
         NSLayoutConstraint.activate([
-            datePicker.rightAnchor.constraint(equalTo: rightAnchor),
-            datePicker.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            datePicker.bottomAnchor.constraint(equalTo: bottomAnchor),
+            view.rightAnchor.constraint(equalTo: rightAnchor),
+            view.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            view.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
         
-        datePicker.setContentHuggingPriority(.required, for: .horizontal)
+        view.setContentHuggingPriority(.required, for: .horizontal)
         
         NSLayoutConstraint.activate([
             titleLabel.leftAnchor.constraint(equalTo: leftAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: datePicker.centerYAnchor)
+            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
         
         titleLabel.setContentHuggingPriority(.required, for: .vertical)
