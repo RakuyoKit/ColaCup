@@ -92,7 +92,6 @@ public class TimePopover: BasePopover {
             view.datePicker.addTarget(self, action: #selector(datePickerDidChange(_:)), for: .valueChanged)
             
         } else {
-            
             view.showDateView.dateLabel.text = dateFormatter.string(from: date)
             view.showDateView.addTarget(self, action: #selector(showDateViewDidClick(_:)), for: .touchUpInside)
         }
