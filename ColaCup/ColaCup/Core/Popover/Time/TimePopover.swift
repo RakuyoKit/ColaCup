@@ -217,7 +217,5 @@ extension TimePopover: TimePickerDelegate {
     
     public func timePicker(_ controller: TimePickerController, didSelectHour hour: Int, minute: Int) {
         
-        isDataChanged = true
-        
     }
 }
