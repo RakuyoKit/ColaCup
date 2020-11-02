@@ -19,6 +19,15 @@ public struct TimePopoverModel {
         self.endInterval = self.startInterval + (24 * 60 * 60 - 1)
     }
     
+    public init(date: Date?, startInterval: TimeInterval, endInterval: TimeInterval) {
+        
+        self.date = date
+        self.startInterval = startInterval
+        self.endInterval = endInterval
+        
+        self.zeroHour = TimePopoverModel.getZeroHour(of: self.date)
+    }
+    
     /// The date of the log to be viewed. In days.
     public var date: Date? {
         didSet {
