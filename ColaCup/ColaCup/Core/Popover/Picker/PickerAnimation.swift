@@ -87,9 +87,11 @@ class PickerPresentationController: UIPresentationController {
         
         let view = UIView()
         
+        view.alpha = 0
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        view.alpha = 0
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissController(_:))))
         
         return view
     }()
@@ -126,5 +128,12 @@ extension PickerPresentationController {
             self.backgroundView.alpha = 0
             
         }, completion: nil)
+    }
+}
+
+private extension PickerPresentationController {
+    
+    @objc func dismissController(_ recognizer: UITapGestureRecognizer) {
+        presentedViewController.dismiss(animated: true, completion: nil)
     }
 }
