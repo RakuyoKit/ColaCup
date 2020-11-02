@@ -51,6 +51,7 @@ open class SelectDataView: UIView {
         return datePicker
     }()
     
+    /// A view showing the date. In iOS 13.4 and above, please use `datePicker`.
     @available(iOS, deprecated: 13.4)
     open lazy var showDateView: ShowDateView = {
         
