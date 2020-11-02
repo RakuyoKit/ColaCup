@@ -79,8 +79,8 @@ private extension ShowDateView {
         NSLayoutConstraint.activate([
             dateLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
             dateLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
-            dateLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 7),
-            dateLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -7)
+            dateLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
+            dateLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10)
         ])
     }
 }

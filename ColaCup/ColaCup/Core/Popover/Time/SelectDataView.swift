@@ -50,6 +50,17 @@ open class SelectDataView: UIView {
         
         return datePicker
     }()
+    
+    @available(iOS, deprecated: 13.4)
+    open lazy var showDateView: ShowDateView = {
+        
+        let view = ShowDateView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.tintColor = .theme
+        
+        return view
+    }()
 }
 
 // MARK: - Config
@@ -58,7 +69,7 @@ private extension SelectDataView {
 
     /// Under the current system, the available dateView.
     var availableDateView: UIView {
-        if #available(iOS 13.4, *) { return datePicker } else { return UIView() }
+        if #available(iOS 13.4, *) { return datePicker } else { return showDateView }
     }
 }
 

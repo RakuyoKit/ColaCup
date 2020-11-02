@@ -27,7 +27,7 @@ public class TimePopover: BasePopover {
     /// - Parameter dataSource: The data source model of the content of the pop-up.
     public init(position: CGPoint, dataSource: TimePopoverModel) {
         
-        self.date = dataSource.date
+        self.date = dataSource.date ?? Date()
         
         let config: (TimeInterval) -> (Int, Int) = {
             
@@ -47,7 +47,7 @@ public class TimePopover: BasePopover {
     }
     
     /// Currently displayed date.
-    private var date: Date?
+    private var date: Date
     
     /// Currently selected start time.
     private var start: (hour: Int, minute: Int) {
@@ -87,17 +87,14 @@ public class TimePopover: BasePopover {
         view.titleLabel.text = "Date"
         
         if #available(iOS 13.4, *) {
+            view.datePicker.date = date
             view.datePicker.maximumDate = Date()
-            
-            if let date = date {
-                view.datePicker.date = date
-            }
-            
             view.datePicker.addTarget(self, action: #selector(datePickerDidChange(_:)), for: .valueChanged)
             
         } else {
             
-            
+            view.showDateView.dateLabel.text = dateFormatter.string(from: date)
+            view.showDateView.addTarget(self, action: #selector(showDateViewDidClick(_:)), for: .touchUpInside)
         }
         
         return view
@@ -150,6 +147,17 @@ public class TimePopover: BasePopover {
              + con.spacing * (itemCount - 1)
              + con.itemHeight * itemCount
     }
+    
+    /// Used to format the date
+    @available(iOS, deprecated: 13.4)
+    private lazy var dateFormatter: DateFormatter = {
+        
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        return formatter
+    }()
 }
 
 public extension TimePopover {
@@ -190,9 +198,18 @@ private extension TimePopover {
 
 private extension TimePopover {
     
+    @available(iOS 13.4, *)
     @objc func datePickerDidChange(_ picker: UIDatePicker) {
         isDataChanged = true
         date = picker.date
+    }
+    
+    @available(iOS, deprecated: 13.4)
+    @objc func showDateViewDidClick(_ view: ShowDateView) {
+        
+        view.isSelected = true
+        
+        
     }
     
     @objc func startViewDidClick(_ view: ShowTimeView) {
