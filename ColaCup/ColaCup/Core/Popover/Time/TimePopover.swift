@@ -47,7 +47,15 @@ public class TimePopover: BasePopover {
     }
     
     /// Currently displayed date.
-    private var date: Date
+    private var date: Date {
+        didSet {
+            isDataChanged = true
+            
+            if #available(iOS 13.4, *) {} else {
+                dateView.showDateView.dateLabel.text = dateFormatter.string(from: date)
+            }
+        }
+    }
     
     /// Currently selected start time.
     private var start: (hour: Int, minute: Int) {
@@ -199,7 +207,6 @@ private extension TimePopover {
     
     @available(iOS 13.4, *)
     @objc func datePickerDidChange(_ picker: UIDatePicker) {
-        isDataChanged = true
         date = picker.date
     }
     
@@ -208,7 +215,12 @@ private extension TimePopover {
         
         view.isSelected = true
         
+        let controller = DatePickerController()
         
+        controller.datePicker.date = date
+        controller.delegate = self
+        
+        present(controller, animated: true, completion: nil)
     }
     
     @objc func startViewDidClick(_ view: ShowTimeView) {
@@ -258,10 +270,19 @@ extension TimePopover: PickerDelegate {
         
         if periodView.startView.isSelected {
             periodView.startView.isSelected = false
+            return
         }
         
         if periodView.endView.isSelected {
             periodView.endView.isSelected = false
+            return
+        }
+        
+        if #available(iOS 13.4, *) { return }
+        
+        else if dateView.showDateView.isSelected {
+            dateView.showDateView.isSelected = false
+            return
         }
     }
 }
@@ -278,5 +299,14 @@ extension TimePopover: TimePickerDelegate {
         } else if periodView.endView.isSelected {
             end = (hour, minute)
         }
+    }
+}
+
+// MARK: - DatePickerDelegate
+
+extension TimePopover: DatePickerDelegate {
+    
+    public func datePicker(_ controller: DatePickerController, didSelectDate date: Date) {
+        self.date = date
     }
 }
