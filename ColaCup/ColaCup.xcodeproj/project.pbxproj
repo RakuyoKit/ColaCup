@@ -36,7 +36,7 @@
 		3AC29027251C3F21007CCD49 /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC29026251C3F21007CCD49 /* LogCell.swift */; };
 		3AC29080251C804F007CCD49 /* LogFlagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC2907F251C804F007CCD49 /* LogFlagButton.swift */; };
 		3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFAF25198C8D00D2CD16 /* AppDelegate.swift */; };
-		3AD9BFB425198C8D00D2CD16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFB325198C8D00D2CD16 /* ViewController.swift */; };
+		3AD9BFB425198C8D00D2CD16 /* VeryVeryVeryVeryVeryVeryLongFileName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFB325198C8D00D2CD16 /* VeryVeryVeryVeryVeryVeryLongFileName.swift */; };
 		3AD9BFB725198C8D00D2CD16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AD9BFB525198C8D00D2CD16 /* Main.storyboard */; };
 		3AD9BFB925198C9000D2CD16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AD9BFB825198C9000D2CD16 /* Assets.xcassets */; };
 		3AD9BFBC25198C9000D2CD16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AD9BFBA25198C9000D2CD16 /* LaunchScreen.storyboard */; };
@@ -102,7 +102,7 @@
 		3AC2907F251C804F007CCD49 /* LogFlagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFlagButton.swift; sourceTree = "<group>"; };
 		3AD9BFAC25198C8D00D2CD16 /* ColaCup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColaCup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AD9BFAF25198C8D00D2CD16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3AD9BFB325198C8D00D2CD16 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3AD9BFB325198C8D00D2CD16 /* VeryVeryVeryVeryVeryVeryLongFileName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeryVeryVeryVeryVeryVeryLongFileName.swift; sourceTree = "<group>"; };
 		3AD9BFB625198C8D00D2CD16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3AD9BFB825198C9000D2CD16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AD9BFBB25198C9000D2CD16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -303,7 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				3AD9BFAF25198C8D00D2CD16 /* AppDelegate.swift */,
-				3AD9BFB325198C8D00D2CD16 /* ViewController.swift */,
+				3AD9BFB325198C8D00D2CD16 /* VeryVeryVeryVeryVeryVeryLongFileName.swift */,
 				3AD9BFB525198C8D00D2CD16 /* Main.storyboard */,
 				3AD9BFB825198C9000D2CD16 /* Assets.xcassets */,
 				3AD9BFBA25198C9000D2CD16 /* LaunchScreen.storyboard */,
@@ -541,7 +541,7 @@
 				3A447679254FDB500086B983 /* DatePickerController.swift in Sources */,
 				3ABF4898253D25CD00909FBE /* TimePopoverModel.swift in Sources */,
 				3A5B63E4251ADBDD00E00BF5 /* ColaCupLoadingView.swift in Sources */,
-				3AD9BFB425198C8D00D2CD16 /* ViewController.swift in Sources */,
+				3AD9BFB425198C8D00D2CD16 /* VeryVeryVeryVeryVeryVeryLongFileName.swift in Sources */,
 				3A7A9B89253D828800C7D606 /* SelectDataView.swift in Sources */,
 				3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */,
 				3AD9BFF525198CF700D2CD16 /* ColaCupViewModel.swift in Sources */,
