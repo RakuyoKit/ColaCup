@@ -97,8 +97,9 @@ private extension DetailsPositionCell {
             titleLabel.leftAnchor.constraint(equalTo: iconView.rightAnchor, constant: 5)
         ])
         
-        titleLabel.setContentHuggingPriority(.required, for: .horizontal)
         titleLabel.setContentHuggingPriority(.required, for: .vertical)
+        titleLabel.setContentHuggingPriority(.required, for: .horizontal)
+        titleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         NSLayoutConstraint.activate([
             valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
