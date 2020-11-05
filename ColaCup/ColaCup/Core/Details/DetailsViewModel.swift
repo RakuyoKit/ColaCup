@@ -66,8 +66,8 @@ extension DetailsViewModel {
         let content = log.safeLog.trimmingCharacters(in: .whitespacesAndNewlines)
         
         var dataSource = [
-            DetailsSectionModel(title: "Content", value: content),
             DetailsSectionModel(title: "Time", value: log.formatTime),
+            DetailsSectionModel(title: "Content", value: content),
             DetailsSectionModel(title: "Position", items: [
                 DetailsCellModel(type: .position, image: "cube.transparent", title: "Module", value: log.module),
                 DetailsCellModel(type: .position, image: "doc.text", title: "File", value: log.file),
@@ -82,7 +82,7 @@ extension DetailsViewModel {
         if let json = interceptJSON(from: content) {
             
             // Replace the original json to avoid repeated display.
-            dataSource[0].items[0].value = content.replacingOccurrences(
+            dataSource[1].items[0].value = content.replacingOccurrences(
                 of: json,
                 with: "{ JSON at the bottom }"
             )
