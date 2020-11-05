@@ -12,6 +12,10 @@ import RaLog
 
 class ViewController: UIViewController {
 
+    private lazy var enter: Void = {
+        enterColaCup(self)
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,6 +83,8 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         
         Log.appear(self)
+        
+        _ = enter
     }
     
     override func viewDidDisappear(_ animated: Bool) {
