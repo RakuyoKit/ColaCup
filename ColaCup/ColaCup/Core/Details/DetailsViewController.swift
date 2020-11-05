@@ -109,8 +109,6 @@ extension DetailsViewController {
         bar?.barTintColor = nil
         bar?.titleTextAttributes = nil
         
-        // TODO: Restore the back button to the system style. No good solution has been found yet. https://stackoverflow.com/q/64349176/9166124
-        
         let button = UIButton(type: .system)
         button.setImage(UIImage(name: "square.and.arrow.up"), for: .normal)
         button.addTarget(self, action: #selector(share), for: .touchUpInside)

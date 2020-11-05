@@ -110,10 +110,7 @@ extension ColaCupController {
         
         view.backgroundColor = logsView.backgroundColor
         
-        // Solve the problem of hidden navigation bar
-        navigationController?.delegate = self
-        navigationController?.navigationBar.tintColor = .theme
-        
+        configNavigationBar()
         addSubviews()
         addInitialLayout()
         startProcessingData()
@@ -144,6 +141,16 @@ extension ColaCupController {
 // MARK: - Config
 
 private extension ColaCupController {
+    
+    func configNavigationBar() {
+        
+        // Solve the problem of hidden navigation bar
+        navigationController?.delegate = self
+        
+        navigationController?.navigationBar.tintColor = .theme
+        navigationController?.navigationBar.backIndicatorImage = nil
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = nil
+    }
     
     func addSubviews() {
         
