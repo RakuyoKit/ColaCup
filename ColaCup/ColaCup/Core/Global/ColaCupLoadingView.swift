@@ -49,15 +49,37 @@ open class ColaCupLoadingView: UIView {
         
         return view
     }()
+}
+
+extension ColaCupLoadingView {
     
-    open override var isHidden: Bool {
-        didSet {
-            if isHidden {
-                activityIndicator.stopAnimating()
-            } else {
-                activityIndicator.startAnimating()
-            }
-        }
+    open func show() {
+        
+        guard isHidden else { return }
+        
+        activityIndicator.startAnimating()
+        
+        alpha = 0
+        isHidden = false
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.alpha = 1
+            
+        }, completion: { _ in })
+    }
+    
+    open func hide() {
+        
+        guard !isHidden else { return }
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.alpha = 0
+            
+        }, completion: { _ in
+            
+            self.isHidden = true
+            self.activityIndicator.stopAnimating()
+        })
     }
 }
 

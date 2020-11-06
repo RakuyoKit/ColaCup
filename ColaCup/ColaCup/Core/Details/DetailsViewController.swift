@@ -181,10 +181,10 @@ extension DetailsViewController {
             
             guard let this = self else { return }
             
-            this.loadingView.isHidden = false
+            this.loadingView.show()
             
             guard let json = this.viewModel.sharedJSON else {
-                this.loadingView.isHidden = true
+                this.loadingView.hide()
                 this.showShareFailureAlert(title: "Create Share Text failure")
                 return
             }
@@ -196,10 +196,10 @@ extension DetailsViewController {
             
             guard let this = self else { return }
             
-            this.loadingView.isHidden = false
+            this.loadingView.show()
             
             guard let image = this.createScreenshot() else {
-                this.loadingView.isHidden = true
+                this.loadingView.hide()
                 this.showShareFailureAlert(title: "Create Screenshot failure")
                 return
             }
@@ -235,7 +235,7 @@ extension DetailsViewController {
         }
         
         present(activity, animated: true) { [weak self] in
-            self?.loadingView.isHidden = true
+            self?.loadingView.hide()
         }
     }
     

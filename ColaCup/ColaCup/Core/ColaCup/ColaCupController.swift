@@ -203,13 +203,13 @@ private extension ColaCupController {
     
     func startProcessingData() {
         
-        loadingView.isHidden = false
+        loadingView.show()
         
         viewModel.processLogs { [weak self] in
             
             guard let this = self else { return }
             
-            this.loadingView.isHidden = true
+            this.loadingView.hide()
             this.logsView.reloadData()
         }
     }
@@ -434,13 +434,13 @@ private extension ColaCupController {
     /// - Parameter executeImmediately: Whether to perform the search immediately.
     func refreshLogData(executeImmediately: Bool) {
         
-        loadingView.isHidden = false
+        loadingView.show()
         
         viewModel.refreshLogData(executeImmediately: executeImmediately) { [weak self] in
             
             guard let this = self else { return }
             
-            this.loadingView.isHidden = true
+            this.loadingView.hide()
             this.logsView.reloadData()
         }
     }
