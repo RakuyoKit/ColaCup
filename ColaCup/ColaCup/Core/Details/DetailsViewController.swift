@@ -216,10 +216,6 @@ private extension DetailsViewController {
         
         let alert = UIAlertController(title: "Create Screenshot failure", message: "Please try again or choose another way to share the log.", preferredStyle: .alert)
         
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            alert.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        }
-        
         alert.addAction(UIAlertAction(title: "Done", style: .cancel))
         
         present(alert, animated: true, completion: nil)
