@@ -67,6 +67,9 @@ private extension ColaCupLoadingView {
     
     func config() {
         
+        backgroundColor = .clear
+        activityIndicator.color = .theme
+        
         addSubviews()
         addInitialLayout()
     }

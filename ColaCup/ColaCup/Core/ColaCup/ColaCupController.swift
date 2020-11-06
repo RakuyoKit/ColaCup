@@ -86,10 +86,7 @@ open class ColaCupController: UIViewController {
         let view = ColaCupLoadingView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .clear
         view.isHidden = true
-        
-        view.activityIndicator.color = .theme
         
         return view
     }()
