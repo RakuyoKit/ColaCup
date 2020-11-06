@@ -109,15 +109,15 @@ private extension ColaCupLoadingView {
     func addInitialLayout() {
         
         NSLayoutConstraint.activate([
-            visualEffectView.topAnchor.constraint(equalTo: topAnchor),
-            visualEffectView.leftAnchor.constraint(equalTo: leftAnchor),
-            visualEffectView.rightAnchor.constraint(equalTo: rightAnchor),
-            visualEffectView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            visualEffectView.heightAnchor.constraint(equalToConstant: 90),
+            visualEffectView.widthAnchor.constraint(equalToConstant: 90),
+            visualEffectView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            visualEffectView.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
         
         NSLayoutConstraint.activate([
-            activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
-            activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: visualEffectView.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: visualEffectView.centerXAnchor),
         ])
         
         activityIndicator.setContentHuggingPriority(.required, for: .vertical)
