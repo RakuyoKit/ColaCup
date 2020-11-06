@@ -61,17 +61,6 @@ open class DetailsViewController: UIViewController {
         return view
     }()
     
-    /// Button for displaying sharing popup.
-    open lazy var shareButton: UIButton = {
-        
-        let button = UIButton(type: .system)
-        
-        button.setImage(UIImage(name: "square.and.arrow.up"), for: .normal)
-        button.addTarget(self, action: #selector(share), for: .touchUpInside)
-        
-        return button
-    }()
-    
     /// Used to process data.
     private let viewModel: DetailsViewModel
     
@@ -141,7 +130,7 @@ extension DetailsViewController {
         bar?.titleTextAttributes = nil
         
         // Share
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: shareButton)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share(_:)))
     }
 }
 
@@ -173,18 +162,18 @@ extension DetailsViewController: UIScreenshotServiceDelegate {
 
 // MARK: - Action
 
-extension DetailsViewController {
+private extension DetailsViewController {
     
     /// Share log information.
-    @objc func share(_ button: UIButton) {
+    @objc func share(_ shareItem: UIBarButtonItem) {
         
-        button.isEnabled = false
+        shareItem.isEnabled = false
         
         let filureBlock: (String) -> Void = { [weak self] in
             
             guard let this = self else { return }
             
-            button.isEnabled = true
+            shareItem.isEnabled = true
             this.loadingView.hide()
             this.showShareFailureAlert(title: $0)
         }
@@ -227,13 +216,13 @@ extension DetailsViewController {
         })
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
-            button.isEnabled = true
+            shareItem.isEnabled = true
         })
         
         present(alert, animated: true, completion: nil)
     }
     
-    private func showActivity(with item: Any) {
+    func showActivity(with item: Any) {
         
         let items: [Any] = {
             if let image = item as? UIImage { return [image, self] }
@@ -256,12 +245,12 @@ extension DetailsViewController {
             
             guard let this = self else { return }
             
-            this.shareButton.isEnabled = true
+            this.navigationItem.rightBarButtonItem?.isEnabled = true
             this.loadingView.hide()
         }
     }
     
-    private func showShareFailureAlert(title: String) {
+    func showShareFailureAlert(title: String) {
         
         let alert = UIAlertController(title: title, message: "Please try again or choose another way to share the log.", preferredStyle: .alert)
         
