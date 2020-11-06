@@ -130,13 +130,37 @@ extension DetailsViewController {
         bar?.titleTextAttributes = nil
         
         // Share
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share(_:)))
+        navigationItem.rightBarButtonItem = {
+            
+            if #available(iOS 14.0, *) {
+                return UIBarButtonItem(systemItem: .action, menu: createShareMenu())
+            }
+            
+            return UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share(_:)))
+        }()
     }
 }
 
 // MARK: - Share
 
 private extension DetailsViewController {
+    
+    @available(iOS 14.0, *)
+    func createShareMenu() -> UIMenu {
+        
+        return UIMenu(
+            title: "Please choose how to share log data.",
+            identifier: .share,
+            children: [
+                UIAction(title: "Text", image: UIImage(systemName: "doc.text.fill.viewfinder")) { [weak self] _ in
+                    self?.shareJSON()
+                },
+                UIAction(title: "Screenshot", image: UIImage(systemName: "camera.viewfinder")) { [weak self] _ in
+                    self?.shareScreenshot()
+                },
+            ]
+        )
+    }
     
     /// Share log information.
     @objc func share(_ shareItem: UIBarButtonItem) {
