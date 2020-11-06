@@ -161,7 +161,7 @@ public extension FilterPopoverViewModel {
     ///
     /// - Parameters:
     ///   - index: The index of the selected module.
-    ///   - animations: Callback when the animation is executed. See ʻAnimationType` for details
+    ///   - animations: Callback when the animation is executed. See `AnimationType` for details
     ///   - completion: The callback after processing the data.
     func selectModule(
         at index: Int,
@@ -190,8 +190,8 @@ public extension FilterPopoverViewModel {
         
         defer { completion() }
         
-        // When selecting a module other than ʻALL`,
-        // cancel the selected state of the ʻALL` module.
+        // When selecting a module other than `ALL`,
+        // cancel the selected state of the `ALL` module.
         if modules[0].isSelected {
             
             modules[0].isSelected = false
@@ -210,7 +210,7 @@ public extension FilterPopoverViewModel {
         
         animations(modules[index].isSelected ? .selectClicked : .unselectClicked)
         
-        // When there is no selected module, select ʻALL`.
+        // When there is no selected module, select `ALL`.
         guard selectedCount <= 0 else { return }
         
         modules[0].isSelected = true
