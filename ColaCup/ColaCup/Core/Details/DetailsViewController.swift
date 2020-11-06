@@ -61,6 +61,17 @@ open class DetailsViewController: UIViewController {
         return view
     }()
     
+    /// Button for displaying sharing popup.
+    open lazy var shareButton: UIButton = {
+        
+        let button = UIButton(type: .system)
+        
+        button.setImage(UIImage(name: "square.and.arrow.up"), for: .normal)
+        button.addTarget(self, action: #selector(share), for: .touchUpInside)
+        
+        return button
+    }()
+    
     /// Used to process data.
     private let viewModel: DetailsViewModel
     
@@ -129,12 +140,8 @@ extension DetailsViewController {
         bar?.barTintColor = nil
         bar?.titleTextAttributes = nil
         
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(name: "square.and.arrow.up"), for: .normal)
-        button.addTarget(self, action: #selector(share), for: .touchUpInside)
-        
         // Share
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: shareButton)
     }
 }
 
@@ -169,7 +176,18 @@ extension DetailsViewController: UIScreenshotServiceDelegate {
 extension DetailsViewController {
     
     /// Share log information.
-    @objc func share() {
+    @objc func share(_ button: UIButton) {
+        
+        button.isEnabled = false
+        
+        let filureBlock: (String) -> Void = { [weak self] in
+            
+            guard let this = self else { return }
+            
+            button.isEnabled = true
+            this.loadingView.hide()
+            this.showShareFailureAlert(title: $0)
+        }
         
         let alert = UIAlertController(title: "Share", message: "Please choose how to share log data.", preferredStyle: .actionSheet)
         
@@ -184,8 +202,7 @@ extension DetailsViewController {
             this.loadingView.show()
             
             guard let json = this.viewModel.sharedJSON else {
-                this.loadingView.hide()
-                this.showShareFailureAlert(title: "Create Share Text failure")
+                filureBlock("Create Share Text failure")
                 return
             }
             
@@ -199,8 +216,7 @@ extension DetailsViewController {
             this.loadingView.show()
             
             guard let image = this.createScreenshot() else {
-                this.loadingView.hide()
-                this.showShareFailureAlert(title: "Create Screenshot failure")
+                filureBlock("Create Screenshot failure")
                 return
             }
             
@@ -210,7 +226,9 @@ extension DetailsViewController {
             this.showActivity(with: image)
         })
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            button.isEnabled = true
+        })
         
         present(alert, animated: true, completion: nil)
     }
@@ -235,7 +253,11 @@ extension DetailsViewController {
         }
         
         present(activity, animated: true) { [weak self] in
-            self?.loadingView.hide()
+            
+            guard let this = self else { return }
+            
+            this.shareButton.isEnabled = true
+            this.loadingView.hide()
         }
     }
     
