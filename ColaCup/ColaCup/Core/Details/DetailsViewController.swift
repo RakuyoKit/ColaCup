@@ -203,7 +203,8 @@ private extension DetailsViewController {
         
         if let image = createScreenshot() {
             
-            // Temporary storage of pictures to avoid repeated creation of pictures in the ʻUIActivityItemSource` protocol.
+            // Temporary storage of pictures to avoid repeated creation of pictures
+            // in the `UIActivityItemSource` protocol.
             sharedScreenshot = image
             
             showActivity(with: image)
