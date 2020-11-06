@@ -25,7 +25,7 @@ open class DetailsViewModel {
     open lazy var dataSource: [DetailsSectionModel] = createDataSource()
     
     /// Log data in JSON format for sharing.
-    open lazy var sharedJSON: String? = {
+    open lazy var sharedJSON: String = {
         
         return """
         {

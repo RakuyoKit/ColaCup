@@ -169,15 +169,6 @@ private extension DetailsViewController {
         
         shareItem.isEnabled = false
         
-        let filureBlock: (String) -> Void = { [weak self] in
-            
-            guard let this = self else { return }
-            
-            shareItem.isEnabled = true
-            this.loadingView.hide()
-            this.showShareFailureAlert(title: $0)
-        }
-        
         let alert = UIAlertController(title: "Share", message: "Please choose how to share log data.", preferredStyle: .actionSheet)
         
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -185,39 +176,51 @@ private extension DetailsViewController {
         }
         
         alert.addAction(UIAlertAction(title: "Text", style: .default) { [weak self] _ in
-            
-            guard let this = self else { return }
-            
-            this.loadingView.show()
-            
-            guard let json = this.viewModel.sharedJSON else {
-                filureBlock("Create Share Text failure")
-                return
-            }
-            
-            this.showActivity(with: json)
+            self?.shareJSON()
         })
         
         alert.addAction(UIAlertAction(title: "Screenshot", style: .default) { [weak self] _ in
-            
-            guard let this = self else { return }
-            
-            this.loadingView.show()
-            
-            guard let image = this.createScreenshot() else {
-                filureBlock("Create Screenshot failure")
-                return
-            }
-            
-            // Temporary storage of pictures to avoid repeated creation of pictures in the ʻUIActivityItemSource` protocol.
-            this.sharedScreenshot = image
-            
-            this.showActivity(with: image)
+            self?.shareScreenshot()
         })
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
             shareItem.isEnabled = true
         })
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func shareJSON() {
+        
+        loadingView.show()
+        
+        showActivity(with: viewModel.sharedJSON)
+    }
+    
+    func shareScreenshot() {
+        
+        loadingView.show()
+        
+        if let image = createScreenshot() {
+            
+            // Temporary storage of pictures to avoid repeated creation of pictures in the ʻUIActivityItemSource` protocol.
+            sharedScreenshot = image
+            
+            showActivity(with: image)
+            
+            return
+        }
+        
+        navigationItem.rightBarButtonItem?.isEnabled = true
+        loadingView.hide()
+        
+        let alert = UIAlertController(title: "Create Screenshot failure", message: "Please try again or choose another way to share the log.", preferredStyle: .alert)
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            alert.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        }
+        
+        alert.addAction(UIAlertAction(title: "Done", style: .cancel))
         
         present(alert, animated: true, completion: nil)
     }
@@ -248,19 +251,6 @@ private extension DetailsViewController {
             this.navigationItem.rightBarButtonItem?.isEnabled = true
             this.loadingView.hide()
         }
-    }
-    
-    func showShareFailureAlert(title: String) {
-        
-        let alert = UIAlertController(title: title, message: "Please try again or choose another way to share the log.", preferredStyle: .alert)
-        
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            alert.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        }
-        
-        alert.addAction(UIAlertAction(title: "Done", style: .cancel))
-        
-        present(alert, animated: true, completion: nil)
     }
 }
 
