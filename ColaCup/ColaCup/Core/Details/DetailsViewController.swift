@@ -134,33 +134,7 @@ extension DetailsViewController {
     }
 }
 
-// MARK: - UIScreenshotServiceDelegate
-
-extension DetailsViewController: UIScreenshotServiceDelegate {
-    
-    @available(iOS 13.0, *)
-    public func screenshotService(_ screenshotService: UIScreenshotService, generatePDFRepresentationWithCompletion completionHandler: @escaping (Data?, Int, CGRect) -> Void) {
-        
-        guard let image = createScreenshot() else {
-            completionHandler(nil, 0, .zero)
-            return
-        }
-        
-        // Convert screenshots to pdf data.
-        let pdfData = NSMutableData()
-        let imgView = UIImageView(image: image)
-        let imageRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
-        UIGraphicsBeginPDFContextToData(pdfData, imageRect, nil)
-        UIGraphicsBeginPDFPage()
-        let context = UIGraphicsGetCurrentContext()
-        imgView.layer.render(in: context!)
-        UIGraphicsEndPDFContext()
-        
-        completionHandler(pdfData as Data, 0, .zero)
-    }
-}
-
-// MARK: - Action
+// MARK: - Share
 
 private extension DetailsViewController {
     
@@ -251,127 +225,7 @@ private extension DetailsViewController {
     }
 }
 
-// MARK: - UIActivityItemSource
-
-extension DetailsViewController: UIActivityItemSource {
-    
-    public func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
-        return ""
-    }
-
-    public func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
-        return nil
-    }
-
-    @available(iOS 13.0, *)
-    public func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
-        
-        guard let image = sharedScreenshot else { return nil }
-        
-        let metadata = LPLinkMetadata()
-        
-        metadata.title = "log_detail_screenshot"
-        metadata.imageProvider = NSItemProvider(object: image)
-        
-        return metadata
-    }
-}
-
-// MARK: - UITableViewDataSource
-
-extension DetailsViewController: UITableViewDataSource {
-    
-    open func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.dataSource.count
-    }
-    
-    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.dataSource[section].items.count
-    }
-    
-    open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        return viewModel.dataSource[section].title
-    }
-    
-    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let model = viewModel.dataSource[indexPath.section].items[indexPath.row]
-        
-        let _cell = tableView.dequeueReusableCell(withIdentifier: model.type.rawValue, for: indexPath)
-        
-        switch model.type {
-        
-        case .normal:
-            let cell = _cell as! DetailsNormalCell
-            
-            cell.textLabel?.text = model.value
-            
-        case .position:
-            let cell = _cell as! DetailsPositionCell
-            
-            cell.titleLabel.text = model.title
-            cell.valueLabel.text = model.value
-            
-            if let name = model.imageName {
-                cell.iconView.image = UIImage(name: name)
-            }
-            
-        case .function:
-            let cell = _cell as! DetailsFunctionCell
-            
-            cell.titleLabel.text = model.title
-            cell.valueLabel.text = model.value
-            
-            if let name = model.imageName {
-                cell.iconView.image = UIImage(name: name)
-            }
-            
-        case .json:
-            let cell = _cell as! DetailsJSONCell
-            
-            cell.jsonView.jsonTextView.delegate = self
-            cell.jsonView.preview(model.value) { [weak self] in
-                
-                guard let this = self, !this.isReloaded else { return }
-                
-                // The tableView needs to be refreshed to show the complete json view.
-                tableView.reloadData()
-                this.isReloaded = true
-            }
-        }
-        
-        return _cell
-    }
-}
-
-// MARK: - UITextViewDelegate
-
-extension DetailsViewController: UITextViewDelegate {
-    
-    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        
-        var _url = URL
-        
-        if let scheme = URL.scheme {
-            guard scheme == "http" || scheme == "https" else { return true }
-            
-        } else {
-            
-            guard let newURL = Foundation.URL(string: "http://" + _url.absoluteString) else {
-                return true
-            }
-            
-            _url = newURL
-        }
-        
-        present(SFSafariViewController(url: _url), animated: true, completion: nil)
-        
-        return false
-    }
-}
-
-// MARK: - Tools
+// MARK: - Screenshot
 
 private extension DetailsViewController {
     
@@ -454,6 +308,154 @@ private extension DetailsViewController {
         return screenshot
     }
 }
+
+// MARK: - UIScreenshotServiceDelegate
+
+extension DetailsViewController: UIScreenshotServiceDelegate {
+    
+    @available(iOS 13.0, *)
+    public func screenshotService(_ screenshotService: UIScreenshotService, generatePDFRepresentationWithCompletion completionHandler: @escaping (Data?, Int, CGRect) -> Void) {
+        
+        guard let image = createScreenshot() else {
+            completionHandler(nil, 0, .zero)
+            return
+        }
+        
+        // Convert screenshots to pdf data.
+        let pdfData = NSMutableData()
+        let imgView = UIImageView(image: image)
+        let imageRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+        UIGraphicsBeginPDFContextToData(pdfData, imageRect, nil)
+        UIGraphicsBeginPDFPage()
+        let context = UIGraphicsGetCurrentContext()
+        imgView.layer.render(in: context!)
+        UIGraphicsEndPDFContext()
+        
+        completionHandler(pdfData as Data, 0, .zero)
+    }
+}
+
+// MARK: - UIActivityItemSource
+
+extension DetailsViewController: UIActivityItemSource {
+    
+    public func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+        return ""
+    }
+
+    public func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        return nil
+    }
+
+    @available(iOS 13.0, *)
+    public func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
+        
+        guard let image = sharedScreenshot else { return nil }
+        
+        let metadata = LPLinkMetadata()
+        
+        metadata.title = "log_detail_screenshot"
+        metadata.imageProvider = NSItemProvider(object: image)
+        
+        return metadata
+    }
+}
+
+// MARK: - UITextViewDelegate
+
+extension DetailsViewController: UITextViewDelegate {
+    
+    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        var _url = URL
+        
+        if let scheme = URL.scheme {
+            guard scheme == "http" || scheme == "https" else { return true }
+            
+        } else {
+            
+            guard let newURL = Foundation.URL(string: "http://" + _url.absoluteString) else {
+                return true
+            }
+            
+            _url = newURL
+        }
+        
+        present(SFSafariViewController(url: _url), animated: true, completion: nil)
+        
+        return false
+    }
+}
+
+// MARK: - UITableViewDataSource
+
+extension DetailsViewController: UITableViewDataSource {
+    
+    open func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.dataSource.count
+    }
+    
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.dataSource[section].items.count
+    }
+    
+    open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return viewModel.dataSource[section].title
+    }
+    
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let model = viewModel.dataSource[indexPath.section].items[indexPath.row]
+        
+        let _cell = tableView.dequeueReusableCell(withIdentifier: model.type.rawValue, for: indexPath)
+        
+        switch model.type {
+        
+        case .normal:
+            let cell = _cell as! DetailsNormalCell
+            
+            cell.textLabel?.text = model.value
+            
+        case .position:
+            let cell = _cell as! DetailsPositionCell
+            
+            cell.titleLabel.text = model.title
+            cell.valueLabel.text = model.value
+            
+            if let name = model.imageName {
+                cell.iconView.image = UIImage(name: name)
+            }
+            
+        case .function:
+            let cell = _cell as! DetailsFunctionCell
+            
+            cell.titleLabel.text = model.title
+            cell.valueLabel.text = model.value
+            
+            if let name = model.imageName {
+                cell.iconView.image = UIImage(name: name)
+            }
+            
+        case .json:
+            let cell = _cell as! DetailsJSONCell
+            
+            cell.jsonView.jsonTextView.delegate = self
+            cell.jsonView.preview(model.value) { [weak self] in
+                
+                guard let this = self, !this.isReloaded else { return }
+                
+                // The tableView needs to be refreshed to show the complete json view.
+                tableView.reloadData()
+                this.isReloaded = true
+            }
+        }
+        
+        return _cell
+    }
+}
+
+// MARK: - Tools
 
 fileprivate extension DetailsCellType {
     
