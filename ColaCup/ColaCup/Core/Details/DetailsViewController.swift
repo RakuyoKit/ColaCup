@@ -151,11 +151,23 @@ extension DetailsViewController {
     /// Share log information.
     @objc func share() {
         
-        let alert = UIAlertController(title: "Share", message: "Please choose how to share log data", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Share", message: "Please choose how to share log data.", preferredStyle: .actionSheet)
         
         if UIDevice.current.userInterfaceIdiom == .pad {
             alert.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         }
+        
+        alert.addAction(UIAlertAction(title: "Text", style: .default) { [weak self] _ in
+            
+            guard let this = self else { return }
+            
+            guard let json = this.viewModel.sharedJSON else {
+                this.showShareFailureAlert(title: "Create Share Text failure")
+                return
+            }
+            
+            this.showActivity(with: json)
+        })
         
         alert.addAction(UIAlertAction(title: "Screenshot", style: .default) { [weak self] _ in
             
@@ -170,18 +182,6 @@ extension DetailsViewController {
             this.sharedScreenshot = image
             
             this.showActivity(with: image)
-        })
-        
-        alert.addAction(UIAlertAction(title: "JSON", style: .default) { [weak self] _ in
-            
-            guard let this = self else { return }
-            
-            guard let json = this.viewModel.sharedJSON else {
-                this.showShareFailureAlert(title: "Create JSON failure")
-                return
-            }
-            
-            this.showActivity(with: json)
         })
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
