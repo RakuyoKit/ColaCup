@@ -239,12 +239,29 @@ private extension DetailsViewController {
             activity.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         }
         
-        present(activity, animated: true) { [weak self] in
+        let presentBlock: () -> Void = { [weak self] in
             
-            guard let this = self else { return }
+            self?.present(activity, animated: true) {
+                
+                guard let this = self else { return }
+                
+                this.navigationItem.rightBarButtonItem?.isEnabled = true
+                this.loadingView.hide()
+            }
+        }
+        
+        if #available(iOS 14.0, *) {
             
-            this.navigationItem.rightBarButtonItem?.isEnabled = true
-            this.loadingView.hide()
+            // Stuttering occurs when present.
+            // So delay for a certain period of time
+            // to avoid the lag from affecting the recovery animation of UIMenu.
+            DispatchQueue.main.asyncAfter(
+                deadline: .now() + .milliseconds(300),
+                execute: presentBlock
+            )
+            
+        } else {
+            presentBlock()
         }
     }
 }
