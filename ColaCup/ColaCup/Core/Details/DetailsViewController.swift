@@ -50,6 +50,17 @@ open class DetailsViewController: UIViewController {
         return tableView
     }()
     
+    /// Display when loading the sharing popup.
+    open lazy var loadingView: ColaCupLoadingView = {
+        
+        let view = ColaCupLoadingView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        
+        return view
+    }()
+    
     /// Used to process data.
     private let viewModel: DetailsViewModel
     
@@ -89,6 +100,7 @@ extension DetailsViewController {
     func addSubviews() {
         
         view.addSubview(tableView)
+        view.addSubview(loadingView)
     }
     
     func addInitialLayout() {
@@ -98,6 +110,14 @@ extension DetailsViewController {
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+        
+        // loadingView
+        NSLayoutConstraint.activate([
+            loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loadingView.widthAnchor.constraint(equalToConstant: 90),
+            loadingView.heightAnchor.constraint(equalTo: loadingView.widthAnchor),
         ])
     }
     
@@ -161,7 +181,10 @@ extension DetailsViewController {
             
             guard let this = self else { return }
             
+            this.loadingView.isHidden = false
+            
             guard let json = this.viewModel.sharedJSON else {
+                this.loadingView.isHidden = true
                 this.showShareFailureAlert(title: "Create Share Text failure")
                 return
             }
@@ -173,7 +196,10 @@ extension DetailsViewController {
             
             guard let this = self else { return }
             
+            this.loadingView.isHidden = false
+            
             guard let image = this.createScreenshot() else {
+                this.loadingView.isHidden = true
                 this.showShareFailureAlert(title: "Create Screenshot failure")
                 return
             }
@@ -208,7 +234,9 @@ extension DetailsViewController {
             activity.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         }
         
-        present(activity, animated: true, completion: nil)
+        present(activity, animated: true) { [weak self] in
+            self?.loadingView.isHidden = true
+        }
     }
     
     private func showShareFailureAlert(title: String) {
