@@ -27,28 +27,17 @@ open class DetailsViewModel {
     /// Log data in JSON format for sharing.
     open lazy var sharedJSON: String? = {
         
-        let json: [String : Any] = [
-            "content": log.safeLog,
-            "file": log.file,
-            "function": log.function,
-            "line": log.line,
-            "flag": log.flag,
-            "module": log.module,
-            "formatTime": log.formatTime
-        ]
-        
-        guard let data = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) else {
-            
-            return nil
+        return """
+        {
+            "time": "\(log.formatTime)",
+            "flag": "\(log.flag)",
+            "module": "\(log.module)",
+            "file": "\(log.file)",
+            "function": "\(log.function)",
+            "line": \(log.line),
+            "content": "\(log.safeLog)"
         }
-        
-        guard let jsonString = String(data: data, encoding: .utf8) else {
-            return nil
-        }
-        
-        return jsonString
-            .replacingOccurrences(of: "\\n", with: "\n")
-            .replacingOccurrences(of: "\\\"", with: "\"")
+        """
     }()
 }
 
