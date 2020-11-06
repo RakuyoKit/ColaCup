@@ -28,7 +28,7 @@ open class ColaCupLoadingView: UIView {
     
     open lazy var visualEffectView: UIVisualEffectView = {
         
-        let view = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        let view = UIVisualEffectView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 10
@@ -62,8 +62,10 @@ extension ColaCupLoadingView {
         alpha = 0
         isHidden = false
         
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: 0.15, animations: {
+            
             self.alpha = 1
+            self.visualEffectView.effect = UIBlurEffect(style: .light)
             
         }, completion: { _ in })
     }
@@ -72,8 +74,10 @@ extension ColaCupLoadingView {
         
         guard !isHidden else { return }
         
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: 0.15, animations: {
+            
             self.alpha = 0
+            self.visualEffectView.effect = nil
             
         }, completion: { _ in
             
