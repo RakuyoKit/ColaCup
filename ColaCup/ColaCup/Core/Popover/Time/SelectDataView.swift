@@ -37,7 +37,7 @@ open class SelectDataView: UIView {
     }()
     
     /// Used to select a date to view the log of the selected date.
-    @available(iOS 13.4, *)
+    @available(iOS 14.0, *)
     open lazy var datePicker: UIDatePicker = {
         
         let datePicker = UIDatePicker()
@@ -51,8 +51,8 @@ open class SelectDataView: UIView {
         return datePicker
     }()
     
-    /// A view showing the date. In iOS 13.4 and above, please use `datePicker`.
-    @available(iOS, deprecated: 13.4)
+    /// A view showing the date. In iOS 14.0 and above, please use `datePicker`.
+    @available(iOS, deprecated: 14.0)
     open lazy var showDateView: ShowDateView = {
         
         let view = ShowDateView()
@@ -70,7 +70,7 @@ private extension SelectDataView {
 
     /// Under the current system, the available dateView.
     var availableDateView: UIView {
-        if #available(iOS 13.4, *) { return datePicker } else { return showDateView }
+        if #available(iOS 14.0, *) { return datePicker } else { return showDateView }
     }
 }
 

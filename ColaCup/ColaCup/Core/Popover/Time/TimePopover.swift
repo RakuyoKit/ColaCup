@@ -94,7 +94,7 @@ public class TimePopover: BasePopover {
         
         view.titleLabel.text = "Date"
         
-        if #available(iOS 13.4, *) {
+        if #available(iOS 14.0, *) {
             view.datePicker.date = date
             view.datePicker.maximumDate = Date()
             view.datePicker.addTarget(self, action: #selector(datePickerDidChange(_:)), for: .valueChanged)
