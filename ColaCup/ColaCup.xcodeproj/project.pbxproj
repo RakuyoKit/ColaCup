@@ -352,6 +352,7 @@
 				3AD9BFA925198C8D00D2CD16 /* Frameworks */,
 				3AD9BFAA25198C8D00D2CD16 /* Resources */,
 				CB8F28B05D9ECA1101C118D8 /* [CP] Copy Pods Resources */,
+				E6090F526ADAA3CBCB08D861 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -508,6 +509,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ColaCup/Pods-ColaCup-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E6090F526ADAA3CBCB08D861 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ColaCup/Pods-ColaCup-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ColaCup/Pods-ColaCup-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ColaCup/Pods-ColaCup-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
