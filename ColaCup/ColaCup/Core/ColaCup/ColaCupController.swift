@@ -149,47 +149,22 @@ private extension ColaCupController {
     }
     
     func addSubviews() {
-        
-        view.addSubview(toolBar)
         view.addSubview(logsView)
         view.addSubview(loadingView)
     }
     
     func addInitialLayout() {
-        
-        // toolBar
-        if #available(iOS 11.0, *) {
-            NSLayoutConstraint.activate([
-                toolBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
-                toolBar.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-                toolBar.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20)
-            ])
-            
-        } else {
-            NSLayoutConstraint.activate([
-                toolBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 15),
-                toolBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-                toolBar.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20)
-            ])
+        func addConstraint(for aAxis: UIView.XAxis, toView bAxis: UIView.XAxis) -> NSLayoutConstraint {
+            return logsView(xAxis: aAxis).constraint(equalTo: view(xAxis: bAxis))
         }
-        
-        toolBar.setContentHuggingPriority(.required, for: .vertical)
         
         // logsView
-        var logsViewConstraints = [
-            logsView.topAnchor.constraint(equalTo: toolBar.bottomAnchor, constant: 15),
-            logsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ]
-        
-        if #available(iOS 11.0, *) {
-            logsViewConstraints.append(logsView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor))
-            logsViewConstraints.append(logsView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor))
-        } else {
-            logsViewConstraints.append(logsView.leftAnchor.constraint(equalTo: view.leftAnchor))
-            logsViewConstraints.append(logsView.rightAnchor.constraint(equalTo: view.rightAnchor))
-        }
-        
-        NSLayoutConstraint.activate(logsViewConstraints)
+        NSLayoutConstraint.activate([
+            logsView.topAnchor.constraint(equalTo: view.topAnchor),
+            logsView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            addConstraint(for: .leading, toView: .leading),
+            addConstraint(for: .trailing, toView: .trailing),
+        ])
         
         // loadingView
         NSLayoutConstraint.activate([
