@@ -86,7 +86,6 @@ extension DetailsViewController {
         addInitialLayout()
         
         if #available(iOS 13.0, *) {
-            
             // PDF screenshot
             UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.windowScene?.screenshotService?.delegate = self
         }
@@ -98,13 +97,11 @@ extension DetailsViewController {
 extension DetailsViewController {
     
     func addSubviews() {
-        
         view.addSubview(tableView)
         view.addSubview(loadingView)
     }
     
     func addInitialLayout() {
-        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -135,11 +132,9 @@ extension DetailsViewController {
         
         // Share
         navigationItem.rightBarButtonItem = {
-            
             if #available(iOS 14.0, *) {
                 return UIBarButtonItem(systemItem: .action, menu: createShareMenu())
             }
-            
             return UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share(_:)))
         }()
     }

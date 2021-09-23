@@ -12,14 +12,11 @@ import RaLog
 
 /// A controller for viewing logs
 open class ColaCupController: UIViewController {
-    
     /// Use the log manager to initialize the controller.
     ///
     /// - Parameter logManager: The log manager is required to follow the `Storable` protocol.
     public init<T: Storable>(logManager: T.Type) {
-        
         self.viewModel = ColaCupViewModel(logManager: logManager)
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -59,7 +56,6 @@ open class ColaCupController: UIViewController {
     
     /// The view responsible for displaying the log.
     open lazy var logsView: UITableView = {
-        
         let tableView = UITableView(frame: .zero, style: {
             if #available(iOS 13.0, *) { return .insetGrouped }
             return .grouped
@@ -82,7 +78,6 @@ open class ColaCupController: UIViewController {
     
     /// The view displayed when the log data is loaded.
     open lazy var loadingView: ColaCupLoadingView = {
-        
         let view = ColaCupLoadingView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -124,10 +119,10 @@ extension ColaCupController {
     }
     
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        guard isShowingPopover else { return }
         
-        if isShowingPopover {
-            self.dismiss(animated: true, completion: nil)
-        }
+        // Close popover when rotating the screen
+        self.dismiss(animated: true, completion: nil)
     }
     
     open override var shouldAutorotate: Bool { true }
@@ -138,7 +133,6 @@ extension ColaCupController {
 // MARK: - Config
 
 private extension ColaCupController {
-    
     func configNavigationBar() {
         let bar = navigationController?.navigationBar
         
@@ -207,11 +201,9 @@ private extension ColaCupController {
     }
     
     func startProcessingData() {
-        
         loadingView.show()
         
         viewModel.processLogs { [weak self] in
-            
             guard let this = self else { return }
             
             this.loadingView.hide()
@@ -223,7 +215,6 @@ private extension ColaCupController {
 // MARK: - Action
 
 extension ColaCupController {
-    
     /// Execute when the button is pressed.
     ///
     /// - Parameter button: Button pressed.
@@ -243,7 +234,6 @@ extension ColaCupController {
     ///
     /// - Parameter button: `toolBar.timeButton`.
     @objc open func timeButtonDidClick(_ button: UIButton) {
-        
         feedbackGenerator.selectionChanged()
         
         button.isEnabled = false
@@ -265,7 +255,6 @@ extension ColaCupController {
     ///
     /// - Parameter button: `toolBar.filterButton`.
     @objc open func filterButtonDidClick(_ button: UIButton) {
-        
         feedbackGenerator.selectionChanged()
         
         button.isEnabled = false
