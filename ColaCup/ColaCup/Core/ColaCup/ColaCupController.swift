@@ -140,13 +140,18 @@ extension ColaCupController {
 private extension ColaCupController {
     
     func configNavigationBar() {
+        let bar = navigationController?.navigationBar
         
-        // Solve the problem of hidden navigation bar
-        navigationController?.delegate = self
+        navigationItem.title = "ColaCup"
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .automatic
+            bar?.prefersLargeTitles = true
+        }
         
-        navigationController?.navigationBar.tintColor = .theme
-        navigationController?.navigationBar.backIndicatorImage = nil
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = nil
+        bar?.tintColor = .theme
+        bar?.isTranslucent = true
+        bar?.backIndicatorImage = nil
+        bar?.backIndicatorTransitionMaskImage = nil
     }
     
     func addSubviews() {
@@ -350,16 +355,16 @@ extension ColaCupController: FilterPopoverDataDelegate {
     }
 }
 
-// MARK: - UINavigationControllerDelegate
-
-extension ColaCupController: UINavigationControllerDelegate {
-    
-    public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        
-        let isHide = viewController is ColaCupController
-        navigationController.setNavigationBarHidden(isHide, animated: animated)
-    }
-}
+//// MARK: - UINavigationControllerDelegate
+//
+//extension ColaCupController: UINavigationControllerDelegate {
+//
+//    public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+//
+//        let isHide = viewController is ColaCupController
+//        navigationController.setNavigationBarHidden(isHide, animated: animated)
+//    }
+//}
 
 // MARK: - UITableViewDelegate
 

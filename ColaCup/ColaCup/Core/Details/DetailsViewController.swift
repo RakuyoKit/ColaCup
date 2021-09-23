@@ -80,10 +80,10 @@ extension DetailsViewController {
         
         title = viewModel.title
         
+        configNavigationBar()
+        
         addSubviews()
         addInitialLayout()
-        
-        configNavigationBar()
         
         if #available(iOS 13.0, *) {
             
@@ -122,11 +122,15 @@ extension DetailsViewController {
     }
     
     func configNavigationBar() {
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+        }
         
         let bar = navigationController?.navigationBar
         
         bar?.tintColor = .theme
         bar?.barTintColor = nil
+        bar?.isTranslucent = true
         bar?.titleTextAttributes = nil
         
         // Share
