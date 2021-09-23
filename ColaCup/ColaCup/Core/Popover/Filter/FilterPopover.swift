@@ -9,7 +9,7 @@
 import RaLog
 
 /// Delegate for callback data.
-public protocol FilterPopoverDataDelegate: class {
+public protocol FilterPopoverDataDelegate: NSObjectProtocol {
     
     /// Execute when searching.
     ///

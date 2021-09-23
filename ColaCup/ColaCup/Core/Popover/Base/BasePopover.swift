@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol ColaCupPopoverDelegate: class {
+public protocol ColaCupPopoverDelegate: NSObjectProtocol {
     
     /// Execute when the pop-up is about to disappear.
     ///

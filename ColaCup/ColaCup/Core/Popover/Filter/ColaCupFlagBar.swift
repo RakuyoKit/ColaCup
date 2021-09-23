@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol ColaCupFlagBarDelegate: class {
+public protocol ColaCupFlagBarDelegate: NSObjectProtocol {
     
     /// The callback executed when the flag button is clicked.
     ///

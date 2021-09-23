@@ -9,7 +9,7 @@
 import UIKit
 
 /// Delegate for callback data.
-public protocol TimePopoverDataDelegate: class {
+public protocol TimePopoverDataDelegate: NSObjectProtocol {
     
     /// The callback executed after the user clicks the OK button on the pop-up.
     ///
