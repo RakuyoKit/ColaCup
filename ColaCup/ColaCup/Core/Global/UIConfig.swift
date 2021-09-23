@@ -10,7 +10,6 @@ import UIKit
 
 /// Only manage colors that are used multiple times in components
 extension UIColor {
-    
     /// Theme colors in components
     static let theme = UIColor(red:0.91, green:0.13, blue:0.23, alpha:1.00)
     
@@ -19,14 +18,11 @@ extension UIColor {
 }
 
 extension UIImage {
-    
     convenience init?(name: String) {
-        
         if #available(iOS 13.0, *), UIImage(systemName: name) != nil {
             self.init(systemName: name)
             
         } else {
-            
             if let resourcePath = Bundle(for: type(of: self)).resourcePath,
                let bundle = Bundle(path: resourcePath + "/ColaCupBundle.bundle") {
                 

@@ -10,7 +10,6 @@ import UIKit
 
 /// A view that shows that a task is in progress.
 open class ColaCupLoadingView: UIView {
-    
     public init() {
         super.init(frame: .zero)
         config()
@@ -27,7 +26,6 @@ open class ColaCupLoadingView: UIView {
     }
     
     open lazy var visualEffectView: UIVisualEffectView = {
-        
         let view = UIVisualEffectView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +36,6 @@ open class ColaCupLoadingView: UIView {
     }()
     
     open lazy var activityIndicator: UIActivityIndicatorView = {
-        
         let view = UIActivityIndicatorView(style: {
             if #available(iOS 13.0, *) { return .large }
             return .whiteLarge
@@ -52,9 +49,7 @@ open class ColaCupLoadingView: UIView {
 }
 
 extension ColaCupLoadingView {
-    
     open func show() {
-        
         guard isHidden else { return }
         
         activityIndicator.startAnimating()
@@ -63,7 +58,6 @@ extension ColaCupLoadingView {
         isHidden = false
         
         UIView.animate(withDuration: 0.15, animations: {
-            
             self.alpha = 1
             self.visualEffectView.effect = UIBlurEffect(style: .light)
             
@@ -71,16 +65,13 @@ extension ColaCupLoadingView {
     }
     
     open func hide() {
-        
         guard !isHidden else { return }
         
         UIView.animate(withDuration: 0.15, animations: {
-            
             self.alpha = 0
             self.visualEffectView.effect = nil
             
         }, completion: { _ in
-            
             self.isHidden = true
             self.activityIndicator.stopAnimating()
         })
@@ -90,9 +81,7 @@ extension ColaCupLoadingView {
 // MARK: - Config
 
 private extension ColaCupLoadingView {
-    
     func config() {
-        
         backgroundColor = .clear
         activityIndicator.color = .theme
         
@@ -101,13 +90,11 @@ private extension ColaCupLoadingView {
     }
     
     func addSubviews() {
-        
         addSubview(visualEffectView)
         addSubview(activityIndicator)
     }
     
     func addInitialLayout() {
-        
         NSLayoutConstraint.activate([
             visualEffectView.heightAnchor.constraint(equalToConstant: 90),
             visualEffectView.widthAnchor.constraint(equalToConstant: 90),

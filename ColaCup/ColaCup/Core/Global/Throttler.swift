@@ -7,10 +7,8 @@
 //
 
 import Foundation
-import UIKit
 
 public struct DispatchSemaphoreWrapper {
-    
     public init(withValue value: Int) {
         self.semaphore = DispatchSemaphore(value: value)
     }
@@ -18,7 +16,6 @@ public struct DispatchSemaphoreWrapper {
     private let semaphore: DispatchSemaphore
     
     public func sync<R>(execute: () throws -> R) rethrows -> R {
-        
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
         defer { semaphore.signal() }
         return try execute()
@@ -26,7 +23,6 @@ public struct DispatchSemaphoreWrapper {
 }
 
 public class Throttler {
-    
     public init(seconds: Double) {
         self.maxInterval = seconds
         self.semaphore = DispatchSemaphoreWrapper(withValue: 1)
@@ -41,7 +37,6 @@ public class Throttler {
     private lazy var previousRun = Date.distantPast
     
     public func execute(_ block: @escaping () -> ()) {
-        
         semaphore.sync  {
             job.cancel()
             job = DispatchWorkItem() { [weak self] in
