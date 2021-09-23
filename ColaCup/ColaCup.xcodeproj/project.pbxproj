@@ -52,6 +52,7 @@
 		3AE80458251DB3CA00CDB15B /* DetailsNormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE80457251DB3CA00CDB15B /* DetailsNormalCell.swift */; };
 		3AE80460251DCFC700CDB15B /* DetailsJSONCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE8045F251DCFC700CDB15B /* DetailsJSONCell.swift */; };
 		87ED5FC480197ED5C837C496 /* Pods_ColaCup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73412698BDDB3F5B426CF181 /* Pods_ColaCup.framework */; };
+		AEC52DEA26FC79BB00542563 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DE926FC79BB00542563 /* UIView+Layout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,7 @@
 		492D2049C2A0FF58F1AAEAE7 /* Pods-ColaCup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColaCup.release.xcconfig"; path = "Target Support Files/Pods-ColaCup/Pods-ColaCup.release.xcconfig"; sourceTree = "<group>"; };
 		73412698BDDB3F5B426CF181 /* Pods_ColaCup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColaCup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A63FB274D55AA5DC3170E95B /* Pods-ColaCup.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColaCup.debug.xcconfig"; path = "Target Support Files/Pods-ColaCup/Pods-ColaCup.debug.xcconfig"; sourceTree = "<group>"; };
+		AEC52DE926FC79BB00542563 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +220,7 @@
 				3A9CF607251B221A0060EC6F /* UIConfig.swift */,
 				3A5B63E3251ADBDD00E00BF5 /* ColaCupLoadingView.swift */,
 				3AA06563252042B6007A60CA /* Throttler.swift */,
+				AEC52DE926FC79BB00542563 /* UIView+Layout.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -571,6 +574,7 @@
 				3AAC7246254FD402008C3943 /* ShowDateView.swift in Sources */,
 				3A045D3D254C192F00B08C56 /* PickerDelegate.swift in Sources */,
 				3AB7E75F2519A70700E55926 /* DetailsViewController.swift in Sources */,
+				AEC52DEA26FC79BB00542563 /* UIView+Layout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
