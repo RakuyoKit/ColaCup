@@ -125,8 +125,6 @@ extension DetailsViewController {
         
         let bar = navigationController?.navigationBar
         
-        bar?.tintColor = .theme
-        bar?.barTintColor = nil
         bar?.isTranslucent = true
         bar?.titleTextAttributes = nil
         
