@@ -82,7 +82,10 @@ extension ColaCupLoadingView {
 
 private extension ColaCupLoadingView {
     func config() {
+        isHidden = true
         backgroundColor = .clear
+        translatesAutoresizingMaskIntoConstraints = false
+        
         activityIndicator.color = .theme
         
         addSubviews()

@@ -27,10 +27,6 @@ open class ColaCupController: UIViewController {
     /// The view displayed when the log data is loaded.
     open lazy var loadingView: ColaCupLoadingView = {
         let view = ColaCupLoadingView()
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.isHidden = true
-        
         return view
     }()
     
