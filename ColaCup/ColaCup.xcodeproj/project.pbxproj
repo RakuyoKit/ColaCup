@@ -54,6 +54,7 @@
 		AEC52DEA26FC79BB00542563 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DE926FC79BB00542563 /* UIView+Layout.swift */; };
 		AEC52DED26FDA75E00542563 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DEC26FDA75E00542563 /* SearchResultViewController.swift */; };
 		AEC52DEF26FDAA2800542563 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DEE26FDAA2800542563 /* SearchController.swift */; };
+		AEC52DF326FDBDC100542563 /* BaseLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DF226FDBDC100542563 /* BaseLogViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +130,7 @@
 		AEC52DE926FC79BB00542563 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		AEC52DEC26FDA75E00542563 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		AEC52DEE26FDAA2800542563 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
+		AEC52DF226FDBDC100542563 /* BaseLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLogViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +225,7 @@
 				3A5B63E3251ADBDD00E00BF5 /* ColaCupLoadingView.swift */,
 				3AA06563252042B6007A60CA /* Throttler.swift */,
 				AEC52DE926FC79BB00542563 /* UIView+Layout.swift */,
+				AEC52DF226FDBDC100542563 /* BaseLogViewController.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A65ABB2251B399300943B39 /* PopoverAnimation.swift in Sources */,
+				AEC52DF326FDBDC100542563 /* BaseLogViewController.swift in Sources */,
 				3A045D2F254C185F00B08C56 /* BasePickerController.swift in Sources */,
 				3AE8044E251DB29500CDB15B /* DetailsPositionCell.swift in Sources */,
 				AEC52DED26FDA75E00542563 /* SearchResultViewController.swift in Sources */,
