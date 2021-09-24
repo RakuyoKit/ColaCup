@@ -24,6 +24,16 @@ open class ColaCupController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// The view displayed when the log data is loaded.
+    open lazy var loadingView: ColaCupLoadingView = {
+        let view = ColaCupLoadingView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        
+        return view
+    }()
+    
     /// Entrance to the filter page.
     public private(set) lazy var filterButton: UIButton = createBarButton(
         imageName: "line.horizontal.3.decrease.circle",
@@ -51,16 +61,6 @@ open class ColaCupController: UIViewController {
         tableView.register(LogCell.self, forCellReuseIdentifier: "LogCell")
         
         return tableView
-    }()
-    
-    /// The view displayed when the log data is loaded.
-    open lazy var loadingView: ColaCupLoadingView = {
-        let view = ColaCupLoadingView()
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.isHidden = true
-        
-        return view
     }()
     
     /// Used to process data.
