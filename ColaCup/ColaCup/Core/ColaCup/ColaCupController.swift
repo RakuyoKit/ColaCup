@@ -27,32 +27,12 @@ open class ColaCupController: UIViewController {
     /// Used to process data.
     private let viewModel: ColaCupViewModel
     
-    /// Top toolbar.
-    open lazy var toolBar: ColaCupToolBar = {
-        
-        let bar = ColaCupToolBar()
-        
-        bar.translatesAutoresizingMaskIntoConstraints = false
-        
-        // closeButton
-        bar.closeButton.addTarget(self, action: #selector(closeButtonDidClick(_:)), for: .touchUpInside)
-        
-        // sortButton
-        bar.sortButton.tag = 1
-        bar.sortButton.addTarget(self, action: #selector(sortButtonDidClick(_:)), for: .touchUpInside)
-        
-        // timeButton
-        bar.timeButton.addTarget(self, action: #selector(timeButtonDidClick(_:)), for: .touchUpInside)
-        
-        // filterButton
-        bar.filterButton.addTarget(self, action: #selector(filterButtonDidClick(_:)), for: .touchUpInside)
-        
-        [bar.closeButton, bar.sortButton, bar.timeButton, bar.filterButton].forEach {
-            $0.addTarget(self, action: #selector(buttonDidTouchDown(_:)), for: .touchDown)
-        }
-        
-        return bar
-    }()
+    /// Entrance to the filter page.
+    public private(set) lazy var filterButton: UIButton = createBarButton(
+        imageName: "line.horizontal.3.decrease.circle",
+        selectImageName: "line.horizontal.3.decrease.circle.fill",
+        action: #selector(filterButtonDidClick(_:))
+    )
     
     /// The view responsible for displaying the log.
     open lazy var logsView: UITableView = {
@@ -86,9 +66,6 @@ open class ColaCupController: UIViewController {
         return view
     }()
     
-    /// Whether the pop-up window is being displayed.
-    private lazy var isShowingPopover = false
-    
     /// Used to provide vibration feedback.
     private lazy var feedbackGenerator = UISelectionFeedbackGenerator()
 }
@@ -111,18 +88,10 @@ extension ColaCupController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        toolBar.timeButton.isEnabled = true
-        toolBar.filterButton.isEnabled = true
+        filterButton.isEnabled = true
         
         // Cancel the selected effect of the selected Cell.
         deselectRowIfNeeded()
-    }
-    
-    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        guard isShowingPopover else { return }
-        
-        // Close popover when rotating the screen
-        self.dismiss(animated: true, completion: nil)
     }
     
     open override var shouldAutorotate: Bool { true }
@@ -136,16 +105,24 @@ private extension ColaCupController {
     func configNavigationBar() {
         let bar = navigationController?.navigationBar
         
-        navigationItem.title = "ColaCup"
-        if #available(iOS 11.0, *) {
-            navigationItem.largeTitleDisplayMode = .automatic
-            bar?.prefersLargeTitles = true
-        }
-        
         bar?.tintColor = .theme
         bar?.isTranslucent = true
         bar?.backIndicatorImage = nil
         bar?.backIndicatorTransitionMaskImage = nil
+        
+        navigationItem.title = "ColaCup"
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: filterButton)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: createBarButton(
+            imageName: "xmark.circle",
+            selectImageName: "xmark.circle.fill",
+            action: #selector(closeButtonDidClick(_:))
+        ))
+        
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .automatic
+            bar?.prefersLargeTitles = true
+        }
     }
     
     func addSubviews() {
@@ -175,6 +152,28 @@ private extension ColaCupController {
         ])
     }
     
+    func createBarButton(imageName: String, selectImageName: String, action: Selector) -> UIButton {
+        let button = UIButton(type: .custom)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.isEnabled = true
+        button.tintColor = .theme
+        button.setImage(UIImage(name: imageName), for: .normal)
+        button.setImage(UIImage(name: selectImageName), for: .selected)
+        
+        if #available(iOS 13.0, *) {
+            let config = UIImage.SymbolConfiguration(pointSize: 40 * 0.55)
+            button.setPreferredSymbolConfiguration(config, forImageIn: .normal)
+            button.setPreferredSymbolConfiguration(config, forImageIn: .selected)
+        }
+        
+        button.addTarget(self, action: #selector(buttonDidTouchDown(_:)), for: .touchDown)
+        button.addTarget(self, action: action, for: .touchUpInside)
+        
+        return button
+    }
+    
     func startProcessingData() {
         loadingView.show()
         
@@ -202,93 +201,29 @@ extension ColaCupController {
     /// - Parameter button: `toolBar.closeButton`.
     @objc open func closeButtonDidClick(_ button: UIButton) {
         feedbackGenerator.selectionChanged()
-        dismiss(animated: true, completion: nil)
-    }
-    
-    /// Time button click event.
-    ///
-    /// - Parameter button: `toolBar.timeButton`.
-    @objc open func timeButtonDidClick(_ button: UIButton) {
-        feedbackGenerator.selectionChanged()
         
         button.isEnabled = false
-        
-        let rect = button.convert(button.bounds, to: UIApplication.shared.delegate!.window!)
-        
-        let popover = TimePopover(
-            position: CGPoint(x: rect.midX, y: rect.maxY),
-            dataSource: viewModel.timeModel
-        )
-        
-        popover.delegate = self
-        popover.dataDelegate = self
-        
-        present(popover, animated: true) { self.isShowingPopover = true }
+        dismiss(animated: true)
     }
     
     /// Filter button click event.
     ///
-    /// - Parameter button: `toolBar.filterButton`.
+    /// - Parameter button: `filterButton`.
     @objc open func filterButtonDidClick(_ button: UIButton) {
         feedbackGenerator.selectionChanged()
         
         button.isEnabled = false
         
-        let rect = button.convert(button.bounds, to: UIApplication.shared.delegate!.window!)
         
-        let popover = FilterPopover(
-            position: CGPoint(x: rect.midX, y: rect.maxY),
-            dataSource: viewModel.filterModel
-        )
         
-        popover.delegate = self
-        popover.dataDelegate = self
-        
-        present(popover, animated: true) { self.isShowingPopover = true }
-    }
-    
-    /// Sort button click event.
-    ///
-    /// - Parameter button: `toolBar.sortButton`.
-    @objc open func sortButtonDidClick(_ button: UIButton) {
-        
-        feedbackGenerator.selectionChanged()
-        
-        if button.tag == 1 {
-            button.tag = 2
-            button.setImage(UIImage(name: "arrow.counterclockwise.circle"), for: .normal)
-            
-        } else {
-            button.tag = 1
-            button.setImage(UIImage(name: "arrow.clockwise.circle"), for: .normal)
-        }
-        
-        viewModel.reverseDataSource()
-        logsView.reloadData()
-    }
-}
-
-// MARK: - ColaCupPopoverDelegate
-
-extension ColaCupController: ColaCupPopoverDelegate {
-    
-    public func popoverWillDisappear<Popover>(_ popover: Popover) where Popover : BasePopover {
-        
-        isShowingPopover = false
-        
-        toolBar.timeButton.isEnabled = true
-        toolBar.filterButton.isEnabled = true
     }
 }
 
 // MARK: - TimePopoverDataDelegate
 
 extension ColaCupController: TimePopoverDataDelegate {
-    
     public func timePopover(_ popover: TimePopover, didChangedViewedLogDate model: TimePopoverModel) {
-        
         viewModel.updateTimeModel(model)
-        
         refreshLogData(executeImmediately: true)
     }
 }
@@ -318,17 +253,6 @@ extension ColaCupController: FilterPopoverDataDelegate {
         refreshLogData(executeImmediately: false)
     }
 }
-
-//// MARK: - UINavigationControllerDelegate
-//
-//extension ColaCupController: UINavigationControllerDelegate {
-//
-//    public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-//
-//        let isHide = viewController is ColaCupController
-//        navigationController.setNavigationBarHidden(isHide, animated: animated)
-//    }
-//}
 
 // MARK: - UITableViewDelegate
 
