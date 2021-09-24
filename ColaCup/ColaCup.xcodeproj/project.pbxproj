@@ -53,6 +53,7 @@
 		87ED5FC480197ED5C837C496 /* Pods_ColaCup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73412698BDDB3F5B426CF181 /* Pods_ColaCup.framework */; };
 		AEC52DEA26FC79BB00542563 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DE926FC79BB00542563 /* UIView+Layout.swift */; };
 		AEC52DED26FDA75E00542563 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DEC26FDA75E00542563 /* SearchResultViewController.swift */; };
+		AEC52DEF26FDAA2800542563 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DEE26FDAA2800542563 /* SearchController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +128,7 @@
 		A63FB274D55AA5DC3170E95B /* Pods-ColaCup.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColaCup.debug.xcconfig"; path = "Target Support Files/Pods-ColaCup/Pods-ColaCup.debug.xcconfig"; sourceTree = "<group>"; };
 		AEC52DE926FC79BB00542563 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		AEC52DEC26FDA75E00542563 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		AEC52DEE26FDAA2800542563 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -338,6 +340,7 @@
 		AEC52DEB26FDA74B00542563 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				AEC52DEE26FDAA2800542563 /* SearchController.swift */,
 				AEC52DEC26FDA75E00542563 /* SearchResultViewController.swift */,
 			);
 			path = Search;
@@ -567,6 +570,7 @@
 				3A5B63DF2519F46F00E00BF5 /* ColaCupFlagBar.swift in Sources */,
 				3A7EBCB4253D73540085EF5F /* TimePopover.swift in Sources */,
 				3A4A91CC253987C9003C5957 /* FilterPopover.swift in Sources */,
+				AEC52DEF26FDAA2800542563 /* SearchController.swift in Sources */,
 				3A447679254FDB500086B983 /* DatePickerController.swift in Sources */,
 				3ABF4898253D25CD00909FBE /* TimePopoverModel.swift in Sources */,
 				3A5B63E4251ADBDD00E00BF5 /* ColaCupLoadingView.swift in Sources */,
