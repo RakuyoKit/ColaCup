@@ -13,3 +13,11 @@ class SearchResultViewController: UIViewController {
     
     
 }
+
+// MARK: - UISearchResultsUpdating
+
+extension SearchResultViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+}
