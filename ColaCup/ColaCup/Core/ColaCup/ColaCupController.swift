@@ -62,6 +62,8 @@ open class ColaCupController: UIViewController {
         
         return tableView
     }()
+    /// Controller for searching logs.
+    private lazy var searchController = SearchController()
     
     /// Used to process data.
     private let viewModel: ColaCupViewModel
@@ -120,8 +122,11 @@ private extension ColaCupController {
         ))
         
         if #available(iOS 11.0, *) {
-            navigationItem.largeTitleDisplayMode = .automatic
             bar?.prefersLargeTitles = true
+            navigationItem.largeTitleDisplayMode = .automatic
+            
+            navigationItem.searchController = searchController
+            navigationItem.hidesSearchBarWhenScrolling = false
         }
     }
     
