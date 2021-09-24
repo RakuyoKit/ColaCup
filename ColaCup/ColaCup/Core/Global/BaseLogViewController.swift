@@ -22,6 +22,9 @@ open class BaseLogViewController: UITableViewController {
     
     /// The view displayed when the log data is loaded.
     open lazy var loadingView = ColaCupLoadingView()
+    
+    /// The index of the cell clicked by the user.
+    private lazy var clickedIndex: IndexPath? = nil
 }
 
 extension BaseLogViewController {
@@ -70,12 +73,20 @@ private extension BaseLogViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
+
+extension BaseLogViewController {
+    open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        clickedIndex = indexPath
+    }
+}
+
 // MARK: - Tools
 
 private extension BaseLogViewController {
     /// Cancel the selected effect of the selected Cell.
     func deselectRowIfNeeded() {
-        guard let selectedIndexPath = tableView.indexPathForSelectedRow else { return }
+        guard let selectedIndexPath = tableView.indexPathForSelectedRow ?? clickedIndex else { return }
         
         guard let coordinator = transitionCoordinator else {
             tableView.deselectRow(at: selectedIndexPath, animated: true)

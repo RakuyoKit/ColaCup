@@ -50,6 +50,8 @@ extension ColaCupController {
         
         configNavigationBar()
         startProcessingData()
+        
+        searchController.resultController.delegate = self
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -155,6 +157,89 @@ extension ColaCupController {
     }
 }
 
+// MARK: - UITableViewDelegate
+
+extension ColaCupController {
+    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        super.tableView(tableView, didSelectRowAt: indexPath)
+        
+        navigationController?.pushViewController(DetailsViewController(log: viewModel.showLogs[indexPath.row]), animated: true)
+    }
+}
+
+// MARK: - UITableViewDataSource
+
+extension ColaCupController {
+    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.showLogs.count
+    }
+    
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let log = viewModel.showLogs[indexPath.row]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LogCell", for: indexPath) as! LogCell
+        
+        cell.flagLabel.text = log.flag
+        cell.timeLabel.text = log.formatTime
+        cell.logLabel.text = log.safeLog
+        
+        if traitCollection.forceTouchCapability == .available {
+            registerForPreviewing(with: self, sourceView: cell)
+        }
+        
+        return cell
+    }
+}
+
+// MARK: - UIViewControllerPreviewingDelegate
+
+extension ColaCupController: UIViewControllerPreviewingDelegate {
+    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let cell = previewingContext.sourceView as? UITableViewCell,
+              let indexPath = tableView.indexPath(for: cell) else {
+            return nil
+        }
+        
+        return DetailsViewController(log: viewModel.showLogs[indexPath.row])
+    }
+    
+    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
+    }
+}
+
+// MARK: - UISearchControllerDelegate
+
+extension ColaCupController: SearchResultViewControllerDelegate {
+    func searchResult(_ resultController: SearchResultViewController, search keyword: String, result: @escaping ([LogModelProtocol]) -> Void) {
+        viewModel.search(by: keyword, executeImmediately: true, completion: result)
+    }
+    
+    func searchResult(_ resultController: SearchResultViewController, didClickResult log: LogModelProtocol) {
+        navigationController?.pushViewController(DetailsViewController(log: log), animated: true)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // MARK: - TimePopoverDataDelegate
 
 extension ColaCupController: TimePopoverDataDelegate {
@@ -190,73 +275,16 @@ extension ColaCupController: FilterPopoverDataDelegate {
     }
 }
 
-// MARK: - UITableViewDelegate
-
-extension ColaCupController {
-    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(DetailsViewController(log: viewModel.showLogs[indexPath.row]), animated: true)
-    }
-}
-
-// MARK: - UITableViewDataSource
-
-extension ColaCupController {
-    
-    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.showLogs.count
-    }
-    
-    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LogCell", for: indexPath) as! LogCell
-        
-        let log = viewModel.showLogs[indexPath.row]
-        
-        cell.flagLabel.text = log.flag
-        cell.timeLabel.text = log.formatTime
-        cell.logLabel.text = log.safeLog
-        
-        if traitCollection.forceTouchCapability == .available {
-            registerForPreviewing(with: self, sourceView: cell)
-        }
-        
-        return cell
-    }
-}
-
-// MARK: - UIViewControllerPreviewingDelegate
-
-extension ColaCupController: UIViewControllerPreviewingDelegate {
-    
-    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        
-        guard let cell = previewingContext.sourceView as? UITableViewCell,
-              let indexPath = tableView.indexPath(for: cell) else {
-            return nil
-        }
-        
-        return DetailsViewController(log: viewModel.showLogs[indexPath.row])
-    }
-    
-    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        
-        navigationController?.pushViewController(viewControllerToCommit, animated: true)
-    }
-}
-
 // MARK: - Tools
 
 private extension ColaCupController {
-    
     /// Refresh log data.
     /// 
     /// - Parameter executeImmediately: Whether to perform the search immediately.
     func refreshLogData(executeImmediately: Bool) {
-        
         loadingView.show()
         
         viewModel.refreshLogData(executeImmediately: executeImmediately) { [weak self] in
-            
             guard let this = self else { return }
             
             this.loadingView.hide()
