@@ -24,9 +24,6 @@ open class ColaCupController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /// Used to process data.
-    private let viewModel: ColaCupViewModel
-    
     /// Entrance to the filter page.
     public private(set) lazy var filterButton: UIButton = createBarButton(
         imageName: "line.horizontal.3.decrease.circle",
@@ -65,6 +62,9 @@ open class ColaCupController: UIViewController {
         
         return view
     }()
+    
+    /// Used to process data.
+    private let viewModel: ColaCupViewModel
     
     /// Used to provide vibration feedback.
     private lazy var feedbackGenerator = UISelectionFeedbackGenerator()
