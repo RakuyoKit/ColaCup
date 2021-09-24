@@ -9,8 +9,7 @@
 import UIKit
 
 /// Controller for displaying search results.
-class SearchResultViewController: UIViewController {
-    
+class SearchResultViewController: BaseLogViewController {
     
 }
 
