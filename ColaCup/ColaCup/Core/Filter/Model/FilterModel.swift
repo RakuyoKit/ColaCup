@@ -27,6 +27,19 @@ public struct FilterModel {
     public var modules: [SelectedModel<String>] = [.all]
 }
 
+public extension FilterModel {
+    /// Reset filter items
+    mutating func reset() {
+        sort = .default
+        timeRange = .default
+        flags = flags.map { .init(value: $0.value) }
+        modules = modules.map { .init(value: $0.value) }
+        
+        flags[0].isSelected = true
+        modules[0].isSelected = true
+    }
+}
+
 // MARK: - Equatable
 
 extension FilterModel: Equatable {}

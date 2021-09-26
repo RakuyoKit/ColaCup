@@ -17,8 +17,8 @@ public class ColaCupViewModel {
         self.logManager = logManager
     }
     
-    /// Log manager.
-    private let logManager: Storable.Type
+    /// The log data to be displayed.
+    public lazy var showLogs: [LogModelProtocol] = []
     
     /// currently selected filter condition.
     public private(set) lazy var filterModel = FilterModel() {
@@ -29,11 +29,14 @@ public class ColaCupViewModel {
         }
     }
     
-    /// The log data to be displayed.
-    public lazy var showLogs: [LogModelProtocol] = []
+    /// Log manager.
+    private let logManager: Storable.Type
     
     /// Contains the complete log data under the current date.
     private lazy var integralLogs: [LogModelProtocol] = []
+    
+    /// Record the initial filter entries.
+    private lazy var initialFilterModel = FilterModel()
     
     /// Used to restrict the execution of search functions.
     private lazy var throttler = Throttler(seconds: 0.3)
@@ -79,6 +82,9 @@ public extension ColaCupViewModel {
             var _modules = Array(moduleSet).sorted().map { SelectedModel(value: $0) }
             _modules.insert(.all, at: 0)
             this.filterModel.modules = _modules
+            
+            // 4. Record an initial value
+            this.initialFilterModel = this.filterModel
         }
     }
     
@@ -136,6 +142,14 @@ public extension ColaCupViewModel {
             // 4. Store filter results
             this.showLogs = logs
         }
+    }
+    
+    /// Is a filter item currently selected.
+    ///
+    /// - Parameter newFilter: Data to be judged.
+    /// - Returns: Does it contain a filter item.
+    func isHasFilterItem(with newFilter: FilterModel) -> Bool {
+        return newFilter != initialFilterModel
     }
     
     /// Search for logs based on keywords.

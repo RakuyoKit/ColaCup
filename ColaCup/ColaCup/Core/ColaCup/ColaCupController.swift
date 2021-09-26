@@ -236,7 +236,10 @@ extension ColaCupController: FilterViewControllerDelegate {
     }
     
     public func filter(_ controller: FilterViewController, didClickDoneButton button: UIButton, filter: FilterModel) {
+        guard filter != viewModel.filterModel else { return }
+        
         loadingView.show()
+        filterButton.isSelected = viewModel.isHasFilterItem(with: filter)
         
         viewModel.filter(by: filter) { [weak self] in
             guard let this = self else { return }
