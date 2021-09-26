@@ -44,7 +44,6 @@ open class ColaCupController: BaseLogViewController {
 // MARK: - Life cycle
 
 extension ColaCupController {
-    
     open override func viewDidLoad() {
         super.viewDidLoad()
         

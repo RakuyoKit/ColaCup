@@ -50,14 +50,6 @@ class SearchResultViewController: BaseLogViewController {
     private lazy var lastKeyword: String = ""
 }
 
-extension SearchResultViewController {
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        print("viewWillAppear")
-    }
-}
-
 // MARK: - UISearchResultsUpdating
 
 extension SearchResultViewController: UISearchResultsUpdating {

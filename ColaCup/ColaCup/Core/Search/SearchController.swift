@@ -29,6 +29,8 @@ class SearchController: UISearchController {
     private lazy var isShown = false
 }
 
+// MARK: - Life cycle
+
 extension SearchController {
     override func viewDidLoad() {
         super.viewDidLoad()
