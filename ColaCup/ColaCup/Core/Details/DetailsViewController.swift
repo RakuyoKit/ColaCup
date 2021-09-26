@@ -319,7 +319,6 @@ private extension DetailsViewController {
 extension DetailsViewController: UIScreenshotServiceDelegate {
     @available(iOS 13.0, *)
     public func screenshotService(_ screenshotService: UIScreenshotService, generatePDFRepresentationWithCompletion completionHandler: @escaping (Data?, Int, CGRect) -> Void) {
-        
         guard let image = createScreenshot() else {
             completionHandler(nil, 0, .zero)
             return
@@ -397,7 +396,6 @@ extension DetailsViewController: UITableViewDataSource {
         switch model.type {
         case .normal:
             let cell = _cell as! DetailsNormalCell
-            
             cell.textLabel?.text = model.value
             
         case .position:

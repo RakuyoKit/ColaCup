@@ -16,7 +16,7 @@ open class TableView: UITableView {
         }())
         
         translatesAutoresizingMaskIntoConstraints = false
-        rowHeight =  UITableView.automaticDimension
+        rowHeight = UITableView.automaticDimension
         separatorColor = UIColor.theme.withAlphaComponent(0.2)
     }
     

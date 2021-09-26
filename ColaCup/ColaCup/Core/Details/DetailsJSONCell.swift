@@ -10,21 +10,17 @@ import JSONPreview
 
 /// Used in the detail page, the cell that displays the json.
 open class DetailsJSONCell: UITableViewCell {
-    
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         config()
     }
     
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         config()
     }
     
     open lazy var jsonView: JSONPreview = {
-    
         let view = JSONPreview()
         
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -36,9 +32,7 @@ open class DetailsJSONCell: UITableViewCell {
 // MARK: - Config
 
 private extension DetailsJSONCell {
-    
     func config() {
-        
         selectionStyle = .none
         
         addSubviews()
@@ -46,12 +40,10 @@ private extension DetailsJSONCell {
     }
     
     func addSubviews() {
-        
         contentView.addSubview(jsonView)
     }
     
     func addInitialLayout() {
-        
         NSLayoutConstraint.activate([
             jsonView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             jsonView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
