@@ -59,6 +59,7 @@
 		AEC52DF8270025D100542563 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DF7270025D100542563 /* FilterViewController.swift */; };
 		AEC52DFA2700387700542563 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DF92700387700542563 /* FilterViewModel.swift */; };
 		AEC52DFC27003ACC00542563 /* FilterTimeRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DFB27003ACC00542563 /* FilterTimeRange.swift */; };
+		AEC52E0127003DF800542563 /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E0027003DF800542563 /* FilterModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,7 @@
 		AEC52DF7270025D100542563 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		AEC52DF92700387700542563 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 		AEC52DFB27003ACC00542563 /* FilterTimeRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTimeRange.swift; sourceTree = "<group>"; };
+		AEC52E0027003DF800542563 /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,6 +367,7 @@
 			children = (
 				3A9CF5F9251AED510060EC6F /* SelectedModel.swift */,
 				AEC52DFB27003ACC00542563 /* FilterTimeRange.swift */,
+				AEC52E0027003DF800542563 /* FilterModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -595,6 +598,7 @@
 				3AC29080251C804F007CCD49 /* LogFlagButton.swift in Sources */,
 				3A5B63DF2519F46F00E00BF5 /* ColaCupFlagBar.swift in Sources */,
 				3A7EBCB4253D73540085EF5F /* TimePopover.swift in Sources */,
+				AEC52E0127003DF800542563 /* FilterModel.swift in Sources */,
 				AEC52DF52700049F00542563 /* TableView.swift in Sources */,
 				3A4A91CC253987C9003C5957 /* FilterPopover.swift in Sources */,
 				AEC52DEF26FDAA2800542563 /* SearchController.swift in Sources */,
