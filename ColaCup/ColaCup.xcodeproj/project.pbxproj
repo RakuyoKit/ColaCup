@@ -7,33 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A045D28254C14B300B08C56 /* TimePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A045D26254C14B300B08C56 /* TimePickerController.swift */; };
-		3A045D29254C14B300B08C56 /* PickerAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A045D27254C14B300B08C56 /* PickerAnimation.swift */; };
-		3A045D2F254C185F00B08C56 /* BasePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A045D2E254C185F00B08C56 /* BasePickerController.swift */; };
-		3A045D3D254C192F00B08C56 /* PickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A045D3C254C192F00B08C56 /* PickerDelegate.swift */; };
-		3A0ACA85254BAB6B00BC9242 /* SelectPeriodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0ACA84254BAB6B00BC9242 /* SelectPeriodView.swift */; };
-		3A447679254FDB500086B983 /* DatePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A447678254FDB500086B983 /* DatePickerController.swift */; };
-		3A4A91CC253987C9003C5957 /* FilterPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A91CB253987C9003C5957 /* FilterPopover.swift */; };
-		3A4A91D425398808003C5957 /* FilterPopoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A91D325398808003C5957 /* FilterPopoverViewModel.swift */; };
-		3A5B63DF2519F46F00E00BF5 /* ColaCupFlagBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B63DE2519F46F00E00BF5 /* ColaCupFlagBar.swift */; };
 		3A5B63E4251ADBDD00E00BF5 /* ColaCupLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B63E3251ADBDD00E00BF5 /* ColaCupLoadingView.swift */; };
 		3A649E3C25199F7500DED905 /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A649E3B25199F7500DED905 /* default.png */; };
-		3A65ABB2251B399300943B39 /* PopoverAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A65ABB1251B399300943B39 /* PopoverAnimation.swift */; };
-		3A66029925399E350006FC28 /* BasePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A66029825399E350006FC28 /* BasePopover.swift */; };
-		3A7A9B89253D828800C7D606 /* SelectDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7A9B88253D828800C7D606 /* SelectDataView.swift */; };
-		3A7EBCB4253D73540085EF5F /* TimePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7EBCB3253D73540085EF5F /* TimePopover.swift */; };
 		3A8F79252536A7C5007E6C90 /* push.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3A8F79232536A7C5007E6C90 /* push.sh */; };
 		3A8F79262536A7C5007E6C90 /* ColaCup.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3A8F79242536A7C5007E6C90 /* ColaCup.podspec */; };
 		3A9CF5FA251AED510060EC6F /* SelectedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9CF5F9251AED510060EC6F /* SelectedModel.swift */; };
 		3A9CF608251B221A0060EC6F /* UIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9CF607251B221A0060EC6F /* UIConfig.swift */; };
 		3AA06564252042B6007A60CA /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA06563252042B6007A60CA /* Throttler.swift */; };
-		3AAC7246254FD402008C3943 /* ShowDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC7245254FD402008C3943 /* ShowDateView.swift */; };
 		3AB7E75F2519A70700E55926 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7E75E2519A70700E55926 /* DetailsViewController.swift */; };
-		3AB7E7CA2519C17100E55926 /* ColaCupSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */; };
-		3ABF4890253D256800909FBE /* FilterPopoverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABF488F253D256800909FBE /* FilterPopoverModel.swift */; };
-		3ABF4898253D25CD00909FBE /* TimePopoverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABF4897253D25CD00909FBE /* TimePopoverModel.swift */; };
 		3AC29027251C3F21007CCD49 /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC29026251C3F21007CCD49 /* LogCell.swift */; };
-		3AC29080251C804F007CCD49 /* LogFlagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC2907F251C804F007CCD49 /* LogFlagButton.swift */; };
 		3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFAF25198C8D00D2CD16 /* AppDelegate.swift */; };
 		3AD9BFB425198C8D00D2CD16 /* VeryVeryVeryVeryVeryVeryLongFileName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFB325198C8D00D2CD16 /* VeryVeryVeryVeryVeryVeryLongFileName.swift */; };
 		3AD9BFB725198C8D00D2CD16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AD9BFB525198C8D00D2CD16 /* Main.storyboard */; };
@@ -43,7 +25,6 @@
 		3AD9BFD225198C9000D2CD16 /* ColaCupUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFD125198C9000D2CD16 /* ColaCupUITests.swift */; };
 		3AD9BFF425198CF700D2CD16 /* ColaCupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFF225198CF700D2CD16 /* ColaCupController.swift */; };
 		3AD9BFF525198CF700D2CD16 /* ColaCupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */; };
-		3ADBD77A254BA16F00D2A9C5 /* ShowTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADBD779254BA16F00D2A9C5 /* ShowTimeView.swift */; };
 		3AE8043B251D95AF00CDB15B /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE8043A251D95AF00CDB15B /* DetailsViewModel.swift */; };
 		3AE80443251D9BD700CDB15B /* DetailsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE80442251D9BD700CDB15B /* DetailsListModel.swift */; };
 		3AE8044E251DB29500CDB15B /* DetailsPositionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE8044D251DB29500CDB15B /* DetailsPositionCell.swift */; };
@@ -82,33 +63,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3A045D26254C14B300B08C56 /* TimePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerController.swift; sourceTree = "<group>"; };
-		3A045D27254C14B300B08C56 /* PickerAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerAnimation.swift; sourceTree = "<group>"; };
-		3A045D2E254C185F00B08C56 /* BasePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePickerController.swift; sourceTree = "<group>"; };
-		3A045D3C254C192F00B08C56 /* PickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDelegate.swift; sourceTree = "<group>"; };
-		3A0ACA84254BAB6B00BC9242 /* SelectPeriodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPeriodView.swift; sourceTree = "<group>"; };
-		3A447678254FDB500086B983 /* DatePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerController.swift; sourceTree = "<group>"; };
-		3A4A91CB253987C9003C5957 /* FilterPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPopover.swift; sourceTree = "<group>"; };
-		3A4A91D325398808003C5957 /* FilterPopoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPopoverViewModel.swift; sourceTree = "<group>"; };
-		3A5B63DE2519F46F00E00BF5 /* ColaCupFlagBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupFlagBar.swift; sourceTree = "<group>"; };
 		3A5B63E3251ADBDD00E00BF5 /* ColaCupLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupLoadingView.swift; sourceTree = "<group>"; };
 		3A649E3B25199F7500DED905 /* default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default.png; sourceTree = "<group>"; };
-		3A65ABB1251B399300943B39 /* PopoverAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverAnimation.swift; sourceTree = "<group>"; };
-		3A66029825399E350006FC28 /* BasePopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePopover.swift; sourceTree = "<group>"; };
-		3A7A9B88253D828800C7D606 /* SelectDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDataView.swift; sourceTree = "<group>"; };
-		3A7EBCB3253D73540085EF5F /* TimePopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePopover.swift; sourceTree = "<group>"; };
 		3A8F79232536A7C5007E6C90 /* push.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = push.sh; sourceTree = SOURCE_ROOT; };
 		3A8F79242536A7C5007E6C90 /* ColaCup.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = ColaCup.podspec; sourceTree = SOURCE_ROOT; };
 		3A9CF5F9251AED510060EC6F /* SelectedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedModel.swift; sourceTree = "<group>"; };
 		3A9CF607251B221A0060EC6F /* UIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConfig.swift; sourceTree = "<group>"; };
 		3AA06563252042B6007A60CA /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
-		3AAC7245254FD402008C3943 /* ShowDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDateView.swift; sourceTree = "<group>"; };
 		3AB7E75E2519A70700E55926 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
-		3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCupSearchBar.swift; sourceTree = "<group>"; };
-		3ABF488F253D256800909FBE /* FilterPopoverModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPopoverModel.swift; sourceTree = "<group>"; };
-		3ABF4897253D25CD00909FBE /* TimePopoverModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePopoverModel.swift; sourceTree = "<group>"; };
 		3AC29026251C3F21007CCD49 /* LogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCell.swift; sourceTree = "<group>"; };
-		3AC2907F251C804F007CCD49 /* LogFlagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFlagButton.swift; sourceTree = "<group>"; };
 		3AD9BFAC25198C8D00D2CD16 /* ColaCup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColaCup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AD9BFAF25198C8D00D2CD16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AD9BFB325198C8D00D2CD16 /* VeryVeryVeryVeryVeryVeryLongFileName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeryVeryVeryVeryVeryVeryLongFileName.swift; sourceTree = "<group>"; };
@@ -124,7 +87,6 @@
 		3AD9BFD325198C9000D2CD16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AD9BFF225198CF700D2CD16 /* ColaCupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColaCupController.swift; sourceTree = "<group>"; };
 		3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColaCupViewModel.swift; sourceTree = "<group>"; };
-		3ADBD779254BA16F00D2A9C5 /* ShowTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeView.swift; sourceTree = "<group>"; };
 		3AE8043A251D95AF00CDB15B /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 		3AE80442251D9BD700CDB15B /* DetailsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsListModel.swift; sourceTree = "<group>"; };
 		3AE8044D251DB29500CDB15B /* DetailsPositionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPositionCell.swift; sourceTree = "<group>"; };
@@ -173,64 +135,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3A045D25254C14B300B08C56 /* Picker */ = {
-			isa = PBXGroup;
-			children = (
-				3A045D27254C14B300B08C56 /* PickerAnimation.swift */,
-				3A045D3C254C192F00B08C56 /* PickerDelegate.swift */,
-				3A045D2E254C185F00B08C56 /* BasePickerController.swift */,
-				3A447678254FDB500086B983 /* DatePickerController.swift */,
-				3A045D26254C14B300B08C56 /* TimePickerController.swift */,
-			);
-			path = Picker;
-			sourceTree = "<group>";
-		};
-		3A66028F25399D7A0006FC28 /* Popover */ = {
-			isa = PBXGroup;
-			children = (
-				3A9924D0253D24CC001BB23C /* Base */,
-				3A9924CF253D24C4001BB23C /* Filter */,
-				3A9924D1253D24D8001BB23C /* Time */,
-				3A045D25254C14B300B08C56 /* Picker */,
-			);
-			path = Popover;
-			sourceTree = "<group>";
-		};
-		3A9924CF253D24C4001BB23C /* Filter */ = {
-			isa = PBXGroup;
-			children = (
-				3ABF488F253D256800909FBE /* FilterPopoverModel.swift */,
-				3A4A91D325398808003C5957 /* FilterPopoverViewModel.swift */,
-				3A4A91CB253987C9003C5957 /* FilterPopover.swift */,
-				3AB7E7C92519C17100E55926 /* ColaCupSearchBar.swift */,
-				3A5B63DE2519F46F00E00BF5 /* ColaCupFlagBar.swift */,
-				3AC2907F251C804F007CCD49 /* LogFlagButton.swift */,
-			);
-			path = Filter;
-			sourceTree = "<group>";
-		};
-		3A9924D0253D24CC001BB23C /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				3A66029825399E350006FC28 /* BasePopover.swift */,
-				3A65ABB1251B399300943B39 /* PopoverAnimation.swift */,
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
-		3A9924D1253D24D8001BB23C /* Time */ = {
-			isa = PBXGroup;
-			children = (
-				3ABF4897253D25CD00909FBE /* TimePopoverModel.swift */,
-				3A7EBCB3253D73540085EF5F /* TimePopover.swift */,
-				3A7A9B88253D828800C7D606 /* SelectDataView.swift */,
-				3A0ACA84254BAB6B00BC9242 /* SelectPeriodView.swift */,
-				3AAC7245254FD402008C3943 /* ShowDateView.swift */,
-				3ADBD779254BA16F00D2A9C5 /* ShowTimeView.swift */,
-			);
-			path = Time;
-			sourceTree = "<group>";
-		};
 		3A9CF606251B220B0060EC6F /* Global */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,7 +203,6 @@
 				3A8F79242536A7C5007E6C90 /* ColaCup.podspec */,
 				3AD9BFF125198CF700D2CD16 /* Core */,
 				3AD9BFE225198CB700D2CD16 /* Other */,
-				3A66028F25399D7A0006FC28 /* Popover */,
 			);
 			path = ColaCup;
 			sourceTree = "<group>";
@@ -581,51 +484,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A65ABB2251B399300943B39 /* PopoverAnimation.swift in Sources */,
 				AEC52DF326FDBDC100542563 /* BaseLogViewController.swift in Sources */,
-				3A045D2F254C185F00B08C56 /* BasePickerController.swift in Sources */,
 				3AE8044E251DB29500CDB15B /* DetailsPositionCell.swift in Sources */,
 				AEC52DED26FDA75E00542563 /* SearchResultViewController.swift in Sources */,
-				3A4A91D425398808003C5957 /* FilterPopoverViewModel.swift in Sources */,
 				AEC52E0927005FBD00542563 /* FilterDoneButtonView.swift in Sources */,
 				3AD9BFF425198CF700D2CD16 /* ColaCupController.swift in Sources */,
-				3A66029925399E350006FC28 /* BasePopover.swift in Sources */,
 				3AE80443251D9BD700CDB15B /* DetailsListModel.swift in Sources */,
 				AEC52DFC27003ACC00542563 /* FilterTimeRange.swift in Sources */,
 				3AE8043B251D95AF00CDB15B /* DetailsViewModel.swift in Sources */,
 				3AE80453251DB39D00CDB15B /* DetailsFunctionCell.swift in Sources */,
 				3AE80460251DCFC700CDB15B /* DetailsJSONCell.swift in Sources */,
-				3AB7E7CA2519C17100E55926 /* ColaCupSearchBar.swift in Sources */,
 				3AC29027251C3F21007CCD49 /* LogCell.swift in Sources */,
 				3AE80458251DB3CA00CDB15B /* DetailsNormalCell.swift in Sources */,
-				3A045D28254C14B300B08C56 /* TimePickerController.swift in Sources */,
-				3ABF4890253D256800909FBE /* FilterPopoverModel.swift in Sources */,
 				AEC52DF8270025D100542563 /* FilterViewController.swift in Sources */,
 				AEC52E052700418700542563 /* Sort.swift in Sources */,
-				3A045D29254C14B300B08C56 /* PickerAnimation.swift in Sources */,
-				3AC29080251C804F007CCD49 /* LogFlagButton.swift in Sources */,
-				3A5B63DF2519F46F00E00BF5 /* ColaCupFlagBar.swift in Sources */,
-				3A7EBCB4253D73540085EF5F /* TimePopover.swift in Sources */,
 				AEC52E0127003DF800542563 /* FilterModel.swift in Sources */,
 				AEC52DF52700049F00542563 /* TableView.swift in Sources */,
 				AEC52E0727005A6700542563 /* FilterListModel.swift in Sources */,
-				3A4A91CC253987C9003C5957 /* FilterPopover.swift in Sources */,
 				AEC52DEF26FDAA2800542563 /* SearchController.swift in Sources */,
-				3A447679254FDB500086B983 /* DatePickerController.swift in Sources */,
-				3ABF4898253D25CD00909FBE /* TimePopoverModel.swift in Sources */,
 				3A5B63E4251ADBDD00E00BF5 /* ColaCupLoadingView.swift in Sources */,
 				AEC52DFA2700387700542563 /* FilterViewModel.swift in Sources */,
 				3AD9BFB425198C8D00D2CD16 /* VeryVeryVeryVeryVeryVeryLongFileName.swift in Sources */,
-				3A7A9B89253D828800C7D606 /* SelectDataView.swift in Sources */,
 				3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */,
 				3AD9BFF525198CF700D2CD16 /* ColaCupViewModel.swift in Sources */,
 				3A9CF608251B221A0060EC6F /* UIConfig.swift in Sources */,
-				3ADBD77A254BA16F00D2A9C5 /* ShowTimeView.swift in Sources */,
-				3A0ACA85254BAB6B00BC9242 /* SelectPeriodView.swift in Sources */,
 				3AA06564252042B6007A60CA /* Throttler.swift in Sources */,
 				3A9CF5FA251AED510060EC6F /* SelectedModel.swift in Sources */,
-				3AAC7246254FD402008C3943 /* ShowDateView.swift in Sources */,
-				3A045D3D254C192F00B08C56 /* PickerDelegate.swift in Sources */,
 				3AB7E75F2519A70700E55926 /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
