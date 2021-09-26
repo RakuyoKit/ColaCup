@@ -56,6 +56,7 @@
 		AEC52DEF26FDAA2800542563 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DEE26FDAA2800542563 /* SearchController.swift */; };
 		AEC52DF326FDBDC100542563 /* BaseLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DF226FDBDC100542563 /* BaseLogViewController.swift */; };
 		AEC52DF52700049F00542563 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DF42700049F00542563 /* TableView.swift */; };
+		AEC52DF8270025D100542563 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DF7270025D100542563 /* FilterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +134,7 @@
 		AEC52DEE26FDAA2800542563 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		AEC52DF226FDBDC100542563 /* BaseLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLogViewController.swift; sourceTree = "<group>"; };
 		AEC52DF42700049F00542563 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
+		AEC52DF7270025D100542563 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -348,6 +350,7 @@
 		AEC52DF62700253F00542563 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
+				AEC52DF7270025D100542563 /* FilterViewController.swift */,
 			);
 			path = Filter;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 				3AE80458251DB3CA00CDB15B /* DetailsNormalCell.swift in Sources */,
 				3A045D28254C14B300B08C56 /* TimePickerController.swift in Sources */,
 				3ABF4890253D256800909FBE /* FilterPopoverModel.swift in Sources */,
+				AEC52DF8270025D100542563 /* FilterViewController.swift in Sources */,
 				3A045D29254C14B300B08C56 /* PickerAnimation.swift in Sources */,
 				3AC29080251C804F007CCD49 /* LogFlagButton.swift in Sources */,
 				3A5B63DF2519F46F00E00BF5 /* ColaCupFlagBar.swift in Sources */,
