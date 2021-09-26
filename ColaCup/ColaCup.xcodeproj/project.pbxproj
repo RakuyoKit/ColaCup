@@ -60,6 +60,7 @@
 		AEC52DFA2700387700542563 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DF92700387700542563 /* FilterViewModel.swift */; };
 		AEC52DFC27003ACC00542563 /* FilterTimeRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DFB27003ACC00542563 /* FilterTimeRange.swift */; };
 		AEC52E0127003DF800542563 /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E0027003DF800542563 /* FilterModel.swift */; };
+		AEC52E0327003FBB00542563 /* OldColaCupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E0227003FBB00542563 /* OldColaCupViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,7 @@
 		AEC52DF92700387700542563 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 		AEC52DFB27003ACC00542563 /* FilterTimeRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTimeRange.swift; sourceTree = "<group>"; };
 		AEC52E0027003DF800542563 /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
+		AEC52E0227003FBB00542563 /* OldColaCupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldColaCupViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +296,7 @@
 				3A649E3B25199F7500DED905 /* default.png */,
 				3A8F79232536A7C5007E6C90 /* push.sh */,
 				3A8F79242536A7C5007E6C90 /* ColaCup.podspec */,
+				AEC52E0227003FBB00542563 /* OldColaCupViewModel.swift */,
 				3AD9BFF125198CF700D2CD16 /* Core */,
 				3AD9BFE225198CB700D2CD16 /* Other */,
 				3A66028F25399D7A0006FC28 /* Popover */,
@@ -619,6 +622,7 @@
 				3A045D3D254C192F00B08C56 /* PickerDelegate.swift in Sources */,
 				3AB7E75F2519A70700E55926 /* DetailsViewController.swift in Sources */,
 				AEC52DEA26FC79BB00542563 /* UIView+Layout.swift in Sources */,
+				AEC52E0327003FBB00542563 /* OldColaCupViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
