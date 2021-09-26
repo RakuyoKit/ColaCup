@@ -61,6 +61,7 @@
 		AEC52DFC27003ACC00542563 /* FilterTimeRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DFB27003ACC00542563 /* FilterTimeRange.swift */; };
 		AEC52E0127003DF800542563 /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E0027003DF800542563 /* FilterModel.swift */; };
 		AEC52E0327003FBB00542563 /* OldColaCupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E0227003FBB00542563 /* OldColaCupViewModel.swift */; };
+		AEC52E052700418700542563 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E042700418700542563 /* Sort.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +144,7 @@
 		AEC52DFB27003ACC00542563 /* FilterTimeRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTimeRange.swift; sourceTree = "<group>"; };
 		AEC52E0027003DF800542563 /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 		AEC52E0227003FBB00542563 /* OldColaCupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldColaCupViewModel.swift; sourceTree = "<group>"; };
+		AEC52E042700418700542563 /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,6 +372,7 @@
 			children = (
 				3A9CF5F9251AED510060EC6F /* SelectedModel.swift */,
 				AEC52DFB27003ACC00542563 /* FilterTimeRange.swift */,
+				AEC52E042700418700542563 /* Sort.swift */,
 				AEC52E0027003DF800542563 /* FilterModel.swift */,
 			);
 			path = Model;
@@ -597,6 +600,7 @@
 				3A045D28254C14B300B08C56 /* TimePickerController.swift in Sources */,
 				3ABF4890253D256800909FBE /* FilterPopoverModel.swift in Sources */,
 				AEC52DF8270025D100542563 /* FilterViewController.swift in Sources */,
+				AEC52E052700418700542563 /* Sort.swift in Sources */,
 				3A045D29254C14B300B08C56 /* PickerAnimation.swift in Sources */,
 				3AC29080251C804F007CCD49 /* LogFlagButton.swift in Sources */,
 				3A5B63DF2519F46F00E00BF5 /* ColaCupFlagBar.swift in Sources */,
