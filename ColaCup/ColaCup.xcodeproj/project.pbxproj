@@ -240,8 +240,8 @@
 		3AB7E7CE2519C17A00E55926 /* ColaCup */ = {
 			isa = PBXGroup;
 			children = (
-				3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */,
 				AEC52DF226FDBDC100542563 /* BaseLogViewController.swift */,
+				3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */,
 				3AD9BFF225198CF700D2CD16 /* ColaCupController.swift */,
 				AEC52DEE26FDAA2800542563 /* SearchController.swift */,
 				AEC52DEC26FDA75E00542563 /* SearchResultViewController.swift */,
@@ -353,12 +353,20 @@
 		AEC52DF62700253F00542563 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
-				3A9CF5F9251AED510060EC6F /* SelectedModel.swift */,
-				AEC52DFB27003ACC00542563 /* FilterTimeRange.swift */,
+				AEC52DFF27003D9600542563 /* Model */,
 				AEC52DF92700387700542563 /* FilterViewModel.swift */,
 				AEC52DF7270025D100542563 /* FilterViewController.swift */,
 			);
 			path = Filter;
+			sourceTree = "<group>";
+		};
+		AEC52DFF27003D9600542563 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3A9CF5F9251AED510060EC6F /* SelectedModel.swift */,
+				AEC52DFB27003ACC00542563 /* FilterTimeRange.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		F8F77D981F721CCAE22430FA /* Frameworks */ = {
