@@ -55,31 +55,7 @@ public extension ColaCupViewModel {
     func processLogs(completion: @escaping () -> Void) {
         // Because the log volume may be large, a new thread is opened to process the log.
         DispatchQueue.global().async { [weak self] in
-            guard let this = self else { return }
-            
-            defer {
-                // Return to the main thread callback controller
-                DispatchQueue.main.async(execute: completion)
-            }
-            
-            // 1. Get all the logs in the initial condition.
-            let logs: [LogModelProtocol] = this.currentPageLogs
-            
-            // 2. Storage Log
-            this.integralLogs = logs.reversed()
-            this.showLogs = this.integralLogs
-            
-            // 3. Configure the initial set of flags and modules.
-            var flagSet = Set<Log.Flag>([this.allFlag])
-            var moduleSet = Set<String>([this.allFlag])
-            
-            for log in this.integralLogs {
-                flagSet.insert(log.flag)
-                moduleSet.insert(log.module)
-            }
-            
-            this.allFlags = Array(flagSet).sorted()
-            this.allModules = Array(moduleSet).sorted()
+            self?._processLogs(completion: completion)
         }
     }
     
@@ -93,49 +69,7 @@ public extension ColaCupViewModel {
         
         // Because the log volume may be large, a new thread is opened to process the log.
         DispatchQueue.global().async { [weak self] in
-            guard let this = self else { return }
-            
-            defer {
-                // Return to the main thread callback controller
-                DispatchQueue.main.async(execute: completion)
-            }
-            
-            // 1. Retrieve the complete log data based on the filtering criteria.
-            if this.isModifiedTimeRange {
-                this.integralLogs = {
-                    switch this.filterModel.timeRange {
-                    case .currentPage: return this.currentPageLogs
-                    case .launchToDate: return this.logManager.logs
-                        
-                    case .period(let date, let start, let end):
-                        let _logs: [Log] = this.logManager.readLogFromDisk(logDate: date) ?? []
-                        return _logs.filter { $0.timestamp >= start && $0.timestamp <= end }
-                    }
-                }()
-            }
-            
-            // 2. Filtering according to the criteria selected by the user
-            var conditions: [(LogModelProtocol) -> Bool] = []
-            
-            if let flag = this.filterModel.flags.first, flag != this.allFlag {
-                let selectFlags = this.filterModel.flags
-                conditions.append({ selectFlags.contains($0.flag) })
-            }
-            
-            if let module = this.filterModel.modules.first, module != this.allFlag {
-                let selectModules = this.filterModel.modules
-                conditions.append({ selectModules.contains($0.module) })
-            }
-            
-            var logs = this.integralLogs.filter(with: conditions)
-            
-            // 3. Sorting the log.
-            if case .negative = this.filterModel.sort {
-                logs = logs.reversed()
-            }
-            
-            // 4. Store filter results
-            this.showLogs = logs
+            self?._filter(completion: completion)
         }
     }
     
@@ -176,6 +110,76 @@ public extension ColaCupViewModel {
 }
 
 private extension ColaCupViewModel {
+    func _processLogs(completion: @escaping () -> Void) {
+        defer {
+            // Return to the main thread callback controller
+            DispatchQueue.main.async(execute: completion)
+        }
+        
+        // 1. Get all the logs in the initial condition.
+        let logs: [LogModelProtocol] = currentPageLogs
+        
+        // 2. Storage Log
+        integralLogs = logs.reversed()
+        showLogs = integralLogs
+        
+        // 3. Configure the initial set of flags and modules.
+        var flagSet = Set<Log.Flag>([allFlag])
+        var moduleSet = Set<String>([allFlag])
+        
+        for log in integralLogs {
+            flagSet.insert(log.flag)
+            moduleSet.insert(log.module)
+        }
+        
+        allFlags = Array(flagSet).sorted()
+        allModules = Array(moduleSet).sorted()
+    }
+    
+    func _filter(completion: @escaping () -> Void) {
+        defer {
+            // Return to the main thread callback controller
+            DispatchQueue.main.async(execute: completion)
+        }
+        
+        // 1. Retrieve the complete log data based on the filtering criteria.
+        if isModifiedTimeRange {
+            integralLogs = {
+                switch filterModel.timeRange {
+                case .currentPage: return currentPageLogs
+                case .launchToDate: return logManager.logs
+                    
+                case .period(let date, let start, let end):
+                    let _logs: [Log] = logManager.readLogFromDisk(logDate: date) ?? []
+                    return _logs.filter { $0.timestamp >= start && $0.timestamp <= end }
+                }
+            }()
+        }
+        
+        // 2. Filtering according to the criteria selected by the user
+        var conditions: [(LogModelProtocol) -> Bool] = []
+        
+        if let flag = filterModel.flags.first, flag != allFlag {
+            let selectFlags = filterModel.flags
+            conditions.append({ selectFlags.contains($0.flag) })
+        }
+        
+        if let module = filterModel.modules.first, module != allFlag {
+            let selectModules = filterModel.modules
+            conditions.append({ selectModules.contains($0.module) })
+        }
+        
+        var logs = integralLogs.filter(with: conditions)
+        
+        // 3. Sorting the log.
+        if case .negative = filterModel.sort {
+            logs = logs.reversed()
+        }
+        
+        // 4. Store filter results
+        showLogs = logs
+    }
+    
     /// Display the logs printed in the ColaCup parent page.
     var currentPageLogs: [LogModelProtocol] {
         #warning("TODO The logic here is not available yet")
