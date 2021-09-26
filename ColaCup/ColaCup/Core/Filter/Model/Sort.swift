@@ -13,3 +13,7 @@ public enum Sort {
     case positive
     case negative
 }
+
+public extension Sort {
+    static let `default`: Sort = .negative
+}

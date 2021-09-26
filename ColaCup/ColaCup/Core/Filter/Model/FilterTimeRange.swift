@@ -20,6 +20,10 @@ public enum FilterTimeRange {
     case period(date: Date, start: TimeInterval, end: TimeInterval)
 }
 
+public extension FilterTimeRange {
+    static let `default`: FilterTimeRange = .currentPage
+}
+
 // MARK: - Equatable
 
 extension FilterTimeRange: Equatable {}
