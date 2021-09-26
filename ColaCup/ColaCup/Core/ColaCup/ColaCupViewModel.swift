@@ -21,7 +21,7 @@ public class ColaCupViewModel {
     private let logManager: Storable.Type
     
     /// currently selected filter condition.
-    public lazy var filterModel = FilterModel() {
+    public private(set) lazy var filterModel = FilterModel() {
         didSet {
             // Determines if the time range is modified.
             // The filter will then be narrowed down based on this property.
