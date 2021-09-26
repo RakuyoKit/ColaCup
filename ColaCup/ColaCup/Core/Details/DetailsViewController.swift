@@ -7,21 +7,18 @@
 //
 
 import UIKit
-import SafariServices
 import LinkPresentation
+import SafariServices
 
 import RaLog
 
 /// Controller that displays the details of the log
 open class DetailsViewController: UIViewController {
-    
     /// Initialize with log data.
     ///
     /// - Parameter log: The detailed log data to be viewed.
     public init(log: LogModelProtocol) {
-        
         self.viewModel = DetailsViewModel(log: log)
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -31,7 +28,6 @@ open class DetailsViewController: UIViewController {
     
     /// Responsible for displaying a list of log details.
     open lazy var tableView: UITableView = {
-        
         let tableView = UITableView(frame: .zero, style: {
             if #available(iOS 13.0, *) { return .insetGrouped }
             return .grouped
@@ -43,7 +39,7 @@ open class DetailsViewController: UIViewController {
         tableView.rowHeight =  UITableView.automaticDimension
         tableView.estimatedRowHeight = 50
         
-        tableView.separatorColor = UIColor.normalText.withAlphaComponent(0.2)
+        tableView.separatorColor = UIColor.theme.withAlphaComponent(0.2)
         
         DetailsCellType.allCases.forEach(tableView.register(withType:))
         
@@ -51,15 +47,7 @@ open class DetailsViewController: UIViewController {
     }()
     
     /// Display when loading the sharing popup.
-    open lazy var loadingView: ColaCupLoadingView = {
-        
-        let view = ColaCupLoadingView()
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.isHidden = true
-        
-        return view
-    }()
+    open lazy var loadingView = ColaCupLoadingView()
     
     /// Used to process data.
     private let viewModel: DetailsViewModel
@@ -74,7 +62,6 @@ open class DetailsViewController: UIViewController {
 // MARK: - Life cycle
 
 extension DetailsViewController {
-    
     open override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -95,7 +82,6 @@ extension DetailsViewController {
 // MARK: - Config
 
 extension DetailsViewController {
-    
     func addSubviews() {
         view.addSubview(tableView)
         view.addSubview(loadingView)
@@ -141,10 +127,8 @@ extension DetailsViewController {
 // MARK: - Share
 
 private extension DetailsViewController {
-    
     @available(iOS 14.0, *)
     func createShareMenu() -> UIMenu {
-        
         return UIMenu(
             title: "Please choose how to share log data.",
             identifier: .share,
@@ -160,8 +144,8 @@ private extension DetailsViewController {
     }
     
     /// Share log information.
-    @objc func share(_ shareItem: UIBarButtonItem) {
-        
+    @objc
+    func share(_ shareItem: UIBarButtonItem) {
         shareItem.isEnabled = false
         
         let alert = UIAlertController(title: "Share", message: "Please choose how to share log data.", preferredStyle: .actionSheet)
@@ -186,24 +170,19 @@ private extension DetailsViewController {
     }
     
     func shareJSON() {
-        
         loadingView.show()
-        
         showActivity(with: viewModel.sharedJSON)
     }
     
     func shareScreenshot() {
-        
         loadingView.show()
         
         if let image = createScreenshot() {
-            
             // Temporary storage of pictures to avoid repeated creation of pictures
             // in the `UIActivityItemSource` protocol.
             sharedScreenshot = image
             
             showActivity(with: image)
-            
             return
         }
         
@@ -218,7 +197,6 @@ private extension DetailsViewController {
     }
     
     func showActivity(with item: Any) {
-        
         let items: [Any] = {
             if let image = item as? UIImage { return [image, self] }
             if let json  = item as? String  { return [json] }
@@ -237,9 +215,7 @@ private extension DetailsViewController {
         }
         
         let presentBlock: () -> Void = { [weak self] in
-            
             self?.present(activity, animated: true) {
-                
                 guard let this = self else { return }
                 
                 this.navigationItem.rightBarButtonItem?.isEnabled = true
@@ -248,7 +224,6 @@ private extension DetailsViewController {
         }
         
         if #available(iOS 14.0, *) {
-            
             // Stuttering occurs when present.
             // So delay for a certain period of time
             // to avoid the lag from affecting the recovery animation of UIMenu.
@@ -266,13 +241,10 @@ private extension DetailsViewController {
 // MARK: - Screenshot
 
 private extension DetailsViewController {
-    
     /// Create screenshot
     func createScreenshot() -> UIImage? {
-        
         guard let tableView = createTableViewScreenshot(),
               let navi = createNaviScreenshot() else {
-            
             return nil
         }
         
@@ -293,7 +265,6 @@ private extension DetailsViewController {
     }
     
     func createTableViewScreenshot() -> UIImage? {
-        
         var screenshot: UIImage? = nil
         
         UIGraphicsBeginImageContextWithOptions(tableView.contentSize, false, 0.0)
@@ -327,7 +298,6 @@ private extension DetailsViewController {
     }
     
     func createNaviScreenshot() -> UIImage? {
-        
         guard let navigationBar = navigationController?.navigationBar else { return nil }
         
         navigationItem.setHidesBackButton(true, animated: false)
@@ -350,7 +320,6 @@ private extension DetailsViewController {
 // MARK: - UIScreenshotServiceDelegate
 
 extension DetailsViewController: UIScreenshotServiceDelegate {
-    
     @available(iOS 13.0, *)
     public func screenshotService(_ screenshotService: UIScreenshotService, generatePDFRepresentationWithCompletion completionHandler: @escaping (Data?, Int, CGRect) -> Void) {
         
@@ -376,7 +345,6 @@ extension DetailsViewController: UIScreenshotServiceDelegate {
 // MARK: - UIActivityItemSource
 
 extension DetailsViewController: UIActivityItemSource {
-    
     public func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
         return ""
     }
@@ -387,7 +355,6 @@ extension DetailsViewController: UIActivityItemSource {
 
     @available(iOS 13.0, *)
     public func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
-        
         guard let image = sharedScreenshot else { return nil }
         
         let metadata = LPLinkMetadata()
@@ -402,9 +369,7 @@ extension DetailsViewController: UIActivityItemSource {
 // MARK: - UITextViewDelegate
 
 extension DetailsViewController: UITextViewDelegate {
-    
     public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        
         var _url = URL
         
         if let scheme = URL.scheme {
@@ -428,7 +393,6 @@ extension DetailsViewController: UITextViewDelegate {
 // MARK: - UITableViewDataSource
 
 extension DetailsViewController: UITableViewDataSource {
-    
     open func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.dataSource.count
     }
@@ -438,18 +402,15 @@ extension DetailsViewController: UITableViewDataSource {
     }
     
     open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
         return viewModel.dataSource[section].title
     }
     
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let model = viewModel.dataSource[indexPath.section].items[indexPath.row]
         
         let _cell = tableView.dequeueReusableCell(withIdentifier: model.type.rawValue, for: indexPath)
         
         switch model.type {
-        
         case .normal:
             let cell = _cell as! DetailsNormalCell
             
@@ -480,7 +441,6 @@ extension DetailsViewController: UITableViewDataSource {
             
             cell.jsonView.jsonTextView.delegate = self
             cell.jsonView.preview(model.value) { [weak self] in
-                
                 guard let this = self, !this.isReloaded else { return }
                 
                 // The tableView needs to be refreshed to show the complete json view.
@@ -496,9 +456,7 @@ extension DetailsViewController: UITableViewDataSource {
 // MARK: - Tools
 
 fileprivate extension DetailsCellType {
-    
     var cellClass: AnyClass {
-        
         switch self {
         case .normal:   return DetailsNormalCell.self
         case .position: return DetailsPositionCell.self
@@ -509,7 +467,6 @@ fileprivate extension DetailsCellType {
 }
 
 fileprivate extension UITableView {
-    
     func register(withType type: DetailsCellType) {
         register(type.cellClass, forCellReuseIdentifier: type.rawValue)
     }
