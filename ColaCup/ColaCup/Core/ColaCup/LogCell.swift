@@ -98,7 +98,7 @@ private extension LogCell {
         // timeLabel
         NSLayoutConstraint.activate([
             timeLabel.centerYAnchor.constraint(equalTo: flagLabel.centerYAnchor),
-            timeLabel.leadingAnchor.constraint(equalTo: flagLabel.leadingAnchor, constant: 10),
+            timeLabel.leadingAnchor.constraint(equalTo: flagLabel.trailingAnchor, constant: 10),
             timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
         ])
         
