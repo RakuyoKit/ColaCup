@@ -228,7 +228,6 @@
 				3AA06563252042B6007A60CA /* Throttler.swift */,
 				AEC52DE926FC79BB00542563 /* UIView+Layout.swift */,
 				AEC52DF42700049F00542563 /* TableView.swift */,
-				AEC52DF226FDBDC100542563 /* BaseLogViewController.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -237,7 +236,10 @@
 			isa = PBXGroup;
 			children = (
 				3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */,
+				AEC52DF226FDBDC100542563 /* BaseLogViewController.swift */,
 				3AD9BFF225198CF700D2CD16 /* ColaCupController.swift */,
+				AEC52DEE26FDAA2800542563 /* SearchController.swift */,
+				AEC52DEC26FDA75E00542563 /* SearchResultViewController.swift */,
 				3AC29026251C3F21007CCD49 /* LogCell.swift */,
 			);
 			path = ColaCup;
@@ -287,6 +289,7 @@
 				3A8F79242536A7C5007E6C90 /* ColaCup.podspec */,
 				3AD9BFF125198CF700D2CD16 /* Core */,
 				3AD9BFE225198CB700D2CD16 /* Other */,
+				3A66028F25399D7A0006FC28 /* Popover */,
 			);
 			path = ColaCup;
 			sourceTree = "<group>";
@@ -327,8 +330,7 @@
 			children = (
 				3A9CF606251B220B0060EC6F /* Global */,
 				3AB7E7CE2519C17A00E55926 /* ColaCup */,
-				AEC52DEB26FDA74B00542563 /* Search */,
-				3A66028F25399D7A0006FC28 /* Popover */,
+				AEC52DF62700253F00542563 /* Filter */,
 				3AB7E7CF2519C18000E55926 /* Details */,
 			);
 			path = Core;
@@ -343,13 +345,11 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		AEC52DEB26FDA74B00542563 /* Search */ = {
+		AEC52DF62700253F00542563 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
-				AEC52DEE26FDAA2800542563 /* SearchController.swift */,
-				AEC52DEC26FDA75E00542563 /* SearchResultViewController.swift */,
 			);
-			path = Search;
+			path = Filter;
 			sourceTree = "<group>";
 		};
 		F8F77D981F721CCAE22430FA /* Frameworks */ = {
