@@ -73,9 +73,9 @@ private extension BaseLogViewController {
         // loadingView
         NSLayoutConstraint.activate([
             loadingView.topAnchor.constraint(equalTo: view.topAnchor),
-            loadingView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            loadingView.rightAnchor.constraint(equalTo: view.rightAnchor),
             loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            loadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
 }

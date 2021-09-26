@@ -45,8 +45,8 @@ private extension DetailsJSONCell {
     
     func addInitialLayout() {
         NSLayoutConstraint.activate([
-            jsonView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            jsonView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            jsonView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            jsonView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             jsonView.topAnchor.constraint(equalTo: contentView.topAnchor),
             jsonView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])

@@ -84,7 +84,7 @@ private extension DetailsPositionCell {
     func addInitialLayout() {
         
         NSLayoutConstraint.activate([
-            iconView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15),
+            iconView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             iconView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             iconView.widthAnchor.constraint(equalToConstant: 27)
         ])
@@ -94,7 +94,7 @@ private extension DetailsPositionCell {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11.5),
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -11.5),
-            titleLabel.leftAnchor.constraint(equalTo: iconView.rightAnchor, constant: 5)
+            titleLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 5)
         ])
         
         titleLabel.setContentHuggingPriority(.required, for: .vertical)
@@ -104,8 +104,8 @@ private extension DetailsPositionCell {
         NSLayoutConstraint.activate([
             valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             valueLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            valueLabel.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 20),
-            valueLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20)
+            valueLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 20),
+            valueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
         ])
     }
 }

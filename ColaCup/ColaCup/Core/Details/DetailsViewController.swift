@@ -87,16 +87,16 @@ extension DetailsViewController {
     func addInitialLayout() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
         // loadingView
         NSLayoutConstraint.activate([
             loadingView.topAnchor.constraint(equalTo: view.topAnchor),
-            loadingView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            loadingView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            loadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }

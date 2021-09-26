@@ -18,7 +18,7 @@ public extension UIView {
         switch xAxis {
         case .leading:
             guard _fastPath(needSafeArea), #available(iOS 11.0, *) else { return leadingAnchor }
-            return safeAreaLayoutGuide.leftAnchor
+            return safeAreaLayoutGuide.leadingAnchor
             
         case .trailing:
             guard _fastPath(needSafeArea), #available(iOS 11.0, *) else { return trailingAnchor }

@@ -90,7 +90,7 @@ private extension LogCell {
         // flagLabel
         NSLayoutConstraint.activate([
             flagLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-            flagLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
+            flagLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
         ])
         
         flagLabel.setContentHuggingPriority(.required, for: .vertical)
@@ -98,8 +98,8 @@ private extension LogCell {
         // timeLabel
         NSLayoutConstraint.activate([
             timeLabel.centerYAnchor.constraint(equalTo: flagLabel.centerYAnchor),
-            timeLabel.leftAnchor.constraint(equalTo: flagLabel.rightAnchor, constant: 10),
-            timeLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20),
+            timeLabel.leadingAnchor.constraint(equalTo: flagLabel.leadingAnchor, constant: 10),
+            timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
         ])
         
         timeLabel.setContentHuggingPriority(.required, for: .horizontal)
@@ -108,8 +108,8 @@ private extension LogCell {
         // logLabel
         NSLayoutConstraint.activate([
             logLabel.topAnchor.constraint(equalTo: flagLabel.bottomAnchor, constant: 10),
-            logLabel.leftAnchor.constraint(equalTo: flagLabel.leftAnchor),
-            logLabel.rightAnchor.constraint(equalTo: timeLabel.rightAnchor),
+            logLabel.leadingAnchor.constraint(equalTo: flagLabel.leadingAnchor),
+            logLabel.trailingAnchor.constraint(equalTo: timeLabel.trailingAnchor),
             logLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
             
             // Maximum height of two rows

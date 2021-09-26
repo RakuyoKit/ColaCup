@@ -84,7 +84,7 @@ private extension DetailsFunctionCell {
     func addInitialLayout() {
         
         NSLayoutConstraint.activate([
-            iconView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15),
+            iconView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             iconView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             iconView.widthAnchor.constraint(equalToConstant: 27)
         ])
@@ -93,8 +93,8 @@ private extension DetailsFunctionCell {
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11.5),
-            titleLabel.leftAnchor.constraint(equalTo: iconView.rightAnchor, constant: 5),
-            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20)
+            titleLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 5),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
         ])
         
         titleLabel.setContentHuggingPriority(.required, for: .vertical)
@@ -102,8 +102,8 @@ private extension DetailsFunctionCell {
         NSLayoutConstraint.activate([
             valueLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 11.5),
             valueLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -11.5),
-            valueLabel.leftAnchor.constraint(equalTo: iconView.leftAnchor),
-            valueLabel.rightAnchor.constraint(equalTo: titleLabel.rightAnchor),
+            valueLabel.leadingAnchor.constraint(equalTo: iconView.leadingAnchor),
+            valueLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
         ])
     }
 }
