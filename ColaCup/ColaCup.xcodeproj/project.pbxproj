@@ -204,7 +204,6 @@
 		3A9924D0253D24CC001BB23C /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				3A9CF5F9251AED510060EC6F /* SelectedModel.swift */,
 				3A66029825399E350006FC28 /* BasePopover.swift */,
 				3A65ABB1251B399300943B39 /* PopoverAnimation.swift */,
 			);
@@ -352,6 +351,7 @@
 		AEC52DF62700253F00542563 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
+				3A9CF5F9251AED510060EC6F /* SelectedModel.swift */,
 				AEC52DF92700387700542563 /* FilterViewModel.swift */,
 				AEC52DF7270025D100542563 /* FilterViewController.swift */,
 			);
