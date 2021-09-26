@@ -60,6 +60,7 @@
 		AEC52DFC27003ACC00542563 /* FilterTimeRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DFB27003ACC00542563 /* FilterTimeRange.swift */; };
 		AEC52E0127003DF800542563 /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E0027003DF800542563 /* FilterModel.swift */; };
 		AEC52E052700418700542563 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E042700418700542563 /* Sort.swift */; };
+		AEC52E0727005A6700542563 /* FilterListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E0627005A6700542563 /* FilterListModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,7 @@
 		AEC52DFB27003ACC00542563 /* FilterTimeRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTimeRange.swift; sourceTree = "<group>"; };
 		AEC52E0027003DF800542563 /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 		AEC52E042700418700542563 /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
+		AEC52E0627005A6700542563 /* FilterListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterListModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -368,6 +370,7 @@
 				AEC52DFB27003ACC00542563 /* FilterTimeRange.swift */,
 				AEC52E042700418700542563 /* Sort.swift */,
 				AEC52E0027003DF800542563 /* FilterModel.swift */,
+				AEC52E0627005A6700542563 /* FilterListModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -601,6 +604,7 @@
 				3A7EBCB4253D73540085EF5F /* TimePopover.swift in Sources */,
 				AEC52E0127003DF800542563 /* FilterModel.swift in Sources */,
 				AEC52DF52700049F00542563 /* TableView.swift in Sources */,
+				AEC52E0727005A6700542563 /* FilterListModel.swift in Sources */,
 				3A4A91CC253987C9003C5957 /* FilterPopover.swift in Sources */,
 				AEC52DEF26FDAA2800542563 /* SearchController.swift in Sources */,
 				3A447679254FDB500086B983 /* DatePickerController.swift in Sources */,
