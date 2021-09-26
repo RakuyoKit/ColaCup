@@ -15,6 +15,8 @@ class SearchController: UISearchController {
         self.resultController = resultController
         
         super.init(searchResultsController: resultController)
+        
+        self.resultController.scrollDelegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -22,6 +24,9 @@ class SearchController: UISearchController {
     }
     
     let resultController: SearchResultViewController
+    
+    /// Is the page already displayed.
+    private lazy var isShown = false
 }
 
 extension SearchController {
@@ -36,6 +41,24 @@ extension SearchController {
         searchBar.getSearchTextFileld?.textColor = .normalText
         
         searchResultsUpdater = resultController
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        isShown = true
+    }
+}
+
+// MARK: - SearchResultViewControllerScrollDelegate
+
+extension SearchController: SearchResultViewControllerScrollDelegate {
+    func searchResultDidScroll(_ resultController: SearchResultViewController) {
+        // This method is also called when the page is first displayed.
+        // If do not add this judgment, the keyboard will not pop up when you first enter the page.
+        guard isShown else { return }
+        
+        searchBar.endEditing(true)
     }
 }
 

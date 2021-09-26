@@ -31,9 +31,18 @@ protocol SearchResultViewControllerDelegate: NSObjectProtocol {
     func searchResult(_ resultController: SearchResultViewController, didClickResult log: LogModelProtocol)
 }
 
+protocol SearchResultViewControllerScrollDelegate: NSObjectProtocol {
+    /// Called when the TableView is slid.
+    ///
+    /// - Parameter resultController: The controller that currently displays the search results.
+    func searchResultDidScroll(_ resultController: SearchResultViewController)
+}
+
 /// Controller for displaying search results.
 class SearchResultViewController: BaseLogViewController {
     weak var delegate: SearchResultViewControllerDelegate? = nil
+    
+    weak var scrollDelegate: SearchResultViewControllerScrollDelegate? = nil
     
     private lazy var dataSource: [LogModelProtocol] = []
     
@@ -67,6 +76,14 @@ extension SearchResultViewController: UISearchResultsUpdating {
             this.loadingView.hide()
             this.tableView.reloadData()
         }
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension SearchResultViewController {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollDelegate?.searchResultDidScroll(self)
     }
 }
 
