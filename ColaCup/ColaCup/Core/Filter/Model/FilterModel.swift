@@ -20,9 +20,9 @@ public struct FilterModel {
     
     /// A collection of all log flags.
     /// The outer isSelected property allows you to determine if the state is selected.
-    public var flags: [SelectedModel<Log.Flag>] = []
+    public var flags: [SelectedModel<Log.Flag>] = [.all]
     
     /// The set of all modules.
     /// The outer isSelected property allows you to determine if the state is selected.
-    public var modules: [SelectedModel<String>] = []
+    public var modules: [SelectedModel<String>] = [.all]
 }
