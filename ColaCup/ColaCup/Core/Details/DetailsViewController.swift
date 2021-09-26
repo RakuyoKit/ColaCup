@@ -11,6 +11,7 @@ import LinkPresentation
 import SafariServices
 
 import RaLog
+import JSONPreview
 
 /// Controller that displays the details of the log
 open class DetailsViewController: UIViewController {
@@ -30,6 +31,7 @@ open class DetailsViewController: UIViewController {
     open lazy var tableView: TableView = {
         let tableView = TableView()
         
+        tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = 50
         
@@ -46,6 +48,9 @@ open class DetailsViewController: UIViewController {
     
     /// Whether the tableView has been refreshed after the json has been loaded.
     private lazy var isReloaded = false
+    
+    /// Height of JSON view.
+    private lazy var jsonHeight: CGFloat = 0
     
     /// It is used to temporarily store the images generated during sharing to avoid repeated generation of images.
     private lazy var sharedScreenshot: UIImage? = nil
@@ -358,27 +363,14 @@ extension DetailsViewController: UIActivityItemSource {
     }
 }
 
-// MARK: - UITextViewDelegate
+// MARK: - UITableViewDelegate
 
-extension DetailsViewController: UITextViewDelegate {
-    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        var _url = URL
+extension DetailsViewController: UITableViewDelegate {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let model = viewModel.dataSource[indexPath.section].items[indexPath.row]
         
-        if let scheme = URL.scheme {
-            guard scheme == "http" || scheme == "https" else { return true }
-            
-        } else {
-            
-            guard let newURL = Foundation.URL(string: "http://" + _url.absoluteString) else {
-                return true
-            }
-            
-            _url = newURL
-        }
-        
-        present(SFSafariViewController(url: _url), animated: true, completion: nil)
-        
-        return false
+        if case .json = model.type { return jsonHeight }
+        return UITableView.automaticDimension
     }
 }
 
@@ -431,17 +423,31 @@ extension DetailsViewController: UITableViewDataSource {
         case .json:
             let cell = _cell as! DetailsJSONCell
             
-            cell.jsonView.jsonTextView.delegate = self
-            cell.jsonView.preview(model.value) { [weak self] in
-                guard let this = self, !this.isReloaded else { return }
+            cell.jsonView.delegate = self
+            cell.jsonView.preview(model.value) { [weak self, weak cell] in
+                guard let this = self, let _cell = cell, !this.isReloaded else { return }
                 
-                // The tableView needs to be refreshed to show the complete json view.
-                tableView.reloadData()
+                // Update the height of the JSON view.
+                this.jsonHeight = _cell.jsonView.jsonTextView.contentSize.height
+                tableView.reloadRows(at: [indexPath], with: .none)
+                
                 this.isReloaded = true
             }
         }
         
         return _cell
+    }
+}
+
+// MARK: - JSONPreviewDelegate
+
+extension DetailsViewController: JSONPreviewDelegate {
+    public func jsonPreview(view: JSONPreview, didClickURL url: URL, on textView: UITextView) -> Bool {
+        let safari = SFSafariViewController(url: url)
+        safari.modalPresentationStyle = .overFullScreen
+        present(safari, animated: true, completion: nil)
+        
+        return false
     }
 }
 

@@ -57,7 +57,6 @@ private extension DetailsJSONCell {
             jsonView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             jsonView.topAnchor.constraint(equalTo: contentView.topAnchor),
             jsonView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            jsonView.heightAnchor.constraint(equalTo: jsonView.jsonTextView.heightAnchor),
         ])
     }
 }
