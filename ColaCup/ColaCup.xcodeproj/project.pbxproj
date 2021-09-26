@@ -57,6 +57,7 @@
 		AEC52DF326FDBDC100542563 /* BaseLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DF226FDBDC100542563 /* BaseLogViewController.swift */; };
 		AEC52DF52700049F00542563 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DF42700049F00542563 /* TableView.swift */; };
 		AEC52DF8270025D100542563 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DF7270025D100542563 /* FilterViewController.swift */; };
+		AEC52DFA2700387700542563 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DF92700387700542563 /* FilterViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,7 @@
 		AEC52DF226FDBDC100542563 /* BaseLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLogViewController.swift; sourceTree = "<group>"; };
 		AEC52DF42700049F00542563 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		AEC52DF7270025D100542563 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		AEC52DF92700387700542563 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -350,6 +352,7 @@
 		AEC52DF62700253F00542563 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
+				AEC52DF92700387700542563 /* FilterViewModel.swift */,
 				AEC52DF7270025D100542563 /* FilterViewController.swift */,
 			);
 			path = Filter;
@@ -586,6 +589,7 @@
 				3A447679254FDB500086B983 /* DatePickerController.swift in Sources */,
 				3ABF4898253D25CD00909FBE /* TimePopoverModel.swift in Sources */,
 				3A5B63E4251ADBDD00E00BF5 /* ColaCupLoadingView.swift in Sources */,
+				AEC52DFA2700387700542563 /* FilterViewModel.swift in Sources */,
 				3AD9BFB425198C8D00D2CD16 /* VeryVeryVeryVeryVeryVeryLongFileName.swift in Sources */,
 				3A7A9B89253D828800C7D606 /* SelectDataView.swift in Sources */,
 				3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */,
