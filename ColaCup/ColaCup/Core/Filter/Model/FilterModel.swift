@@ -16,11 +16,13 @@ public struct FilterModel {
     public var sort: Sort = .negative
     
     /// The currently selected time range.
-    public var selectedTimeRange: FilterTimeRange = .currentPage
+    public var timeRange: FilterTimeRange = .currentPage
     
-    /// The set of currently selected flags.
-    public var selectedFlags = Set<Log.Flag>()
+    /// A collection of all log flags.
+    /// The outer isSelected property allows you to determine if the state is selected.
+    public var flags: [SelectedModel<Log.Flag>] = []
     
-    /// The set of currently selected modules.
-    public var selectedModules = Set<String>()
+    /// The set of all modules.
+    /// The outer isSelected property allows you to determine if the state is selected.
+    public var modules: [SelectedModel<String>] = []
 }
