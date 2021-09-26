@@ -9,7 +9,7 @@
 import Foundation
 
 /// Model used to mark whether it is selected.
-public struct SelectedModel<T: Hashable>: Hashable {
+public struct SelectedModel<T: Equatable>: Equatable {
     public init(isSelected: Bool = false, value: T) {
         self.isSelected = isSelected
         self.value = value
@@ -28,5 +28,5 @@ public extension SelectedModel {
 }
 
 public extension SelectedModel where T == String {
-    static let all = SelectedModel(isSelected: true, value: "ALL")
+    static let all = SelectedModel(isSelected: true, value: FilterModel.allFlag)
 }

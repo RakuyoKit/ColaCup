@@ -27,6 +27,11 @@ public struct FilterModel {
     public var modules: [String] = []
 }
 
+public extension FilterModel {
+    /// Used to represent all
+    static let allFlag = "ALL"
+}
+
 // MARK: - Equatable
 
 extension FilterModel: Equatable {}

@@ -70,8 +70,8 @@ public extension ColaCupViewModel {
             this.showLogs = this.integralLogs
             
             // 3. Configure the initial set of flags and modules.
-            var flagSet = Set<Log.Flag>(["ALL"])
-            var moduleSet = Set<String>(["ALL"])
+            var flagSet = Set<Log.Flag>([this.allFlag])
+            var moduleSet = Set<String>([this.allFlag])
             
             for log in this.integralLogs {
                 flagSet.insert(log.flag)
@@ -117,12 +117,12 @@ public extension ColaCupViewModel {
             // 2. Filtering according to the criteria selected by the user
             var conditions: [(LogModelProtocol) -> Bool] = []
             
-            if let flag = this.filterModel.flags.first, flag != "ALL" {
+            if let flag = this.filterModel.flags.first, flag != this.allFlag {
                 let selectFlags = this.filterModel.flags
                 conditions.append({ selectFlags.contains($0.flag) })
             }
             
-            if let module = this.filterModel.modules.first, module != "ALL" {
+            if let module = this.filterModel.modules.first, module != this.allFlag {
                 let selectModules = this.filterModel.modules
                 conditions.append({ selectModules.contains($0.module) })
             }
@@ -181,6 +181,8 @@ private extension ColaCupViewModel {
         #warning("TODO The logic here is not available yet")
         return logManager.logs
     }
+    
+    var allFlag: String { FilterModel.allFlag }
 }
 
 // MARK: - Filter log
