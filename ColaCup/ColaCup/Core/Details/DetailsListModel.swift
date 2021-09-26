@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// The model used for the section in the detail page list.
+/// The model used to configure the detail list.
 public struct DetailsSectionModel {
     public init(title: String?, items: [DetailsCellModel]) {
         self.title = title
