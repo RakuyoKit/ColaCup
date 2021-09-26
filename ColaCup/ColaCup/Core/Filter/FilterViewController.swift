@@ -22,6 +22,43 @@ open class FilterViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = 0
+        
+        return stackView
+    }()
+    
+    /// List for displaying filter criteria.
+    open lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        if #available(iOS 13.0, *) {
+            collectionView.backgroundColor = .systemGroupedBackground
+        } else {
+            collectionView.backgroundColor = .groupTableViewBackground
+        }
+        
+        collectionView.showsHorizontalScrollIndicator = false
+        
+        return collectionView
+    }()
+    
+    /// done button at the bottom.
+    open lazy var doneView: FilterDoneButtonView = {
+        let doneView = FilterDoneButtonView(frame: .zero)
+        
+        return doneView
+    }()
+    
     /// Used to process data.
     private let viewModel: FilterViewModel
 }
@@ -33,6 +70,9 @@ extension FilterViewController {
         super.viewDidLoad()
         
         configNavigationBar()
+        
+        addSubviews()
+        addInitialLayout()
     }
 }
 
@@ -44,11 +84,30 @@ private extension FilterViewController {
             navigationItem.largeTitleDisplayMode = .never
         }
         
-        navigationItem.title = "Filter"
+        navigationItem.title = "Filter Log"
         navigationController?.navigationBar.tintColor = .theme
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonDidClick(_:)))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetButtonDidClick(_:)))
+    }
+    
+    func addSubviews() {
+        view.addSubview(stackView)
+        
+        stackView.addArrangedSubview(collectionView)
+        stackView.addArrangedSubview(doneView)
+    }
+    
+    func addInitialLayout() {
+        // stackView
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: view.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+        
+        doneView.setContentHuggingPriority(.required, for: .vertical)
     }
 }
 
