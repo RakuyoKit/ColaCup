@@ -9,7 +9,7 @@
 import Foundation
 
 /// Sort order of logs
-public enum Sort: CaseIterable {
+public enum Sort {
     case positive
     case negative
 }

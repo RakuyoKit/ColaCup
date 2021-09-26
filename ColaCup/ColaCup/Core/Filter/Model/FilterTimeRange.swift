@@ -9,7 +9,7 @@
 import Foundation
 
 /// The logs can be filtered by time dimension in the following ways.
-public enum FilterTimeRange: CaseIterable {
+public enum FilterTimeRange {
     /// Display the logs printed in the ColaCup parent page.
     case currentPage
     
@@ -17,5 +17,5 @@ public enum FilterTimeRange: CaseIterable {
     case launchToDate
     
     /// Logs for a custom time period.
-    case sometime
+    case period(start: TimeInterval, end: TimeInterval)
 }
