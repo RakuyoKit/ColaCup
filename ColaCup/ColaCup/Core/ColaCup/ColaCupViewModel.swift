@@ -90,13 +90,8 @@ public extension ColaCupViewModel {
     ///
     /// - Parameters:
     ///   - keyword: User-entered search keywords.
-    ///   - executeImmediately: Whether to perform the search immediately. If it is `false`, the throttling algorithm will be used. See the `throttler` property for details.
     ///   - completion: Completed callback. Will be guaranteed to execute on the main thread.
-    func search(
-        by keyword: String,
-        executeImmediately: Bool,
-        completion: @escaping ([LogModelProtocol]) -> Void
-    ) {
+    func search(by keyword: String, completion: @escaping ([LogModelProtocol]) -> Void) {
         // Really responsible for the filter method.
         let filterBlock: () -> Void = { [weak self] in
             guard let this = self else { return }
@@ -107,10 +102,11 @@ public extension ColaCupViewModel {
             DispatchQueue.main.async { completion(logs) }
         }
         
-        if executeImmediately {
+        // Automatically determine whether to use the throttling algorithm based on the number of logs.
+        // Throttling algorithm: the search method can only be executed once within a certain time frame.
+        if integralLogs.count < 3000 {
             filterBlock()
         } else {
-            // In a certain time frame, the search method can only be executed once
             throttler.execute(filterBlock)
         }
     }

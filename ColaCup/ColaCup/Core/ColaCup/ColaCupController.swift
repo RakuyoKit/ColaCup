@@ -217,7 +217,7 @@ extension ColaCupController: UIViewControllerPreviewingDelegate {
 
 extension ColaCupController: SearchResultViewControllerDelegate {
     open func searchResult(_ resultController: SearchResultViewController, search keyword: String, result: @escaping ([LogModelProtocol]) -> Void) {
-        viewModel.search(by: keyword, executeImmediately: true, completion: result)
+        viewModel.search(by: keyword, completion: result)
     }
     
     open func searchResult(_ resultController: SearchResultViewController, didClickResult log: LogModelProtocol) {
