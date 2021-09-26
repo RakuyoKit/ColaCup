@@ -84,8 +84,12 @@ public extension ColaCupViewModel {
     
     /// Performs a filtering operation.
     ///
-    /// - Parameter completion: The callback when the processing is completed will be executed on the main thread.
-    func filter(completion: @escaping () -> Void) {
+    /// - Parameters:
+    ///   - filterModel: User-selected filters.
+    ///   - completion: The callback when the processing is completed will be executed on the main thread.
+    func filter(by filter: FilterModel, completion: @escaping () -> Void) {
+        filterModel = filter
+        
         // Because the log volume may be large, a new thread is opened to process the log.
         DispatchQueue.global().async { [weak self] in
             guard let this = self else { return }

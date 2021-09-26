@@ -8,6 +8,21 @@
 
 import UIKit
 
+public protocol FilterViewControllerDelegate: NSObjectProtocol {
+    /// Called when the page is about to close.
+    ///
+    /// - Parameter controller: Filter controllers that are turned off.
+    func filterWillDisappear(_ controller: FilterViewController)
+    
+    /// Callback when the done button is clicked.
+    ///
+    /// - Parameters:
+    ///   - controller: Current filter controller.
+    ///   - button: The button that was clicked.
+    ///   - filter: User-selected filters.
+    func filter(_ controller: FilterViewController, didClickDoneButton button: UIButton, filter: FilterModel)
+}
+
 /// The controller used to select the filtering conditions.
 open class FilterViewController: UIViewController {
     /// Initializes with the currently selected filter condition.
@@ -56,11 +71,18 @@ open class FilterViewController: UIViewController {
     open lazy var doneView: FilterDoneButtonView = {
         let doneView = FilterDoneButtonView(frame: .zero)
         
+        doneView.doneButton.addTarget(self, action: #selector(doneButtonDidClick(_:)), for: .touchUpInside)
+        
         return doneView
     }()
     
+    public weak var delegate: FilterViewControllerDelegate? = nil
+    
     /// Used to process data.
     private let viewModel: FilterViewModel
+    
+    /// Used to provide vibration feedback.
+    private lazy var feedbackGenerator = UISelectionFeedbackGenerator()
 }
 
 // MARK: - Life cycle
@@ -73,6 +95,12 @@ extension FilterViewController {
         
         addSubviews()
         addInitialLayout()
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        delegate?.filterWillDisappear(self)
     }
 }
 
@@ -125,5 +153,13 @@ extension FilterViewController {
     open func resetButtonDidClick(_ sender: UIBarButtonItem) {
         viewModel.reset()
         collectionView.reloadData()
+    }
+    
+    /// Done button click events
+    @objc
+    open func doneButtonDidClick(_ sender: UIButton) {
+        feedbackGenerator.prepare()
+        delegate?.filter(self, didClickDoneButton: sender, filter: viewModel.selectedFilter)
+        dismiss(animated: true)
     }
 }

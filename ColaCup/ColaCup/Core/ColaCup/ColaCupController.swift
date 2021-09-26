@@ -158,6 +158,7 @@ extension ColaCupController {
         button.isEnabled = false
         
         let controller = FilterViewController(selectedFilter: viewModel.filterModel)
+        controller.delegate = self
         
         let navi = UINavigationController(rootViewController: controller)
         present(navi, animated: true, completion: {})
@@ -215,7 +216,7 @@ extension ColaCupController: UIViewControllerPreviewingDelegate {
     }
 }
 
-// MARK: - UISearchControllerDelegate
+// MARK: - SearchResultViewControllerDelegate
 
 extension ColaCupController: SearchResultViewControllerDelegate {
     open func searchResult(_ resultController: SearchResultViewController, search keyword: String, result: @escaping ([LogModelProtocol]) -> Void) {
@@ -227,75 +228,21 @@ extension ColaCupController: SearchResultViewControllerDelegate {
     }
 }
 
+// MARK: - FilterViewControllerDelegate
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//// MARK: - TimePopoverDataDelegate
-//
-//extension ColaCupController: TimePopoverDataDelegate {
-//    public func timePopover(_ popover: TimePopover, didChangedViewedLogDate model: TimePopoverModel) {
-//        viewModel.updateTimeModel(model)
-//        refreshLogData(executeImmediately: true)
-//    }
-//}
-//
-//// MARK: - FilterPopoverDataDelegate
-//
-//extension ColaCupController: FilterPopoverDataDelegate {
-//
-//    public func filterPopover(_ popover: FilterPopover, search keyword: String) {
-//
-//        viewModel.updateSearchKeyword(keyword)
-//
-//        refreshLogData(executeImmediately: false)
-//    }
-//
-//    public func filterPopover(_ popover: FilterPopover, clickedFlagAt index: Int, flags: [SelectedModel<Log.Flag>]) {
-//
-//        viewModel.updateFlags(flags)
-//
-//        refreshLogData(executeImmediately: true)
-//    }
-//
-//    public func filterPopover(_ popover: FilterPopover, clickedModuleAt index: Int, modules: [SelectedModel<String>]) {
-//
-//        viewModel.updateModules(modules)
-//
-//        refreshLogData(executeImmediately: false)
-//    }
-//}
-//
-//// MARK: - Tools
-//
-//private extension ColaCupController {
-//    /// Refresh log data.
-//    ///
-//    /// - Parameter executeImmediately: Whether to perform the search immediately.
-//    func refreshLogData(executeImmediately: Bool) {
-//        loadingView.show()
-//
-//        viewModel.refreshLogData(executeImmediately: executeImmediately) { [weak self] in
-//            guard let this = self else { return }
-//
-//            this.loadingView.hide()
-//            this.tableView.reloadData()
-//        }
-//    }
-//}
+extension ColaCupController: FilterViewControllerDelegate {
+    public func filterWillDisappear(_ controller: FilterViewController) {
+        filterButton.isEnabled = true
+    }
+    
+    public func filter(_ controller: FilterViewController, didClickDoneButton button: UIButton, filter: FilterModel) {
+        loadingView.show()
+        
+        viewModel.filter(by: filter) { [weak self] in
+            guard let this = self else { return }
+            
+            this.loadingView.hide()
+            this.tableView.reloadData()
+        }
+    }
+}
