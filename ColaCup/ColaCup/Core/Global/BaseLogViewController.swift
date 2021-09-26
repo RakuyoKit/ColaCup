@@ -8,20 +8,31 @@
 
 import UIKit
 
-open class BaseLogViewController: UITableViewController {
-    public init() {
-        super.init(style: {
+open class BaseLogViewController: UIViewController {
+    /// The view displayed when the log data is loaded.
+    open lazy var loadingView = ColaCupLoadingView()
+    
+    /// The view responsible for displaying the log.
+    open lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: {
             if #available(iOS 13.0, *) { return .insetGrouped }
             return .grouped
         }())
-    }
-    
-    public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    /// The view displayed when the log data is loaded.
-    open lazy var loadingView = ColaCupLoadingView()
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
+        
+        tableView.separatorColor = UIColor.theme.withAlphaComponent(0.2)
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.register(LogCell.self, forCellReuseIdentifier: "LogCell")
+        
+        return tableView
+    }()
     
     /// The index of the cell clicked by the user.
     private lazy var clickedIndex: IndexPath? = nil
@@ -31,7 +42,6 @@ extension BaseLogViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        configTableView()
         addSubviews()
         addInitialLayout()
     }
@@ -51,18 +61,24 @@ extension BaseLogViewController {
 // MARK: - Config
 
 private extension BaseLogViewController {
-    func configTableView() {
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
-        tableView.separatorColor = UIColor.theme.withAlphaComponent(0.2)
-        tableView.register(LogCell.self, forCellReuseIdentifier: "LogCell")
-    }
-    
     func addSubviews() {
+        view.addSubview(tableView)
         view.addSubview(loadingView)
     }
     
     func addInitialLayout() {
+        func addConstraint(for aAxis: UIView.XAxis, toView bAxis: UIView.XAxis) -> NSLayoutConstraint {
+            return tableView(xAxis: aAxis).constraint(equalTo: view(xAxis: bAxis))
+        }
+        
+        // tableView
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            addConstraint(for: .leading, toView: .leading),
+            addConstraint(for: .trailing, toView: .trailing),
+        ])
+        
         // loadingView
         NSLayoutConstraint.activate([
             loadingView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -75,9 +91,23 @@ private extension BaseLogViewController {
 
 // MARK: - UITableViewDelegate
 
-extension BaseLogViewController {
-    open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+extension BaseLogViewController: UITableViewDelegate {
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         clickedIndex = indexPath
+    }
+}
+
+// MARK: - UITableViewDataSource
+
+extension BaseLogViewController: UITableViewDataSource {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        assert(false, "You should override the method in the subclass and return the correct data.")
+        return 1
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        assert(false, "You should override the method in the subclass and return the correct data.")
+        return UITableViewCell()
     }
 }
 

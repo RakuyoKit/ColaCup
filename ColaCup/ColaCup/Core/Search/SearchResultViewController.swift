@@ -64,7 +64,7 @@ extension SearchResultViewController: UISearchResultsUpdating {
             
             this.dataSource = $0
             
-//            this.loadingView.hide()
+            this.loadingView.hide()
             this.tableView.reloadData()
         }
     }

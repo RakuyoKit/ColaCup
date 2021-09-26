@@ -17,7 +17,7 @@ open class ColaCupController: BaseLogViewController {
     /// - Parameter logManager: The log manager is required to follow the `Storable` protocol.
     public init<T: Storable>(logManager: T.Type) {
         self.viewModel = ColaCupViewModel(logManager: logManager)
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
     
     public required init?(coder: NSCoder) {
