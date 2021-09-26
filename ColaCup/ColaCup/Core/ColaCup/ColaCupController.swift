@@ -56,6 +56,7 @@ extension ColaCupController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // Fix the problem that the viewWillAppear method of SearchResultViewController is not executed.
         searchController.resultController.viewWillAppear(animated)
         
         filterButton.isEnabled = true
