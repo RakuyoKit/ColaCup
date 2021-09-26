@@ -9,7 +9,7 @@
 import RaLog
 
 /// Mainly used to process log data.
-open class DetailsViewModel {
+public class DetailsViewModel {
     /// Initialize with log data.
     ///
     /// - Parameter log: The detailed log data to be viewed.
@@ -21,10 +21,10 @@ open class DetailsViewModel {
     private let log: LogModelProtocol
     
     /// List data source.
-    open lazy var dataSource: [DetailsSectionModel] = createDataSource()
+    public lazy var dataSource: [DetailsSectionModel] = createDataSource()
     
     /// Log data in JSON format for sharing.
-    open lazy var sharedJSON: String = {
+    public lazy var sharedJSON: String = {
         return """
         {
             "time": "\(log.formatTime)",
@@ -41,7 +41,7 @@ open class DetailsViewModel {
 
 extension DetailsViewModel {
     /// Controller title
-    open var title: String { log.flag }
+    public var title: String { log.flag }
 }
 
 extension DetailsViewModel {

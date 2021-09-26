@@ -9,7 +9,7 @@
 import Foundation
 
 /// Used to handle filtering logic
-open class FilterViewModel {
+public class FilterViewModel {
     /// Initializes with the currently selected filter condition.
     ///
     /// - Parameter model: currently selected filter condition.
