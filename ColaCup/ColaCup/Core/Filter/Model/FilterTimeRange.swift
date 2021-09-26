@@ -19,3 +19,7 @@ public enum FilterTimeRange {
     /// Logs for a custom time period.
     case period(date: Date, start: TimeInterval, end: TimeInterval)
 }
+
+// MARK: - Equatable
+
+extension FilterTimeRange: Equatable {}
