@@ -58,6 +58,7 @@
 		AEC52DF52700049F00542563 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DF42700049F00542563 /* TableView.swift */; };
 		AEC52DF8270025D100542563 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DF7270025D100542563 /* FilterViewController.swift */; };
 		AEC52DFA2700387700542563 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DF92700387700542563 /* FilterViewModel.swift */; };
+		AEC52DFC27003ACC00542563 /* FilterTimeRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DFB27003ACC00542563 /* FilterTimeRange.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +138,7 @@
 		AEC52DF42700049F00542563 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		AEC52DF7270025D100542563 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		AEC52DF92700387700542563 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
+		AEC52DFB27003ACC00542563 /* FilterTimeRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTimeRange.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -352,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				3A9CF5F9251AED510060EC6F /* SelectedModel.swift */,
+				AEC52DFB27003ACC00542563 /* FilterTimeRange.swift */,
 				AEC52DF92700387700542563 /* FilterViewModel.swift */,
 				AEC52DF7270025D100542563 /* FilterViewController.swift */,
 			);
@@ -570,6 +573,7 @@
 				3AD9BFF425198CF700D2CD16 /* ColaCupController.swift in Sources */,
 				3A66029925399E350006FC28 /* BasePopover.swift in Sources */,
 				3AE80443251D9BD700CDB15B /* DetailsListModel.swift in Sources */,
+				AEC52DFC27003ACC00542563 /* FilterTimeRange.swift in Sources */,
 				3AE8043B251D95AF00CDB15B /* DetailsViewModel.swift in Sources */,
 				3AE80453251DB39D00CDB15B /* DetailsFunctionCell.swift in Sources */,
 				3AE80460251DCFC700CDB15B /* DetailsJSONCell.swift in Sources */,
