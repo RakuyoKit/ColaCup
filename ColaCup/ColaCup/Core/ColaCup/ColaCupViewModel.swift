@@ -35,8 +35,11 @@ public class ColaCupViewModel {
     /// Contains the complete log data under the current date.
     private lazy var integralLogs: [LogModelProtocol] = []
     
-    /// Record the initial filter entries.
-    private lazy var initialFilterModel = FilterModel()
+    /// Initial set of flags.
+    private lazy var allFlags: [Log.Flag] = []
+    
+    /// Initial set of modules.
+    private lazy var allModules: [String] = []
     
     /// Used to restrict the execution of search functions.
     private lazy var throttler = Throttler(seconds: 0.3)
@@ -67,24 +70,16 @@ public extension ColaCupViewModel {
             this.showLogs = this.integralLogs
             
             // 3. Configure the initial set of flags and modules.
-            var flagSet = Set<Log.Flag>()
-            var moduleSet = Set<String>()
+            var flagSet = Set<Log.Flag>(["ALL"])
+            var moduleSet = Set<String>(["ALL"])
             
             for log in this.integralLogs {
                 flagSet.insert(log.flag)
                 moduleSet.insert(log.module)
             }
             
-            var _flags = Array(flagSet).sorted().map { SelectedModel(value: $0) }
-            _flags.insert(.all, at: 0)
-            this.filterModel.flags = _flags
-            
-            var _modules = Array(moduleSet).sorted().map { SelectedModel(value: $0) }
-            _modules.insert(.all, at: 0)
-            this.filterModel.modules = _modules
-            
-            // 4. Record an initial value
-            this.initialFilterModel = this.filterModel
+            this.allFlags = Array(flagSet).sorted()
+            this.allModules = Array(moduleSet).sorted()
         }
     }
     
@@ -122,13 +117,13 @@ public extension ColaCupViewModel {
             // 2. Filtering according to the criteria selected by the user
             var conditions: [(LogModelProtocol) -> Bool] = []
             
-            if !this.filterModel.flags[0].isSelected {
-                let selectFlags = this.filterModel.flags.filter { $0.isSelected }.map { $0.value }
+            if let flag = this.filterModel.flags.first, flag != "ALL" {
+                let selectFlags = this.filterModel.flags
                 conditions.append({ selectFlags.contains($0.flag) })
             }
             
-            if !this.filterModel.modules[0].isSelected {
-                let selectModules = this.filterModel.modules.filter { $0.isSelected }.map { $0.value }
+            if let module = this.filterModel.modules.first, module != "ALL" {
+                let selectModules = this.filterModel.modules
                 conditions.append({ selectModules.contains($0.module) })
             }
             
@@ -149,7 +144,7 @@ public extension ColaCupViewModel {
     /// - Parameter newFilter: Data to be judged.
     /// - Returns: Does it contain a filter item.
     func isHasFilterItem(with newFilter: FilterModel) -> Bool {
-        return newFilter != initialFilterModel
+        return newFilter != FilterModel()
     }
     
     /// Search for logs based on keywords.
