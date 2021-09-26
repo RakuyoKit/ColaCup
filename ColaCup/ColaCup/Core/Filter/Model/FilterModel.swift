@@ -26,3 +26,7 @@ public struct FilterModel {
     /// The outer isSelected property allows you to determine if the state is selected.
     public var modules: [SelectedModel<String>] = [.all]
 }
+
+// MARK: - Equatable
+
+extension FilterModel: Equatable {}
