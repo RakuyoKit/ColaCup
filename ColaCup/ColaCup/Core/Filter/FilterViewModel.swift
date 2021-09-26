@@ -23,5 +23,7 @@ public class FilterViewModel {
 
 public extension FilterViewModel {
     /// Reset filter items
-    func reset() { selectedFilter.reset() }
+    func reset() {
+        selectedFilter = FilterModel()
+    }
 }
