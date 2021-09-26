@@ -114,13 +114,16 @@ private extension FilterViewController {
 // MARK: - Action
 
 extension FilterViewController {
+    /// Cancel button click events
     @objc
     open func cancelButtonDidClick(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     
+    /// Reset button click events
     @objc
     open func resetButtonDidClick(_ sender: UIBarButtonItem) {
-        
+        viewModel.reset()
+        collectionView.reloadData()
     }
 }

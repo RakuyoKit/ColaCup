@@ -20,3 +20,10 @@ open class FilterViewModel {
     /// currently selected filter condition.
     private var selectedFilter: FilterModel
 }
+
+public extension FilterViewModel {
+    /// Reset filter items
+    func reset() {
+        selectedFilter = FilterModel()
+    }
+}
