@@ -157,7 +157,7 @@ extension ColaCupController {
         
         button.isEnabled = false
         
-        let controller = FilterViewController()
+        let controller = FilterViewController(selectedFilter: viewModel.selectedFilter)
         present(controller, animated: true, completion: {})
     }
 }

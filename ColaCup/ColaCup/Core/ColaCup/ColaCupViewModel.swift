@@ -20,6 +20,8 @@ public class ColaCupViewModel {
     /// Log manager.
     private let logManager: Storable.Type
     
+    /// currently selected filter condition.
+    public lazy var selectedFilter = FilterModel()
     
     /// The log data to be displayed.
     public lazy var showLogs: [LogModelProtocol] = []
@@ -99,9 +101,7 @@ public extension ColaCupViewModel {
         let filterBlock: () -> Void = { [weak self] in
             guard let this = self else { return }
             
-            let logs = this.integralLogs.filter(
-                with: [{ $0.safeLog.contains(keyword) }]
-            )
+            let logs = this.integralLogs.filter { $0.safeLog.contains(keyword) }
             
             // Return to the main thread callback controller
             DispatchQueue.main.async { completion(logs) }
