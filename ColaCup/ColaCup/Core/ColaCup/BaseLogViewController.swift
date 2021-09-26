@@ -58,16 +58,19 @@ private extension BaseLogViewController {
     }
     
     func addInitialLayout() {
-        func addConstraint(for aAxis: UIView.XAxis, toView bAxis: UIView.XAxis) -> NSLayoutConstraint {
-            return tableView(xAxis: aAxis).constraint(equalTo: view(xAxis: bAxis))
+        var _view: (leadingAnchor: NSLayoutXAxisAnchor, trailingAnchor: NSLayoutXAxisAnchor)
+        if #available(iOS 11.0, *) {
+            _view = (view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor)
+        } else {
+            _view = (view.leadingAnchor, view.trailingAnchor)
         }
         
         // tableView
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            addConstraint(for: .leading, toView: .leading),
-            addConstraint(for: .trailing, toView: .trailing),
+            tableView.leadingAnchor.constraint(equalTo: _view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: _view.trailingAnchor),
         ])
         
         // loadingView
