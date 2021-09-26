@@ -10,7 +10,6 @@ import RaLog
 
 /// Mainly used to process log data.
 public class ColaCupViewModel {
-    
     /// Use the log manager to initialize the view model.
     ///
     /// - Parameter logManager: The log manager is required to follow the `Storable` protocol.

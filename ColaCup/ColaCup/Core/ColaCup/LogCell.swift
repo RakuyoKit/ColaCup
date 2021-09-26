@@ -9,21 +9,17 @@
 import UIKit
 
 open class LogCell: UITableViewCell {
-    
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         config()
     }
     
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         config()
     }
     
     open lazy var flagLabel: UILabel = {
-        
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +34,6 @@ open class LogCell: UITableViewCell {
     }()
     
     open lazy var timeLabel: UILabel = {
-        
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +47,6 @@ open class LogCell: UITableViewCell {
     }()
     
     open lazy var logLabel: UILabel = {
-        
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -69,9 +63,7 @@ open class LogCell: UITableViewCell {
 // MARK: - Config
 
 private extension LogCell {
-    
     func config() {
-        
         separatorInset = .zero
         
         addSubviews()
@@ -79,14 +71,12 @@ private extension LogCell {
     }
     
     func addSubviews() {
-        
         contentView.addSubview(flagLabel)
         contentView.addSubview(timeLabel)
         contentView.addSubview(logLabel)
     }
     
     func addInitialLayout() {
-        
         // flagLabel
         NSLayoutConstraint.activate([
             flagLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
