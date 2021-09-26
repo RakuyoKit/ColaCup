@@ -10,7 +10,7 @@ import UIKit
 
 import RaLog
 
-protocol SearchResultViewControllerDelegate: NSObjectProtocol {
+public protocol SearchResultViewControllerDelegate: NSObjectProtocol {
     /// Triggered when searching, used to return search results.
     ///
     /// - Parameters:
@@ -31,7 +31,7 @@ protocol SearchResultViewControllerDelegate: NSObjectProtocol {
     func searchResult(_ resultController: SearchResultViewController, didClickResult log: LogModelProtocol)
 }
 
-protocol SearchResultViewControllerScrollDelegate: NSObjectProtocol {
+public protocol SearchResultViewControllerScrollDelegate: NSObjectProtocol {
     /// Called when the TableView is slid.
     ///
     /// - Parameter resultController: The controller that currently displays the search results.
@@ -39,10 +39,10 @@ protocol SearchResultViewControllerScrollDelegate: NSObjectProtocol {
 }
 
 /// Controller for displaying search results.
-class SearchResultViewController: BaseLogViewController {
-    weak var delegate: SearchResultViewControllerDelegate? = nil
+open class SearchResultViewController: BaseLogViewController {
+    public weak var delegate: SearchResultViewControllerDelegate? = nil
     
-    weak var scrollDelegate: SearchResultViewControllerScrollDelegate? = nil
+    public weak var scrollDelegate: SearchResultViewControllerScrollDelegate? = nil
     
     private lazy var dataSource: [LogModelProtocol] = []
     
@@ -53,7 +53,7 @@ class SearchResultViewController: BaseLogViewController {
 // MARK: - UISearchResultsUpdating
 
 extension SearchResultViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
+    open func updateSearchResults(for searchController: UISearchController) {
         guard let keyword = searchController.searchBar.text,
               keyword != lastKeyword else { return }
         
@@ -82,7 +82,7 @@ extension SearchResultViewController {
 // MARK: - UITableViewDelegate
 
 extension SearchResultViewController {
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         super.tableView(tableView, didSelectRowAt: indexPath)
         
         delegate?.searchResult(self, didClickResult: dataSource[indexPath.row])
@@ -92,11 +92,11 @@ extension SearchResultViewController {
 // MARK: - UITableViewDataSource
 
 extension SearchResultViewController {
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let log = dataSource[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(LogCell.self)", for: indexPath) as! LogCell

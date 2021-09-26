@@ -91,12 +91,12 @@ extension BaseLogViewController: UITableViewDelegate {
 // MARK: - UITableViewDataSource
 
 extension BaseLogViewController: UITableViewDataSource {
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         assert(false, "You should override the method in the subclass and return the correct data.")
         return 1
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         assert(false, "You should override the method in the subclass and return the correct data.")
         return UITableViewCell()
     }

@@ -25,14 +25,14 @@ open class ColaCupController: BaseLogViewController {
     }
     
     /// Entrance to the filter page.
-    public private(set) lazy var filterButton: UIButton = createBarButton(
+    public lazy var filterButton: UIButton = createBarButton(
         imageName: "line.horizontal.3.decrease.circle",
         selectImageName: "line.horizontal.3.decrease.circle.fill",
         action: #selector(filterButtonDidClick(_:))
     )
     
     /// Controller for searching logs.
-    private lazy var searchController = SearchController()
+    public lazy var searchController = SearchController()
     
     /// Used to process data.
     private let viewModel: ColaCupViewModel
@@ -132,14 +132,16 @@ extension ColaCupController {
     /// Execute when the button is pressed.
     ///
     /// - Parameter button: Button pressed.
-    @objc open func buttonDidTouchDown(_ button: UIButton) {
+    @objc
+    open func buttonDidTouchDown(_ button: UIButton) {
         feedbackGenerator.prepare()
     }
     
     /// Close button click event.
     ///
     /// - Parameter button: `toolBar.closeButton`.
-    @objc open func closeButtonDidClick(_ button: UIButton) {
+    @objc
+    open func closeButtonDidClick(_ button: UIButton) {
         feedbackGenerator.selectionChanged()
         
         button.isEnabled = false
@@ -149,7 +151,8 @@ extension ColaCupController {
     /// Filter button click event.
     ///
     /// - Parameter button: `filterButton`.
-    @objc open func filterButtonDidClick(_ button: UIButton) {
+    @objc
+    open func filterButtonDidClick(_ button: UIButton) {
         feedbackGenerator.selectionChanged()
         
         button.isEnabled = false
@@ -162,7 +165,7 @@ extension ColaCupController {
 // MARK: - UITableViewDelegate
 
 extension ColaCupController {
-    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         super.tableView(tableView, didSelectRowAt: indexPath)
         
         navigationController?.pushViewController(DetailsViewController(log: viewModel.showLogs[indexPath.row]), animated: true)
@@ -172,11 +175,11 @@ extension ColaCupController {
 // MARK: - UITableViewDataSource
 
 extension ColaCupController {
-    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.showLogs.count
     }
     
-    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let log = viewModel.showLogs[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(LogCell.self)", for: indexPath) as! LogCell
@@ -196,7 +199,7 @@ extension ColaCupController {
 // MARK: - UIViewControllerPreviewingDelegate
 
 extension ColaCupController: UIViewControllerPreviewingDelegate {
-    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+    open func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let cell = previewingContext.sourceView as? UITableViewCell,
               let indexPath = tableView.indexPath(for: cell) else {
             return nil
@@ -205,7 +208,7 @@ extension ColaCupController: UIViewControllerPreviewingDelegate {
         return DetailsViewController(log: viewModel.showLogs[indexPath.row])
     }
     
-    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+    open func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 }
@@ -213,11 +216,11 @@ extension ColaCupController: UIViewControllerPreviewingDelegate {
 // MARK: - UISearchControllerDelegate
 
 extension ColaCupController: SearchResultViewControllerDelegate {
-    func searchResult(_ resultController: SearchResultViewController, search keyword: String, result: @escaping ([LogModelProtocol]) -> Void) {
+    open func searchResult(_ resultController: SearchResultViewController, search keyword: String, result: @escaping ([LogModelProtocol]) -> Void) {
         viewModel.search(by: keyword, executeImmediately: true, completion: result)
     }
     
-    func searchResult(_ resultController: SearchResultViewController, didClickResult log: LogModelProtocol) {
+    open func searchResult(_ resultController: SearchResultViewController, didClickResult log: LogModelProtocol) {
         navigationController?.pushViewController(DetailsViewController(log: log), animated: true)
     }
 }

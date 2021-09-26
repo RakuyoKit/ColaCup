@@ -9,8 +9,8 @@
 import UIKit
 
 /// Controller for searching logs.
-class SearchController: UISearchController {
-    init() {
+open class SearchController: UISearchController {
+    public init() {
         let resultController = SearchResultViewController()
         self.resultController = resultController
         
@@ -19,11 +19,11 @@ class SearchController: UISearchController {
         self.resultController.scrollDelegate = self
     }
     
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    let resultController: SearchResultViewController
+    public let resultController: SearchResultViewController
     
     /// Is the page already displayed.
     private lazy var isShown = false
@@ -32,7 +32,7 @@ class SearchController: UISearchController {
 // MARK: - Life cycle
 
 extension SearchController {
-    override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         
         searchBar.tintColor = .theme
@@ -45,7 +45,7 @@ extension SearchController {
         searchResultsUpdater = resultController
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         isShown = true
@@ -55,7 +55,7 @@ extension SearchController {
 // MARK: - SearchResultViewControllerScrollDelegate
 
 extension SearchController: SearchResultViewControllerScrollDelegate {
-    func searchResultDidScroll(_ resultController: SearchResultViewController) {
+    open func searchResultDidScroll(_ resultController: SearchResultViewController) {
         // This method is also called when the page is first displayed.
         // If do not add this judgment, the keyboard will not pop up when you first enter the page.
         guard isShown else { return }
