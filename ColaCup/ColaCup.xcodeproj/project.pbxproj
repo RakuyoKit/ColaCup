@@ -61,6 +61,7 @@
 		AEC52E0127003DF800542563 /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E0027003DF800542563 /* FilterModel.swift */; };
 		AEC52E052700418700542563 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E042700418700542563 /* Sort.swift */; };
 		AEC52E0727005A6700542563 /* FilterListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E0627005A6700542563 /* FilterListModel.swift */; };
+		AEC52E0927005FBD00542563 /* FilterDoneButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E0827005FBD00542563 /* FilterDoneButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +144,7 @@
 		AEC52E0027003DF800542563 /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 		AEC52E042700418700542563 /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 		AEC52E0627005A6700542563 /* FilterListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterListModel.swift; sourceTree = "<group>"; };
+		AEC52E0827005FBD00542563 /* FilterDoneButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDoneButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,6 +361,7 @@
 				AEC52DFF27003D9600542563 /* Model */,
 				AEC52DF92700387700542563 /* FilterViewModel.swift */,
 				AEC52DF7270025D100542563 /* FilterViewController.swift */,
+				AEC52E0827005FBD00542563 /* FilterDoneButtonView.swift */,
 			);
 			path = Filter;
 			sourceTree = "<group>";
@@ -584,6 +587,7 @@
 				3AE8044E251DB29500CDB15B /* DetailsPositionCell.swift in Sources */,
 				AEC52DED26FDA75E00542563 /* SearchResultViewController.swift in Sources */,
 				3A4A91D425398808003C5957 /* FilterPopoverViewModel.swift in Sources */,
+				AEC52E0927005FBD00542563 /* FilterDoneButtonView.swift in Sources */,
 				3AD9BFF425198CF700D2CD16 /* ColaCupController.swift in Sources */,
 				3A66029925399E350006FC28 /* BasePopover.swift in Sources */,
 				3AE80443251D9BD700CDB15B /* DetailsListModel.swift in Sources */,
