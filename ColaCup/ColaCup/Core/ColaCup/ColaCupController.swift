@@ -56,6 +56,8 @@ extension ColaCupController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        searchController.resultController.viewWillAppear(animated)
+        
         filterButton.isEnabled = true
     }
 }
