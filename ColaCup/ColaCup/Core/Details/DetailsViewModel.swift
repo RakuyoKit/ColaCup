@@ -10,7 +10,6 @@ import RaLog
 
 /// Mainly used to process log data.
 open class DetailsViewModel {
-    
     /// Initialize with log data.
     ///
     /// - Parameter log: The detailed log data to be viewed.
@@ -26,7 +25,6 @@ open class DetailsViewModel {
     
     /// Log data in JSON format for sharing.
     open lazy var sharedJSON: String = {
-        
         return """
         {
             "time": "\(log.formatTime)",
@@ -42,16 +40,13 @@ open class DetailsViewModel {
 }
 
 extension DetailsViewModel {
-    
     /// Controller title
     open var title: String { log.flag }
 }
 
 extension DetailsViewModel {
-    
     /// Create list data source
     public func createDataSource() -> [DetailsSectionModel] {
-        
         let content = log.safeLog.trimmingCharacters(in: .whitespacesAndNewlines)
         
         var dataSource = [
@@ -87,7 +82,6 @@ extension DetailsViewModel {
     /// - Parameter string: Range string.
     /// - Returns: The intercepted json string. Return nil when json is not found.
     private func interceptJSON(from string: String) -> String? {
-        
         let pattern = "(?s)(\\{.*(?=\\})\\}|\\[.*(?=\\])\\])"
         
         // Create a regular expression object.

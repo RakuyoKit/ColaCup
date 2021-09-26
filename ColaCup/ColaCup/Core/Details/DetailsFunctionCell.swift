@@ -10,21 +10,17 @@ import UIKit
 
 /// Used in the detail page, the cell that displays the function content.
 open class DetailsFunctionCell: UITableViewCell {
-    
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         config()
     }
     
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         config()
     }
     
     open lazy var iconView: UIImageView = {
-        
         let view = UIImageView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +31,6 @@ open class DetailsFunctionCell: UITableViewCell {
     }()
     
     open lazy var titleLabel: UILabel = {
-        
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -48,7 +43,6 @@ open class DetailsFunctionCell: UITableViewCell {
     }()
     
     open lazy var valueLabel: UILabel = {
-        
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -64,9 +58,7 @@ open class DetailsFunctionCell: UITableViewCell {
 // MARK: - Config
 
 private extension DetailsFunctionCell {
-    
     func config() {
-        
         selectionStyle = .none
         separatorInset = UIEdgeInsets(top: 0, left: 47, bottom: 0, right: 0)
         
@@ -75,14 +67,12 @@ private extension DetailsFunctionCell {
     }
     
     func addSubviews() {
-        
         contentView.addSubview(iconView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(valueLabel)
     }
     
     func addInitialLayout() {
-        
         NSLayoutConstraint.activate([
             iconView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             iconView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),

@@ -10,7 +10,6 @@ import Foundation
 
 /// The model used for the section in the detail page list.
 public struct DetailsSectionModel {
-    
     public init(title: String?, items: [DetailsCellModel]) {
         self.title = title
         self.items = items
@@ -28,7 +27,6 @@ public struct DetailsSectionModel {
 
 /// Type of detail page cell
 public enum DetailsCellType: String, CaseIterable {
-    
     /// Used to show general content
     case normal
     
@@ -44,7 +42,6 @@ public enum DetailsCellType: String, CaseIterable {
 
 /// The model used for the cell in the detail page list.
 public struct DetailsCellModel {
-    
     public init(
         type: DetailsCellType = .normal,
         image: String? = nil,
