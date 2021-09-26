@@ -99,7 +99,7 @@ extension SearchResultViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let log = dataSource[indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LogCell", for: indexPath) as! LogCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "\(LogCell.self)", for: indexPath) as! LogCell
         
         cell.flagLabel.text = log.flag
         cell.timeLabel.text = log.formatTime

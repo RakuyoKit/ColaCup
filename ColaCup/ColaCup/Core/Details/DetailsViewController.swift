@@ -27,19 +27,11 @@ open class DetailsViewController: UIViewController {
     }
     
     /// Responsible for displaying a list of log details.
-    open lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: {
-            if #available(iOS 13.0, *) { return .insetGrouped }
-            return .grouped
-        }())
+    open lazy var tableView: TableView = {
+        let tableView = TableView()
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
-        
-        tableView.rowHeight =  UITableView.automaticDimension
         tableView.estimatedRowHeight = 50
-        
-        tableView.separatorColor = UIColor.theme.withAlphaComponent(0.2)
         
         DetailsCellType.allCases.forEach(tableView.register(withType:))
         

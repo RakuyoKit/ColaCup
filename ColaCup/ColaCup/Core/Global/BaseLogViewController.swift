@@ -13,23 +13,14 @@ open class BaseLogViewController: UIViewController {
     open lazy var loadingView = ColaCupLoadingView()
     
     /// The view responsible for displaying the log.
-    open lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: {
-            if #available(iOS 13.0, *) { return .insetGrouped }
-            return .grouped
-        }())
+    open lazy var tableView: TableView = {
+        let tableView = TableView()
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
-        
-        tableView.separatorColor = UIColor.theme.withAlphaComponent(0.2)
-        
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.register(LogCell.self, forCellReuseIdentifier: "LogCell")
+        tableView.register(LogCell.self, forCellReuseIdentifier: "\(LogCell.self)")
         
         return tableView
     }()
