@@ -9,7 +9,7 @@
 import Foundation
 
 /// Model used to mark whether it is selected.
-public struct SelectedModel<T: Equatable>: Equatable {
+public struct SelectedModel<T: Hashable>: Hashable {
     public init(isSelected: Bool = false, value: T) {
         self.isSelected = isSelected
         self.value = value
