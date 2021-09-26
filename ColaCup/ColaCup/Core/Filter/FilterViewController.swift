@@ -71,6 +71,7 @@ open class FilterViewController: UIViewController {
     open lazy var doneView: FilterDoneButtonView = {
         let doneView = FilterDoneButtonView(frame: .zero)
         
+        doneView.doneButton.addTarget(self, action: #selector(doneButtonDidTouchDown(_:)), for: .touchDown)
         doneView.doneButton.addTarget(self, action: #selector(doneButtonDidClick(_:)), for: .touchUpInside)
         
         return doneView
@@ -155,10 +156,18 @@ extension FilterViewController {
         collectionView.reloadData()
     }
     
+    /// Execute when the button is pressed.
+    ///
+    /// - Parameter button: Button pressed.
+    @objc
+    open func doneButtonDidTouchDown(_ button: UIButton) {
+        feedbackGenerator.prepare()
+    }
+    
     /// Done button click events
     @objc
     open func doneButtonDidClick(_ sender: UIButton) {
-        feedbackGenerator.prepare()
+        feedbackGenerator.selectionChanged()
         delegate?.filter(self, didClickDoneButton: sender, filter: viewModel.selectedFilter)
         dismiss(animated: true)
     }
