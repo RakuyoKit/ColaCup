@@ -21,7 +21,7 @@ public class ColaCupViewModel {
     private let logManager: Storable.Type
     
     /// currently selected filter condition.
-    public lazy var selectedFilter = FilterModel()
+    public lazy var filterModel = FilterModel()
     
     /// The log data to be displayed.
     public lazy var showLogs: [LogModelProtocol] = []
