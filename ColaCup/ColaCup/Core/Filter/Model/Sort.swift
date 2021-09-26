@@ -17,3 +17,7 @@ public enum Sort {
 public extension Sort {
     static let `default`: Sort = .negative
 }
+
+// MARK: - Equatable
+
+extension Sort: Equatable {}
