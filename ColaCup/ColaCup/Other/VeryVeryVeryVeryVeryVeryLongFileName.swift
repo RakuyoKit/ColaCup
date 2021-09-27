@@ -11,7 +11,6 @@ import UIKit
 import RaLog
 
 class ViewController: UIViewController {
-
     private lazy var enter: Void = {
         enterColaCup(self)
     }()
@@ -94,11 +93,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func enterColaCup(_ sender: Any) {
-        
         let controller = ColaCupController(logManager: Log.self)
+        controller.delegate = self
         
         let navi = UINavigationController(rootViewController: controller)
-        
         navi.modalPresentationStyle = .fullScreen
         
         // Show ColaCupController
@@ -106,9 +104,13 @@ class ViewController: UIViewController {
     }
     
     open func tableView(tableView: UITableView?, cellForRowAt indexPath: IndexPath?) -> UITableViewCell? {
-        
         Log.debug("Try this length")
-        
         return nil
+    }
+}
+
+extension ViewController: ColaCupControllerDelegate {
+    func nameOfFileBeforeEnterColaCup(_ controller: ColaCupController) -> String {
+        return #file
     }
 }
