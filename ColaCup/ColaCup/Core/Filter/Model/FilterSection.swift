@@ -36,17 +36,4 @@ public extension FilterSection {
             return title
         }
     }
-    
-    var values: [Any] {
-        switch self {
-        case .sort(_, let values):
-            return values
-        case .timeRange(_, let values):
-            return values
-        case .flag(_, let values):
-            return values
-        case .module(_, let values):
-            return values
-        }
-    }
 }

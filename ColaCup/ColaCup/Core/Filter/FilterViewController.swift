@@ -259,7 +259,12 @@ extension FilterViewController: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.dataSource[section].values.count
+        switch viewModel.dataSource[section] {
+        case .sort(_, let values): return values.count
+        case .timeRange(_, let values): return values.count
+        case .flag(_, let values): return values.count
+        case .module(_, let values): return values.count
+        }
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
