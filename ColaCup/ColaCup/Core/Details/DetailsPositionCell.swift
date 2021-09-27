@@ -38,6 +38,7 @@ open class DetailsPositionCell: UITableViewCell {
         label.textColor = .darkGray
         label.textAlignment = .natural
         label.lineBreakMode = .byTruncatingTail
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         
         return label
     }()
@@ -47,9 +48,10 @@ open class DetailsPositionCell: UITableViewCell {
         
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.textColor = .normalText
         label.textAlignment = .right
+        label.textColor = .normalText
         label.lineBreakMode = .byTruncatingTail
+        label.font = UIFont.preferredFont(forTextStyle: .body)
         
         return label
     }()

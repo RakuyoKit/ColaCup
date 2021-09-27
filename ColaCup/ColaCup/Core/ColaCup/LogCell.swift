@@ -24,8 +24,8 @@ open class LogCell: UITableViewCell {
         
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.textColor = UIColor(red:0.73, green:0.26, blue:0.18, alpha:1.00)
-        label.font = UIFont.systemFont(ofSize: label.font.pointSize - 2)
+        label.textColor = UIColor(red: 0.73, green: 0.26, blue: 0.18, alpha: 1.00)
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.lineBreakMode = .byTruncatingTail
         label.textAlignment = .natural
         label.numberOfLines = 1
@@ -38,8 +38,8 @@ open class LogCell: UITableViewCell {
         
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.textColor = UIColor(red:0.73, green:0.26, blue:0.18, alpha:1.00)
-        label.font = UIFont.systemFont(ofSize: label.font.pointSize - 2)
+        label.textColor = UIColor(red: 0.73, green: 0.26, blue: 0.18, alpha: 1.00)
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.textAlignment = .natural
         label.numberOfLines = 1
         
@@ -52,6 +52,7 @@ open class LogCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         label.textColor = .normalText
+        label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textAlignment = .natural
         label.lineBreakMode = .byTruncatingTail
         label.numberOfLines = 2
@@ -103,7 +104,7 @@ private extension LogCell {
             logLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
             
             // Maximum height of two rows
-            logLabel.heightAnchor.constraint(lessThanOrEqualToConstant: ceil(logLabel.font.lineHeight * 2))
+            logLabel.heightAnchor.constraint(lessThanOrEqualToConstant: ceil(logLabel.font.lineHeight * 2.1))
         ])
     }
 }

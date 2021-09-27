@@ -24,7 +24,7 @@ open class FilterDoneButtonView: UIView {
         let button = UIButton(type: .system)
         
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 5
+        button.layer.cornerRadius = 8
         
         button.backgroundColor = .theme
         

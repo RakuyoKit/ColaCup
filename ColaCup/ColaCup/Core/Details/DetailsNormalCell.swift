@@ -31,5 +31,6 @@ private extension DetailsNormalCell {
         textLabel?.textColor = .normalText
         textLabel?.textAlignment = .natural
         textLabel?.lineBreakMode = .byTruncatingTail
+        textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
     }
 }

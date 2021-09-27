@@ -22,8 +22,12 @@ public class FilterHeaderView: UICollectionReusableView {
     public var label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .normalText
-        label.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
+        label.font = UIFont.preferredFont(forTextStyle: .title2)
+        if #available(iOS 13.0, *) {
+            label.textColor = .label
+        } else {
+            label.textColor = .black
+        }
         return label
     }()
 }
@@ -35,8 +39,8 @@ private extension FilterHeaderView {
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: topAnchor),
             label.bottomAnchor.constraint(equalTo: bottomAnchor),
-            label.leadingAnchor.constraint(equalTo: leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor)
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -15)
         ])
     }
 }
