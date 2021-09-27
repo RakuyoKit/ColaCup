@@ -184,8 +184,26 @@ private extension ColaCupViewModel {
     
     /// Display the logs printed in the ColaCup parent page.
     var currentPageLogs: [LogModelProtocol] {
-        #warning("TODO The logic here is not available yet")
-        return logManager.logs
+        let _logs = logManager.logs
+        
+        guard let file = getCurrentPage?() else {
+            Log.error("Failed to get the current controller name! Cannot use \"Show log of current page\" function. All logs since the program was started are displayed.")
+            return _logs
+        }
+        
+        guard let end = _logs.last(where: { $0.file == file })?.timestamp,
+              let start = _logs.last(where: { $0.file == file && $0.timestamp != end })?.timestamp else {
+            return _logs
+        }
+        
+        var result: [LogModelProtocol] = []
+        for log in _logs.reversed() {
+            if log.timestamp > end { break }
+            guard log.timestamp <= end && log.timestamp >= start else { continue }
+            result.append(log)
+        }
+        
+        return result.reversed()
     }
     
     var allFlag: String { FilterModel.allFlag }
