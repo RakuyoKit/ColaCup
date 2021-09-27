@@ -150,7 +150,10 @@ private extension ColaCupViewModel {
                 case .launchToDate: return logManager.logs
                     
                 case .period(let date, let start, let end):
-                    let _logs: [Log] = logManager.readLogFromDisk(logDate: date) ?? []
+                    guard let date = date,
+                          let _logs: [Log] = logManager.readLogFromDisk(logDate: date) else {
+                        return []
+                    }
                     return _logs.filter { $0.timestamp >= start && $0.timestamp <= end }
                 }
             }()

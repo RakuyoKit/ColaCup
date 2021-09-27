@@ -17,7 +17,7 @@ public enum FilterTimeRange {
     case launchToDate
     
     /// Logs for a custom time period.
-    case period(date: Date, start: TimeInterval, end: TimeInterval)
+    case period(date: Date?, start: TimeInterval, end: TimeInterval)
 }
 
 public extension FilterTimeRange {
