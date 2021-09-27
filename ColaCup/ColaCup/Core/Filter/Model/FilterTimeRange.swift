@@ -26,4 +26,16 @@ public extension FilterTimeRange {
 
 // MARK: - Equatable
 
-extension FilterTimeRange: Equatable {}
+extension FilterTimeRange: Equatable {
+    private var identifier: Int {
+        switch self {
+        case .currentPage: return 0
+        case .launchToDate: return 1
+        case .period: return 2
+        }
+    }
+    
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+}
