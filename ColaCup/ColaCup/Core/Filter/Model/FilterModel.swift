@@ -34,16 +34,8 @@ public extension FilterModel {
 
 extension FilterModel: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
-        let isSameTimeRange: Bool
-        if case .oneDate(let lhsDate) = lhs.timeRange,
-           case .oneDate(let rhsDate) = rhs.timeRange {
-            isSameTimeRange = lhsDate == rhsDate
-        } else {
-            isSameTimeRange = lhs.timeRange == rhs.timeRange
-        }
-        
         return (lhs.sort == rhs.sort) &&
-            isSameTimeRange &&
+            lhs.timeRange.isExactlyEqual(to: rhs.timeRange) &&
             (lhs.flags == rhs.flags) &&
             (lhs.modules == rhs.flags)
     }

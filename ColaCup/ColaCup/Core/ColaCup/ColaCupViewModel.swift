@@ -27,7 +27,7 @@ public class ColaCupViewModel {
         didSet {
             // Determines if the time range is modified.
             // The filter will then be narrowed down based on this property.
-            isModifiedTimeRange = filterModel.timeRange != oldValue.timeRange
+            isModifiedTimeRange = !filterModel.timeRange.isExactlyEqual(to: oldValue.timeRange)
         }
     }
     
