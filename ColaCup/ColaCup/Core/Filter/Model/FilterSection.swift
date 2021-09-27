@@ -22,3 +22,31 @@ public enum FilterSection {
     /// Module of the log
     case module(title: String, values: [String])
 }
+
+public extension FilterSection {
+    var title: String {
+        switch self {
+        case .sort(let title, _):
+            return title
+        case .timeRange(let title, _):
+            return title
+        case .flag(let title, _):
+            return title
+        case .module(let title, _):
+            return title
+        }
+    }
+    
+    var values: [Any] {
+        switch self {
+        case .sort(_, let values):
+            return values
+        case .timeRange(_, let values):
+            return values
+        case .flag(_, let values):
+            return values
+        case .module(_, let values):
+            return values
+        }
+    }
+}
