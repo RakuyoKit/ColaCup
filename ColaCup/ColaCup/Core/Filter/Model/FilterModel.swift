@@ -8,8 +8,6 @@
 
 import Foundation
 
-import RaLog
-
 /// The model used to record the currently selected filter criteria.
 public struct FilterModel {
     /// Sort order of logs.
@@ -20,7 +18,7 @@ public struct FilterModel {
     
     /// A collection of all log flags.
     /// The outer isSelected property allows you to determine if the state is selected.
-    public var flags: [Log.Flag] = []
+    public var flags: [Flag] = []
     
     /// The set of all modules.
     /// The outer isSelected property allows you to determine if the state is selected.

@@ -8,8 +8,6 @@
 
 import Foundation
 
-import RaLog
-
 /// Filter the individual sections of the page
 public enum FilterSection {
     /// Display order
@@ -19,7 +17,7 @@ public enum FilterSection {
     case timeRange(title: String, values: [FilterTimeRange])
     
     /// Flag of the log
-    case flag(title: String, values: [Log.Flag])
+    case flag(title: String, values: [Flag])
     
     /// Module of the log
     case module(title: String, values: [String])

@@ -8,6 +8,8 @@
 
 import RaLog
 
+public typealias Flag = Log.Flag
+
 /// Mainly used to process log data.
 public class ColaCupViewModel {
     /// Use the log manager to initialize the view model.
@@ -36,7 +38,7 @@ public class ColaCupViewModel {
     private lazy var integralLogs: [LogModelProtocol] = []
     
     /// Initial set of flags.
-    private lazy var allFlags: [Log.Flag] = []
+    private lazy var allFlags: [Flag] = []
     
     /// Initial set of modules.
     private lazy var allModules: [String] = []
@@ -124,7 +126,7 @@ private extension ColaCupViewModel {
         showLogs = integralLogs
         
         // 3. Configure the initial set of flags and modules.
-        var flagSet = Set<Log.Flag>([allFlag])
+        var flagSet = Set<Flag>([allFlag])
         var moduleSet = Set<String>([allFlag])
         
         for log in integralLogs {
