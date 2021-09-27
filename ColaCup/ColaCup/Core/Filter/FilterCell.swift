@@ -52,7 +52,7 @@ private extension FilterCell {
         }
         
         layer.cornerRadius = 8
-        layer.borderWidth = 1
+        layer.borderWidth = 1.5
         layer.borderColor = backgroundColor?.cgColor
         
         addSubviews()
