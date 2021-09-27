@@ -247,13 +247,13 @@ extension FilterViewController: UICollectionViewDelegate {
         case .timeRange(_, let values):
             let range = values[item]
             
-            guard case .oneDate(let date) = range else {
+            guard case .oneDate = range else {
                 viewModel.updateTimeRange(to: range)
                 reloadSection()
                 return
             }
             
-            let controller = DateAlertController(date: date)
+            let controller = DateAlertController(date: viewModel.selectedDate)
             controller.completion = { [weak self] in
                 self?.viewModel.updateTimeRange(to: .oneDate(date: $0))
                 reloadSection()

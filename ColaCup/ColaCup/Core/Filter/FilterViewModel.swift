@@ -24,6 +24,10 @@ public class FilterViewModel {
         self.selectedFilter = filter
         self.allFlags = flags
         self.allModules = modules
+        
+        if case .oneDate(let date) = selectedFilter.timeRange {
+            self.selectedDate = date
+        }
     }
     
     /// List data source.
@@ -37,6 +41,9 @@ public class FilterViewModel {
     /// currently selected filter condition.
     private(set) var selectedFilter: FilterModel
     
+    /// The date currently selected by the user.
+    private(set) lazy var selectedDate: Date? = nil
+    
     /// The set of all logs currently displayed, with the flags they belong to.
     private let allFlags: [Flag]
     
@@ -48,6 +55,7 @@ public extension FilterViewModel {
     /// Reset filter items
     func reset() {
         selectedFilter = FilterModel()
+        selectedDate = nil
     }
     
     func updateSort(to sort: Sort) {
@@ -56,6 +64,10 @@ public extension FilterViewModel {
     
     func updateTimeRange(to range: FilterTimeRange) {
         selectedFilter.timeRange = range
+        
+        if case .oneDate(let date) = range {
+            selectedDate = date
+        }
     }
     
     func updateSelectedFlag(to flag: Flag) {
@@ -131,9 +143,9 @@ extension FilterViewModel {
         switch timeRange {
         case .currentPage: return "Current Page"
         case .launchToDate: return "From launch to now"
-        case .oneDate(let date):
-            guard let date = date else { return "One Date" }
-            return Self.formatter.string(from: date)
+        case .oneDate:
+            guard let _date = selectedDate else { return "One Date" }
+            return Self.formatter.string(from: _date)
         }
     }
 }
