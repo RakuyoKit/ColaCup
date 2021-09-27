@@ -122,8 +122,8 @@ private extension ColaCupViewModel {
         let logs: [LogModelProtocol] = currentPageLogs
         
         // 2. Storage Log
-        integralLogs = logs.reversed()
-        showLogs = integralLogs
+        integralLogs = logs
+        showLogs = integralLogs.reversed()
         
         // 3. Configure the initial set of flags and modules.
         var flagSet = Set<Flag>([allFlag])
