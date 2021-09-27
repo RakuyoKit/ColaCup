@@ -25,7 +25,7 @@ public class FilterHeaderView: UICollectionReusableView {
         
         label.textAlignment = .left
         label.lineBreakMode = .byTruncatingTail
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.font = UIFont.preferredFont(forTextStyle: .title2)
         
         if #available(iOS 13.0, *) {
             label.textColor = .label
