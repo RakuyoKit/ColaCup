@@ -18,6 +18,29 @@ public class FilterCell: UICollectionViewCell {
         super.init(coder: coder)
         config()
     }
+    
+    public var label: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        label.textAlignment = .center
+        label.lineBreakMode = .byTruncatingTail
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        
+        if #available(iOS 13.0, *) {
+            label.textColor = .label
+        } else {
+            label.textColor = .black
+        }
+        
+        return label
+    }()
+}
+
+public extension FilterCell {
+    func setSelected(_ isSelected: Bool) {
+        layer.borderColor = isSelected ? UIColor.theme.cgColor : backgroundColor?.cgColor
+    }
 }
 
 private extension FilterCell {
@@ -29,5 +52,23 @@ private extension FilterCell {
         }
         
         layer.cornerRadius = 8
+        layer.borderWidth = 1
+        layer.borderColor = backgroundColor?.cgColor
+        
+        addSubviews()
+        addInitialLayout()
+    }
+    
+    func addSubviews() {
+        addSubview(label)
+    }
+    
+    func addInitialLayout() {
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: topAnchor),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            label.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
     }
 }
