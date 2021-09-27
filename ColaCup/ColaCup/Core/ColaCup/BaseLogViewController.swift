@@ -58,7 +58,7 @@ private extension BaseLogViewController {
     }
     
     func addInitialLayout() {
-        var _view: (leadingAnchor: NSLayoutXAxisAnchor, trailingAnchor: NSLayoutXAxisAnchor)
+        let _view: (leadingAnchor: NSLayoutXAxisAnchor, trailingAnchor: NSLayoutXAxisAnchor)
         if #available(iOS 11.0, *) {
             _view = (view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor)
         } else {
