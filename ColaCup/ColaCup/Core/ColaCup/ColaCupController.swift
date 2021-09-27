@@ -157,7 +157,11 @@ extension ColaCupController {
         
         button.isEnabled = false
         
-        let controller = FilterViewController(selectedFilter: viewModel.filterModel)
+        let controller = FilterViewController(
+            selectedFilter: viewModel.filterModel,
+            allFlags: viewModel.allFlags,
+            allModules: viewModel.allModules
+        )
         controller.delegate = self
         
         let navi = UINavigationController(rootViewController: controller)

@@ -27,9 +27,16 @@ public protocol FilterViewControllerDelegate: NSObjectProtocol {
 open class FilterViewController: UIViewController {
     /// Initializes with the currently selected filter condition.
     ///
-    /// - Parameter model: currently selected filter condition.
-    public init(selectedFilter model: FilterModel) {
-        self.viewModel = FilterViewModel(selectedFilter: model)
+    /// - Parameters:
+    ///   - filter: currently selected filter condition.
+    ///   - flags: The set of all logs currently displayed, with the flags they belong to.
+    ///   - modules: The set of all logs currently displayed, with the module they belong to.
+    public init(
+        selectedFilter filter: FilterModel,
+        allFlags flags: [Flag],
+        allModules modules: [String]
+    ) {
+        self.viewModel = FilterViewModel(selectedFilter: filter, allFlags: flags, allModules: modules)
         super.init(nibName: nil, bundle: nil)
     }
     

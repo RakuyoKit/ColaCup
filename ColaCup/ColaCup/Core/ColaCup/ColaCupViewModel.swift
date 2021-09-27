@@ -31,17 +31,17 @@ public class ColaCupViewModel {
         }
     }
     
+    /// Initial set of flags.
+    public private(set) lazy var allFlags: [Flag] = []
+    
+    /// Initial set of modules.
+    public private(set) lazy var allModules: [String] = []
+    
     /// Log manager.
     private let logManager: Storable.Type
     
     /// Contains the complete log data under the current date.
     private lazy var integralLogs: [LogModelProtocol] = []
-    
-    /// Initial set of flags.
-    private lazy var allFlags: [Flag] = []
-    
-    /// Initial set of modules.
-    private lazy var allModules: [String] = []
     
     /// Used to restrict the execution of search functions.
     private lazy var throttler = Throttler(seconds: 0.3)

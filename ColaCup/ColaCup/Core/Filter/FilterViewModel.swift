@@ -12,9 +12,18 @@ import Foundation
 public class FilterViewModel {
     /// Initializes with the currently selected filter condition.
     ///
-    /// - Parameter model: currently selected filter condition.
-    public init(selectedFilter model: FilterModel) {
-        self.selectedFilter = model
+    /// - Parameters:
+    ///   - filter: currently selected filter condition.
+    ///   - flags: The set of all logs currently displayed, with the flags they belong to.
+    ///   - modules: The set of all logs currently displayed, with the module they belong to.
+    public init(
+        selectedFilter filter: FilterModel,
+        allFlags flags: [Flag],
+        allModules modules: [String]
+    ) {
+        self.selectedFilter = filter
+        self.allFlags = flags
+        self.allModules = modules
     }
     
     /// List data source.
@@ -22,6 +31,12 @@ public class FilterViewModel {
     
     /// currently selected filter condition.
     private(set) var selectedFilter: FilterModel
+    
+    /// The set of all logs currently displayed, with the flags they belong to.
+    private let allFlags: [Flag]
+    
+    /// The set of all logs currently displayed, with the module they belong to.
+    private let allModules: [String]
 }
 
 public extension FilterViewModel {
@@ -35,8 +50,13 @@ extension FilterViewModel {
     /// Create list data source
     public func createDataSource() -> [FilterSection] {
         
-        var dataSource: [FilterSection] = [
-            
+        let dataSource: [FilterSection] = [
+            .sort(title: "排序", values: [.positive, .negative]),
+            .timeRange(title: "时间", values: [
+                .currentPage,
+                .launchToDate,
+                .period(date: nil, start: 0, end: 0)
+            ]),
         ]
         
         
