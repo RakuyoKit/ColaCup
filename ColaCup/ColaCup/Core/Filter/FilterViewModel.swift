@@ -17,6 +17,9 @@ public class FilterViewModel {
         self.selectedFilter = model
     }
     
+    /// List data source.
+    public lazy var dataSource: [FilterSection] = createDataSource()
+    
     /// currently selected filter condition.
     private(set) var selectedFilter: FilterModel
 }
@@ -25,5 +28,18 @@ public extension FilterViewModel {
     /// Reset filter items
     func reset() {
         selectedFilter = FilterModel()
+    }
+}
+
+extension FilterViewModel {
+    /// Create list data source
+    public func createDataSource() -> [FilterSection] {
+        
+        var dataSource: [FilterSection] = [
+            
+        ]
+        
+        
+        return dataSource
     }
 }
