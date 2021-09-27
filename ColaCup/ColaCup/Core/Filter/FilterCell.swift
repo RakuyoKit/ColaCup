@@ -23,7 +23,9 @@ public class FilterCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         
+        label.numberOfLines = 2
         label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
         label.lineBreakMode = .byTruncatingTail
         label.font = UIFont.preferredFont(forTextStyle: .body)
         
