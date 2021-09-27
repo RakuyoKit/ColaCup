@@ -29,11 +29,7 @@ public class FilterViewModel {
     /// List data source.
     public lazy var dataSource: [FilterSection] = [
         .sort(title: "Sort", values: [.positive, .negative]),
-        .timeRange(title: "Time Range", values: [
-            .currentPage,
-            .launchToDate,
-            .period(date: nil, start: 0, end: 0)
-        ]),
+        .timeRange(title: "Time Range", values: [.currentPage, .launchToDate, .oneDate(date: nil)]),
         .flag(title: "Flag", values: allFlags),
         .module(title: "Module", values: allModules)
     ]

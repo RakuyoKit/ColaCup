@@ -16,8 +16,8 @@ public enum FilterTimeRange {
     /// All logs from the start of the app until it enters ColaCup.
     case launchToDate
     
-    /// Logs for a custom time period.
-    case period(date: Date?, start: TimeInterval, end: TimeInterval)
+    /// Log of a certain day.
+    case oneDate(date: Date?)
 }
 
 public extension FilterTimeRange {
@@ -31,7 +31,7 @@ extension FilterTimeRange: Equatable {
         switch self {
         case .currentPage: return 0
         case .launchToDate: return 1
-        case .period: return 2
+        case .oneDate: return 2
         }
     }
     

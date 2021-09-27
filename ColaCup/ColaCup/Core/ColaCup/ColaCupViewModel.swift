@@ -150,13 +150,7 @@ private extension ColaCupViewModel {
                 switch filterModel.timeRange {
                 case .currentPage: return currentPageLogs
                 case .launchToDate: return logManager.logs
-                    
-                case .period(let date, let start, let end):
-                    guard let date = date,
-                          let _logs: [Log] = logManager.readLogFromDisk(logDate: date) else {
-                        return []
-                    }
-                    return _logs.filter { $0.timestamp >= start && $0.timestamp <= end }
+                case .oneDate(let date): return date?.allLogs(of: logManager) ?? []
                 }
             }()
         }
@@ -200,5 +194,11 @@ fileprivate extension Array where Element == LogModelProtocol {
     func filter(with conditions: [(Element) -> Bool]) -> [Element] {
         guard !conditions.isEmpty else { return self }
         return filter { (log) in conditions.reduce(into: true) { $0 = $0 && $1(log) } }
+    }
+}
+
+fileprivate extension Date {
+    func allLogs(of logManager: Storable.Type) -> [Log]? {
+        return logManager.readLogFromDisk(logDate: self)
     }
 }
