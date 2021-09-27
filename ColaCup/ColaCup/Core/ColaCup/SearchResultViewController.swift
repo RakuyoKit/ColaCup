@@ -82,6 +82,10 @@ extension SearchResultViewController {
 // MARK: - UITableViewDelegate
 
 extension SearchResultViewController {
+    open func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10
+    }
+    
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         super.tableView(tableView, didSelectRowAt: indexPath)
         
