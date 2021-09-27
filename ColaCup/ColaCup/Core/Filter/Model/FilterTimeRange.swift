@@ -38,4 +38,11 @@ extension FilterTimeRange: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.identifier == rhs.identifier
     }
+    
+    func isExactlyEqual(to rhs: Self) -> Bool {
+        if case .oneDate(let lhsDate) = self, case .oneDate(let rhsDate) = rhs {
+            return lhsDate == rhsDate
+        }
+        return self == rhs
+    }
 }
