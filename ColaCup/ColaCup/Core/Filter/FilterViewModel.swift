@@ -50,11 +50,15 @@ public extension FilterViewModel {
         selectedFilter = FilterModel()
     }
     
-    func updateSort(_ sort: Sort) {
+    func updateSort(to sort: Sort) {
         selectedFilter.sort = sort
     }
     
-    func updateSelectedFlag(_ flag: Flag) {
+    func updateTimeRange(to range: FilterTimeRange) {
+        selectedFilter.timeRange = range
+    }
+    
+    func updateSelectedFlag(to flag: Flag) {
         if flag == FilterModel.allFlag {
             // 无法反选 ALL
             if selectedFilter.flags.contains(flag) { return }
@@ -78,7 +82,7 @@ public extension FilterViewModel {
         }
     }
     
-    func updateSelectedModule(_ module: String) {
+    func updateSelectedModule(to module: String) {
         if module == FilterModel.allFlag {
             // 无法反选 ALL
             if selectedFilter.modules.contains(module) { return }
