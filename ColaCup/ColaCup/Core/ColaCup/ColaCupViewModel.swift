@@ -19,8 +19,11 @@ public class ColaCupViewModel {
         self.logManager = logManager
     }
     
+    /// Used to get the name of the current page from the controller.
+    public lazy var getCurrentPage: (() -> String?)? = nil
+    
     /// The log data to be displayed.
-    public lazy var showLogs: [LogModelProtocol] = []
+    public private(set) lazy var showLogs: [LogModelProtocol] = []
     
     /// currently selected filter condition.
     public private(set) lazy var filterModel = FilterModel() {

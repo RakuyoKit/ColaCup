@@ -10,6 +10,16 @@ import UIKit
 
 import RaLog
 
+public protocol ColaCupControllerDelegate: NSObjectProtocol {
+    /// Needs to return the name of the file where the user was viewing the controller before entering the cup.
+    ///
+    /// This method will be used to implement the "Find the log of the current page" function.
+    /// If you do not implement this method, then you will not be able to use this function.
+    ///
+    /// - Parameter controller: ColaCupController
+    func nameOfFileBeforeEnterColaCup(_ controller: ColaCupController) -> String
+}
+
 /// A controller for viewing logs
 open class ColaCupController: BaseLogViewController {
     /// Use the log manager to initialize the controller.
@@ -18,10 +28,20 @@ open class ColaCupController: BaseLogViewController {
     public init<T: Storable>(logManager: T.Type) {
         self.viewModel = ColaCupViewModel(logManager: logManager)
         super.init(nibName: nil, bundle: nil)
+        
+        self.viewModel.getCurrentPage = { [weak self] in
+            guard let this = self else { return nil }
+            return this.delegate?.nameOfFileBeforeEnterColaCup(this)
+        }
     }
     
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        Log.deinit(self)
+        viewModel.getCurrentPage = nil
     }
     
     /// Entrance to the filter page.
@@ -33,6 +53,9 @@ open class ColaCupController: BaseLogViewController {
     
     /// Controller for searching logs.
     public lazy var searchController = SearchController()
+    
+    /// Some delegte events.
+    public weak var delegate: ColaCupControllerDelegate? = nil
     
     /// Used to process data.
     private let viewModel: ColaCupViewModel
