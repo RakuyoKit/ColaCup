@@ -43,6 +43,7 @@
 		AEC52E0927005FBD00542563 /* FilterDoneButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E0827005FBD00542563 /* FilterDoneButtonView.swift */; };
 		AEC52E11270151B900542563 /* FilterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E10270151B900542563 /* FilterSection.swift */; };
 		AEC52E132701633F00542563 /* FilterHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E122701633F00542563 /* FilterHeaderView.swift */; };
+		AEC52E152701650800542563 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E142701650800542563 /* FilterCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		AEC52E0827005FBD00542563 /* FilterDoneButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDoneButtonView.swift; sourceTree = "<group>"; };
 		AEC52E10270151B900542563 /* FilterSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSection.swift; sourceTree = "<group>"; };
 		AEC52E122701633F00542563 /* FilterHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterHeaderView.swift; sourceTree = "<group>"; };
+		AEC52E142701650800542563 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +267,7 @@
 				AEC52DF92700387700542563 /* FilterViewModel.swift */,
 				AEC52DF7270025D100542563 /* FilterViewController.swift */,
 				AEC52E122701633F00542563 /* FilterHeaderView.swift */,
+				AEC52E142701650800542563 /* FilterCell.swift */,
 				AEC52E0827005FBD00542563 /* FilterDoneButtonView.swift */,
 			);
 			path = Filter;
@@ -505,6 +508,7 @@
 				AEC52DEF26FDAA2800542563 /* SearchController.swift in Sources */,
 				3A5B63E4251ADBDD00E00BF5 /* ColaCupLoadingView.swift in Sources */,
 				AEC52DFA2700387700542563 /* FilterViewModel.swift in Sources */,
+				AEC52E152701650800542563 /* FilterCell.swift in Sources */,
 				3AD9BFB425198C8D00D2CD16 /* VeryVeryVeryVeryVeryVeryLongFileName.swift in Sources */,
 				3AD9BFB025198C8D00D2CD16 /* AppDelegate.swift in Sources */,
 				3AD9BFF525198CF700D2CD16 /* ColaCupViewModel.swift in Sources */,
