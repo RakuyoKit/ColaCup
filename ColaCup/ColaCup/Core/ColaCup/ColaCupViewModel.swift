@@ -186,17 +186,25 @@ private extension ColaCupViewModel {
     var currentPageLogs: [LogModelProtocol] {
         let _logs = logManager.logs
         
-        guard let file = getCurrentPage?() else {
+        guard var file = getCurrentPage?() else {
             Log.error("Failed to get the current controller name! Cannot use \"Show log of current page\" function. All logs since the program was started are displayed.")
             return _logs
         }
         
+        if _fastPath(file.contains("/")) {
+            let components = file.components(separatedBy: "/")
+            file = components.last ?? "Failed to get file"
+        }
+        
         guard let end = _logs.last(where: { $0.file == file })?.timestamp,
-              let start = _logs.last(where: { $0.file == file && $0.timestamp != end })?.timestamp else {
+              let index = _logs.lastIndex(where: { $0.file != file && $0.timestamp < end }),
+              _logs.indices.contains(index + 1) else {
             return _logs
         }
         
+        let start =  _logs[index + 1].timestamp
         var result: [LogModelProtocol] = []
+        
         for log in _logs.reversed() {
             if log.timestamp > end { break }
             guard log.timestamp <= end && log.timestamp >= start else { continue }
