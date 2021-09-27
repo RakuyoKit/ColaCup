@@ -18,15 +18,6 @@ public extension Sort {
     static let `default`: Sort = .negative
 }
 
-public extension Sort {
-    var title: String {
-        switch self {
-        case .positive: return "Positive"
-        case .negative: return "Negative"
-        }
-    }
-}
-
 // MARK: - Equatable
 
 extension Sort: Equatable {}

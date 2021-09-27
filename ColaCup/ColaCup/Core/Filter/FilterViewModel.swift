@@ -102,3 +102,34 @@ public extension FilterViewModel {
         }
     }
 }
+
+extension FilterViewModel {
+    /// Cache `DateFormatter` object.
+    private static let formatter = { () -> DateFormatter in
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        return dateFormatter
+    }()
+    
+    public func description(of sort: Sort) -> String {
+        switch sort {
+        case .positive: return "Positive"
+        case .negative: return "Negative"
+        }
+    }
+    
+    public func description(of timeRange: FilterTimeRange) -> String {
+        switch timeRange {
+        case .currentPage: return "Current Page"
+        case .launchToDate: return "From launch to now"
+        case .oneDate(let date):
+            guard let date = date else { return "One Date" }
+            return Self.formatter.string(from: date)
+        }
+    }
+}
