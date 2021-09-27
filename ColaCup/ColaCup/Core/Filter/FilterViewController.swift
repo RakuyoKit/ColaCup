@@ -225,7 +225,7 @@ extension FilterViewController: UICollectionViewDelegate {
         let item = indexPath.item
         let filterSection = viewModel.dataSource[section]
         
-        var reloadSection = {
+        let reloadSection = {
             UIView.performWithoutAnimation {
                 collectionView.reloadSections(IndexSet([section]))
             }
