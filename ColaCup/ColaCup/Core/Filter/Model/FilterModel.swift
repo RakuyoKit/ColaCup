@@ -18,11 +18,11 @@ public struct FilterModel {
     
     /// A collection of all log flags.
     /// The outer isSelected property allows you to determine if the state is selected.
-    public var flags: [Flag] = [FilterModel.allFlag]
+    public var flags: Set<Flag> = [FilterModel.allFlag]
     
     /// The set of all modules.
     /// The outer isSelected property allows you to determine if the state is selected.
-    public var modules: [String] = [FilterModel.allFlag]
+    public var modules: Set<String> = [FilterModel.allFlag]
 }
 
 public extension FilterModel {
