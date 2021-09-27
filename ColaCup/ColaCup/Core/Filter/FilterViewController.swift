@@ -225,7 +225,7 @@ extension FilterViewController: UICollectionViewDelegate {
         let item = indexPath.item
         let filterSection = viewModel.dataSource[section]
         
-        defer {
+        var reloadSection = {
             UIView.performWithoutAnimation {
                 collectionView.reloadSections(IndexSet([section]))
             }
@@ -234,22 +234,33 @@ extension FilterViewController: UICollectionViewDelegate {
         switch filterSection {
         case .sort(_, let values):
             viewModel.updateSort(to: values[item])
+            reloadSection()
             
         case .flag(_, let values):
             viewModel.updateSelectedFlag(to: values[item])
+            reloadSection()
             
         case .module(_, let values):
             viewModel.updateSelectedModule(to: values[item])
+            reloadSection()
             
         case .timeRange(_, let values):
             let range = values[item]
             
             guard case .oneDate(let date) = range else {
                 viewModel.updateTimeRange(to: range)
+                reloadSection()
                 return
             }
             
+            let controller = DateAlertController(date: date)
+            controller.completion = { [weak self] in
+                self?.viewModel.updateTimeRange(to: .oneDate(date: $0))
+                reloadSection()
+            }
             
+            let navi = UINavigationController(rootViewController: controller)
+            present(navi, animated: true)
         }
     }
 }
