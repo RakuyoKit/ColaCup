@@ -53,8 +53,56 @@ public extension FilterViewModel {
     func reset() {
         selectedFilter = FilterModel()
     }
-}
-
-extension FilterViewModel {
     
+    func updateSort(_ sort: Sort) {
+        selectedFilter.sort = sort
+    }
+    
+    func updateSelectedFlag(_ flag: Flag) {
+        if flag == FilterModel.allFlag {
+            // 无法反选 ALL
+            if selectedFilter.flags.contains(flag) { return }
+            
+            selectedFilter.flags.removeAll()
+            selectedFilter.flags.insert(flag)
+            
+        } else {
+            // 包含则移除，不包含则加入
+            if selectedFilter.flags.contains(flag) {
+                selectedFilter.flags.remove(flag)
+            } else {
+                selectedFilter.flags.insert(flag)
+            }
+            
+            if selectedFilter.flags.isEmpty {
+                selectedFilter.flags.insert(FilterModel.allFlag)
+            } else {
+                selectedFilter.flags.remove(FilterModel.allFlag)
+            }
+        }
+    }
+    
+    func updateSelectedModule(_ module: String) {
+        if module == FilterModel.allFlag {
+            // 无法反选 ALL
+            if selectedFilter.modules.contains(module) { return }
+            
+            selectedFilter.modules.removeAll()
+            selectedFilter.modules.insert(module)
+            
+        } else {
+            // 包含则移除，不包含则加入
+            if selectedFilter.modules.contains(module) {
+                selectedFilter.modules.remove(module)
+            } else {
+                selectedFilter.modules.insert(module)
+            }
+            
+            if selectedFilter.modules.isEmpty {
+                selectedFilter.modules.insert(FilterModel.allFlag)
+            } else {
+                selectedFilter.modules.remove(FilterModel.allFlag)
+            }
+        }
+    }
 }
