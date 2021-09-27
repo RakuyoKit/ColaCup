@@ -221,8 +221,36 @@ extension FilterViewController: UICollectionViewDelegate {
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let section = indexPath.section
+        let item = indexPath.item
+        let filterSection = viewModel.dataSource[section]
         
+        defer {
+            UIView.performWithoutAnimation {
+                collectionView.reloadSections(IndexSet([section]))
+            }
+        }
         
+        switch filterSection {
+        case .sort(_, let values):
+            viewModel.updateSort(to: values[item])
+            
+        case .flag(_, let values):
+            viewModel.updateSelectedFlag(to: values[item])
+            
+        case .module(_, let values):
+            viewModel.updateSelectedModule(to: values[item])
+            
+        case .timeRange(_, let values):
+            let range = values[item]
+            
+            guard case .oneDate(let date) = range else {
+                viewModel.updateTimeRange(to: range)
+                return
+            }
+            
+            
+        }
     }
 }
 
@@ -270,7 +298,31 @@ extension FilterViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FilterCell
         
+        let section = indexPath.section
+        let item = indexPath.item
+        let filterSection = viewModel.dataSource[section]
         
+        switch filterSection {
+        case .sort(_, let values):
+            let sort = values[item]
+            cell.label.text = viewModel.description(of: sort)
+            cell.setSelected(viewModel.selectedFilter.sort == sort)
+            
+        case .timeRange(_, let values):
+            let range = values[item]
+            cell.label.text = viewModel.description(of: range)
+            cell.setSelected(viewModel.selectedFilter.timeRange == range)
+            
+        case .flag(_, let values):
+            let flag = values[item]
+            cell.label.text = flag
+            cell.setSelected(viewModel.selectedFilter.flags.contains(flag))
+            
+        case .module(_, let values):
+            let module = values[item]
+            cell.label.text = module
+            cell.setSelected(viewModel.selectedFilter.modules.contains(module))
+        }
         
         return cell
     }
