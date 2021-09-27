@@ -69,7 +69,10 @@ open class FilterViewController: UIViewController {
             collectionView.backgroundColor = .groupTableViewBackground
         }
         
+        collectionView.contentInset = UIEdgeInsets(top: Constants.sectionSpacing, left: 0, bottom: 0, right: 0)
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         return collectionView
     }()
@@ -103,12 +106,34 @@ extension FilterViewController {
         
         addSubviews()
         addInitialLayout()
+        
+        collectionView.register(FilterHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
+        
+        collectionView.register(FilterCell.self, forCellWithReuseIdentifier: "cell")
     }
     
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         delegate?.filterWillDisappear(self)
+    }
+}
+
+// MARK: - Constants
+
+private extension FilterViewController {
+    enum Constants {
+        static let sectionSpacing: CGFloat = 15
+        static let cellSpacing: CGFloat = 10
+        
+        static let sectionInsert = UIEdgeInsets(
+            top: sectionSpacing,
+            left: sectionSpacing,
+            bottom: sectionSpacing * 2,
+            right: sectionSpacing
+        )
+        
+        static let totalSpacing = Constants.sectionInsert.left + Constants.sectionInsert.right + Constants.cellSpacing
     }
 }
 
@@ -177,5 +202,71 @@ extension FilterViewController {
         feedbackGenerator.selectionChanged()
         delegate?.filter(self, didClickDoneButton: sender, filter: viewModel.selectedFilter)
         dismiss(animated: true)
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension FilterViewController: UICollectionViewDelegate {
+    public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader else {
+            return UICollectionReusableView()
+        }
+        
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! FilterHeaderView
+        
+        headerView.label.text = viewModel.dataSource[indexPath.section].title
+        
+        return headerView
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension FilterViewController: UICollectionViewDelegateFlowLayout {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return Constants.sectionInsert
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return Constants.cellSpacing
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return Constants.cellSpacing
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (collectionView.frame.width - Constants.totalSpacing) * 0.5
+        return CGSize(width: width, height: 55)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 44)
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+
+extension FilterViewController: UICollectionViewDataSource {
+    public func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return viewModel.dataSource.count
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.dataSource[section].values.count
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FilterCell
+        
+        
+        
+        return cell
     }
 }
