@@ -43,6 +43,7 @@
 		AEC52E052700418700542563 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E042700418700542563 /* Sort.swift */; };
 		AEC52E0727005A6700542563 /* FilterListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E0627005A6700542563 /* FilterListModel.swift */; };
 		AEC52E0927005FBD00542563 /* FilterDoneButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E0827005FBD00542563 /* FilterDoneButtonView.swift */; };
+		AEC52E11270151B900542563 /* FilterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E10270151B900542563 /* FilterSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		AEC52E042700418700542563 /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 		AEC52E0627005A6700542563 /* FilterListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterListModel.swift; sourceTree = "<group>"; };
 		AEC52E0827005FBD00542563 /* FilterDoneButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDoneButtonView.swift; sourceTree = "<group>"; };
+		AEC52E10270151B900542563 /* FilterSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,6 +279,7 @@
 				AEC52E042700418700542563 /* Sort.swift */,
 				AEC52E0027003DF800542563 /* FilterModel.swift */,
 				AEC52E0627005A6700542563 /* FilterListModel.swift */,
+				AEC52E10270151B900542563 /* FilterSection.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 				3AC29027251C3F21007CCD49 /* LogCell.swift in Sources */,
 				3AE80458251DB3CA00CDB15B /* DetailsNormalCell.swift in Sources */,
 				AEC52DF8270025D100542563 /* FilterViewController.swift in Sources */,
+				AEC52E11270151B900542563 /* FilterSection.swift in Sources */,
 				AEC52E052700418700542563 /* Sort.swift in Sources */,
 				AEC52E0127003DF800542563 /* FilterModel.swift in Sources */,
 				AEC52DF52700049F00542563 /* TableView.swift in Sources */,
