@@ -27,7 +27,16 @@ public class FilterViewModel {
     }
     
     /// List data source.
-    public lazy var dataSource: [FilterSection] = createDataSource()
+    public lazy var dataSource: [FilterSection] = [
+        .sort(title: "Sort", values: [.positive, .negative]),
+        .timeRange(title: "Time Range", values: [
+            .currentPage,
+            .launchToDate,
+            .period(date: nil, start: 0, end: 0)
+        ]),
+        .flag(title: "Flag", values: allFlags),
+        .module(title: "Module", values: allModules)
+    ]
     
     /// currently selected filter condition.
     private(set) var selectedFilter: FilterModel
@@ -47,19 +56,5 @@ public extension FilterViewModel {
 }
 
 extension FilterViewModel {
-    /// Create list data source
-    public func createDataSource() -> [FilterSection] {
-        
-        let dataSource: [FilterSection] = [
-            .sort(title: "排序", values: [.positive, .negative]),
-            .timeRange(title: "时间", values: [
-                .currentPage,
-                .launchToDate,
-                .period(date: nil, start: 0, end: 0)
-            ]),
-        ]
-        
-        
-        return dataSource
-    }
+    
 }
