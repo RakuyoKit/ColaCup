@@ -16,6 +16,7 @@ open class SearchController: UISearchController {
         
         super.init(searchResultsController: resultController)
         
+        self.searchBar.placeholder = "Search with keyword"
         self.resultController.scrollDelegate = self
     }
     
@@ -38,7 +39,6 @@ extension SearchController {
         searchBar.tintColor = .theme
         
         searchBar.returnKeyType = .search
-        searchBar.placeholder = "Search with keyword"
         searchBar.enablesReturnKeyAutomatically = true
         searchBar.getSearchTextFileld?.textColor = .normalText
         
