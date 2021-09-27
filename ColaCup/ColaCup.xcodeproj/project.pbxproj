@@ -42,6 +42,7 @@
 		AEC52E052700418700542563 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E042700418700542563 /* Sort.swift */; };
 		AEC52E0927005FBD00542563 /* FilterDoneButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E0827005FBD00542563 /* FilterDoneButtonView.swift */; };
 		AEC52E11270151B900542563 /* FilterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E10270151B900542563 /* FilterSection.swift */; };
+		AEC52E132701633F00542563 /* FilterHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52E122701633F00542563 /* FilterHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,7 @@
 		AEC52E042700418700542563 /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 		AEC52E0827005FBD00542563 /* FilterDoneButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDoneButtonView.swift; sourceTree = "<group>"; };
 		AEC52E10270151B900542563 /* FilterSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSection.swift; sourceTree = "<group>"; };
+		AEC52E122701633F00542563 /* FilterHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +264,7 @@
 				AEC52DFF27003D9600542563 /* Model */,
 				AEC52DF92700387700542563 /* FilterViewModel.swift */,
 				AEC52DF7270025D100542563 /* FilterViewController.swift */,
+				AEC52E122701633F00542563 /* FilterHeaderView.swift */,
 				AEC52E0827005FBD00542563 /* FilterDoneButtonView.swift */,
 			);
 			path = Filter;
@@ -497,6 +500,7 @@
 				AEC52E11270151B900542563 /* FilterSection.swift in Sources */,
 				AEC52E052700418700542563 /* Sort.swift in Sources */,
 				AEC52E0127003DF800542563 /* FilterModel.swift in Sources */,
+				AEC52E132701633F00542563 /* FilterHeaderView.swift in Sources */,
 				AEC52DF52700049F00542563 /* TableView.swift in Sources */,
 				AEC52DEF26FDAA2800542563 /* SearchController.swift in Sources */,
 				3A5B63E4251ADBDD00E00BF5 /* ColaCupLoadingView.swift in Sources */,
