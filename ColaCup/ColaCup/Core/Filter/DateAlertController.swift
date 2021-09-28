@@ -9,6 +9,7 @@
 import UIKit
 
 /// Alert controller for time selection.
+@available(iOS, obsoleted: 13.4, message: "In the higher systems, ColaCup uses a completely new system component to complete the selection date logic. So you should not use this controller.")
 public class DateAlertController: UIViewController {
     /// Use the currently selected date for initialization.
     ///
