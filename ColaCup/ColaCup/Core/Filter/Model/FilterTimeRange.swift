@@ -21,7 +21,7 @@ public enum FilterTimeRange {
 }
 
 public extension FilterTimeRange {
-    static let `default`: FilterTimeRange = .currentPage
+    static let `default`: FilterTimeRange = .launchToDate
 }
 
 // MARK: - Equatable

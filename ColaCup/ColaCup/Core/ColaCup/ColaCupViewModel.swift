@@ -125,7 +125,7 @@ private extension ColaCupViewModel {
         }
         
         // 1. Get all the logs in the initial condition.
-        let logs: [LogModelProtocol] = currentPageLogs
+        let logs: [LogModelProtocol] = logManager.logs
         
         // 2. Storage Log
         integralLogs = logs
