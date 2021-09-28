@@ -285,6 +285,8 @@ extension ColaCupController: FilterViewControllerDelegate {
             guard let this = self else { return }
             
             this.loadingView.hide()
+            
+            this.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false)
             this.tableView.reloadData()
         }
     }
