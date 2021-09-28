@@ -72,14 +72,14 @@ public extension FilterViewModel {
     
     func updateSelectedFlag(to flag: Flag) {
         if flag == FilterModel.allFlag {
-            // 无法反选 ALL
+            // Unable to deselect "ALL"
             if selectedFilter.flags.contains(flag) { return }
             
             selectedFilter.flags.removeAll()
             selectedFilter.flags.insert(flag)
             
         } else {
-            // 包含则移除，不包含则加入
+            // Remove if included, add if not
             if selectedFilter.flags.contains(flag) {
                 selectedFilter.flags.remove(flag)
             } else {
@@ -96,14 +96,14 @@ public extension FilterViewModel {
     
     func updateSelectedModule(to module: String) {
         if module == FilterModel.allFlag {
-            // 无法反选 ALL
+            // Unable to deselect "ALL"
             if selectedFilter.modules.contains(module) { return }
             
             selectedFilter.modules.removeAll()
             selectedFilter.modules.insert(module)
             
         } else {
-            // 包含则移除，不包含则加入
+            // Remove if included, add if not
             if selectedFilter.modules.contains(module) {
                 selectedFilter.modules.remove(module)
             } else {
