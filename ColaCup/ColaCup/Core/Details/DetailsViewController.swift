@@ -420,16 +420,28 @@ extension DetailsViewController: UITableViewDataSource {
             
         case .json:
             let cell = _cell as! DetailsJSONCell
-            
             cell.jsonView.delegate = self
-            cell.jsonView.preview(model.value) { [weak self, weak cell] in
-                guard let this = self, let _cell = cell, !this.isReloaded else { return }
+            
+            guard !isReloaded else { break }
+            
+            cell.jsonView.preview(model.value) { [weak self] in
+                guard let this = self else { return }
                 
-                // Update the height of the JSON view.
-                this.jsonHeight = _cell.jsonView.jsonTextView.contentSize.height
-                tableView.reloadRows(at: [indexPath], with: .none)
+                func reload() {
+                    // Update the height of the JSON view.
+                    this.jsonHeight = cell.jsonView.jsonTextView.contentSize.height
+                    
+                    tableView.reloadRows(at: [indexPath], with: .none)
+                    this.isReloaded = true
+                }
                 
-                this.isReloaded = true
+                // In iOS 13 and above, the exact height can be read immediately.
+                // On the contrary, it needs to be refreshed twice in the main thread to read the correct height.
+                if #available(iOS 13.0, *) {
+                    if !this.isReloaded { reload() }
+                } else {
+                    DispatchQueue.main.async(execute: reload)
+                }
             }
         }
         
