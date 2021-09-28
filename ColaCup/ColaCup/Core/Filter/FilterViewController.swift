@@ -83,6 +83,7 @@ open class FilterViewController: UIViewController {
         
         doneView.doneButton.addTarget(self, action: #selector(doneButtonDidTouchDown(_:)), for: .touchDown)
         doneView.doneButton.addTarget(self, action: #selector(doneButtonDidClick(_:)), for: .touchUpInside)
+        doneView.doneButton.isEnabled = false
         
         return doneView
     }()
@@ -184,6 +185,8 @@ extension FilterViewController {
     /// Reset button click events
     @objc
     open func resetButtonDidClick(_ sender: UIBarButtonItem) {
+        doneView.doneButton.isEnabled = true
+        
         viewModel.reset()
         collectionView.reloadData()
     }
@@ -225,8 +228,9 @@ extension FilterViewController: UICollectionViewDelegate {
         let item = indexPath.item
         let filterSection = viewModel.dataSource[section]
         
-        let reloadSection = {
+        let reloadSection = { [weak self] in
             UIView.performWithoutAnimation {
+                self?.doneView.doneButton.isEnabled = true
                 collectionView.reloadSections(IndexSet([section]))
             }
         }
