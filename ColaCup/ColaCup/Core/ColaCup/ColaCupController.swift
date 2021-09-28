@@ -198,19 +198,24 @@ extension ColaCupController {
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         super.tableView(tableView, didSelectRowAt: indexPath)
         
-        navigationController?.pushViewController(DetailsViewController(log: viewModel.showLogs[indexPath.row]), animated: true)
+        let log = viewModel.showLogs[indexPath.section][indexPath.row]
+        navigationController?.pushViewController(DetailsViewController(log: log), animated: true)
     }
 }
 
 // MARK: - UITableViewDataSource
 
 extension ColaCupController {
-    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.showLogs.count
     }
     
+    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.showLogs[section].count
+    }
+    
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let log = viewModel.showLogs[indexPath.row]
+        let log = viewModel.showLogs[indexPath.section][indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(LogCell.self)", for: indexPath) as! LogCell
         
@@ -235,7 +240,8 @@ extension ColaCupController: UIViewControllerPreviewingDelegate {
             return nil
         }
         
-        return DetailsViewController(log: viewModel.showLogs[indexPath.row])
+        let log = viewModel.showLogs[indexPath.section][indexPath.row]
+        return DetailsViewController(log: log)
     }
     
     open func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
@@ -246,7 +252,7 @@ extension ColaCupController: UIViewControllerPreviewingDelegate {
 // MARK: - SearchResultViewControllerDelegate
 
 extension ColaCupController: SearchResultViewControllerDelegate {
-    open func searchResult(_ resultController: SearchResultViewController, search keyword: String, result: @escaping ([LogModelProtocol]) -> Void) {
+    open func searchResult(_ resultController: SearchResultViewController, search keyword: String, result: @escaping ([[LogModelProtocol]]) -> Void) {
         viewModel.search(by: keyword, completion: result)
     }
     

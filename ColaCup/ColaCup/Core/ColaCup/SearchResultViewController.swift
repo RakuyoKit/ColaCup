@@ -20,7 +20,7 @@ public protocol SearchResultViewControllerDelegate: NSObjectProtocol {
     func searchResult(
         _ resultController: SearchResultViewController,
         search keyword: String,
-        result: @escaping ([LogModelProtocol]) -> Void
+        result: @escaping ([[LogModelProtocol]]) -> Void
     )
     
     /// Triggered when clicking on search results.
@@ -44,7 +44,7 @@ open class SearchResultViewController: BaseLogViewController {
     
     public weak var scrollDelegate: SearchResultViewControllerScrollDelegate? = nil
     
-    private lazy var dataSource: [LogModelProtocol] = []
+    private lazy var dataSource: [[LogModelProtocol]] = []
     
     /// The last search entered.
     private lazy var lastKeyword: String = ""
@@ -89,19 +89,23 @@ extension SearchResultViewController {
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         super.tableView(tableView, didSelectRowAt: indexPath)
         
-        delegate?.searchResult(self, didClickResult: dataSource[indexPath.row])
+        delegate?.searchResult(self, didClickResult: dataSource[indexPath.section][indexPath.row])
     }
 }
 
 // MARK: - UITableViewDataSource
 
 extension SearchResultViewController {
-    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return dataSource.count
     }
     
+    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataSource[section].count
+    }
+    
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let log = dataSource[indexPath.row]
+        let log = dataSource[indexPath.section][indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(LogCell.self)", for: indexPath) as! LogCell
         

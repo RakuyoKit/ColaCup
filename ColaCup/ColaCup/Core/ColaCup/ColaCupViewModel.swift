@@ -23,7 +23,7 @@ public class ColaCupViewModel {
     public lazy var getCurrentPage: (() -> String?)? = nil
     
     /// The log data to be displayed.
-    public private(set) lazy var showLogs: [LogModelProtocol] = []
+    public private(set) lazy var showLogs: [[LogModelProtocol]] = []
     
     /// currently selected filter condition.
     public private(set) lazy var filterModel = FilterModel() {
@@ -93,12 +93,15 @@ public extension ColaCupViewModel {
     /// - Parameters:
     ///   - keyword: User-entered search keywords.
     ///   - completion: Completed callback. Will be guaranteed to execute on the main thread.
-    func search(by keyword: String, completion: @escaping ([LogModelProtocol]) -> Void) {
+    func search(by keyword: String, completion: @escaping ([[LogModelProtocol]]) -> Void) {
         // Really responsible for the filter method.
         let filterBlock: () -> Void = { [weak self] in
             guard let this = self else { return }
             
-            let logs = this.integralLogs.filter { $0.safeLog.contains(keyword) }
+            var logs = this.integralLogs.filter { $0.safeLog.contains(keyword) }.groupByIdentifier()
+            if case .negative = this.filterModel.sort {
+                logs = logs.reversed()
+            }
             
             // Return to the main thread callback controller
             DispatchQueue.main.async { completion(logs) }
@@ -126,7 +129,7 @@ private extension ColaCupViewModel {
         
         // 2. Storage Log
         integralLogs = logs
-        showLogs = integralLogs.reversed()
+        showLogs = integralLogs.groupByIdentifier().reversed()
         
         // 3. Configure the initial set of flags and modules.
         var flagSet = Set<Flag>([allFlag])
@@ -171,7 +174,7 @@ private extension ColaCupViewModel {
             conditions.append({ selectModules.contains($0.module) })
         }
         
-        var logs = integralLogs.filter(with: conditions)
+        var logs = integralLogs.filter(with: conditions).groupByIdentifier()
         
         // 3. Sorting the log.
         if case .negative = filterModel.sort {
@@ -222,9 +225,53 @@ private extension ColaCupViewModel {
 }
 
 fileprivate extension Array where Element == LogModelProtocol {
+    /// Filter the log array using a series of combined conditions.
+    ///
+    /// - Parameter conditions: Condition set.
+    /// - Returns: Collection of logs that meet the filter criteria.
     func filter(with conditions: [(Element) -> Bool]) -> [Element] {
         guard !conditions.isEmpty else { return self }
         return filter { (log) in conditions.reduce(into: true) { $0 = $0 && $1(log) } }
+    }
+    
+    /// Grouping by `log.identifier` property.
+    ///
+    /// - Note: When using within this framework, please follow the order of calling `groupByIdentifier` before `reversed`.
+    /// - Returns: The collection of logs after grouping.
+    func groupByIdentifier() -> [[Element]] {
+        var tmp: [String: [Element]] = [:]
+        var count = 0
+        
+        for log in self {
+            let identifier = log.identifier ?? "\(count)"
+            if let _ = tmp[identifier] {
+                tmp[identifier]?.append(log)
+            } else {
+                tmp[identifier] = [log]
+                count += 1
+            }
+        }
+        
+        return tmp.values
+            .map { $0 }
+            .sorted { ($0.first?.timestamp ?? 0) < ($1.first?.timestamp ?? 0) }
+    }
+}
+
+fileprivate extension Array where Element == [LogModelProtocol] {
+    func reversed() -> [Element] {
+        var result: [Element] = []
+        
+        for index in (0 ..< self.count).reversed() {
+            let value = self[index]
+            if value.count != 1 {
+                result.append(value.reversed())
+            } else {
+                result.append(value)
+            }
+        }
+        
+        return result
     }
 }
 
