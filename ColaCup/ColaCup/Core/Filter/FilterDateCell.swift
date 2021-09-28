@@ -30,7 +30,7 @@ public class FilterDateCell: UICollectionViewCell {
         datePicker.preferredDatePickerStyle = .compact
         datePicker.subviews[0].subviews[0].subviews[0].alpha = 0
         
-        datePicker.addTarget(self, action: #selector(datePickerDidChange(_:)), for: .valueChanged)
+        datePicker.addTarget(self, action: #selector(datePickerDidEditingEnd(_:)), for: .editingDidEnd)
         
         return datePicker
     }()
@@ -111,7 +111,7 @@ private extension FilterDateCell {
 
 private extension FilterDateCell {
     @available(iOS 13.4, *) @objc
-    func datePickerDidChange(_ picker: UIDatePicker) {
+    func datePickerDidEditingEnd(_ picker: UIDatePicker) {
         completion?(picker.date)
     }
 }
