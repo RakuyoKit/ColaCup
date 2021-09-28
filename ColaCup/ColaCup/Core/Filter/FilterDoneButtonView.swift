@@ -25,17 +25,20 @@ open class FilterDoneButtonView: UIView {
         
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 8
-        
-        button.backgroundColor = .theme
+        button.layer.masksToBounds = true
         
         button.setTitle("Show Result", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.labelFontSize)
         
-        if #available(iOS 13.0, *) {
-            button.setTitleColor(.systemBackground, for: .normal)
-        } else {
-            button.setTitleColor(.white, for: .normal)
-        }
+        button.setBackgroundImage(.init(color: .theme), for: .normal)
+        button.setBackgroundImage(.init(color: UIColor.theme.withAlphaComponent(0.85)), for: .disabled)
+        
+        let titleColor: UIColor = {
+            guard #available(iOS 13.0, *) else { return .white }
+            return .systemBackground
+        }()
+        button.setTitleColor(titleColor, for: .normal)
+        button.setTitleColor(titleColor.withAlphaComponent(0.85), for: .disabled)
         
         return button
     }()
@@ -79,5 +82,22 @@ private extension FilterDoneButtonView {
             doneButton.trailingAnchor.constraint(equalTo: _view.trailingAnchor, constant: -15),
             doneButton.bottomAnchor.constraint(equalTo: _view.bottomAnchor, constant: -15),
         ])
+    }
+}
+
+fileprivate extension UIImage {
+    convenience init?(color: UIColor) {
+        let size = CGSize(width: 1, height: 1)
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        defer { UIGraphicsEndImageContext() }
+        
+        guard let ctx = UIGraphicsGetCurrentContext() else { return nil }
+        ctx.setFillColor(color.cgColor)
+        ctx.fill(CGRect(origin: .zero, size: size))
+        
+        guard let cgImage = UIGraphicsGetImageFromCurrentImageContext()?.cgImage else { return nil }
+        
+        self.init(cgImage: cgImage)
     }
 }
