@@ -14,12 +14,12 @@ public class FilterCell: UICollectionViewCell {
         config()
     }
     
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         config()
     }
     
-    public var label: UILabel = {
+    public lazy var label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         
