@@ -110,7 +110,8 @@ extension FilterViewController {
         
         collectionView.register(FilterHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
         
-        collectionView.register(FilterCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(FilterCell.self, forCellWithReuseIdentifier: "\(FilterCell.self)")
+        collectionView.register(FilterDateCell.self, forCellWithReuseIdentifier: "\(FilterDateCell.self)")
     }
     
     open override func viewWillDisappear(_ animated: Bool) {
@@ -208,6 +209,17 @@ extension FilterViewController {
     }
 }
 
+// MARK: -
+
+private extension FilterViewController {
+    func reloadSection(at index: Int) {
+        UIView.performWithoutAnimation {
+            doneView.doneButton.isEnabled = true
+            collectionView.reloadSections(IndexSet([index]))
+        }
+    }
+}
+
 // MARK: - UICollectionViewDelegate
 
 extension FilterViewController: UICollectionViewDelegate {
@@ -228,39 +240,37 @@ extension FilterViewController: UICollectionViewDelegate {
         let item = indexPath.item
         let filterSection = viewModel.dataSource[section]
         
-        let reloadSection = { [weak self] in
-            UIView.performWithoutAnimation {
-                self?.doneView.doneButton.isEnabled = true
-                collectionView.reloadSections(IndexSet([section]))
-            }
-        }
-        
         switch filterSection {
         case .sort(_, let values):
             viewModel.updateSort(to: values[item])
-            reloadSection()
+            reloadSection(at: section)
             
         case .flag(_, let values):
             viewModel.updateSelectedFlag(to: values[item])
-            reloadSection()
+            reloadSection(at: section)
             
         case .module(_, let values):
             viewModel.updateSelectedModule(to: values[item])
-            reloadSection()
+            reloadSection(at: section)
             
         case .timeRange(_, let values):
             let range = values[item]
             
             guard case .oneDate = range else {
                 viewModel.updateTimeRange(to: range)
-                reloadSection()
+                reloadSection(at: section)
                 return
             }
             
+            // Display using system controls on iOS 13.4 and above
+            if #available(iOS 13.4, *) { return }
+            
             let controller = DateAlertController(date: viewModel.selectedDate)
             controller.completion = { [weak self] in
-                self?.viewModel.updateTimeRange(to: .oneDate(date: $0))
-                reloadSection()
+                guard let this = self else { return }
+                
+                this.viewModel.updateTimeRange(to: .oneDate(date: $0))
+                this.reloadSection(at: section)
             }
             
             let navi = UINavigationController(rootViewController: controller)
@@ -311,8 +321,6 @@ extension FilterViewController: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FilterCell
-        
         let section = indexPath.section
         let item = indexPath.item
         let filterSection = viewModel.dataSource[section]
@@ -320,25 +328,62 @@ extension FilterViewController: UICollectionViewDataSource {
         switch filterSection {
         case .sort(_, let values):
             let sort = values[item]
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(FilterCell.self)", for: indexPath) as! FilterCell
+            
             cell.label.text = viewModel.description(of: sort)
             cell.setSelected(viewModel.selectedFilter.sort == sort)
             
-        case .timeRange(_, let values):
-            let range = values[item]
-            cell.label.text = viewModel.description(of: range)
-            cell.setSelected(viewModel.selectedFilter.timeRange == range)
+            return cell
             
         case .flag(_, let values):
             let flag = values[item]
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(FilterCell.self)", for: indexPath) as! FilterCell
+            
             cell.label.text = flag
             cell.setSelected(viewModel.selectedFilter.flags.contains(flag))
             
+            return cell
+            
         case .module(_, let values):
             let module = values[item]
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(FilterCell.self)", for: indexPath) as! FilterCell
+            
             cell.label.text = module
             cell.setSelected(viewModel.selectedFilter.modules.contains(module))
+            
+            return cell
+            
+        case .timeRange(_, let values):
+            let range = values[item]
+            
+            guard case .oneDate = range else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(FilterCell.self)", for: indexPath) as! FilterCell
+                
+                cell.label.text = viewModel.description(of: range)
+                cell.setSelected(viewModel.selectedFilter.timeRange == range)
+                
+                return cell
+            }
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(FilterDateCell.self)", for: indexPath) as! FilterDateCell
+            
+            cell.setSelected(viewModel.selectedFilter.timeRange == range)
+            if #available(iOS 13.4, *) {
+                cell.setDate(viewModel.selectedDate)
+                cell.completion = { [weak self] in
+                    guard let this = self else { return }
+                    
+                    this.viewModel.updateTimeRange(to: .oneDate(date: $0))
+                    this.reloadSection(at: section)
+                }
+            } else {
+                cell.label.text = viewModel.description(of: range)
+            }
+            
+            return cell
         }
-        
-        return cell
     }
 }

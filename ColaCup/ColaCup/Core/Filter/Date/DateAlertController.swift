@@ -24,19 +24,11 @@ public class DateAlertController: UIViewController {
     
     public lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
-        
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.tintColor = .theme
         
         datePicker.datePickerMode = .date
         datePicker.date = date
         datePicker.maximumDate = Date()
-        
-        if #available(iOS 14.0, *) {
-            datePicker.preferredDatePickerStyle = .inline
-        } else if #available(iOS 13.4, *) {
-            datePicker.preferredDatePickerStyle = .wheels
-        }
         
         datePicker.addTarget(self, action: #selector(datePickerDidChange(_:)), for: .valueChanged)
         
@@ -85,21 +77,10 @@ private extension DateAlertController {
     }
     
     func addInitialLayout() {
-        datePicker.heightAnchor.constraint(equalToConstant: 365).isActive = true
-        
-        if #available(iOS 11.0, *) {
-            NSLayoutConstraint.activate([
-                datePicker.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
-                datePicker.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-                datePicker.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            ])
-        } else {
-            NSLayoutConstraint.activate([
-                datePicker.topAnchor.constraint(equalTo: view.topAnchor, constant: 15),
-                datePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            ])
-        }
+        NSLayoutConstraint.activate([
+            datePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            datePicker.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
     }
 }
 

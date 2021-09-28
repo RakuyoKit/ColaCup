@@ -144,7 +144,7 @@ extension FilterViewModel {
         case .currentPage: return "Current Page"
         case .launchToDate: return "From launch to now"
         case .oneDate:
-            guard let _date = selectedDate else { return "One Date" }
+            let _date = selectedDate ?? Date()
             return Self.formatter.string(from: _date)
         }
     }
