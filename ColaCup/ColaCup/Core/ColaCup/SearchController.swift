@@ -10,21 +10,24 @@ import UIKit
 
 /// Controller for searching logs.
 open class SearchController: UISearchController {
-    public init() {
-        let resultController = SearchResultViewController()
-        self.resultController = resultController
+    public override init(searchResultsController: UIViewController?) {
+        super.init(searchResultsController: searchResultsController)
         
-        super.init(searchResultsController: resultController)
+        configSearchBar()
         
-        self.searchBar.placeholder = "Search with keyword"
-        self.resultController.scrollDelegate = self
+        if let resultController = searchResultsController as? SearchResultViewController {
+            resultController.scrollDelegate = self
+            searchResultsUpdater = resultController
+        }
+    }
+    
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
     public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
-    
-    public let resultController: SearchResultViewController
     
     /// Is the page already displayed.
     private lazy var isShown = false
@@ -33,22 +36,23 @@ open class SearchController: UISearchController {
 // MARK: - Life cycle
 
 extension SearchController {
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        searchBar.tintColor = .theme
-        
-        searchBar.returnKeyType = .search
-        searchBar.enablesReturnKeyAutomatically = true
-        searchBar.getSearchTextFileld?.textColor = .normalText
-        
-        searchResultsUpdater = resultController
-    }
-    
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         isShown = true
+    }
+}
+
+// MARK: - Config
+
+private extension SearchController {
+    func configSearchBar() {
+        searchBar.tintColor = .theme
+        
+        searchBar.returnKeyType = .search
+        searchBar.enablesReturnKeyAutomatically = true
+        searchBar.placeholder = "Search with keyword"
+        searchBar.getSearchTextFileld?.textColor = .normalText
     }
 }
 

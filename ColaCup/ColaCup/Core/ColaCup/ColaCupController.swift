@@ -52,7 +52,13 @@ open class ColaCupController: BaseLogViewController {
     )
     
     /// Controller for searching logs.
-    public lazy var searchController = SearchController()
+    public lazy var searchController = SearchController(searchResultsController: searchResultController)
+    
+    public lazy var searchResultController: SearchResultViewController = {
+        let controller = SearchResultViewController()
+        controller.delegate = self
+        return controller
+    }()
     
     /// Some delegte events.
     public weak var delegate: ColaCupControllerDelegate? = nil
@@ -73,14 +79,14 @@ extension ColaCupController {
         configNavigationBar()
         startProcessingData()
         
-        searchController.resultController.delegate = self
+        definesPresentationContext = true
     }
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // Fix the problem that the viewWillAppear method of SearchResultViewController is not executed.
-        searchController.resultController.viewWillAppear(animated)
+        searchResultController.viewWillAppear(animated)
         
         filterButton.isEnabled = true
     }
