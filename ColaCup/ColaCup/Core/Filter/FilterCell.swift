@@ -45,6 +45,8 @@ public extension FilterCell {
     }
 }
 
+// MARK: - Config
+
 private extension FilterCell {
     func config() {
         if #available(iOS 13.0, *) {

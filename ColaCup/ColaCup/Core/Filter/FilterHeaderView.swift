@@ -37,6 +37,8 @@ public class FilterHeaderView: UICollectionReusableView {
     }()
 }
 
+// MARK: - Config
+
 private extension FilterHeaderView {
     func config() {
         addSubview(label)
