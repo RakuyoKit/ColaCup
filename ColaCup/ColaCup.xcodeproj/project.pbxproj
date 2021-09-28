@@ -268,8 +268,8 @@
 			isa = PBXGroup;
 			children = (
 				AEC52DFF27003D9600542563 /* Model */,
-				AEC52E172701914E00542563 /* DateAlertController.swift */,
 				AEC52DF92700387700542563 /* FilterViewModel.swift */,
+				AEC52E172701914E00542563 /* DateAlertController.swift */,
 				AEC52DF7270025D100542563 /* FilterViewController.swift */,
 				AEC52E122701633F00542563 /* FilterHeaderView.swift */,
 				AEC52E142701650800542563 /* FilterCell.swift */,
