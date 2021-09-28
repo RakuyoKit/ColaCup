@@ -213,11 +213,13 @@ private extension ColaCupViewModel {
         
         return result.reversed()
     }
-    
-    var allFlag: String { FilterModel.allFlag }
 }
 
-// MARK: - Filter log
+// MARK: - Tools
+
+private extension ColaCupViewModel {
+    var allFlag: String { FilterModel.allFlag }
+}
 
 fileprivate extension Array where Element == LogModelProtocol {
     func filter(with conditions: [(Element) -> Bool]) -> [Element] {
