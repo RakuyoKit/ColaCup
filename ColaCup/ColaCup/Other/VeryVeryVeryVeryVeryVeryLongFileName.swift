@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         Log.error("error log")
         Log.javascript("javascript log")
         
-        Log.debug("\n\nTry line breaks and spaces. \n\n So what?  ")
+        Log.debug("\n\nTry line breaks and spaces. \n\n So what?  ", identifier: "123")
         
         _ = tableView(tableView: nil, cellForRowAt: nil)
         
@@ -75,7 +75,7 @@ class ViewController: UIViewController {
         """
         
         Log.debug(json)
-        Log.debug("15:34:43:310")
+        Log.debug("15:34:43:310", identifier: "123")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -104,7 +104,7 @@ class ViewController: UIViewController {
     }
     
     open func tableView(tableView: UITableView?, cellForRowAt indexPath: IndexPath?) -> UITableViewCell? {
-        Log.debug("Try this length")
+        Log.debug("Try this length", identifier: "123")
         return nil
     }
 }
