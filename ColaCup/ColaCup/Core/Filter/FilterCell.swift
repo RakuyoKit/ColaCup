@@ -64,15 +64,15 @@ private extension FilterCell {
     }
     
     func addSubviews() {
-        addSubview(label)
+        contentView.addSubview(label)
     }
     
     func addInitialLayout() {
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
+            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
         ])
     }
 }
