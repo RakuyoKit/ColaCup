@@ -268,7 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				AEC52DFF27003D9600542563 /* Model */,
-				AEC52E162701913300542563 /* Date */,
+				AEC52E172701914E00542563 /* DateAlertController.swift */,
 				AEC52DF92700387700542563 /* FilterViewModel.swift */,
 				AEC52DF7270025D100542563 /* FilterViewController.swift */,
 				AEC52E122701633F00542563 /* FilterHeaderView.swift */,
@@ -288,14 +288,6 @@
 				AEC52E10270151B900542563 /* FilterSection.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		AEC52E162701913300542563 /* Date */ = {
-			isa = PBXGroup;
-			children = (
-				AEC52E172701914E00542563 /* DateAlertController.swift */,
-			);
-			path = Date;
 			sourceTree = "<group>";
 		};
 		F8F77D981F721CCAE22430FA /* Frameworks */ = {
