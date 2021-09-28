@@ -202,7 +202,7 @@ private extension ColaCupViewModel {
         guard let end = _logs.last(where: { $0.file == file })?.timestamp,
               let index = _logs.lastIndex(where: { $0.file != file && $0.timestamp < end }),
               _logs.indices.contains(index + 1) else {
-            return _logs
+            return []
         }
         
         let start =  _logs[index + 1].timestamp
