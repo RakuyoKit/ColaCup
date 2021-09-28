@@ -44,7 +44,9 @@ public class ColaCupViewModel {
     private let logManager: Storable.Type
     
     /// Contains the complete log data under the current date.
-    private lazy var integralLogs: [LogModelProtocol] = []
+    private lazy var integralLogs: [LogModelProtocol] = [] {
+        didSet { statisticalInitialTagAndModule() }
+    }
     
     /// Used to restrict the execution of search functions.
     private lazy var throttler = Throttler(seconds: 0.3)
@@ -130,18 +132,6 @@ private extension ColaCupViewModel {
         // 2. Storage Log
         integralLogs = logs
         showLogs = integralLogs.groupByIdentifier().reversed()
-        
-        // 3. Configure the initial set of flags and modules.
-        var flagSet = Set<Flag>([allFlag])
-        var moduleSet = Set<String>([allFlag])
-        
-        for log in integralLogs {
-            flagSet.insert(log.flag)
-            moduleSet.insert(log.module)
-        }
-        
-        allFlags = Array(flagSet).sorted()
-        allModules = Array(moduleSet).sorted()
     }
     
     func _filter(completion: @escaping () -> Void) {
@@ -215,6 +205,20 @@ private extension ColaCupViewModel {
         }
         
         return result.reversed()
+    }
+    
+    /// Configure the initial set of flags and modules.
+    func statisticalInitialTagAndModule() {
+        var flagSet = Set<Flag>([allFlag])
+        var moduleSet = Set<String>([allFlag])
+        
+        for log in integralLogs {
+            flagSet.insert(log.flag)
+            moduleSet.insert(log.module)
+        }
+        
+        allFlags = Array(flagSet).sorted()
+        allModules = Array(moduleSet).sorted()
     }
 }
 
