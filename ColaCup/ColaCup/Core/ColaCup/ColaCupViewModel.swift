@@ -191,16 +191,24 @@ private extension ColaCupViewModel {
         
         guard let end = _logs.last(where: { $0.file == file })?.timestamp,
               let index = _logs.lastIndex(where: { $0.file != file && $0.timestamp < end }),
+              let bufferIndex = _logs[0 ..< index].lastIndex(where: { $0.file == file }),
               _logs.indices.contains(index + 1) else {
             return []
         }
         
-        let start =  _logs[index + 1].timestamp
+        var start = _logs[index + 1].timestamp
+        let buffer = _logs[bufferIndex].timestamp
+        
+        // Compatible with some global logs that are messed up during the page lifecycle.
+        if start - buffer <= 2 {
+            start = buffer
+        }
+        
         var result: [LogModelProtocol] = []
         
         for log in _logs.reversed() {
-            if log.timestamp > end { break }
-            guard log.timestamp <= end && log.timestamp >= start else { continue }
+            if log.timestamp < start { break }
+            guard log.timestamp <= end && log.timestamp >= start && log.file == file else { continue }
             result.append(log)
         }
         
