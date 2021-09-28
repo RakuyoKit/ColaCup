@@ -33,12 +33,8 @@ open class FilterDoneButtonView: UIView {
         button.setBackgroundImage(.init(color: .theme), for: .normal)
         button.setBackgroundImage(.init(color: UIColor.theme.withAlphaComponent(0.85)), for: .disabled)
         
-        let titleColor: UIColor = {
-            guard #available(iOS 13.0, *) else { return .white }
-            return .systemBackground
-        }()
-        button.setTitleColor(titleColor, for: .normal)
-        button.setTitleColor(titleColor.withAlphaComponent(0.85), for: .disabled)
+        button.setTitleColor(.systemBackgroundColor, for: .normal)
+        button.setTitleColor(.systemBackgroundColor.withAlphaComponent(0.85), for: .disabled)
         
         return button
     }()
@@ -48,11 +44,7 @@ open class FilterDoneButtonView: UIView {
 
 private extension FilterDoneButtonView {
     func config() {
-        if #available(iOS 13.0, *) {
-            backgroundColor = .systemBackground
-        } else {
-            backgroundColor = .white
-        }
+        backgroundColor = .systemBackgroundColor
         
         addSubviews()
         addInitialLayout()

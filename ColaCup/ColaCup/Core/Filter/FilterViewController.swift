@@ -62,12 +62,7 @@ open class FilterViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        if #available(iOS 13.0, *) {
-            collectionView.backgroundColor = .systemGroupedBackground
-        } else {
-            collectionView.backgroundColor = .groupTableViewBackground
-        }
+        collectionView.backgroundColor = .systemGroupedBackgroundColor
         
         collectionView.contentInset = UIEdgeInsets(top: Constants.sectionSpacing, left: 0, bottom: 0, right: 0)
         collectionView.showsHorizontalScrollIndicator = false

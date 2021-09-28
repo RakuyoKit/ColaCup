@@ -76,10 +76,11 @@ extension ColaCupController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .systemGroupedBackgroundColor
+        definesPresentationContext = true
+        
         configNavigationBar()
         startProcessingData()
-        
-        definesPresentationContext = true
     }
     
     open override func viewWillAppear(_ animated: Bool) {

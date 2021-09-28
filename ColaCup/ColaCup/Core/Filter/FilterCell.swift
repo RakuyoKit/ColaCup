@@ -25,15 +25,10 @@ public class FilterCell: UICollectionViewCell {
         
         label.numberOfLines = 2
         label.textAlignment = .center
+        label.textColor = .labelColor
         label.adjustsFontSizeToFitWidth = true
         label.lineBreakMode = .byTruncatingTail
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        
-        if #available(iOS 13.0, *) {
-            label.textColor = .label
-        } else {
-            label.textColor = .black
-        }
         
         return label
     }()
@@ -49,11 +44,7 @@ public extension FilterCell {
 
 private extension FilterCell {
     func config() {
-        if #available(iOS 13.0, *) {
-            backgroundColor = .systemBackground
-        } else {
-            backgroundColor = .white
-        }
+        backgroundColor = .systemBackgroundColor
         
         layer.cornerRadius = 8
         layer.borderWidth = 1.5

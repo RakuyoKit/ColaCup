@@ -24,14 +24,9 @@ public class FilterHeaderView: UICollectionReusableView {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         label.textAlignment = .left
+        label.textColor = .labelColor
         label.lineBreakMode = .byTruncatingTail
         label.font = UIFont.preferredFont(forTextStyle: .title2)
-        
-        if #available(iOS 13.0, *) {
-            label.textColor = .label
-        } else {
-            label.textColor = .black
-        }
         
         return label
     }()

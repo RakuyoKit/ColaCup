@@ -43,7 +43,7 @@ public class FilterDateCell: UICollectionViewCell {
     public lazy var label: UILabel = {
         let label = UILabel()
         
-        label.textColor = labelColor
+        label.textColor = .labelColor
         label.translatesAutoresizingMaskIntoConstraints = false
         
         label.numberOfLines = 2
@@ -54,14 +54,6 @@ public class FilterDateCell: UICollectionViewCell {
         
         return label
     }()
-    
-    var labelColor: UIColor {
-        if #available(iOS 13.0, *) {
-            return .label
-        } else {
-            return .black
-        }
-    }
 }
 
 public extension FilterDateCell {
@@ -80,11 +72,7 @@ public extension FilterDateCell {
 
 private extension FilterDateCell {
     func config() {
-        if #available(iOS 13.0, *) {
-            backgroundColor = .systemBackground
-        } else {
-            backgroundColor = .white
-        }
+        backgroundColor = .systemBackgroundColor
         
         layer.cornerRadius = 8
         layer.borderWidth = 1.5

@@ -15,6 +15,21 @@ extension UIColor {
     
     /// Text color in general
     static let normalText = UIColor(red: 0.21, green: 0.00, blue: 0.01, alpha: 1.00)
+    
+    static var labelColor: UIColor {
+        guard #available(iOS 13.0, *) else { return .black }
+        return .label
+    }
+    
+    static var systemBackgroundColor: UIColor {
+        guard #available(iOS 13.0, *) else { return .white }
+        return .systemBackground
+    }
+    
+    static var systemGroupedBackgroundColor: UIColor {
+        guard #available(iOS 13.0, *) else { return .groupTableViewBackground }
+        return .systemGroupedBackground
+    }
 }
 
 extension UIImage {
