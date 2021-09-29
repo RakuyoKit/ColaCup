@@ -32,7 +32,6 @@
 		3AE80460251DCFC700CDB15B /* DetailsJSONCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE8045F251DCFC700CDB15B /* DetailsJSONCell.swift */; };
 		87ED5FC480197ED5C837C496 /* Pods_ColaCup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73412698BDDB3F5B426CF181 /* Pods_ColaCup.framework */; };
 		AE1D1A7B2702B97D00685C00 /* FilterDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D1A7A2702B97D00685C00 /* FilterDateCell.swift */; };
-		AE1D229D2703EF7600685C00 /* CurrentPageLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D229C2703EF7600685C00 /* CurrentPageLog.swift */; };
 		AEC52DED26FDA75E00542563 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DEC26FDA75E00542563 /* SearchResultViewController.swift */; };
 		AEC52DEF26FDAA2800542563 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DEE26FDAA2800542563 /* SearchController.swift */; };
 		AEC52DF326FDBDC100542563 /* BaseLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC52DF226FDBDC100542563 /* BaseLogViewController.swift */; };
@@ -100,7 +99,6 @@
 		73412698BDDB3F5B426CF181 /* Pods_ColaCup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColaCup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A63FB274D55AA5DC3170E95B /* Pods-ColaCup.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColaCup.debug.xcconfig"; path = "Target Support Files/Pods-ColaCup/Pods-ColaCup.debug.xcconfig"; sourceTree = "<group>"; };
 		AE1D1A7A2702B97D00685C00 /* FilterDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDateCell.swift; sourceTree = "<group>"; };
-		AE1D229C2703EF7600685C00 /* CurrentPageLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPageLog.swift; sourceTree = "<group>"; };
 		AEC52DEC26FDA75E00542563 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		AEC52DEE26FDAA2800542563 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		AEC52DF226FDBDC100542563 /* BaseLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLogViewController.swift; sourceTree = "<group>"; };
@@ -158,7 +156,6 @@
 			isa = PBXGroup;
 			children = (
 				AEC52DF226FDBDC100542563 /* BaseLogViewController.swift */,
-				AE1D229C2703EF7600685C00 /* CurrentPageLog.swift */,
 				3AD9BFF325198CF700D2CD16 /* ColaCupViewModel.swift */,
 				3AD9BFF225198CF700D2CD16 /* ColaCupController.swift */,
 				AEC52DEE26FDAA2800542563 /* SearchController.swift */,
@@ -504,7 +501,6 @@
 				3AE80443251D9BD700CDB15B /* DetailsListModel.swift in Sources */,
 				AEC52DFC27003ACC00542563 /* FilterTimeRange.swift in Sources */,
 				3AE8043B251D95AF00CDB15B /* DetailsViewModel.swift in Sources */,
-				AE1D229D2703EF7600685C00 /* CurrentPageLog.swift in Sources */,
 				3AE80453251DB39D00CDB15B /* DetailsFunctionCell.swift in Sources */,
 				3AE80460251DCFC700CDB15B /* DetailsJSONCell.swift in Sources */,
 				3AC29027251C3F21007CCD49 /* LogCell.swift in Sources */,
