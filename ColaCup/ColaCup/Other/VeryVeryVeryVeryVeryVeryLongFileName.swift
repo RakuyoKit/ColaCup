@@ -1,5 +1,5 @@
 //
-//  VeryVeryVeryVeryVeryVeryLongFileName.swift
+//  VeryVeryVeryVeryVeryVeryLongController.swift
 //  ColaCup
 //
 //  Created by Rakuyo on 2020/9/21.
@@ -10,7 +10,7 @@ import UIKit
 
 import RaLog
 
-class ViewController: UIViewController {
+class VeryVeryVeryVeryVeryVeryLongController: UIViewController {
     private lazy var enter: Void = {
         enterColaCup(self)
     }()
@@ -109,7 +109,11 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: ColaCupControllerDelegate {
+extension VeryVeryVeryVeryVeryVeryLongController: ColaCupControllerDelegate {
+    func usedJumpFlagToFilterCurrentPageOfColaCup(_ controller: ColaCupController) -> Bool {
+        return true
+    }
+    
     func nameOfFileBeforeEnterColaCup(_ controller: ColaCupController) -> String {
         return #file
     }
