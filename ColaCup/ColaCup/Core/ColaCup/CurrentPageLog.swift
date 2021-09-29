@@ -8,10 +8,18 @@
 
 import Foundation
 
-struct CurrentPageLog {
+public struct CurrentPageLog {
+    public init(
+        fileName: String,
+        timeRange: Range<TimeInterval>
+    ) {
+        self.fileName = fileName
+        self.timeRange = timeRange
+    }
+    
     /// The name of the file where the current controller is located.
-    let fileName: String
+    public let fileName: String
     
     /// The time range from the first log printed on the current page, to the last log.
-    let timeRange: Range<TimeInterval>
+    public let timeRange: Range<TimeInterval>
 }
