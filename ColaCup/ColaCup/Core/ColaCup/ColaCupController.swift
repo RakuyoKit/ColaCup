@@ -20,7 +20,7 @@ open class ColaCupController: BaseLogViewController {
         super.init(nibName: nil, bundle: nil)
         
         self.viewModel.getCurrentPage = { [weak self] in
-            guard let this = self, let delegate = this.delegate else { return nil }
+            guard let this = self, let delegate = this.currentPageDelegate else { return nil }
             
             let file = delegate.nameOfFileBeforeEnterColaCup(this)
             let isUsedJump = delegate.usedJumpFlagToFilterCurrentPageOfColaCup(this)
@@ -54,8 +54,8 @@ open class ColaCupController: BaseLogViewController {
         return controller
     }()
     
-    /// Some delegte events.
-    public weak var delegate: ColaCupControllerDelegate? = nil
+    /// If you do not set this property, then the filter page will not display the `currentPage` option.
+    public weak var currentPageDelegate: ColaCupControllerCurrentPageDelegate? = nil
     
     /// Used to process data.
     private let viewModel: ColaCupViewModel

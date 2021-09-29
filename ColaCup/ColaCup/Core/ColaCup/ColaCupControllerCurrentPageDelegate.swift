@@ -1,5 +1,5 @@
 //
-//  ColaCupControllerDelegate.swift
+//  ColaCupControllerCurrentPageDelegate.swift
 //  ColaCup
 //
 //  Created by Rakuyo on 2021/9/29.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol ColaCupControllerDelegate: NSObjectProtocol {
+public protocol ColaCupControllerCurrentPageDelegate: NSObjectProtocol {
     ///  Whether to use the built-in `appear` and `disappear` methods to filter which logs belong to the current page.
     ///
     /// The default is `false`. if you use both logging methods, please implement this method and return `true` to improve the accuracy of the filtering results.
@@ -30,7 +30,7 @@ public protocol ColaCupControllerDelegate: NSObjectProtocol {
     func nameOfFileBeforeEnterColaCup(_ controller: ColaCupController) -> String
 }
 
-public extension ColaCupControllerDelegate {
+public extension ColaCupControllerCurrentPageDelegate {
     func usedJumpFlagToFilterCurrentPageOfColaCup(_ controller: ColaCupController) -> Bool {
         return false
     }

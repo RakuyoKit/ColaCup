@@ -94,7 +94,7 @@ class VeryVeryVeryVeryVeryVeryLongController: UIViewController {
     
     @IBAction func enterColaCup(_ sender: Any) {
         let controller = ColaCupController(logManager: Log.self)
-        controller.delegate = self
+        controller.currentPageDelegate = self
         
         let navi = UINavigationController(rootViewController: controller)
         navi.modalPresentationStyle = .fullScreen
@@ -109,7 +109,7 @@ class VeryVeryVeryVeryVeryVeryLongController: UIViewController {
     }
 }
 
-extension VeryVeryVeryVeryVeryVeryLongController: ColaCupControllerDelegate {
+extension VeryVeryVeryVeryVeryVeryLongController: ColaCupControllerCurrentPageDelegate {
     func usedJumpFlagToFilterCurrentPageOfColaCup(_ controller: ColaCupController) -> Bool {
         return true
     }
