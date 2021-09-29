@@ -33,7 +33,10 @@ Pod::Spec.new do |s|
                        'ColaCup/ColaCup/Core/*/*/*' # Filter/Model
   
   s.resource_bundle = {
-      'ColaCupBundle' => [ 'ColaCup/ColaCup/Other/*.xcassets' ]
+      'ColaCupBundle' => [
+            'ColaCup/ColaCup/Other/*.xcassets',
+            'ColaCup/ColaCup/Other/*/*.strings'
+      ]
   }
   
   s.dependency 'RaLog'
