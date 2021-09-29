@@ -19,8 +19,10 @@ public class ColaCupViewModel {
         self.logManager = logManager
     }
     
+    public typealias CurrentPage = (file: String, isUsedJump: Bool)
+    
     /// Used to get the name of the current page from the controller.
-    public lazy var getCurrentPage: (() -> String?)? = nil
+    public lazy var getCurrentPage: (() -> CurrentPage?)? = nil
     
     /// The log data to be displayed.
     public private(set) lazy var showLogs: [[LogModelProtocol]] = []
@@ -177,40 +179,75 @@ private extension ColaCupViewModel {
     
     /// Display the logs printed in the ColaCup parent page.
     var currentPageLogs: [LogModelProtocol] {
-        let _logs = logManager.logs
+        let allLogs = logManager.logs
+        let allCount = allLogs.count
         
-        guard var file = getCurrentPage?() else {
+        guard allCount != 0 else { return [] }
+        
+        guard let (_file, isUsedJump) = getCurrentPage?() else {
             Log.error("Failed to get the current controller name! Cannot use \"Show log of current page\" function. All logs since the program was started are displayed.")
-            return _logs
+            return allLogs
         }
         
+        // Filter up to nearly 500 logs.
+        let _logs = Array(allLogs[max(allCount - 1000, 0) ..< allCount])
+        
+        var file = _file
         if _fastPath(file.contains("/")) {
             let components = file.components(separatedBy: "/")
             file = components.last ?? "Failed to get file"
         }
         
-        guard let end = _logs.last(where: { $0.file == file })?.timestamp,
-              let index = _logs.lastIndex(where: { $0.file != file && $0.timestamp < end }),
-              _logs.indices.contains(index + 1) else {
-            return []
+        func findRange() -> (start: TimeInterval, end: TimeInterval)? {
+            guard let _end = _logs.last(where: { $0.file == file })?.timestamp,
+                  let startIndex = _logs.lastIndex(where: { $0.file != file && $0.timestamp < _end }),
+                  _logs.indices.contains(startIndex + 1) else {
+                return nil
+            }
+            
+            var _start = _logs[startIndex + 1].timestamp
+            
+            // Compatible with some global logs that are messed up during the page lifecycle.
+            if let bufferIndex = _logs[0 ..< startIndex].lastIndex(where: { $0.file == file }) {
+                let buffer = _logs[bufferIndex].timestamp
+                
+                if _start - buffer <= 2 {
+                    _start = buffer
+                }
+            }
+            
+            return (_start, _end)
         }
         
-        var start = _logs[index + 1].timestamp
+        var startTime: TimeInterval
+        var endTime: TimeInterval
         
-        // Compatible with some global logs that are messed up during the page lifecycle.
-        if let bufferIndex = _logs[0 ..< index].lastIndex(where: { $0.file == file }) {
-            let buffer = _logs[bufferIndex].timestamp
+        if isUsedJump, let controllerName = file.components(separatedBy: ".").first {
+            let appear = "- Appear - \(controllerName)"
+            let disappear = "- Disappear - \(controllerName)"
             
-            if start - buffer <= 2 {
-                start = buffer
+            if let _start = _logs.last(where: { $0.logedStr == appear })?.timestamp,
+                  let _end = _logs.last(where: { $0.logedStr == disappear })?.timestamp {
+                startTime = _start
+                endTime = _end
+                
+            } else {
+                guard let range = findRange() else { return [] }
+                startTime = range.start
+                endTime = range.end
             }
+            
+        } else {
+            guard let range = findRange() else { return [] }
+            startTime = range.start
+            endTime = range.end
         }
         
         var result: [LogModelProtocol] = []
         
         for log in _logs.reversed() {
-            if log.timestamp < start { break }
-            guard log.timestamp <= end && log.timestamp >= start && log.file == file else { continue }
+            if log.timestamp < startTime { break }
+            guard log.timestamp <= endTime && log.timestamp >= startTime && log.file == file else { continue }
             result.append(log)
         }
         
