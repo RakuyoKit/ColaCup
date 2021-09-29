@@ -198,9 +198,16 @@ private extension ColaCupViewModel {
             file = components.last ?? "Failed to get file"
         }
         
-        func findRange() -> (start: TimeInterval, end: TimeInterval)? {
-            guard let _end = _logs.last(where: { $0.file == file })?.timestamp,
-                  let startIndex = _logs.lastIndex(where: { $0.file != file && $0.timestamp < _end }),
+        var startTime: TimeInterval
+        
+        // The timestamp of the last log on the current page.
+        guard let endTime = _logs.last(where: { $0.file == file })?.timestamp else {
+            return []
+        }
+        
+        // Find the start time according to the "underwriting rule".
+        func findStartTime() -> TimeInterval? {
+            guard let startIndex = _logs.lastIndex(where: { $0.file != file && $0.timestamp < endTime }),
                   _logs.indices.contains(startIndex + 1) else {
                 return nil
             }
@@ -216,31 +223,22 @@ private extension ColaCupViewModel {
                 }
             }
             
-            return (_start, _end)
+            return _start
         }
-        
-        var startTime: TimeInterval
-        var endTime: TimeInterval
         
         if isUsedJump, let controllerName = file.components(separatedBy: ".").first {
             let appear = "- Appear - \(controllerName)"
-            let disappear = "- Disappear - \(controllerName)"
-            
-            if let _start = _logs.last(where: { $0.logedStr == appear })?.timestamp,
-                  let _end = _logs.last(where: { $0.logedStr == disappear })?.timestamp {
-                startTime = _start
-                endTime = _end
+            if let start = _logs.last(where: { $0.logedStr == appear })?.timestamp {
+                startTime = start
                 
             } else {
-                guard let range = findRange() else { return [] }
-                startTime = range.start
-                endTime = range.end
+                guard let start = findStartTime() else { return [] }
+                startTime = start
             }
             
         } else {
-            guard let range = findRange() else { return [] }
-            startTime = range.start
-            endTime = range.end
+            guard let start = findStartTime() else { return [] }
+            startTime = start
         }
         
         var result: [LogModelProtocol] = []
