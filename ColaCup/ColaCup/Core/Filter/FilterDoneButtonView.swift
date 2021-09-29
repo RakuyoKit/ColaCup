@@ -27,7 +27,7 @@ open class FilterDoneButtonView: UIView {
         button.layer.cornerRadius = 8
         button.layer.masksToBounds = true
         
-        button.setTitle("Show Result", for: .normal)
+        button.setTitle("Show Result".locale, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.labelFontSize)
         
         button.setBackgroundImage(.init(color: .theme), for: .normal)

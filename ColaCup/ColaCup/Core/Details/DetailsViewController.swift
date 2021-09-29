@@ -127,13 +127,13 @@ private extension DetailsViewController {
     @available(iOS 14.0, *)
     func createShareMenu() -> UIMenu {
         return UIMenu(
-            title: "Please choose how to share log data.",
+            title: "Please choose how to share log data.".locale,
             identifier: .share,
             children: [
-                UIAction(title: "Text", image: UIImage(systemName: "doc.text.fill.viewfinder")) { [weak self] _ in
+                UIAction(title: "Text".locale, image: UIImage(systemName: "doc.text.fill.viewfinder")) { [weak self] _ in
                     self?.shareJSON()
                 },
-                UIAction(title: "Screenshot", image: UIImage(systemName: "camera.viewfinder")) { [weak self] _ in
+                UIAction(title: "Screenshot".locale, image: UIImage(systemName: "camera.viewfinder")) { [weak self] _ in
                     self?.shareScreenshot()
                 },
             ]
@@ -145,21 +145,21 @@ private extension DetailsViewController {
     func share(_ shareItem: UIBarButtonItem) {
         shareItem.isEnabled = false
         
-        let alert = UIAlertController(title: "Share", message: "Please choose how to share log data.", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Share".locale, message: "Please choose how to share log data.".locale, preferredStyle: .actionSheet)
         
         if UIDevice.current.userInterfaceIdiom == .pad {
             alert.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         }
         
-        alert.addAction(UIAlertAction(title: "Text", style: .default) { [weak self] _ in
+        alert.addAction(UIAlertAction(title: "Text".locale, style: .default) { [weak self] _ in
             self?.shareJSON()
         })
         
-        alert.addAction(UIAlertAction(title: "Screenshot", style: .default) { [weak self] _ in
+        alert.addAction(UIAlertAction(title: "Screenshot".locale, style: .default) { [weak self] _ in
             self?.shareScreenshot()
         })
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
+        alert.addAction(UIAlertAction(title: "Cancel".locale, style: .cancel) { _ in
             shareItem.isEnabled = true
         })
         
@@ -186,9 +186,9 @@ private extension DetailsViewController {
         navigationItem.rightBarButtonItem?.isEnabled = true
         loadingView.hide()
         
-        let alert = UIAlertController(title: "Create Screenshot failure", message: "Please try again or choose another way to share the log.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Create Screenshot failure".locale, message: "Please try again or choose another way to share the log.".locale, preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Done", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Done".locale, style: .cancel))
         
         present(alert, animated: true, completion: nil)
     }
@@ -385,7 +385,7 @@ extension DetailsViewController: UITableViewDataSource {
     }
     
     open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModel.dataSource[section].title
+        return viewModel.dataSource[section].title?.locale
     }
     
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -401,7 +401,7 @@ extension DetailsViewController: UITableViewDataSource {
         case .position:
             let cell = _cell as! DetailsPositionCell
             
-            cell.titleLabel.text = model.title
+            cell.titleLabel.text = model.title?.locale
             cell.valueLabel.text = model.value
             
             if let name = model.imageName {
@@ -411,7 +411,7 @@ extension DetailsViewController: UITableViewDataSource {
         case .function:
             let cell = _cell as! DetailsFunctionCell
             
-            cell.titleLabel.text = model.title
+            cell.titleLabel.text = model.title?.locale
             cell.valueLabel.text = model.value
             
             if let name = model.imageName {

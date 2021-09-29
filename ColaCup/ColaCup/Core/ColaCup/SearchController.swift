@@ -51,7 +51,7 @@ private extension SearchController {
         
         searchBar.returnKeyType = .search
         searchBar.enablesReturnKeyAutomatically = true
-        searchBar.placeholder = "Search with keyword"
+        searchBar.placeholder = "Search with keyword".locale
         searchBar.getSearchTextFileld?.textColor = .normalText
     }
 }

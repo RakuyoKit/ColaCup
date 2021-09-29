@@ -1,0 +1,43 @@
+/* 
+  Localizable.strings
+  ColaCup
+
+  Created by Rakuyo on 2021/9/29.
+  Copyright © 2021 Rakuyo. All rights reserved.
+*/
+
+"Module" = "模块";
+"Flag" = "标识";
+"ALL" = "全部";
+
+// SearchController
+"Search with keyword" = "使用关键字进行搜索";
+
+// FilterViewController
+"Filter Log" = "筛选日志";
+"Reset" = "重置";
+"Sort" = "排序";
+"Positive" = "正序";
+"Negative" = "倒序";
+"Time Range" = "时间范围";
+"Current Page" = "当前页面";
+"From launch to now" = "程序启动至今";
+"Show Result" = "显示结果";
+
+// DetailsViewController - List
+"Time" = "时间";
+"Content" = "内容";
+"Position" = "位置";
+"File" = "文件名";
+"Line" = "行号";
+"Function" = "方法名";
+
+// DetailsViewController - Share
+"Please choose how to share log data." = "请选择如何分享日志数据。";
+"Share" = "分享";
+"Text" = "文本";
+"Screenshot" = "截图";
+"Cancel" = "取消";
+"Create Screenshot failure" = "创建截图失败";
+"Please try again or choose another way to share the log." = "请稍后重试，或选择另外一种方式分享日志。";
+"Done" = "确定";

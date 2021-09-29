@@ -27,7 +27,7 @@ public struct FilterModel {
 
 public extension FilterModel {
     /// Used to represent all
-    static let allFlag = "ALL"
+    static let allFlag = "ALL".locale
 }
 
 // MARK: - Equatable

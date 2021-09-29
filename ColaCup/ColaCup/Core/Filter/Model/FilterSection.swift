@@ -27,13 +27,13 @@ public extension FilterSection {
     var title: String {
         switch self {
         case .sort(let title, _):
-            return title
+            return title.locale
         case .timeRange(let title, _):
-            return title
+            return title.locale
         case .flag(let title, _):
-            return title
+            return title.locale
         case .module(let title, _):
-            return title
+            return title.locale
         }
     }
 }

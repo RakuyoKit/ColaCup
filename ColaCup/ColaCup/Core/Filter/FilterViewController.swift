@@ -149,11 +149,11 @@ private extension FilterViewController {
             navigationItem.largeTitleDisplayMode = .never
         }
         
-        navigationItem.title = "Filter Log"
+        navigationItem.title = "Filter Log".locale
         navigationController?.navigationBar.tintColor = .theme
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonDidClick(_:)))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetButtonDidClick(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset".locale, style: .plain, target: self, action: #selector(resetButtonDidClick(_:)))
     }
     
     func addSubviews() {
@@ -232,7 +232,7 @@ extension FilterViewController: UICollectionViewDelegate {
         
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! FilterHeaderView
         
-        headerView.label.text = viewModel.dataSource[indexPath.section].title
+        headerView.label.text = viewModel.dataSource[indexPath.section].title.locale
         
         return headerView
     }
@@ -333,7 +333,7 @@ extension FilterViewController: UICollectionViewDataSource {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(FilterCell.self)", for: indexPath) as! FilterCell
             
-            cell.label.text = viewModel.description(of: sort)
+            cell.label.text = viewModel.description(of: sort).locale
             cell.setSelected(viewModel.selectedFilter.sort == sort)
             
             return cell
@@ -364,7 +364,7 @@ extension FilterViewController: UICollectionViewDataSource {
             guard case .oneDate = range else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(FilterCell.self)", for: indexPath) as! FilterCell
                 
-                cell.label.text = viewModel.description(of: range)
+                cell.label.text = viewModel.description(of: range).locale
                 cell.setSelected(viewModel.selectedFilter.timeRange == range)
                 
                 return cell
@@ -382,7 +382,7 @@ extension FilterViewController: UICollectionViewDataSource {
                     this.reloadSection(at: section)
                 }
             } else {
-                cell.label.text = viewModel.description(of: range)
+                cell.label.text = viewModel.description(of: range).locale
             }
             
             return cell
