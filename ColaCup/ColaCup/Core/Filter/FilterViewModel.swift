@@ -16,14 +16,26 @@ public class FilterViewModel {
     ///   - filter: currently selected filter condition.
     ///   - flags: The set of all logs currently displayed, with the flags they belong to.
     ///   - modules: The set of all logs currently displayed, with the module they belong to.
+    ///   - provideCurrentPageOption: If or not provide `currentPage` option.
     public init(
         selectedFilter filter: FilterModel,
         allFlags flags: [Flag],
-        allModules modules: [String]
+        allModules modules: [String],
+        provideCurrentPageOption: Bool
     ) {
         self.selectedFilter = filter
-        self.allFlags = flags
-        self.allModules = modules
+        
+        var ranges: [FilterTimeRange] = [.launchToDate, .oneDate(date: nil)]
+        if provideCurrentPageOption {
+            ranges.insert(.currentPage, at: 1)
+        }
+        
+        self.dataSource = [
+            .sort(title: "Sort", values: [.positive, .negative]),
+            .timeRange(title: "Time Range", values: ranges),
+            .flag(title: "Flag", values: flags),
+            .module(title: "Module", values: modules)
+        ]
         
         if case .oneDate(let date) = selectedFilter.timeRange {
             self.selectedDate = date
@@ -31,24 +43,13 @@ public class FilterViewModel {
     }
     
     /// List data source.
-    public lazy var dataSource: [FilterSection] = [
-        .sort(title: "Sort", values: [.positive, .negative]),
-        .timeRange(title: "Time Range", values: [.currentPage, .launchToDate, .oneDate(date: nil)]),
-        .flag(title: "Flag", values: allFlags),
-        .module(title: "Module", values: allModules)
-    ]
+    public let dataSource: [FilterSection]
     
     /// currently selected filter condition.
     private(set) var selectedFilter: FilterModel
     
     /// The date currently selected by the user.
     private(set) lazy var selectedDate: Date? = nil
-    
-    /// The set of all logs currently displayed, with the flags they belong to.
-    private let allFlags: [Flag]
-    
-    /// The set of all logs currently displayed, with the module they belong to.
-    private let allModules: [String]
 }
 
 public extension FilterViewModel {

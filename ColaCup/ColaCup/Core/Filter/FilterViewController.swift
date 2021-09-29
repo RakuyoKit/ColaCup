@@ -31,12 +31,19 @@ open class FilterViewController: UIViewController {
     ///   - filter: currently selected filter condition.
     ///   - flags: The set of all logs currently displayed, with the flags they belong to.
     ///   - modules: The set of all logs currently displayed, with the module they belong to.
+    ///   - isProvide: If or not provide `currentPage` option.
     public init(
         selectedFilter filter: FilterModel,
         allFlags flags: [Flag],
-        allModules modules: [String]
+        allModules modules: [String],
+        provideCurrentPageOption isProvide: Bool
     ) {
-        self.viewModel = FilterViewModel(selectedFilter: filter, allFlags: flags, allModules: modules)
+        self.viewModel = FilterViewModel(
+            selectedFilter: filter,
+            allFlags: flags,
+            allModules: modules,
+            provideCurrentPageOption: isProvide
+        )
         super.init(nibName: nil, bundle: nil)
     }
     

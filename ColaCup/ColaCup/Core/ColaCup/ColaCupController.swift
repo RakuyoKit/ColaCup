@@ -184,7 +184,8 @@ extension ColaCupController {
         let controller = FilterViewController(
             selectedFilter: viewModel.filterModel,
             allFlags: viewModel.allFlags,
-            allModules: viewModel.allModules
+            allModules: viewModel.allModules,
+            provideCurrentPageOption: currentPageDelegate != nil
         )
         controller.delegate = self
         
