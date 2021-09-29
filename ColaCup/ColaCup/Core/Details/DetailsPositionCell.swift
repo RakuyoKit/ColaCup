@@ -48,9 +48,9 @@ open class DetailsPositionCell: UITableViewCell {
         
         label.translatesAutoresizingMaskIntoConstraints = false
         
+        label.numberOfLines = 0
         label.textAlignment = .right
         label.textColor = .normalText
-        label.lineBreakMode = .byTruncatingTail
         label.font = UIFont.preferredFont(forTextStyle: .body)
         
         return label
@@ -89,13 +89,12 @@ private extension DetailsPositionCell {
             titleLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 5)
         ])
         
-        titleLabel.setContentHuggingPriority(.required, for: .vertical)
         titleLabel.setContentHuggingPriority(.required, for: .horizontal)
         titleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         NSLayoutConstraint.activate([
-            valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            valueLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11.5),
+            valueLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -11.5),
             valueLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 20),
             valueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
         ])
