@@ -256,8 +256,8 @@ private extension ColaCupViewModel {
     
     /// Configure the initial set of flags and modules.
     func statisticalInitialTagAndModule() {
-        var flagSet = Set<Flag>([allFlag])
-        var moduleSet = Set<String>([allFlag])
+        var flagSet = Set<Flag>()
+        var moduleSet = Set<String>()
         
         for log in integralLogs {
             flagSet.insert(log.flag)
@@ -266,6 +266,9 @@ private extension ColaCupViewModel {
         
         allFlags = Array(flagSet).sorted()
         allModules = Array(moduleSet).sorted()
+        
+        allFlags.insert(allFlag, at: 0)
+        allModules.insert(allFlag, at: 0)
     }
 }
 
