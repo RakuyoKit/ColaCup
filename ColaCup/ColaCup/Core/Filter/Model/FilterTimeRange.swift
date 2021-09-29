@@ -10,11 +10,11 @@ import Foundation
 
 /// The logs can be filtered by time dimension in the following ways.
 public enum FilterTimeRange {
-    /// Display the logs printed in the ColaCup parent page.
-    case currentPage
-    
     /// All logs from the start of the app until it enters ColaCup.
     case launchToDate
+    
+    /// Display the logs printed in the ColaCup parent page.
+    case currentPage
     
     /// Log of a certain day.
     case oneDate(date: Date?)
@@ -29,8 +29,8 @@ public extension FilterTimeRange {
 extension FilterTimeRange: Equatable {
     private var identifier: Int {
         switch self {
-        case .currentPage: return 0
-        case .launchToDate: return 1
+        case .launchToDate: return 0
+        case .currentPage: return 1
         case .oneDate: return 2
         }
     }
