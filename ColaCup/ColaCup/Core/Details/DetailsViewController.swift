@@ -27,6 +27,14 @@ open class DetailsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        if !isOriginalGeneratingDeviceOrientationNotifications {
+            UIDevice.current.endGeneratingDeviceOrientationNotifications()
+        }
+        
+        NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
+    }
+    
     /// Responsible for displaying a list of log details.
     open lazy var tableView: TableView = {
         let tableView = TableView()
@@ -43,8 +51,13 @@ open class DetailsViewController: UIViewController {
     /// Display when loading the sharing popup.
     open lazy var loadingView = ColaCupLoadingView()
     
+    private lazy var jsonView: JSONPreview? = nil
+    
     /// Used to process data.
     private let viewModel: DetailsViewModel
+    
+    /// Record previous property values
+    private lazy var isOriginalGeneratingDeviceOrientationNotifications = UIDevice.current.isGeneratingDeviceOrientationNotifications
     
     /// Whether the tableView has been refreshed after the json has been loaded.
     private lazy var isReloaded = false
@@ -68,6 +81,9 @@ extension DetailsViewController {
         
         addSubviews()
         addInitialLayout()
+        
+        // Listening to device rotation in preparation for recalculating cell height
+        listeningDeviceRotation()
         
         if #available(iOS 13.0, *) {
             // PDF screenshot
@@ -118,6 +134,14 @@ extension DetailsViewController {
             }
             return UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share(_:)))
         }()
+    }
+    
+    func listeningDeviceRotation() {
+        if !isOriginalGeneratingDeviceOrientationNotifications {
+            UIDevice.current.beginGeneratingDeviceOrientationNotifications()
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDeviceOrientationChange(_:)), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
 }
 
@@ -312,6 +336,22 @@ private extension DetailsViewController {
     }
 }
 
+// MARK: - Action
+
+private extension DetailsViewController {
+    @objc
+    func handleDeviceOrientationChange(_ notification: NSNotification) {
+        guard let jsonTextView = jsonView?.jsonTextView else { return }
+        
+        let size = jsonTextView.sizeThatFits(
+            CGSize(width: jsonTextView.frame.width, height: CGFloat.greatestFiniteMagnitude)
+        )
+        
+        jsonHeight = size.height + 1
+        tableView.reloadData()
+    }
+}
+
 // MARK: - UIScreenshotServiceDelegate
 
 extension DetailsViewController: UIScreenshotServiceDelegate {
@@ -419,6 +459,7 @@ extension DetailsViewController: UITableViewDataSource {
         case .json:
             let cell = _cell as! DetailsJSONCell
             cell.jsonView.delegate = self
+            jsonView = cell.jsonView
             
             guard !isReloaded else { break }
             
