@@ -298,7 +298,6 @@ private extension DetailsViewController {
         guard let navigationBar = navigationController?.navigationBar else { return nil }
         
         navigationItem.setHidesBackButton(true, animated: false)
-        navigationItem.rightBarButtonItem?.customView?.isHidden = true
         
         UIGraphicsBeginImageContextWithOptions(navigationBar.frame.size, false, 0.0)
         
@@ -308,7 +307,6 @@ private extension DetailsViewController {
         UIGraphicsEndImageContext()
         
         navigationItem.setHidesBackButton(false, animated: false)
-        navigationItem.rightBarButtonItem?.customView?.isHidden = false
         
         return screenshot
     }
