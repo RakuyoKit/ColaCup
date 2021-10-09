@@ -47,6 +47,8 @@ extension SearchController {
 
 private extension SearchController {
     func configSearchBar() {
+        obscuresBackgroundDuringPresentation = true
+        
         searchBar.tintColor = .theme
         
         searchBar.returnKeyType = .search

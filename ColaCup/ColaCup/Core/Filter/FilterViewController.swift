@@ -149,6 +149,14 @@ private extension FilterViewController {
             navigationItem.largeTitleDisplayMode = .never
         }
         
+        if #available(iOS 13.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.backgroundColor = .systemBackground
+            
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+            navigationController?.navigationBar.standardAppearance = appearance
+        }
+        
         navigationItem.title = "Filter Log".locale
         navigationController?.navigationBar.tintColor = .theme
         
