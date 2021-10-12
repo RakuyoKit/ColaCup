@@ -15,9 +15,9 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0.0</string>
+	<string>3.0.1</string>
 	<key>CFBundleVersion</key>
-	<string>202109291705</string>
+	<string>202110121036</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
