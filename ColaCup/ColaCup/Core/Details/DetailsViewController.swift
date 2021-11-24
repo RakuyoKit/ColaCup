@@ -474,13 +474,13 @@ extension DetailsViewController: UITableViewDataSource {
                     this.isReloaded = true
                 }
                 
+                guard !this.isReloaded else { return }
+                
                 // In iOS 13 and above, the exact height can be read immediately.
-                // On the contrary, it needs to be refreshed twice in the main thread to read the correct height.
-                if #available(iOS 13.0, *) {
-                    if !this.isReloaded { reload() }
-                } else {
-                    DispatchQueue.main.async(execute: reload)
-                }
+                if #available(iOS 13.0, *) { reload() }
+                
+                // Instead, it needs to be refreshed in the main thread to read the correct height.
+                else { DispatchQueue.main.async(execute: reload) }
             }
         }
         
