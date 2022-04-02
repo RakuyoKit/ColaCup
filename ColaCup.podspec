@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   
   s.name             = 'ColaCup'
   
-  s.version          = '3.0.2'
+  s.version          = '3.0.3'
   
   s.summary          = '🥤 A tool for viewing logs. Use with RaLog.'
   
@@ -29,13 +29,13 @@ Pod::Spec.new do |s|
   
   s.module_name      = 'ColaCup'
   
-  s.source_files     = 'ColaCup/ColaCup/Core/*/*', # Global,ColaCup,Filter,Details
-                       'ColaCup/ColaCup/Core/*/*/*' # Filter/Model
+  s.source_files     = 'ColaCup/Core/*/*', # Global,ColaCup,Filter,Details
+                       'ColaCup/Core/*/*/*' # Filter/Model
   
   s.resource_bundle = {
       'ColaCupBundle' => [
-            'ColaCup/ColaCup/Other/*.xcassets',
-            'ColaCup/ColaCup/Other/*/*.strings'
+            'ColaCup/Other/*.xcassets',
+            'ColaCup/Other/*/*.strings'
       ]
   }
   
