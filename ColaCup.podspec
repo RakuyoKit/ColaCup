@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   
   s.name             = 'ColaCup'
   
-  s.version          = '3.0.3'
+  s.version          = '3.0.4'
   
   s.summary          = '🥤 A tool for viewing logs. Use with RaLog.'
   
