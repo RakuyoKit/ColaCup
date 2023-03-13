@@ -19,25 +19,25 @@ public class FilterDateCell: UICollectionViewCell {
         config()
     }
     
-    @available(iOS 13.4, *)
-    public lazy var datePicker: UIDatePicker = {
+    private lazy var _datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.tintColor = .label
-        
         datePicker.datePickerMode = .date
         datePicker.maximumDate = Date()
-        datePicker.preferredDatePickerStyle = .compact
+        
         datePicker.subviews[0].subviews[0].subviews[0].alpha = 0
         
-        datePicker.addTarget(self, action: #selector(datePickerDidEditingEnd(_:)), for: .editingDidEnd)
+        if #available(iOS 13.0, *) {
+            datePicker.tintColor = .label
+        }
+        
+        if #available(iOS 13.4, *) {
+            datePicker.preferredDatePickerStyle = .compact
+            datePicker.addTarget(self, action: #selector(datePickerDidEditingEnd(_:)), for: .editingDidEnd)
+        }
         
         return datePicker
     }()
-    
-    /// The callback after the user selects the date.
-    @available(iOS 13.4, *)
-    public lazy var completion: ((Date?) -> Void)? = nil
     
     @available(iOS, obsoleted: 13.4, message: "The `datePicker` will be used to display the date.")
     public lazy var label: UILabel = {
@@ -54,9 +54,25 @@ public class FilterDateCell: UICollectionViewCell {
         
         return label
     }()
+    
+    /// The callback after the user selects the date.
+    private lazy var _completion: ((Date?) -> Void)? = nil
 }
 
 public extension FilterDateCell {
+    var datePicker: UIDatePicker {
+        @available(iOS 13.4, *)
+        get { _datePicker }
+        set { _datePicker = newValue }
+    }
+    
+    /// The callback after the user selects the date.
+    var completion: ((Date?) -> Void)? {
+        @available(iOS 13.4, *)
+        get { _completion }
+        set { _completion = newValue }
+    }
+    
     @available(iOS 13.4, *)
     func setDate(_ _date: Date?) {
         guard let date = _date, datePicker.date != date else { return }
