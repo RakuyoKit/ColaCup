@@ -11,13 +11,13 @@ Pod::Spec.new do |s|
   
   s.description      = '🥤 A tool for viewing logs. Use with RaLog.'
   
-  s.homepage         = 'https://github.com/rakuyoMo/ColaCup'
+  s.homepage         = 'https://github.com/RakuyoKit/ColaCup'
   
   s.license          = 'MIT'
   
   s.author           = { 'Rakuyo' => 'rakuyo.mo@gmail.com' }
   
-  s.source           = { :git => 'https://github.com/rakuyoMo/ColaCup.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/RakuyoKit/ColaCup.git', :tag => s.version.to_s }
   
   s.requires_arc     = true
   
